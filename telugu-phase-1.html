@@ -12,7 +12,7 @@
 @media (prefers-color-scheme:dark){:root{--bg:#0e1320;--panel:#161d2e;--text:#e6ebf5;--muted:#93a1ba;--line:#26304a;--accent:#8b8cff;--soft:#232a52;--warn:#33270f;--warnb:#f5b04c}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.85 "Noto Sans Telugu",system-ui,sans-serif}
-.wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+.wrap{width:100%;max-width:100%;margin:0;padding:12px 24px 80px;box-sizing:border-box}
 h1{font-size:1.7rem;line-height:1.3;margin:0 0 6px}
 .sub{color:var(--muted);margin:0 0 16px}
 .tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 20px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5}
@@ -99,13 +99,14 @@ pre { position: relative; padding-top: 36px; }
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 8px 16px;
+  padding: 8px 24px;
   width: 100%;
   box-sizing: border-box;
 }
 .top-nav-wrap {
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -524,7 +525,7 @@ pre { position: relative; padding-top: 36px; }
 }
 
 
-.wrap { max-width: 900px; margin: 0 auto; padding: 10px 16px 80px; }
+.wrap { width: 100%; max-width: 100%; margin: 0; padding: 12px 24px 80px; box-sizing: border-box; }
 .day:first-of-type { margin-top: 8px; }
 
 
