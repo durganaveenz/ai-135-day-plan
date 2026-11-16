@@ -71,6 +71,20 @@ details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -573,7 +587,7 @@ print(df.dtypes)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాలా ML algorithms NaN (లేని విలువ) ఉంటే error ఇస్తాయి లేదా తప్పు ఫలితం ఇస్తాయి. కాబట్టి training కి ముందే వాటిని నింపాలి లేదా తొలగించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Pandas లో లేని విలువను <code>NaN</code> (MySQL <code>NULL</code> లాంటిది) అంటారు. <code>isna().sum()</code> తో ప్రతి column లో ఎన్ని ఉన్నాయో చూస్తాం. రెండు మార్గాలు: (1) <code>dropna()</code> తో ఆ rows తొలగించడం (data తక్కువగా మిస్ అయినప్పుడు), (2) <code>fillna()</code> తో నింపడం, సాధారణంగా numeric కి median/mean, categorical కి అత్యధికంగా ఉన్న విలువ (mode). Outliers ఉంటే mean కంటే median సురక్షితం.</p>
+<p>Pandas లో లేని విలువను <code>NaN</code> (MySQL <code>NULL</code> లాంటిది) అంటారు. <code>isna().sum()</code> తో ప్రతి column లో ఎన్ని ఉన్నాయో చూస్తాం. రెండు మార్గాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><code>dropna()</code> తో ఆ rows తొలగించడం (data తక్కువగా మిస్ అయినప్పుడు)</span></div><div class="step-row"><span class="step-badge">2</span><span><code>fillna()</code> తో నింపడం, సాధారణంగా numeric కి median/mean, categorical కి అత్యధికంగా ఉన్న విలువ (mode).</span></div></div><p>Outliers ఉంటే mean కంటే median సురక్షితం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import pandas as pd
 import numpy as np
@@ -744,7 +758,7 @@ print(pipe.predict([[1800, 3]]))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model ని train చేసిన data పైనే పరీక్షిస్తే అది నిజమైన పనితీరు కాదు (పరీక్షకు ముందే ప్రశ్నపత్రం చూసినట్టు). అందుకే data ని ముందే వేరు చేసి, సరైన క్రమంలో సిద్ధం చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ క్రమం: (1) data load మరియు శుభ్రపరచడం, (2) <b>X</b> (features) మరియు <b>y</b> (target, అంచనా వేయాల్సినది) వేరు చేయడం, (3) <code>train_test_split</code> తో train మరియు test గా విభజన (సాధారణంగా 80/20), (4) categorical encoding మరియు scaling, వీటిని train data పై మాత్రమే <code>fit</code> చేసి test పై <code>transform</code> మాత్రమే చేయాలి. Classification లో class నిష్పత్తి నిలబడటానికి <code>stratify=y</code>. Reproducible కావాలంటే <code>random_state</code> ఇవ్వండి.</p>
+<p>సాధారణ క్రమం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>data load మరియు శుభ్రపరచడం</span></div><div class="step-row"><span class="step-badge">2</span><span><b>X</b> (features) మరియు <b>y</b> (target, అంచనా వేయాల్సినది) వేరు చేయడం</span></div><div class="step-row"><span class="step-badge">3</span><span><code>train_test_split</code> తో train మరియు test గా విభజన (సాధారణంగా 80/20)</span></div><div class="step-row"><span class="step-badge">4</span><span>categorical encoding మరియు scaling, వీటిని train data పై మాత్రమే <code>fit</code> చేసి test పై <code>transform</code> మాత్రమే చేయాలి.</span></div></div><p>Classification లో class నిష్పత్తి నిలబడటానికి <code>stratify=y</code>. Reproducible కావాలంటే <code>random_state</code> ఇవ్వండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -864,7 +878,7 @@ print(model.predict([[2.5], [9.5]]))            # [0 1]</pre>
 
 <details class="t"><summary>5. Reinforcement learning overview<small>Reinforcement learning అవలోకనం (బహుమతి ద్వారా నేర్చుకోవడం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఆటలు (Chess, Go), రోబోట్లు, self-driving లాంటి చోట్ల "ఒక్క సరైన సమాధానం" ఉండదు; వరుస నిర్ణయాలు తీసుకోవాలి. ChatGPT లాంటి LLM లను మనుషుల అభిప్రాయంతో మెరుగుపరిచే RLHF కూడా దీనిపైనే ఆధారపడింది.</p>
+<p>ఆటలు (Chess, Go), రోబోట్లు, self-driving లాంటి చోట్ల "ఒక్క సరైన సమాధానం" ఉండదు; వరుస నిర్ణయాలు తీసుకోవాలి. ChatGPT లాంటి LLM లను మనుషుల అభిప్రాయంతో మెరుగుపరిచే RLHF (Reinforcement Learning from Human Feedback) కూడా దీనిపైనే ఆధారపడింది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>ఒక <b>agent</b> ఒక <b>environment</b> లో <b>action</b> తీసుకుంటుంది, దానికి <b>reward</b> (బహుమతి లేదా శిక్ష) వస్తుంది, అది ఆ అనుభవం నుండి ఎక్కువ మొత్తం reward వచ్చేలా తన వ్యూహాన్ని (policy) మెరుగుపరచుకుంటుంది. కుక్కపిల్లకు శిక్షణ ఇచ్చినట్టు: సరైన పని చేస్తే బిస్కెట్. Supervised లా సమాధానాలు ఇవ్వరు; ప్రయత్నం, తప్పు, బహుమతి ద్వారా నేర్చుకుంటుంది. ఈ కోర్సులో ఇది కేవలం అవలోకనం; లోతుగా చేయడం లేదు.</p>
 <h4>ఉదాహరణ</h4>
@@ -999,7 +1013,7 @@ for degree in (1, 2, 15):          # 1: high bias, 2: సరైనది, 15: hi
 <h4>ఎందుకు అవసరం?</h4>
 <p>Leakage వల్ల development లో model అద్భుతంగా (99%) కనిపిస్తుంది, కానీ production లో విఫలమవుతుంది. ఇది అత్యంత ప్రమాదకరమైన, గుర్తించడం కష్టమైన తప్పు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Data leakage</b> అంటే training సమయంలో, అంచనా వేసే సమయంలో అందుబాటులో ఉండకూడని సమాచారం model కి తెలిసిపోవడం. రెండు సాధారణ రూపాలు: (1) <b>Target leakage</b>: features లో target నుండి వచ్చిన column ఉండటం (ఉదా: loan default అంచనాకు "collection_calls_made" column; default అయ్యాక మాత్రమే అది ఉంటుంది). (2) <b>Train-test contamination</b>: మొత్తం data పై scaling/imputation <code>fit</code> చేసి తర్వాత split చేయడం. పరిష్కారం: ముందు split, ఆ తర్వాత preprocessing ని train పై మాత్రమే fit చేయడం; <b>Pipeline</b> వాడటం ఉత్తమం. Time-series లో భవిష్యత్ data ని గతంలోకి లీక్ చేయకూడదు.</p>
+<p><b>Data leakage</b> అంటే training సమయంలో, అంచనా వేసే సమయంలో అందుబాటులో ఉండకూడని సమాచారం model కి తెలిసిపోవడం. రెండు సాధారణ రూపాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Target leakage</b>: features లో target నుండి వచ్చిన column ఉండటం (ఉదా: loan default అంచనాకు "collection_calls_made" column; default అయ్యాక మాత్రమే అది ఉంటుంది).</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Train-test contamination</b>: మొత్తం data పై scaling/imputation <code>fit</code> చేసి తర్వాత split చేయడం.</span></div></div><p>పరిష్కారం: ముందు split, ఆ తర్వాత preprocessing ని train పై మాత్రమే fit చేయడం; <b>Pipeline</b> వాడటం ఉత్తమం. Time-series లో భవిష్యత్ data ని గతంలోకి లీక్ చేయకూడదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.model_selection import train_test_split
@@ -1087,7 +1101,7 @@ print(z.ravel().round(2), z.mean().round(2), z.std().round(2))   # సగటు 
 <h4>ఎందుకు అవసరం?</h4>
 <p>అన్ని features ఉపయోగకరం కావు. అనవసరమైన features model ని నెమ్మదిగా, సంక్లిష్టంగా చేసి overfitting కి దారి తీస్తాయి. తక్కువ features ఉంటే model సులభంగా అర్థమవుతుంది మరియు production లో data సేకరణ ఖర్చు తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మూడు విధానాలు: (1) <b>Filter methods</b>: model తో సంబంధం లేకుండా గణాంకాలతో ఎంచుకోవడం (target తో correlation, <code>SelectKBest</code>, తక్కువ variance ఉన్న columns తొలగింపు). (2) <b>Wrapper methods</b>: అనేక feature సముదాయాలతో model ని ప్రయత్నించి ఉత్తమమైనది ఎంచుకోవడం (<code>RFE</code>). (3) <b>Embedded methods</b>: model training లోనే ఎంపిక జరగడం (Lasso, tree ల feature importance). ఎంపిక కూడా train data పై మాత్రమే చేయాలి, లేకపోతే leakage.</p>
+<p>మూడు విధానాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Filter methods</b>: model తో సంబంధం లేకుండా గణాంకాలతో ఎంచుకోవడం (target తో correlation, <code>SelectKBest</code>, తక్కువ variance ఉన్న columns తొలగింపు).</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Wrapper methods</b>: అనేక feature సముదాయాలతో model ని ప్రయత్నించి ఉత్తమమైనది ఎంచుకోవడం (<code>RFE</code>).</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Embedded methods</b>: model training లోనే ఎంపిక జరగడం (Lasso, tree ల feature importance).</span></div></div><p>ఎంపిక కూడా train data పై మాత్రమే చేయాలి, లేకపోతే leakage.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.feature_selection import SelectKBest, f_regression
@@ -1194,7 +1208,7 @@ print(cost(2, 0))     # 1.0  (దాదాపు సరైనది, తక్�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Regression లో అత్యంత సాధారణ loss. ఇది గణితపరంగా సున్నితంగా ఉండి (differentiable) gradient descent కి సరిపోతుంది, మరియు పెద్ద తప్పులను గట్టిగా శిక్షిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><code>MSE = సగటు( (అంచనా - నిజం)² )</code>. ప్రతి తప్పును వర్గం (square) చేయడం వల్ల: (1) ఋణాత్మక, ధనాత్మక తప్పులు ఒకదాన్ని ఒకటి రద్దు చేసుకోవు, (2) పెద్ద తప్పులు (ఉదా: 10 తప్పు → 100) చాలా ఎక్కువ ప్రభావం చూపుతాయి. లోపం: యూనిట్లు వర్గంలో ఉంటాయి (లక్షలు²) కాబట్టి అర్థం చేసుకోవడం కష్టం, మరియు outliers కి చాలా సున్నితం. Scikit-learn: <code>mean_squared_error</code>.</p>
+<p><code>MSE = సగటు( (అంచనా - నిజం)² )</code>. ప్రతి తప్పును వర్గం (square) చేయడం వల్ల:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ఋణాత్మక, ధనాత్మక తప్పులు ఒకదాన్ని ఒకటి రద్దు చేసుకోవు</span></div><div class="step-row"><span class="step-badge">2</span><span>పెద్ద తప్పులు (ఉదా: 10 తప్పు → 100) చాలా ఎక్కువ ప్రభావం చూపుతాయి.</span></div></div><p>లోపం: యూనిట్లు వర్గంలో ఉంటాయి (లక్షలు²) కాబట్టి అర్థం చేసుకోవడం కష్టం, మరియు outliers కి చాలా సున్నితం. Scikit-learn: <code>mean_squared_error</code>.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.metrics import mean_squared_error
@@ -1273,7 +1287,7 @@ print(round(m.coef_[0], 2), round(m.intercept_, 2))   # sklearn కూడా అ
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎక్కువ features లేదా సంక్లిష్టమైన model ఉన్నప్పుడు weights చాలా పెద్దవై, model training data ని బట్టీ పట్టి overfit అవుతుంది. Regularization దాన్ని అదుపులో ఉంచుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Regularization</b> అంటే cost function కి ఒక <b>శిక్ష (penalty)</b> జోడించడం: పెద్ద weights ఉంటే cost పెరుగుతుంది. కాబట్టి model తప్పును తగ్గించాలి, అదే సమయంలో weights ని చిన్నగా ఉంచాలి. ఫలితం: సరళమైన model, తక్కువ overfitting, మంచి generalization. కొత్త cost = <code>MSE + α × (weights పై penalty)</code>. <b>α (alpha)</b> శిక్ష బలాన్ని నియంత్రిస్తుంది: α=0 అంటే regularization లేదు; α పెద్దదైతే weights చాలా చిన్నవై underfitting కావచ్చు. రెండు ప్రధాన రకాలు: Ridge (L2) మరియు Lasso (L1), తదుపరి రెండు topics లో.</p>
+<p><b>Regularization</b> అంటే cost function కి ఒక <b>శిక్ష (penalty)</b> జోడించడం: పెద్ద weights ఉంటే cost పెరుగుతుంది. కాబట్టి model తప్పును తగ్గించాలి, అదే సమయంలో weights ని చిన్నగా ఉంచాలి. ఫలితం: సరళమైన model, తక్కువ overfitting, మంచి generalization. కొత్త cost = <code>MSE + α × (weights పై penalty)</code>. <b>α (alpha)</b> శిక్ష బలాన్ని నియంత్రిస్తుంది: α=0 అంటే regularization లేదు; α పెద్దదైతే weights చాలా చిన్నవై underfitting కావచ్చు. రెండు ప్రధాన రకాలు: Ridge (L2) మరియు Lasso (L</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>, తదుపరి రెండు topics లో.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.linear_model import LinearRegression, Ridge
@@ -1386,7 +1400,7 @@ for c in df.columns:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే స్కోర్ (R², RMSE) model లో ఏం తప్పు ఉందో చెప్పదు. Residuals ని చూస్తే model ఏ సందర్భాలలో విఫలమవుతోంది, సరళ model సరిపోతుందా, outliers ఉన్నాయా అని తెలుస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Residual</b> = నిజమైన విలువ - అంచనా విలువ (ప్రతి row కి ఒకటి). మంచి linear model లో residuals యాదృచ్ఛికంగా, 0 చుట్టూ, ఏ pattern లేకుండా చెల్లాచెదురుగా ఉండాలి. <b>Residuals vs predictions</b> scatter plot చూడండి: (1) వంపు pattern (U ఆకారం) కనిపిస్తే సంబంధం సరళం కాదు, polynomial లేదా కొత్త features అవసరం, (2) విస్తరిస్తున్న "కోన్" ఆకారం అంటే తప్పు పరిమాణం విలువతో పెరుగుతోంది (heteroscedasticity), (3) కొన్ని చాలా దూర బిందువులు outliers. Residuals యొక్క సగటు సుమారు 0 ఉండాలి.</p>
+<p><b>Residual</b> = నిజమైన విలువ - అంచనా విలువ (ప్రతి row కి ఒకటి). మంచి linear model లో residuals యాదృచ్ఛికంగా, 0 చుట్టూ, ఏ pattern లేకుండా చెల్లాచెదురుగా ఉండాలి. <b>Residuals vs predictions</b> scatter plot చూడండి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>వంపు pattern (U ఆకారం) కనిపిస్తే సంబంధం సరళం కాదు, polynomial లేదా కొత్త features అవసరం</span></div><div class="step-row"><span class="step-badge">2</span><span>విస్తరిస్తున్న "కోన్" ఆకారం అంటే తప్పు పరిమాణం విలువతో పెరుగుతోంది (heteroscedasticity)</span></div><div class="step-row"><span class="step-badge">3</span><span>కొన్ని చాలా దూర బిందువులు outliers.</span></div></div><p>Residuals యొక్క సగటు సుమారు 0 ఉండాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -1411,7 +1425,7 @@ print(residuals[:20].mean().round(1), residuals[40:60].mean().round(1), residual
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model మంచిదా కాదా చెప్పడానికి, వేర్వేరు models ని పోల్చడానికి, మరియు production లోకి వెళ్ళే ముందు నమ్మకం పొందడానికి సరైన కొలమానాలు, సరైన పద్ధతి అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పద్ధతి: (1) ఎప్పుడూ <b>test data</b> (లేదా cross-validation) పై కొలవండి, training పై కాదు. (2) కొలమానాలు: MAE, RMSE (అసలు యూనిట్లలో తప్పు), మరియు <b>R² (R-squared)</b>: model, data యొక్క variation లో ఎంత భాగాన్ని వివరించిందో చెప్తుంది; 1.0 పరిపూర్ణం, 0 అంటే "ఎల్లప్పుడూ సగటునే చెప్పే" model తో సమానం, ప్రతికూలం కూడా కావచ్చు (సగటు కంటే దారుణం). (3) <b>Baseline</b> తో పోల్చండి: ఎల్లప్పుడూ సగటు చెప్పే సరళమైన model (<code>DummyRegressor</code>) కంటే మన model మెరుగ్గా ఉండాలి. (4) Residuals చూడండి. అనేక రకాల కొలమానాలు కలిపి చూడటం మంచిది.</p>
+<p>పద్ధతి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ఎప్పుడూ <b>test data</b> (లేదా cross-validation) పై కొలవండి, training పై కాదు.</span></div><div class="step-row"><span class="step-badge">2</span><span>కొలమానాలు: MAE, RMSE (అసలు యూనిట్లలో తప్పు), మరియు <b>R² (R-squared)</b>: model, data యొక్క variation లో ఎంత భాగాన్ని వివరించిందో చెప్తుంది; 1.0 పరిపూర్ణం, 0 అంటే "ఎల్లప్పుడూ సగటునే చెప్పే" model తో సమానం, ప్రతికూలం కూడా కావచ్చు (సగటు కంటే దారుణం).</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Baseline</b> తో పోల్చండి: ఎల్లప్పుడూ సగటు చెప్పే సరళమైన model (<code>DummyRegressor</code>) కంటే మన model మెరుగ్గా ఉండాలి.</span></div><div class="step-row"><span class="step-badge">4</span><span>Residuals చూడండి.</span></div></div><p>అనేక రకాల కొలమానాలు కలిపి చూడటం మంచిది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -1742,7 +1756,7 @@ print(len(thresholds), "thresholds పరిశీలించబడ్డాయ
 <h4>ఎందుకు అవసరం?</h4>
 <p>Fraud, defects, churn, అరుదైన వ్యాధులు: అసలైన events చాలా అరుదు. Imbalance ని పట్టించుకోకపోతే model మెజారిటీ class నే చెబుతూ "బాగా పనిచేస్తున్నట్టు" కనిపిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Class imbalance</b> అంటే classes నిష్పత్తి చాలా వక్రంగా ఉండటం (ఉదా: 99:1). పరిష్కారాలు: (1) సరైన metrics వాడండి (precision, recall, F1, PR-AUC), (2) <code>class_weight="balanced"</code> తో అరుదైన class తప్పులకు ఎక్కువ శిక్ష వేయండి, (3) <b>resampling</b>: minority ని పెంచడం (oversampling, ఉదా: SMOTE: <code>imbalanced-learn</code> library) లేదా majority ని తగ్గించడం, (4) <b>threshold tuning</b> (తదుపరి topic). Train/test split లో <code>stratify=y</code> వాడి రెండింట్లో అదే నిష్పత్తి ఉంచండి. Resampling ని test set పై ఎప్పుడూ చేయకూడదు.</p>
+<p><b>Class imbalance</b> అంటే classes నిష్పత్తి చాలా వక్రంగా ఉండటం (ఉదా: 99:1). పరిష్కారాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>సరైన metrics వాడండి (precision, recall, F1, PR-AUC)</span></div><div class="step-row"><span class="step-badge">2</span><span><code>class_weight="balanced"</code> తో అరుదైన class తప్పులకు ఎక్కువ శిక్ష వేయండి</span></div><div class="step-row"><span class="step-badge">3</span><span><b>resampling</b>: minority ని పెంచడం (oversampling, ఉదా: SMOTE: <code>imbalanced-learn</code> library) లేదా majority ని తగ్గించడం</span></div><div class="step-row"><span class="step-badge">4</span><span><b>threshold tuning</b> (తదుపరి topic).</span></div></div><p>Train/test split లో <code>stratify=y</code> వాడి రెండింట్లో అదే నిష్పత్తి ఉంచండి. Resampling ని test set పై ఎప్పుడూ చేయకూడదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
@@ -1813,7 +1827,7 @@ print(len(set(labels)))      # 3 సమూహాలు</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>అత్యంత ప్రసిద్ధ, వేగవంతమైన, పెద్ద డేటాకు కూడా సరిపోయే clustering algorithm. Customer segmentation, image color compression వంటి వాటికి వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మీరు <code>k</code> (ఎన్ని groups) చెబుతారు. Algorithm: (1) k <b>centroids</b> (కేంద్ర బిందువులు) random గా పెడుతుంది, (2) ప్రతి point ని దగ్గరి centroid కి కేటాయిస్తుంది, (3) ప్రతి group సగటు స్థానానికి centroid ని జరుపుతుంది, (4) మార్పు ఆగే వరకు 2-3 పునరావృతం. ఇది గుండ్రటి, సుమారు సమాన పరిమాణం గల clusters ఉన్నప్పుడు బాగా పనిచేస్తుంది. Distance ఆధారం కాబట్టి <b>scaling అవసరం</b>. Random ప్రారంభం వల్ల ఫలితం మారవచ్చు, అందుకే <code>n_init</code> (అనేకసార్లు ప్రయత్నించి ఉత్తమమైనది) మరియు <code>random_state</code> వాడతాం.</p>
+<p>మీరు <code>k</code> (ఎన్ని groups) చెబుతారు. Algorithm:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>k <b>centroids</b> (కేంద్ర బిందువులు) random గా పెడుతుంది</span></div><div class="step-row"><span class="step-badge">2</span><span>ప్రతి point ని దగ్గరి centroid కి కేటాయిస్తుంది</span></div><div class="step-row"><span class="step-badge">3</span><span>ప్రతి group సగటు స్థానానికి centroid ని జరుపుతుంది</span></div><div class="step-row"><span class="step-badge">4</span><span>మార్పు ఆగే వరకు 2-3 పునరావృతం.</span></div></div><p>ఇది గుండ్రటి, సుమారు సమాన పరిమాణం గల clusters ఉన్నప్పుడు బాగా పనిచేస్తుంది. Distance ఆధారం కాబట్టి <b>scaling అవసరం</b>. Random ప్రారంభం వల్ల ఫలితం మారవచ్చు, అందుకే <code>n_init</code> (అనేకసార్లు ప్రయత్నించి ఉత్తమమైనది) మరియు <code>random_state</code> వాడతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import make_blobs
 from sklearn.preprocessing import StandardScaler
@@ -1833,7 +1847,7 @@ print(km.predict([[0, 0]]))      # కొత్త point ఏ cluster?</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>K-means లో <code>k</code> ని మనమే చెప్పాలి, కానీ సరైన k ముందే తెలియదు. తప్పు k అర్థంలేని groups ఇస్తుంది (చాలా తక్కువైతే వేర్వేరు వాటిని కలిపేస్తుంది, ఎక్కువైతే ఒకే group ని ముక్కలు చేస్తుంది).</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒకే "సరైన" జవాబు లేదు. సాధారణంగా (1) వేర్వేరు k లకు model నేర్పి, <b>elbow method</b> (inertia) మరియు <b>silhouette score</b> లాంటి కొలతలను పోల్చడం, (2) <b>business అవసరం</b> చూడటం: marketing team 4 campaigns మాత్రమే నడపగలిగితే k=4 సరిపోవచ్చు, (3) clusters స్థిరంగా ఉన్నాయో (వేర్వేరు random seeds తో ఒకేలా వస్తున్నాయో) చూడటం. తదుపరి రెండు topics ఈ పద్ధతులను వివరంగా చూపిస్తాయి.</p>
+<p>ఒకే "సరైన" జవాబు లేదు. సాధారణంగా</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>వేర్వేరు k లకు model నేర్పి, <b>elbow method</b> (inertia) మరియు <b>silhouette score</b> లాంటి కొలతలను పోల్చడం</span></div><div class="step-row"><span class="step-badge">2</span><span><b>business అవసరం</b> చూడటం: marketing team 4 campaigns మాత్రమే నడపగలిగితే k=4 సరిపోవచ్చు</span></div><div class="step-row"><span class="step-badge">3</span><span>clusters స్థిరంగా ఉన్నాయో (వేర్వేరు random seeds తో ఒకేలా వస్తున్నాయో) చూడటం.</span></div></div><p>తదుపరి రెండు topics ఈ పద్ధతులను వివరంగా చూపిస్తాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
@@ -1976,7 +1990,7 @@ print(pca.explained_variance_ratio_[:3])   # మొదటి 3 components వా
 <h4>ఎందుకు అవసరం?</h4>
 <p>అధిక-dimension డేటా (ఉదా: embeddings) లో సమూహాలు ఉన్నాయో లేదో కళ్లతో చూడటానికి అత్యంత ప్రసిద్ధ పద్ధతి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>t-SNE</b> దగ్గరి points ని 2D లో కూడా దగ్గరగా ఉంచడానికి ప్రయత్నిస్తుంది (స్థానిక పొరుగు సంబంధాలు కాపాడుతుంది). ఫలితంగా అందమైన cluster చిత్రాలు వస్తాయి. కానీ హెచ్చరికలు: (1) ఇది <b>visualization కోసమే</b>, features గా వాడకూడదు, (2) clusters మధ్య దూరాలు, clusters పరిమాణాలకు అర్థం లేదు, (3) <code>perplexity</code> parameter మార్చితే చిత్రం మారుతుంది, (4) <code>fit_transform</code> మాత్రమే ఉంది: కొత్త data ని తర్వాత transform చేయలేం, (5) పెద్ద డేటాకు నెమ్మది (ముందు PCA తో 30-50 dims కి తగ్గించడం సాధారణం).</p>
+<p><b>t-SNE</b> దగ్గరి points ని 2D లో కూడా దగ్గరగా ఉంచడానికి ప్రయత్నిస్తుంది (స్థానిక పొరుగు సంబంధాలు కాపాడుతుంది). ఫలితంగా అందమైన cluster చిత్రాలు వస్తాయి. కానీ హెచ్చరికలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ఇది <b>visualization కోసమే</b>, features గా వాడకూడదు</span></div><div class="step-row"><span class="step-badge">2</span><span>clusters మధ్య దూరాలు, clusters పరిమాణాలకు అర్థం లేదు</span></div><div class="step-row"><span class="step-badge">3</span><span><code>perplexity</code> parameter మార్చితే చిత్రం మారుతుంది</span></div><div class="step-row"><span class="step-badge">4</span><span><code>fit_transform</code> మాత్రమే ఉంది: కొత్త data ని తర్వాత transform చేయలేం</span></div><div class="step-row"><span class="step-badge">5</span><span>పెద్ద డేటాకు నెమ్మది (ముందు PCA తో 30-50 dims కి తగ్గించడం సాధారణం).</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import load_digits
 from sklearn.manifold import TSNE
@@ -2016,7 +2030,7 @@ print(reducer.transform(X[:5]).shape)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Fraud transactions, server attacks, machine faults, logs లో అసాధారణ spikes: ఇవి అరుదు మరియు రకరకాలు, కాబట్టి ముందుగా labels సేకరించడం కష్టం. Anomaly detection "సాధారణం" ఎలా ఉంటుందో నేర్చుకుని, భిన్నమైన వాటిని పట్టుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Anomaly (outlier)</b> అంటే మిగతా డేటాకు భిన్నంగా ఉండే point. పద్ధతులు: (1) గణాంక నియమాలు (z-score &gt; 3, IQR), (2) distance/density ఆధారిత (LOF, DBSCAN noise), (3) model ఆధారిత (Isolation Forest, One-Class SVM, autoencoders). PHP లో మీరు "ఈ order మొత్తం సాధారణం కంటే 10 రెట్లు" అని rule రాస్తారు; ML లో అనేక features కలిపి అలాంటి నిబంధనను model నేర్చుకుంటుంది. Evaluation కొద్దిపాటి labels ఉంటేనే సాధ్యం, లేకపోతే నిపుణుల సమీక్ష అవసరం.</p>
+<p><b>Anomaly (outlier)</b> అంటే మిగతా డేటాకు భిన్నంగా ఉండే point. పద్ధతులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>గణాంక నియమాలు (z-score &gt; 3, IQR)</span></div><div class="step-row"><span class="step-badge">2</span><span>distance/density ఆధారిత (LOF, DBSCAN noise)</span></div><div class="step-row"><span class="step-badge">3</span><span>model ఆధారిత (Isolation Forest, One-Class SVM, autoencoders).</span></div></div><p>PHP లో మీరు "ఈ order మొత్తం సాధారణం కంటే 10 రెట్లు" అని rule రాస్తారు; ML లో అనేక features కలిపి అలాంటి నిబంధనను model నేర్చుకుంటుంది. Evaluation కొద్దిపాటి labels ఉంటేనే సాధ్యం, లేకపోతే నిపుణుల సమీక్ష అవసరం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -2055,7 +2069,7 @@ print(iso.score_samples(odd))          # తక్కువ విలువ = �
 <h4>ఎందుకు అవసరం?</h4>
 <p>E-commerce లేదా SaaS లో అందరికీ ఒకే offer పంపడం కంటే, ప్రవర్తన ఆధారంగా విభజించి వేర్వేరు campaigns నడిపితే ఫలితాలు మెరుగ్గా ఉంటాయి. ఇది clustering యొక్క అత్యంత సాధారణ business ఉపయోగం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ విధానం <b>RFM</b>: <b>Recency</b> (చివరి కొనుగోలు ఎన్ని రోజుల క్రితం), <b>Frequency</b> (ఎన్నిసార్లు కొన్నారు), <b>Monetary</b> (మొత్తం ఖర్చు). వీటిని MySQL లో <code>GROUP BY user_id</code> తో లెక్కించి (<code>MAX(order_date)</code>, <code>COUNT(*)</code>, <code>SUM(total)</code>), pandas లోకి తీసుకుని: (1) skewed values కి log transform, (2) scaling, (3) K-means (k ని elbow/silhouette/business తో), (4) ప్రతి cluster సగటు విలువలు చూసి పేర్లు పెట్టడం ("champions", "వదిలి వెళ్తున్నవారు" ...). అసలు విలువ cluster ID లో కాదు, ప్రతి segment కి తీసుకునే చర్యలో ఉంటుంది.</p>
+<p>సాధారణ విధానం <b>RFM</b>: <b>Recency</b> (చివరి కొనుగోలు ఎన్ని రోజుల క్రితం), <b>Frequency</b> (ఎన్నిసార్లు కొన్నారు), <b>Monetary</b> (మొత్తం ఖర్చు). వీటిని MySQL లో <code>GROUP BY user_id</code> తో లెక్కించి (<code>MAX(order_date)</code>, <code>COUNT(*)</code>, <code>SUM(total)</code>), pandas లోకి తీసుకుని:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>skewed values కి log transform</span></div><div class="step-row"><span class="step-badge">2</span><span>scaling</span></div><div class="step-row"><span class="step-badge">3</span><span>K-means (k ని elbow/silhouette/business తో)</span></div><div class="step-row"><span class="step-badge">4</span><span>ప్రతి cluster సగటు విలువలు చూసి పేర్లు పెట్టడం ("champions", "వదిలి వెళ్తున్నవారు" ...).</span></div></div><p>అసలు విలువ cluster ID లో కాదు, ప్రతి segment కి తీసుకునే చర్యలో ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 import pandas as pd
@@ -2090,7 +2104,7 @@ print(df["segment"].value_counts())</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ChatGPT నుండి image recognition వరకు ప్రతి deep learning model చిన్న చిన్న neurons ని వేల/కోట్ల సంఖ్యలో కలిపి తయారైనదే. ఒక్క neuron ఏం చేస్తుందో అర్థమైతే మిగతా అంతా దాని పునరావృతమే.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Artificial neuron</b> అంటే ఒక చిన్న function: (1) ఇన్‌పుట్ సంఖ్యలను తీసుకుంటుంది, (2) ప్రతి దానిని ఒక <b>weight</b> తో గుణించి, (3) అన్నీ కలిపి, (4) <b>bias</b> కూడా కలిపి, (5) ఫలితాన్ని ఒక <b>activation function</b> గుండా పంపుతుంది. అంటే <code>output = activation(w1*x1 + w2*x2 + ... + b)</code>. Laravel లో ఒక product కి "score" లెక్కించే ఫార్ములా (price, rating, stock కి వేర్వేరు importance factors తో) లాంటిదే, కానీ ఆ factors (weights) ని మనం చేతితో రాయం, model డేటా నుండి నేర్చుకుంటుంది. జీవ నాడీకణం నుండి స్ఫూర్తి మాత్రమే; నిజమైన మెదడు చాలా సంక్లిష్టం.</p>
+<p><b>Artificial neuron</b> అంటే ఒక చిన్న function:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ఇన్‌పుట్ సంఖ్యలను తీసుకుంటుంది</span></div><div class="step-row"><span class="step-badge">2</span><span>ప్రతి దానిని ఒక <b>weight</b> తో గుణించి</span></div><div class="step-row"><span class="step-badge">3</span><span>అన్నీ కలిపి</span></div><div class="step-row"><span class="step-badge">4</span><span><b>bias</b> కూడా కలిపి</span></div><div class="step-row"><span class="step-badge">5</span><span>ఫలితాన్ని ఒక <b>activation function</b> గుండా పంపుతుంది.</span></div></div><p>అంటే <code>output = activation(w1*x1 + w2*x2 + ... + b)</code>. Laravel లో ఒక product కి "score" లెక్కించే ఫార్ములా (price, rating, stock కి వేర్వేరు importance factors తో) లాంటిదే, కానీ ఆ factors (weights) ని మనం చేతితో రాయం, model డేటా నుండి నేర్చుకుంటుంది. జీవ నాడీకణం నుండి స్ఫూర్తి మాత్రమే; నిజమైన మెదడు చాలా సంక్లిష్టం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -2807,7 +2821,7 @@ opt = torch.optim.Adam(trainable, lr=1e-3)       # optimizer కి trainable �
 <h4>ఎందుకు అవసరం?</h4>
 <p>Head మాత్రమే train చేయడం (feature extraction) మీ డేటా pretrained డేటాకు భిన్నంగా ఉన్నప్పుడు సరిపోదు (ఉదా: X-ray చిత్రాలు, మీ కంపెనీ domain భాష). Fine-tuning తో model యొక్క లోపలి layers ని కూడా మీ డేటాకు అనుగుణంగా సర్దుబాటు చేసి ఎక్కువ accuracy పొందవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Fine-tuning</b> లో pretrained weights నుండి మొదలుపెట్టి, మీ డేటాతో కొన్ని (లేదా అన్ని) layers ని <b>చాలా చిన్న learning rate</b> తో మళ్లీ train చేస్తారు (ఉదా: 1e-5 నుండి 1e-4), లేకపోతే ముందే నేర్చుకున్న మంచి జ్ఞానం పాడవుతుంది (<b>catastrophic forgetting</b>). సాధారణ క్రమం: (1) head ని మాత్రమే train, (2) తర్వాత కొన్ని పై layers ని unfreeze చేసి చిన్న lr తో train, లేదా backbone కి చిన్న lr, head కి పెద్ద lr (<b>discriminative learning rates</b>). LLM ల కోసం <b>LoRA</b> లాంటి parameter-efficient పద్ధతులు చాలా తక్కువ parameters మాత్రమే train చేసి fine-tuning ని చౌకగా చేస్తాయి. గమనిక: LLM లకు ప్రత్యామ్నాయాలు (prompting, RAG) ముందుగా పరిగణించండి, ఎందుకంటే fine-tuning ఖరీదు మరియు నిర్వహణ ఎక్కువ.</p>
+<p><b>Fine-tuning</b> లో pretrained weights నుండి మొదలుపెట్టి, మీ డేటాతో కొన్ని (లేదా అన్ని) layers ని <b>చాలా చిన్న learning rate</b> తో మళ్లీ train చేస్తారు (ఉదా: 1e-5 నుండి 1e-4), లేకపోతే ముందే నేర్చుకున్న మంచి జ్ఞానం పాడవుతుంది (<b>catastrophic forgetting</b>). సాధారణ క్రమం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>head ని మాత్రమే train</span></div><div class="step-row"><span class="step-badge">2</span><span>తర్వాత కొన్ని పై layers ని unfreeze చేసి చిన్న lr తో train, లేదా backbone కి చిన్న lr, head కి పెద్ద lr (<b>discriminative learning rates</b>).</span></div></div><p>LLM ల కోసం <b>LoRA (Low-Rank Adaptation)</b> లాంటి parameter-efficient పద్ధతులు చాలా తక్కువ parameters మాత్రమే train చేసి fine-tuning ని చౌకగా చేస్తాయి. గమనిక: LLM లకు ప్రత్యామ్నాయాలు (prompting, RAG) ముందుగా పరిగణించండి, ఎందుకంటే fine-tuning ఖరీదు మరియు నిర్వహణ ఎక్కువ.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import torch
 import torch.nn as nn
@@ -2864,7 +2878,7 @@ print(torch.__version__, device)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Keras/scikit-learn లోని <code>.fit()</code> లా కాకుండా PyTorch లో training loop మీరే రాస్తారు. ఈ క్రమం (forward, loss, zero_grad, backward, step) అర్థమైతే ఏ deep learning కోడ్ ని అయినా చదవగలరు, మార్చగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Tensor</b>: బహుమితీయ సంఖ్యల array (0-D scalar, 1-D vector, 2-D matrix, ...), <code>shape</code>, <code>dtype</code>, <code>device</code> లక్షణాలతో. <b>Autograd</b>: <code>requires_grad=True</code> ఉన్న tensors పై చేసిన ప్రతి operation ని గుర్తుంచుకుని, <code>loss.backward()</code> పిలిస్తే ప్రతి parameter యొక్క <code>.grad</code> లో gradient నింపుతుంది. <b>Training loop</b> ప్రతి batch కి: (1) <code>opt.zero_grad()</code> (పాత gradients తుడిచివేయి), (2) forward: <code>pred = model(x)</code>, (3) <code>loss = loss_fn(pred, y)</code>, (4) <code>loss.backward()</code>, (5) <code>opt.step()</code>. తర్వాత validation కి <code>model.eval()</code> + <code>torch.no_grad()</code>. Training కి <code>model.train()</code> తిరిగి పెట్టడం మరచిపోవద్దు.</p>
+<p><b>Tensor</b>: బహుమితీయ సంఖ్యల array (0-D scalar, 1-D vector, 2-D matrix, ...), <code>shape</code>, <code>dtype</code>, <code>device</code> లక్షణాలతో. <b>Autograd</b>: <code>requires_grad=True</code> ఉన్న tensors పై చేసిన ప్రతి operation ని గుర్తుంచుకుని, <code>loss.backward()</code> పిలిస్తే ప్రతి parameter యొక్క <code>.grad</code> లో gradient నింపుతుంది. <b>Training loop</b> ప్రతి batch కి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><code>opt.zero_grad()</code> (పాత gradients తుడిచివేయి)</span></div><div class="step-row"><span class="step-badge">2</span><span>forward: <code>pred = model(x)</code></span></div><div class="step-row"><span class="step-badge">3</span><span><code>loss = loss_fn(pred, y)</code></span></div><div class="step-row"><span class="step-badge">4</span><span><code>loss.backward()</code></span></div><div class="step-row"><span class="step-badge">5</span><span><code>opt.step()</code>.</span></div></div><p>తర్వాత validation కి <code>model.eval()</code> + <code>torch.no_grad()</code>. Training కి <code>model.train()</code> తిరిగి పెట్టడం మరచిపోవద్దు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import torch
 import torch.nn as nn
@@ -2944,7 +2958,7 @@ print(x.shape)    # (3, 4)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"కుక్క మనిషిని కరిచింది" మరియు "మనిషి కుక్కను కరిచాడు" లో words ఒకటే, క్రమం వేరు, అర్థం వేరు. Attention అన్ని tokens ని ఒకేసారి చూస్తుంది కాబట్టి క్రమం దానికి సొంతంగా తెలియదు. స్థానం సమాచారాన్ని విడిగా ఇవ్వాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Positional encoding</b> అంటే ప్రతి position (0, 1, 2...) కి ఒక vector తయారుచేసి, token embedding కి <b>కలపడం (add)</b>. అప్పుడు "అన్నం" అనే token position 1 లో ఉన్నా position 5 లో ఉన్నా వేర్వేరు vectors అవుతుంది. ఇది MySQL table లో <code>sort_order</code> column ఉన్నట్టు: row లోని data ఒకటే అయినా క్రమం సంఖ్య విడిగా ఉంటుంది. అసలు Transformer paper లో sin/cos functions వాడారు; ఆధునిక models లో learned positions లేదా RoPE లాంటి వేరే పద్ధతులు కూడా వాడతారు (వివరాలు model ని బట్టి మారతాయి).</p>
+<p><b>Positional encoding</b> అంటే ప్రతి position (0, 1, 2...) కి ఒక vector తయారుచేసి, token embedding కి <b>కలపడం (add)</b>. అప్పుడు "అన్నం" అనే token position 1 లో ఉన్నా position 5 లో ఉన్నా వేర్వేరు vectors అవుతుంది. ఇది MySQL table లో <code>sort_order</code> column ఉన్నట్టు: row లోని data ఒకటే అయినా క్రమం సంఖ్య విడిగా ఉంటుంది. అసలు Transformer paper లో sin/cos functions వాడారు; ఆధునిక models లో learned positions లేదా RoPE (Rotary Position Embedding) లాంటి వేరే పద్ధతులు కూడా వాడతారు (వివరాలు model ని బట్టి మారతాయి).</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -3099,7 +3113,7 @@ print(softmax(masked).round(2))
 <h4>ఎందుకు అవసరం?</h4>
 <p>Classification, search embeddings, named entity recognition లాంటి పనుల్లో text ని "రాయడం" కాదు, పూర్తిగా "అర్థం చేసుకోవడం" ముఖ్యం. దానికి వాక్యం మొత్తాన్ని రెండు వైపులా చూడగల భాగం కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Encoder</b> అనేది ఒకే రకమైన <b>block</b> ని N సార్లు (ఉదా. 6 లేదా 12) పేర్చినది. ప్రతి block లో: (1) multi-head self-attention, (2) feedforward layer, వీటి చుట్టూ residual connection మరియు layer normalization. Encoder లో <b>mask లేదు</b>: ప్రతి token ముందు, వెనుక అన్ని tokens ని చూడగలదు (bidirectional). Output: ప్రతి token కి context-aware vector. ఇది Laravel లో middleware pipeline లాంటిది: ఒకే shape request ప్రతి layer గుండా వెళ్తూ మెరుగవుతూ ఉంటుంది, shape మారదు.</p>
+<p><b>Encoder</b> అనేది ఒకే రకమైన <b>block</b> ని N సార్లు (ఉదా. 6 లేదా 12) పేర్చినది. ప్రతి block లో:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>multi-head self-attention</span></div><div class="step-row"><span class="step-badge">2</span><span>feedforward layer, వీటి చుట్టూ residual connection మరియు layer normalization.</span></div></div><p>Encoder లో <b>mask లేదు</b>: ప్రతి token ముందు, వెనుక అన్ని tokens ని చూడగలదు (bidirectional). Output: ప్రతి token కి context-aware vector. ఇది Laravel లో middleware pipeline లాంటిది: ఒకే shape request ప్రతి layer గుండా వెళ్తూ మెరుగవుతూ ఉంటుంది, shape మారదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>tokens -> embedding + positional encoding
    |
@@ -3116,7 +3130,7 @@ print(softmax(masked).round(2))
 <h4>ఎందుకు అవసరం?</h4>
 <p>Text రాయడం (generation) కి model తన ఇప్పటి వరకు రాసినదాని ఆధారంగా తర్వాతి token ని ఊహించాలి, అదీ భవిష్యత్తు చూడకుండా. దీనికి ప్రత్యేకమైన block నిర్మాణం కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Decoder block</b> లో: (1) <b>masked</b> multi-head self-attention (causal mask తో), (2) అసలు encoder-decoder Transformer లో అయితే <b>cross-attention</b> (encoder output ని చూడడం), (3) feedforward, అన్నిటి చుట్టూ residual + layer norm. చివర <b>linear layer + softmax</b> తో vocabulary లోని ప్రతి token కి probability వస్తుంది. తర్వాతి token ఎంచుకుని దాన్ని input కి చేర్చి మళ్లీ నడుపుతారు (autoregressive: తన output నే తన input గా వాడటం). ఇది loop లో array కి <code>append</code> చేస్తూ తర్వాతి విలువ లెక్కించే <code>while</code> loop లాంటిది.</p>
+<p><b>Decoder block</b> లో:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>masked</b> multi-head self-attention (causal mask తో)</span></div><div class="step-row"><span class="step-badge">2</span><span>అసలు encoder-decoder Transformer లో అయితే <b>cross-attention</b> (encoder output ని చూడడం)</span></div><div class="step-row"><span class="step-badge">3</span><span>feedforward, అన్నిటి చుట్టూ residual + layer norm.</span></div></div><p>చివర <b>linear layer + softmax</b> తో vocabulary లోని ప్రతి token కి probability వస్తుంది. తర్వాతి token ఎంచుకుని దాన్ని input కి చేర్చి మళ్లీ నడుపుతారు (autoregressive: తన output నే తన input గా వాడటం). ఇది loop లో array కి <code>append</code> చేస్తూ తర్వాతి విలువ లెక్కించే <code>while</code> loop లాంటిది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -3221,7 +3235,7 @@ GPT   : "రాజధాని ... " వరకే చూసి కుడి వ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Production లో మీరు model ని train చేయరు, <b>inference</b> (ఉపయోగించడం) మాత్రమే చేస్తారు. Latency (ఎంత సేపు పడుతుంది), cost, GPU memory అన్నీ inference ఎలా పనిచేస్తుందో మీద ఆధారపడతాయి. Backend dev గా మీరు చేసే capacity planning ఇక్కడ కూడా వర్తిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Inference లో రెండు దశలు: (1) <b>Prefill</b>: మీ prompt లోని అన్ని tokens ని ఒకేసారి సమాంతరంగా process చేస్తుంది (వేగంగా), (2) <b>Decode</b>: answer tokens ని ఒక్కొక్కటిగా వరుసగా తయారు చేస్తుంది (నెమ్మదిగా). ప్రతి కొత్త token కోసం పాత tokens యొక్క Key, Value vectors ని మళ్లీ లెక్కించకుండా <b>KV cache</b> లో దాచి వాడతారు. ఇది Laravel లో ఖరీదైన query result ని <code>Cache::remember()</code> లో పెట్టినట్టే: GPU memory ఎక్కువ ఖర్చవుతుంది కానీ compute ఆదా అవుతుంది. తర్వాతి token ఎంచుకునే పద్ధతిని <b>decoding strategy</b> అంటారు: greedy (అత్యధిక probability), లేదా <b>temperature</b>, top-k, top-p తో sampling (కొంచెం యాదృచ్ఛికత). Context పొడవు పెరిగితే KV cache memory కూడా పెరుగుతుంది.</p>
+<p>Inference లో రెండు దశలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Prefill</b>: మీ prompt లోని అన్ని tokens ని ఒకేసారి సమాంతరంగా process చేస్తుంది (వేగంగా)</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Decode</b>: answer tokens ని ఒక్కొక్కటిగా వరుసగా తయారు చేస్తుంది (నెమ్మదిగా).</span></div></div><p>ప్రతి కొత్త token కోసం పాత tokens యొక్క Key, Value vectors ని మళ్లీ లెక్కించకుండా <b>KV (Key-Value) cache</b> లో దాచి వాడతారు. ఇది Laravel లో ఖరీదైన query result ని <code>Cache::remember()</code> లో పెట్టినట్టే: GPU memory ఎక్కువ ఖర్చవుతుంది కానీ compute ఆదా అవుతుంది. తర్వాతి token ఎంచుకునే పద్ధతిని <b>decoding strategy</b> అంటారు: greedy (అత్యధిక probability), లేదా <b>temperature</b>, top-k, top-p తో sampling (కొంచెం యాదృచ్ఛికత). Context పొడవు పెరిగితే KV (Key-Value) cache memory కూడా పెరుగుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -3235,7 +3249,7 @@ for T in (0.5, 1.0, 2.0):
 # T తక్కువ -> మొదటి token కి ఎక్కువ వాటా (స్థిరమైన answers)
 # T ఎక్కువ -> వాటాలు సమానమవుతాయి (వైవిధ్యమైన answers)</pre>
 <p>API లో <code>temperature</code> parameter చేసేది ఇదే: logits ని T తో భాగించి softmax చేయడం. Temperature తక్కువ ఉంటే ఊహించదగిన, ఎక్కువ ఉంటే సృజనాత్మక output వస్తుంది.</p>
-<div class="mistake"><b>సాధారణ తప్పు:</b> పొడవైన context ఉచితం అనుకోవడం. Context పొడవు పెరిగితే latency మరియు KV cache memory రెండూ పెరుగుతాయి.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> పొడవైన context ఉచితం అనుకోవడం. Context పొడవు పెరిగితే latency మరియు KV (Key-Value) cache memory రెండూ పెరుగుతాయి.</div>
 </div></details>
 
 <h2 class="day">Day 20: AI ecosystem and model understanding</h2>
@@ -3310,7 +3324,7 @@ output = "Total: ₹12,450, Date: 14-03-2025"</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"7B model", "70B model" అని వింటుంటాం. Parameters సంఖ్య model కి ఎంత memory, ఎంత GPU కావాలో, ఎంత ఖర్చో నిర్ణయిస్తుంది. Deployment ప్లాన్ చేయడానికి ఇది తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Parameters (weights)</b> అంటే training లో model నేర్చుకునే numbers. మనం ఇంతకు ముందు చూసిన embedding table, Wq/Wk/Wv matrices, FFN matrices అన్నీ parameters. "7B" అంటే సుమారు 7 billion (700 కోట్లు) numbers. ఇవే model యొక్క "జ్ఞానం". Parameters ≠ <b>hyperparameters</b> (learning rate, layers సంఖ్య లాంటివి మనం ముందే సెట్ చేసేవి). PHP తో పోలిస్తే: parameters అంటే database లో నిల్వ ఉన్న data లాంటిది (model ఫైల్ లో), hyperparameters అంటే <code>.env</code> config లాంటివి. Memory అంచనా: ప్రతి parameter 16-bit (2 bytes) లో ఉంటే, 7B model కి సుమారు 14 GB అవసరం (inference కి అదనంగా KV cache మొదలైనవి కూడా కావాలి).</p>
+<p><b>Parameters (weights)</b> అంటే training లో model నేర్చుకునే numbers. మనం ఇంతకు ముందు చూసిన embedding table, Wq/Wk/Wv matrices, FFN matrices అన్నీ parameters. "7B" అంటే సుమారు 7 billion (700 కోట్లు) numbers. ఇవే model యొక్క "జ్ఞానం". Parameters ≠ <b>hyperparameters</b> (learning rate, layers సంఖ్య లాంటివి మనం ముందే సెట్ చేసేవి). PHP తో పోలిస్తే: parameters అంటే database లో నిల్వ ఉన్న data లాంటిది (model ఫైల్ లో), hyperparameters అంటే <code>.env</code> config లాంటివి. Memory అంచనా: ప్రతి parameter 16-bit (2 bytes) లో ఉంటే, 7B model కి సుమారు 14 GB అవసరం (inference కి అదనంగా KV (Key-Value) cache మొదలైనవి కూడా కావాలి).</p>
 <h4>ఉదాహరణ</h4>
 <pre>def linear_params(i, o):
     return i * o + o          # weights + bias
@@ -3346,7 +3360,7 @@ print(round(loss, 3))              # 0.416
 <h4>ఎందుకు అవసరం?</h4>
 <p>Pretrained base model కి "ఫ్రాన్స్ రాజధాని ఏది?" అని ఇస్తే, అది సమాధానం చెప్పకుండా మరో ప్రశ్నను కొనసాగించవచ్చు (ఎందుకంటే internet లో ప్రశ్నల జాబితాలు ఉంటాయి). Assistant లా ప్రవర్తించాలంటే "సూచన -> సమాధానం" రూపంలో నేర్పాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Instruction tuning</b> అంటే (instruction, ideal response) జతల చిన్న, నాణ్యమైన dataset పై base model ని మళ్లీ train చేయడం (<b>supervised fine-tuning, SFT</b> అని కూడా అంటారు). అప్పుడు model "ఇది ఒక ఆదేశం, దీనికి సమాధానం ఇవ్వాలి" అనే ప్రవర్తన నేర్చుకుంటుంది. ఇది కొత్త ఉద్యోగికి "customer ప్రశ్న వచ్చినప్పుడు ఇలా సమాధానం చెప్పాలి" అని ఉదాహరణలతో శిక్షణ ఇచ్చినట్టు. Hugging Face లో model పేర్లలో తరచుగా <code>-instruct</code> లేదా <code>-chat</code> అని ఉంటే అది ఈ దశ దాటిన version (పేరు పెట్టే సంప్రదాయం model కుటుంబాన్ని బట్టి మారవచ్చు).</p>
+<p><b>Instruction tuning</b> అంటే (instruction, ideal response) జతల చిన్న, నాణ్యమైన dataset పై base model ని మళ్లీ train చేయడం (<b>supervised fine-tuning, SFT (Supervised Fine-Tuning)</b> అని కూడా అంటారు). అప్పుడు model "ఇది ఒక ఆదేశం, దీనికి సమాధానం ఇవ్వాలి" అనే ప్రవర్తన నేర్చుకుంటుంది. ఇది కొత్త ఉద్యోగికి "customer ప్రశ్న వచ్చినప్పుడు ఇలా సమాధానం చెప్పాలి" అని ఉదాహరణలతో శిక్షణ ఇచ్చినట్టు. Hugging Face లో model పేర్లలో తరచుగా <code>-instruct</code> లేదా <code>-chat</code> అని ఉంటే అది ఈ దశ దాటిన version (పేరు పెట్టే సంప్రదాయం model కుటుంబాన్ని బట్టి మారవచ్చు).</p>
 <h4>ఉదాహరణ</h4>
 <pre>{"instruction": "ఈ వాక్యాన్ని ఆంగ్లంలోకి అనువదించు: నేను అన్నం తింటాను",
  "response":    "I eat rice."}
@@ -3359,21 +3373,21 @@ print(round(loss, 3))              # 0.416
 <h4>ఎందుకు అవసరం?</h4>
 <p>General model మీ కంపెనీ భాష, format, domain (ఉదా. వైద్య, న్యాయ) లో సరిగా పని చేయకపోవచ్చు. Prompt తో సాధ్యం కానప్పుడు, మీ data పై కొద్దిగా train చేయడం ఒక ఎంపిక.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Fine-tuning</b> అంటే ఇప్పటికే trained model ని మీ చిన్న dataset పై కొనసాగించి training చేసి, parameters ని మీ పనికి అనుగుణంగా మార్చడం. <b>Full fine-tuning</b> లో అన్ని parameters మారతాయి (ఖరీదైనది). <b>PEFT / LoRA</b> లో అసలు weights ని స్థిరంగా ఉంచి చిన్న అదనపు matrices మాత్రమే train చేస్తారు, కాబట్టి చాలా తక్కువ memory సరిపోతుంది. ఎప్పుడు ఏది: <b>ప్రాంప్టింగ్</b> ముందు ప్రయత్నించండి (చవక, వేగం), <b>RAG</b> కొత్త/మారే జ్ఞానం కోసం (documents నుండి తెచ్చి ఇవ్వడం), <b>fine-tuning</b> style, format, ప్రవర్తన మార్చడానికి. ఇది Laravel లో vendor code ని మార్చకుండా మీ సొంత service provider జోడించినట్టే LoRA ఆలోచన.</p>
+<p><b>Fine-tuning</b> అంటే ఇప్పటికే trained model ని మీ చిన్న dataset పై కొనసాగించి training చేసి, parameters ని మీ పనికి అనుగుణంగా మార్చడం. <b>Full fine-tuning</b> లో అన్ని parameters మారతాయి (ఖరీదైనది). <b>PEFT / LoRA (Low-Rank Adaptation)</b> లో అసలు weights ని స్థిరంగా ఉంచి చిన్న అదనపు matrices మాత్రమే train చేస్తారు, కాబట్టి చాలా తక్కువ memory సరిపోతుంది. ఎప్పుడు ఏది: <b>ప్రాంప్టింగ్</b> ముందు ప్రయత్నించండి (చవక, వేగం), <b>RAG</b> కొత్త/మారే జ్ఞానం కోసం (documents నుండి తెచ్చి ఇవ్వడం), <b>fine-tuning</b> style, format, ప్రవర్తన మార్చడానికి. ఇది Laravel లో vendor code ని మార్చకుండా మీ సొంత service provider జోడించినట్టే LoRA (Low-Rank Adaptation) ఆలోచన.</p>
 <h4>ఉదాహరణ</h4>
 <pre>d, r = 4096, 8
 print(d * d)       # 16777216  (ఒక full weight matrix లో parameters)
 print(2 * d * r)   # 65536     (LoRA: A(d x r) + B(r x d) మాత్రమే train)
 # సుమారు 0.4% parameters తో అదే matrix ని సర్దుబాటు చేయవచ్చు</pre>
-<p>LoRA లో ఒక్క matrix కి 1.6 కోట్లకు బదులు 65 వేల parameters మాత్రమే train అవుతాయి. అందువల్లే సాధారణ GPUs లో కూడా fine-tuning సాధ్యమవుతుంది.</p>
+<p>LoRA (Low-Rank Adaptation) లో ఒక్క matrix కి 1.6 కోట్లకు బదులు 65 వేల parameters మాత్రమే train అవుతాయి. అందువల్లే సాధారణ GPUs లో కూడా fine-tuning సాధ్యమవుతుంది.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కొత్త facts నేర్పడానికి fine-tuning వాడటం. Facts కోసం RAG మంచిది; fine-tuning ప్రవర్తన/శైలిని మార్చడానికి.</div>
 </div></details>
 
-<details class="t"><summary>10. Reinforcement learning from human feedback<small>RLHF (మనుషుల అభిప్రాయం ద్వారా నేర్పే reinforcement learning)</small></summary><div class="body">
+<details class="t"><summary>10. Reinforcement learning from human feedback<small>RLHF (Reinforcement Learning from Human Feedback) (మనుషుల అభిప్రాయం ద్వారా నేర్పే reinforcement learning)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఒక ప్రశ్నకు "మంచి సమాధానం" ఏది అనేది ఒక్క ideal answer తో చెప్పలేం. మనుషులు రెండు సమాధానాల్లో "ఇది బాగుంది" అని ఎంచుకోవడం సులభం. ఈ ప్రాధాన్యతల నుండి model ని మరింత ఉపయోగకరంగా, సురక్షితంగా మార్చడానికి RLHF వాడతారు.</p>
+<p>ఒక ప్రశ్నకు "మంచి సమాధానం" ఏది అనేది ఒక్క ideal answer తో చెప్పలేం. మనుషులు రెండు సమాధానాల్లో "ఇది బాగుంది" అని ఎంచుకోవడం సులభం. ఈ ప్రాధాన్యతల నుండి model ని మరింత ఉపయోగకరంగా, సురక్షితంగా మార్చడానికి RLHF (Reinforcement Learning from Human Feedback) వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సరళమైన దశలు: (1) model ఒక prompt కి అనేక answers ఇస్తుంది. (2) మనుషులు వాటిని ర్యాంక్ చేస్తారు (A, B కంటే మెరుగు). (3) ఈ ప్రాధాన్యతలతో <b>reward model</b> ను train చేస్తారు: ఒక answer కి "ఎంత మంచిది" అనే score ఇచ్చే model. (4) <b>Reinforcement learning</b> (బహుమతి ఆధారంగా నేర్చుకునే పద్ధతి) తో LLM ని ఆ reward ఎక్కువ వచ్చేలా సర్దుబాటు చేస్తారు. ఇది Stack Overflow లో upvotes లాంటిది: మనుషుల votes ఏ answers మంచివో నేర్పుతాయి. ఇలాంటి ప్రాధాన్యత ఆధారిత శిక్షణకు DPO లాంటి సరళమైన ప్రత్యామ్నాయ పద్ధతులు కూడా ఉన్నాయి (వివరాల కోసం ఆ పద్ధతుల papers చూడండి). ఏ కంపెనీ ఏ పద్ధతి వాడుతుందో సాధారణంగా పూర్తిగా వెల్లడించరు.</p>
+<p>సరళమైన దశలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>model ఒక prompt కి అనేక answers ఇస్తుంది.</span></div><div class="step-row"><span class="step-badge">2</span><span>మనుషులు వాటిని ర్యాంక్ చేస్తారు (A, B కంటే మెరుగు).</span></div><div class="step-row"><span class="step-badge">3</span><span>ఈ ప్రాధాన్యతలతో <b>reward model</b> ను train చేస్తారు: ఒక answer కి "ఎంత మంచిది" అనే score ఇచ్చే model.</span></div><div class="step-row"><span class="step-badge">4</span><span><b>Reinforcement learning</b> (బహుమతి ఆధారంగా నేర్చుకునే పద్ధతి) తో LLM ని ఆ reward ఎక్కువ వచ్చేలా సర్దుబాటు చేస్తారు.</span></div></div><p>ఇది Stack Overflow లో upvotes లాంటిది: మనుషుల votes ఏ answers మంచివో నేర్పుతాయి. ఇలాంటి ప్రాధాన్యత ఆధారిత శిక్షణకు DPO (Direct Preference Optimization) లాంటి సరళమైన ప్రత్యామ్నాయ పద్ధతులు కూడా ఉన్నాయి (వివరాల కోసం ఆ పద్ధతుల papers చూడండి). ఏ కంపెనీ ఏ పద్ధతి వాడుతుందో సాధారణంగా పూర్తిగా వెల్లడించరు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -3422,7 +3436,7 @@ model.load_state_dict(ckpt["model"])   # 1000వ step నుండి training �
 <h4>ఎందుకు అవసరం?</h4>
 <p>డజన్ల కొద్దీ models లో ఏది ఎంచుకోవాలి? అందరూ "మా model ఉత్తమం" అంటారు. Benchmarks ఒక ప్రామాణిక కొలత ఇస్తాయి, కానీ వాటి పరిమితులు తెలిస్తేనే సరిగా వాడగలం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Benchmark</b> అంటే ముందే నిర్ణయించిన ప్రశ్నల సెట్ + సరైన సమాధానాలు; model ను అవే ప్రశ్నలతో పరీక్షించి score (ఉదా. accuracy %) ఇస్తారు. వేర్వేరు రంగాలకు వేర్వేరు benchmarks ఉన్నాయి: సాధారణ జ్ఞానం (ఉదా. MMLU), గణితం (ఉదా. GSM8K), code (ఉదా. HumanEval) మొదలైనవి. ఈ పేర్లు కాలక్రమేణా మారుతూ, కొత్తవి వస్తూ ఉంటాయి, కాబట్టి ప్రస్తుతం ఏవి ప్రామాణికమో తాజాగా చూసుకోండి. ఇది software లో performance benchmark (ab, JMeter) లాంటిది: ఒక ప్రామాణిక పరీక్ష, కానీ మీ production load కి సరిగ్గా సరిపోకపోవచ్చు. పరిమితులు: (1) <b>data contamination</b>: test ప్రశ్నలు training data లో ఉండే అవకాశం, (2) benchmark లో బాగా వచ్చినా మీ పనిలో బాగుండకపోవచ్చు, (3) కంపెనీలు తమకు అనుకూలమైన benchmarks నే చూపవచ్చు.</p>
+<p><b>Benchmark</b> అంటే ముందే నిర్ణయించిన ప్రశ్నల సెట్ + సరైన సమాధానాలు; model ను అవే ప్రశ్నలతో పరీక్షించి score (ఉదా. accuracy %) ఇస్తారు. వేర్వేరు రంగాలకు వేర్వేరు benchmarks ఉన్నాయి: సాధారణ జ్ఞానం (ఉదా. MMLU), గణితం (ఉదా. GSM8K), code (ఉదా. HumanEval) మొదలైనవి. ఈ పేర్లు కాలక్రమేణా మారుతూ, కొత్తవి వస్తూ ఉంటాయి, కాబట్టి ప్రస్తుతం ఏవి ప్రామాణికమో తాజాగా చూసుకోండి. ఇది software లో performance benchmark (ab, JMeter) లాంటిది: ఒక ప్రామాణిక పరీక్ష, కానీ మీ production load కి సరిగ్గా సరిపోకపోవచ్చు. పరిమితులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>data contamination</b>: test ప్రశ్నలు training data లో ఉండే అవకాశం</span></div><div class="step-row"><span class="step-badge">2</span><span>benchmark లో బాగా వచ్చినా మీ పనిలో బాగుండకపోవచ్చు</span></div><div class="step-row"><span class="step-badge">3</span><span>కంపెనీలు తమకు అనుకూలమైన benchmarks నే చూపవచ్చు.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre># సొంత mini-benchmark (మీ నిజమైన ఉపయోగానికి ఇదే ఉత్తమం)
 pred = [1, 0, 1, 1]    # model సమాధానాలు
@@ -3437,7 +3451,7 @@ print(acc)             # 0.75</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Open models, datasets ను కనుగొని వాడటానికి Hugging Face అత్యంత విస్తృతంగా ఉపయోగించే వేదిక. AI engineer గా మీరు తరచూ దీనితో పని చేస్తారు: model డౌన్‌లోడ్, tokenizer, fine-tuning, deployment.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రధాన భాగాలు: <b>Hub</b> (models, datasets, demo apps ఉండే GitHub లాంటి వేదిక; ఇది PHP కి Packagist + GitHub కలిపినట్టు), <b><code>transformers</code></b> library (models లోడ్ చేసి వాడటానికి), <b><code>datasets</code></b> library (datasets లోడ్), <b><code>tokenizers</code></b> (text ని tokens గా విడగొట్టడం), <b>Spaces</b> (చిన్న demo apps hosting), <b><code>peft</code></b> (LoRA లాంటి సమర్థ fine-tuning). Library APIs మరియు ఉత్తమ పద్ధతులు మారుతూ ఉంటాయి, కాబట్టి కోడ్ రాసేముందు official documentation (huggingface.co/docs) చూడండి. <code>pipeline</code> అనేది అతి సులభమైన ప్రవేశ ద్వారం: tokenizer + model + post-processing అన్నీ కలిపిన ఒక్క call.</p>
+<p>ప్రధాన భాగాలు: <b>Hub</b> (models, datasets, demo apps ఉండే GitHub లాంటి వేదిక; ఇది PHP కి Packagist + GitHub కలిపినట్టు), <b><code>transformers</code></b> library (models లోడ్ చేసి వాడటానికి), <b><code>datasets</code></b> library (datasets లోడ్), <b><code>tokenizers</code></b> (text ని tokens గా విడగొట్టడం), <b>Spaces</b> (చిన్న demo apps hosting), <b><code>peft</code></b> (LoRA (Low-Rank Adaptation) లాంటి సమర్థ fine-tuning). Library APIs మరియు ఉత్తమ పద్ధతులు మారుతూ ఉంటాయి, కాబట్టి కోడ్ రాసేముందు official documentation (huggingface.co/docs) చూడండి. <code>pipeline</code> అనేది అతి సులభమైన ప్రవేశ ద్వారం: tokenizer + model + post-processing అన్నీ కలిపిన ఒక్క call.</p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: ఇక్కడ నడపలేదు (transformers install, model డౌన్‌లోడ్ అవసరం)
 # pip install transformers torch

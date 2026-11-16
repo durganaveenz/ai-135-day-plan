@@ -71,6 +71,20 @@ details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -378,7 +392,7 @@ print("Tool Execution Result:", result)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM stateless. ప్రతి API call కొత్తది. ఏజెంట్ మునుపటి స్టెప్స్ లో ఏమి చేసిందో, యూజర్ ఇంతకుముందు ఏమి చెప్పాడో గుర్తుంచుకోవడానికి Memory Layer తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో Session లేదా Redis లో యూజర్ స్టేట్ ఎలా భద్రపరుస్తామో, AI ఏజెంట్ లో Memory Layer ఉంటుంది. ఇందులో రెండు రకాలు: (1) <b>Short-term memory:</b> ప్రస్తుత టాస్క్ లోని మెసేజ్‌ల చరిత్ర (Laravel Session లాంటిది), (2) <b>Long-term memory:</b> మునుపటి సెషన్ల సమాచారాన్ని Vector DB లేదా MySQL లో భద్రపరచడం (Laravel Database లాంటిది).</p>
+<p>Laravel లో Session లేదా Redis లో యూజర్ స్టేట్ ఎలా భద్రపరుస్తామో, AI ఏజెంట్ లో Memory Layer ఉంటుంది. ఇందులో రెండు రకాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Short-term memory:</b> ప్రస్తుత టాస్క్ లోని మెసేజ్‌ల చరిత్ర (Laravel Session లాంటిది)</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Long-term memory:</b> మునుపటి సెషన్ల సమాచారాన్ని Vector DB లేదా MySQL లో భద్రపరచడం (Laravel Database లాంటిది).</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>class AgentMemory:
     def __init__(self):
@@ -715,7 +729,7 @@ print("Action allowed?", safe_guardrail("DELETE FROM users WHERE active = 0"))</
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రతిదానికీ AI లేదా LLM అవసరం లేదు. స్టెప్స్ ఎల్లప్పుడూ ఒకే విధంగా మారకుండా స్థిరంగా సాగాల్సిన చోట డిటర్మినిస్టిక్ వర్క్‌ఫ్లోలే అత్యుత్తమమైనవి, వేగవంతమైనవి మరియు చవకైనవి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో ఒక ఆర్డర్ వచ్చినప్పుడు: (1) DB లో save చేయి -&gt; (2) Payment charge చేయి -&gt; (3) Email Invoice పంపు. ఇక్కడ ఏ ఆలోచన లేదా dynamic routing అవసరం లేదు. ప్రతిసారీ ఒకే వరుసలో 100% ఊహాజనితంగా (predictable) జరిగే సాంప్రదాయ కోడ్ నే డిటర్మినిస్టిక్ వర్క్‌ఫ్లో అంటారు.</p>
+<p>Laravel లో ఒక ఆర్డర్ వచ్చినప్పుడు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>DB లో save చేయి -&gt</span></div><div class="step-row"><span class="step-badge">2</span><span>Payment charge చేయి -&gt</span></div><div class="step-row"><span class="step-badge">3</span><span>Email Invoice పంపు.</span></div></div><p>ఇక్కడ ఏ ఆలోచన లేదా dynamic routing అవసరం లేదు. ప్రతిసారీ ఒకే వరుసలో 100% ఊహాజనితంగా (predictable) జరిగే సాంప్రదాయ కోడ్ నే డిటర్మినిస్టిక్ వర్క్‌ఫ్లో అంటారు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def deterministic_order_pipeline(order_data: dict):
     # Fixed linear steps - No LLM, 100% deterministic
@@ -1175,7 +1189,7 @@ def call_tool_with_timeout(tool_func, timeout_seconds=2):
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజ జీవితంలో APIs డౌన్ అవుతాయి, డేటాబేస్ లాక్స్ వస్తాయి. వైఫల్యం ఎదురైనప్పుడు మొత్తం ప్రాసెస్ క్రాష్ అవ్వకుండా దాన్ని తట్టుకుని ప్రత్యామ్నాయ మార్గంలో రికవరీ కావాలి (Resilience).</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `retry(3, function() { ... }, 100)` వాడినట్లే. ఏజెంట్ లో ఒక టూల్ ఫెయిల్ అయితే, ఎర్రర్ మెసేజ్ ని ఫీడ్‌బ్యాక్ గా తీసుకుని: (1) Exponential backoff తో మళ్లీ ప్రయత్నించడం, లేదా (2) సెకండరీ బ్యాకప్ టూల్ ని వాడటం, లేదా (3) సమస్యను అడ్మిన్ కు రిపోర్ట్ చేసి సురక్షితంగా రికవర్ కావడం.</p>
+<p>Laravel లో `retry(3, function() { ... }, 100)` వాడినట్లే. ఏజెంట్ లో ఒక టూల్ ఫెయిల్ అయితే, ఎర్రర్ మెసేజ్ ని ఫీడ్‌బ్యాక్ గా తీసుకుని:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>Exponential backoff తో మళ్లీ ప్రయత్నించడం, లేదా</span></div><div class="step-row"><span class="step-badge">2</span><span>సెకండరీ బ్యాకప్ టూల్ ని వాడటం, లేదా</span></div><div class="step-row"><span class="step-badge">3</span><span>సమస్యను అడ్మిన్ కు రిపోర్ట్ చేసి సురక్షితంగా రికవర్ కావడం.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>def resilient_fetch(url: str, retries=2):
     for attempt in range(retries):
@@ -1235,9 +1249,9 @@ except PermissionError as e:
 <div class="mistake"><b>సాధారణ తప్పు:</b> సెక్యూరిటీ రూల్స్‌ను కేవలం LLM సిస్టమ్ ప్రాంప్ట్ లో రాయడం (ప్రాంప్ట్ ఇంజెక్షన్ ద్వారా బైపాస్ కావచ్చు); హార్డ్ కోడెడ్ కోడ్ బౌండరీస్ ఉండాలి.</div>
 </div></details>
 
-<details class="t"><summary>54. Human approval.<small>మానవ ఆమోదం (Human approval / HITL)</small></summary><div class="body">
+<details class="t"><summary>54. Human approval.<small>మానవ ఆమోదం (Human approval / HITL (Human-in-the-Loop))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఆర్థిక లావాదేవీలు, సర్వర్ రీబూట్‌లు లేదా బల్క్ ఈమెయిల్ క్యాంపెయిన్‌లు వంటి అధిక రిస్క్ పనులకు ముందు మనిషి ఆమోదం తప్పనిసరి. దీన్నే Human-in-the-loop (HITL) అంటారు.</p>
+<p>ఆర్థిక లావాదేవీలు, సర్వర్ రీబూట్‌లు లేదా బల్క్ ఈమెయిల్ క్యాంపెయిన్‌లు వంటి అధిక రిస్క్ పనులకు ముందు మనిషి ఆమోదం తప్పనిసరి. దీన్నే Human-in-the-loop (HITL (Human-in-the-Loop)) అంటారు.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>LangGraph లోని `interrupt()` ఫంక్షన్ ద్వారా ఇది సాధించవచ్చు. గ్రాఫ్ ఎగ్జిక్యూషన్ ఒక నోడ్ వద్ద ఆగి (Pause), మనిషి డ్యాష్‌బోర్డ్‌లో Approve లేదా Reject కొట్టే వరకు వేచి ఉంటుంది. Laravel లో Admin Review / Approval Queue లాంటిది.</p>
 <h4>ఉదాహరణ</h4>
@@ -4172,7 +4186,7 @@ def custom_router(state: dict) -&gt; str:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక నోడ్ ముగిసిన తర్వాత సమాంతరంగా 3 పనులను ఒకేసారి మొదలుపెట్టి (Fan-out), ఆ మూడూ పూర్తయిన తర్వాత వాటన్నింటి ఫలితాలను ఒకే సింగిల్ నోడ్ లో కలపడానికి (Fan-in) ఇది ఉపయోగపడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక పరిశోధనా టాస్క్ లో: యూజర్ ప్రశ్న రాగానే (1) Web Search, (2) MySQL Search, (3) Document Search మూడూ ఒకేసారి ప్యారలల్ గా జరుగుతాయి (Fan-out). ఆ మూడు తెచ్చిన ఫలితాలను ఒక "Synthesizer Node" తీసుకొని ఒకే సమగ్ర సమాధానంగా మారుస్తుంది (Fan-in).</p>
+<p>ఒక పరిశోధనా టాస్క్ లో: యూజర్ ప్రశ్న రాగానే</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>Web Search</span></div><div class="step-row"><span class="step-badge">2</span><span>MySQL Search</span></div><div class="step-row"><span class="step-badge">3</span><span>Document Search మూడూ ఒకేసారి ప్యారలల్ గా జరుగుతాయి (Fan-out).</span></div></div><p>ఆ మూడు తెచ్చిన ఫలితాలను ఒక "Synthesizer Node" తీసుకొని ఒకే సమగ్ర సమాధానంగా మారుస్తుంది (Fan-in).</p>
 <h4>ఉదాహరణ</h4>
 <pre># Fan-out:
 # builder.add_edge("start_node", "search_web")
@@ -4674,7 +4688,7 @@ app = builder.compile(checkpointer=memory)</pre>
 
 <details class="t"><summary>2. Why checkpointing is required.<small>చెక్‌పాయింటింగ్ ఎందుకు తప్పనిసరి?</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మూడు ప్రధాన కారణాల వల్ల చెక్‌పాయింటింగ్ తప్పనిసరి: (1) మల్టీ-టర్న్ సంభాషణల మెమరీని నిలబెట్టడం, (2) Human-in-the-loop లో మనిషి ఆమోదం కోసం రోజుల తరబడి పాజ్ చేయడం, (3) సర్వర్ క్రాష్ రికవరీ మరియు టైమ్-ట్రావెల్ డీబగ్గింగ్.</p>
+<p>మూడు ప్రధాన కారణాల వల్ల చెక్‌పాయింటింగ్ తప్పనిసరి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>మల్టీ-టర్న్ సంభాషణల మెమరీని నిలబెట్టడం</span></div><div class="step-row"><span class="step-badge">2</span><span>Human-in-the-loop లో మనిషి ఆమోదం కోసం రోజుల తరబడి పాజ్ చేయడం</span></div><div class="step-row"><span class="step-badge">3</span><span>సర్వర్ క్రాష్ రికవరీ మరియు టైమ్-ట్రావెల్ డీబగ్గింగ్.</p></span></div></div>
 <h4>సరళమైన వివరణ</h4>
 <p>సాధారణ వెబ్ యాప్‌లలో HTTP Stateless అయినప్పటికీ యూజర్ లాగిన్ అయి ఉన్నాడని Laravel Session Table లేదా Redis ద్వారా ఎలా గుర్తిస్తామో, AI ఏజెంట్ లో యూజర్ పంపే ప్రతి మెసేజ్ తర్వాత ఆ సంభాషణ యొక్క మొత్తం స్టేట్ ని డేటాబేస్ లో స్టోర్ చేయడానికి చెక్‌పాయింటింగ్ కావాలి. ఇది లేకపోతే ఏజెంట్ ప్రతి కొత్త రిక్వెస్ట్ వద్ద పాత సంభాషణను పూర్తిగా మర్చిపోతుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -5049,7 +5063,7 @@ print("Is 10-day old session expired?", is_memory_expired(sample_date)) # True</
 <div class="mistake"><b>సాధారణ తప్పు:</b> గడువు ముగిసిన సెషన్‌ను చెక్ చేయకుండా అలాగే లోడ్ చేసి పాత అవుట్‌డేటెడ్ డేటాతో ప్రాసెస్ చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>26. Why human approval is required.<small>మానవ ఆమోదం ఎందుకు అవసరం? (HITL చైతన్యం)</small></summary><div class="body">
+<details class="t"><summary>26. Why human approval is required.<small>మానవ ఆమోదం ఎందుకు అవసరం? (HITL (Human-in-the-Loop) చైతన్యం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI మోడల్స్ ఎంత అడ్వాన్స్‌డ్ అయినా 100% పర్ఫెక్ట్ కావు. విమానం టేకాఫ్ లేదా భారీ లావాదేవీల వంటి మిషన్-క్రిటికల్ పనులలో ఆఖరి నిర్ణయం ఎల్లప్పుడూ బాధ్యతాయుతమైన మానవుడి వద్దే ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5702,7 +5716,7 @@ print("Is success criteria met?:", evaluate_success(sample_output))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM తయారు చేసిన ప్లాన్ లో లేని టూల్స్ ఉండవచ్చు, రివర్స్ డిపెండెన్సీలు ఉండవచ్చు లేదా భద్రతా ఉల్లంఘనలు ఉండవచ్చు. అమలు చేయకముందే ప్లాన్ చెల్లుబాటును ధృవీకరించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Plan Validation అంటే LLM జనరేట్ చేసిన steps లిస్ట్‌ను ఒక validator ద్వారా స్కాన్ చేయడం. Laravel లో <code>$request-&gt;validate([...])</code> ద్వారా incoming HTTP payload ని DB query కి పంపే ముందే చెక్ చేసినట్లు, Agent execute కాకముందే: 1) అడిగిన టూల్స్ మన దగ్గర ఉన్నాయా? 2) ప్లాన్ లో loops లేవా? అని టెస్ట్ చేయడం.</p>
+<p>Plan Validation అంటే LLM జనరేట్ చేసిన steps లిస్ట్‌ను ఒక validator ద్వారా స్కాన్ చేయడం. Laravel లో <code>$request-&gt;validate([...])</code> ద్వారా incoming HTTP payload ని DB query కి పంపే ముందే చెక్ చేసినట్లు, Agent execute కాకముందే:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>అడిగిన టూల్స్ మన దగ్గర ఉన్నాయా?</span></div><div class="step-row"><span class="step-badge">2</span><span>ప్లాన్ లో loops లేవా? అని టెస్ట్ చేయడం.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>available_tools = {"sql_query", "web_search", "send_email"}
 
@@ -5724,7 +5738,7 @@ validate_plan(plan)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మధ్యలో ప్రతి చిన్న విషయానికి ఆలోచించకుండా, ముందుగానే ఒక రోడ్‌మ్యాప్ సిద్ధం చేసుకుంటే లార్జ్ టాస్క్‌లలో agent ట్రాక్ తప్పకుండా గమ్యాన్ని చేరుతుంది. టోకెన్ ఖర్చు కూడా తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Plan-and-Execute పద్ధతిలో రెండు వేర్వేరు భాగాలు ఉంటాయి: (1) Planner: మొత్తం గోల్ చదివి 4-5 స్టెప్పుల ప్లాన్ ఇస్తుంది. (2) Executor: ఒక్కో స్టెప్పుని తీసుకొని టూల్స్ ద్వారా అమలు చేస్తుంది. Laravel లో ఒక multi-step installation wizard లాంటిది: ముందు అన్ని స్టెప్పుల లిస్ట్ వస్తుంది, తర్వాత యూజర్ ఒక్కో స్టెప్ క్లిక్ చేస్తూ ఫినిష్ చేస్తాడు.</p>
+<p>Plan-and-Execute పద్ధతిలో రెండు వేర్వేరు భాగాలు ఉంటాయి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>Planner: మొత్తం గోల్ చదివి 4-5 స్టెప్పుల ప్లాన్ ఇస్తుంది.</span></div><div class="step-row"><span class="step-badge">2</span><span>Executor: ఒక్కో స్టెప్పుని తీసుకొని టూల్స్ ద్వారా అమలు చేస్తుంది.</span></div></div><p>Laravel లో ఒక multi-step installation wizard లాంటిది: ముందు అన్ని స్టెప్పుల లిస్ట్ వస్తుంది, తర్వాత యూజర్ ఒక్కో స్టెప్ క్లిక్ చేస్తూ ఫినిష్ చేస్తాడు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>class PlanAndExecuteAgent:
     def plan(self, goal: str) -&gt; list:
@@ -7318,7 +7332,7 @@ print(sup.dispatch("sql", "Show top 10 products"))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక నిజమైన వర్క్‌ఫ్లో కోసం డేటాబేస్, రీసెర్చ్ మరియు కంటెంట్ రైటింగ్ లో నిపుణులైన ముగ్గురు ఏజెంట్లను కాన్ఫిగర్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Add Three Specialist Agents అంటే సూపర్‌వైజర్‌కు సహాయకులుగా ముగ్గురు నిపుణులను కనెక్ట్ చేయడం. 1) DBA Agent, 2) Research Agent, 3) Writer Agent. ప్రతి ఏజెంట్‌కు తన నిర్దిష్ట ప్రాంప్ట్ మరియు లాజిక్ ఉంటాయి.</p>
+<p>Add Three Specialist Agents అంటే సూపర్‌వైజర్‌కు సహాయకులుగా ముగ్గురు నిపుణులను కనెక్ట్ చేయడం.</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>DBA Agent</span></div><div class="step-row"><span class="step-badge">2</span><span>Research Agent</span></div><div class="step-row"><span class="step-badge">3</span><span>Writer Agent.</span></div></div><p>ప్రతి ఏజెంట్‌కు తన నిర్దిష్ట ప్రాంప్ట్ మరియు లాజిక్ ఉంటాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def dba_agent(task): return f"[DBA] Generated SQL for: {task}"
 def research_agent(task): return f"[Researcher] Found insights for: {task}"
@@ -7502,7 +7516,7 @@ def local_tool(x): return x * 2
 <h4>ఎందుకు అవసరం?</h4>
 <p>MCP సిస్టమ్‌ను డిజైన్ చేయడానికి దానిలోని 3 ప్రధాన స్తంభాలు (Host, Client, Server) మరియు వాటి పరస్పర సంబంధాలు అర్థం కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MCP ఆర్కిటెక్చర్ లో 3 ప్రధాన భాగాలు ఉంటాయి: 1) <b>Host</b>: యూజర్ ఇంటర్‌ఫేస్ (Claude Desktop, VS Code, Cursor). 2) <b>Client</b>: హోస్ట్ లోపల ఉండి ప్రోటోకాల్ కనెక్షన్‌ను నడిపే క్లయింట్ లైబ్రరీ. 3) <b>Server</b>: అసలైన డేటాబేస్ లేదా టూల్‌ను హోస్ట్ చేసే ప్రోగ్రామ్. వెబ్ ఆర్కిటెక్చర్ లో Browser (Host) -&gt; Axios HTTP Client (Client) -&gt; Laravel API Server (Server) లాంటిది.</p>
+<p>MCP ఆర్కిటెక్చర్ లో 3 ప్రధాన భాగాలు ఉంటాయి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Host</b>: యూజర్ ఇంటర్‌ఫేస్ (Claude Desktop, VS Code, Cursor).</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Client</b>: హోస్ట్ లోపల ఉండి ప్రోటోకాల్ కనెక్షన్‌ను నడిపే క్లయింట్ లైబ్రరీ.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Server</b>: అసలైన డేటాబేస్ లేదా టూల్‌ను హోస్ట్ చేసే ప్రోగ్రామ్.</span></div></div><p>వెబ్ ఆర్కిటెక్చర్ లో Browser (Host) -&gt; Axios HTTP Client (Client) -&gt; Laravel API Server (Server) లాంటిది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Diagram representation:
 # [ Host: Claude Desktop ]
@@ -7569,7 +7583,7 @@ print("Server configured with get_user_email tool.")</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లయింట్ మరియు సర్వర్ ఎప్పుడు ప్రారంభమవుతాయి, ఎలా సామర్థ్యాలు పంచుకుంటాయి, ఎలా క్లోజ్ అవుతాయి అనే నియమాలు తెలిస్తేనే బగ్-ఫ్రీ సిస్టమ్స్ రాయగలం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MCP Protocol Lifecycle లో 3 దశలు ఉంటాయి: 1) <b>Initialization</b>: క్లయింట్ 'initialize' రిక్వెస్ట్ పంపుతుంది, సర్వర్ తన సామర్థ్యాలను (capabilities) చెప్తుంది; క్లయింట్ 'notifications/initialized' పంపుతుంది. 2) <b>Operation</b>: టూల్స్ లిస్ట్ చేయడం, కాల్ చేయడం, రిసోర్స్ చదవడం జరుగుతుంది. 3) <b>Shutdown</b>: కనెక్షన్ క్లోజ్ కావడం.</p>
+<p>MCP Protocol Lifecycle లో 3 దశలు ఉంటాయి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Initialization</b>: క్లయింట్ 'initialize' రిక్వెస్ట్ పంపుతుంది, సర్వర్ తన సామర్థ్యాలను (capabilities) చెప్తుంది; క్లయింట్ 'notifications/initialized' పంపుతుంది.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Operation</b>: టూల్స్ లిస్ట్ చేయడం, కాల్ చేయడం, రిసోర్స్ చదవడం జరుగుతుంది.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Shutdown</b>: కనెక్షన్ క్లోజ్ కావడం.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre># Lifecycle sequence:
 # 1. Client -&gt; Server: initialize
@@ -7701,7 +7715,7 @@ print("Is version compatible?:", check_version_compatibility("2024-11-05"))</pre
 <h4>ఎందుకు అవసరం?</h4>
 <p>టూల్ రన్ అవ్వకపోతే లేదా పారామీటర్లు తప్పైతే AI కి మరియు క్లయింట్‌కు అర్థమయ్యే ప్రామాణిక ఎర్రర్ కోడ్‌లు ఇవ్వాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>JSON-RPC 2.0 లో నిర్దిష్ట ఎర్రర్ కోడ్‌లు ఉన్నాయి: Parse error (-32700), Invalid Request (-32600), Method not found (-32601), Invalid params (-32602), Internal error (-32603). HTTP లో 404, 500, 422 స్టేటస్ కోడ్‌లు ఎలాగో JSON-RPC లో ఇవి అలాగన్నమాట.</p>
+<p>JSON-RPC 2.0 లో నిర్దిష్ట ఎర్రర్ కోడ్‌లు ఉన్నాయి: Parse error (-32700), Invalid Request (-32600), Method not found (-3260</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>, Invalid params (-3260</span></div><div class="step-row"><span class="step-badge">2</span><span>, Internal error (-3260</span></div><div class="step-row"><span class="step-badge">3</span><span>.</span></div></div><p>HTTP లో 404, 500, 422 స్టేటస్ కోడ్‌లు ఎలాగో JSON-RPC లో ఇవి అలాగన్నమాట.</p>
 <h4>ఉదాహరణ</h4>
 <pre>error_response = {
     "jsonrpc": "2.0",
@@ -8952,7 +8966,7 @@ print("Tool 'drop_table' allowed?:", is_tool_permitted("drop_table"))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డబ్బులు చెల్లించడం, డేటా డిలీట్ చేయడం లేదా ప్రొడక్షన్ సర్వర్ రీబూట్ చేయడం వంటి పనులను AI దానంతట అదే స్వయంగా చేసేయకూడదు; మనిషి ఆమోదం తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Human Approval (HITL) అంటే ఒక టూల్ కాల్ జరగడానికి ముందు ఆపరేషన్ వివరాలను స్క్రీన్ పై చూపిస్తూ యూజర్ వద్ద "Proceed / Reject" బటన్ నొక్కేలా హోల్డ్ చేయడం. Laravel లో 2-Factor Authentication లేదా Admin Approval Gate లాంటిది.</p>
+<p>Human Approval (HITL (Human-in-the-Loop)) అంటే ఒక టూల్ కాల్ జరగడానికి ముందు ఆపరేషన్ వివరాలను స్క్రీన్ పై చూపిస్తూ యూజర్ వద్ద "Proceed / Reject" బటన్ నొక్కేలా హోల్డ్ చేయడం. Laravel లో 2-Factor Authentication లేదా Admin Approval Gate లాంటిది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def execute_with_human_gate(tool_name: str, args: dict, user_approved: bool):
     if tool_name == "transfer_funds" and not user_approved:
@@ -9187,7 +9201,7 @@ print("MCP separates tool implementation from AI consumption layer.")</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సరైన సందర్భాల్లో MCP వాడితే డెవలప్‌మెంట్ సమయం మరియు నిర్వహణ వ్యయం గణనీయంగా తగ్గుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>When MCP is useful: 1) సంస్థలోని ప్రైవేట్ డేటాబేస్ లేదా టూల్స్ ని బహుళ AI ఎడిటర్లకు (Claude, Cursor, Windsurf) అందించాలనుకున్నప్పుడు. 2) వేర్వేరు డెవలప్‌మెంట్ టీమ్‌లు స్వతంత్రంగా తమ డొమైన్ టూల్స్ నిర్మించి కేటలాగ్ లో షేర్ చేయాలనుకున్నప్పుడు. 3) భద్రతా అనుమతులను కేంద్రీకృతం చేయాలనుకున్నప్పుడు.</p>
+<p>When MCP is useful:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>సంస్థలోని ప్రైవేట్ డేటాబేస్ లేదా టూల్స్ ని బహుళ AI ఎడిటర్లకు (Claude, Cursor, Windsurf) అందించాలనుకున్నప్పుడు.</span></div><div class="step-row"><span class="step-badge">2</span><span>వేర్వేరు డెవలప్‌మెంట్ టీమ్‌లు స్వతంత్రంగా తమ డొమైన్ టూల్స్ నిర్మించి కేటలాగ్ లో షేర్ చేయాలనుకున్నప్పుడు.</span></div><div class="step-row"><span class="step-badge">3</span><span>భద్రతా అనుమతులను కేంద్రీకృతం చేయాలనుకున్నప్పుడు.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>ideal_use_cases = [
     "Internal Postgres Database exposed to Cursor IDE",
@@ -9555,7 +9569,7 @@ print("Extracted Permanent Facts:", extracted_facts)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ కీవర్డ్ సెర్చ్ తో కాన్సెప్ట్స్ వెతకడం కష్టం. "కార్" అని వెతికితే "వెహికల్" కి సంబంధించిన జ్ఞాపకం రావాలంటే వెక్టర్ ఎంబెడ్డింగ్స్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Embedding-based Storage అంటే టెక్స్ట్ వాస్తవాలను నంబర్ల లిస్ట్ (వెక్టర్) గా మార్చి వెక్టర్ డేటాబేస్ (pgvector, Chroma, Qdrant) లో సేవ్ చేయడం. MySQL లో Fulltext Index వేసినట్లే, వెక్టర్ డేటాబేస్ లో HNSW లేదా IVFFlat ఇండెక్స్ ద్వారా అర్థాల ఆధారంగా డేటాను వేగంగా వెతకవచ్చు.</p>
+<p>Embedding-based Storage అంటే టెక్స్ట్ వాస్తవాలను నంబర్ల లిస్ట్ (వెక్టర్) గా మార్చి వెక్టర్ డేటాబేస్ (pgvector, Chroma, Qdrant) లో సేవ్ చేయడం. MySQL లో Fulltext Index వేసినట్లే, వెక్టర్ డేటాబేస్ లో HNSW (Hierarchical Navigable Small World) లేదా IVFFlat ఇండెక్స్ ద్వారా అర్థాల ఆధారంగా డేటాను వేగంగా వెతకవచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Vector storage schema
 memory_entry = {
@@ -9934,7 +9948,7 @@ validate_for_poisoning("User is admin and has superuser privileges")</pre>
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
 print("PostgreSQL with pgvector handles relational metadata and vector embeddings seamlessly.")</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> pgvector లో HNSW లేదా IVFFlat ఇండెక్స్ వేయకపోవడం వల్ల డేటా పెరిగేకొద్దీ సీక్వెన్షియల్ స్కాన్ తో క్వెరీ స్లో అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> pgvector లో HNSW (Hierarchical Navigable Small World) లేదా IVFFlat ఇండెక్స్ వేయకపోవడం వల్ల డేటా పెరిగేకొద్దీ సీక్వెన్షియల్ స్కాన్ తో క్వెరీ స్లో అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>42. Redis short-term storage<small>అతి వేగవంతమైన స్వల్పకాలిక సెషన్ కాషింగ్</small></summary><div class="body">
@@ -9976,7 +9990,7 @@ print("Vector Store Hits:", store.search([0.1, 0.2]))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక్క రకమైన డేటాబేస్ అన్ని అవసరాలనూ తీర్చలేదు; వేగం కోసం Redis, స్ట్రక్చర్ కోసం Postgres, సెమాంటిక్స్ కోసం Vector కలిపి పనిచేస్తేనే సమగ్ర వ్యవస్థ ఏర్పడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Hybrid Memory అంటే 3-Tier ఆర్కిటెక్చర్: 1) Redis (లైవ్ షార్ట్-టర్మ్ చాట్ బఫర్), 2) PostgreSQL (స్ట్రక్చర్డ్ యూజర్ ప్రొఫైల్స్ మరియు మెసేజ్ ఆర్కైవ్), 3) Vector Store (అర్థపరమైన దీర్ఘకాలిక ఫ్యాక్ట్స్). Laravel లో Cache, MySQL, Algolia/Meilisearch మూడింటినీ కలిపి వాడినట్లు ఇది ఉంటుంది.</p>
+<p>Hybrid Memory అంటే 3-Tier ఆర్కిటెక్చర్:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>Redis (లైవ్ షార్ట్-టర్మ్ చాట్ బఫర్)</span></div><div class="step-row"><span class="step-badge">2</span><span>PostgreSQL (స్ట్రక్చర్డ్ యూజర్ ప్రొఫైల్స్ మరియు మెసేజ్ ఆర్కైవ్)</span></div><div class="step-row"><span class="step-badge">3</span><span>Vector Store (అర్థపరమైన దీర్ఘకాలిక ఫ్యాక్ట్స్).</span></div></div><p>Laravel లో Cache, MySQL, Algolia/Meilisearch మూడింటినీ కలిపి వాడినట్లు ఇది ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>hybrid_system = {
     "tier_1_fast": "Redis (Current session buffer)",
@@ -10052,7 +10066,7 @@ print(f"Memory System Benchmark Accuracy: {evaluate_memory_accuracy(ground_truth
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI agent లు ఎంత సమర్థవంతంగా పనిచేసినప్పటికీ అవి కొన్నిసార్లు hallucinations లేదా తప్పుడు నిర్ణయాలు తీసుకునే ప్రమాదం ఉంది. ముఖ్యంగా డబ్బులు బదిలీ చేయడం, డేటాబేస్ రికార్డులను డిలీట్ చేయడం లేదా కస్టమర్లకు ఈమెయిల్స్ పంపడం వంటి కీలక చర్యలు జరిగినప్పుడు పొరపాట్లు జరిగితే వ్యాపారానికి భారీ నష్టం వాటిల్లుతుంది. అందుకే అత్యంత సున్నితమైన పనులకు మానవ పర్యవేక్షణ (Human Intervention) తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PHP/Laravel లో మీరు ఒక financial transaction లేదా bulk email dispatch చేసేటప్పుడు కేవలం cron job లేదా queue worker కి పూర్తి అధికారం ఇచ్చి వదిలేయరు; అడ్మిన్ ప్యానెల్‌లో 'Pending Approval' అని ఉంచి మేనేజర్ 'Approve' బటన్ నొక్కాకే execute అయ్యేలా చూస్తారు. AI Agent లలో కూడా సరిగ్గా ఇదే సూత్రాన్ని <b>Human-in-the-loop (HITL)</b> అంటారు. Agent మొత్తం సమాచారాన్ని సేకరించి, విశ్లేషించి, ప్లాన్ సిద్ధం చేస్తుంది కానీ తుది యాక్షన్ తీసుకునే ముందు మనిషి అనుమతి తీసుకుంటుంది.</p>
+<p>PHP/Laravel లో మీరు ఒక financial transaction లేదా bulk email dispatch చేసేటప్పుడు కేవలం cron job లేదా queue worker కి పూర్తి అధికారం ఇచ్చి వదిలేయరు; అడ్మిన్ ప్యానెల్‌లో 'Pending Approval' అని ఉంచి మేనేజర్ 'Approve' బటన్ నొక్కాకే execute అయ్యేలా చూస్తారు. AI Agent లలో కూడా సరిగ్గా ఇదే సూత్రాన్ని <b>Human-in-the-loop (HITL (Human-in-the-Loop))</b> అంటారు. Agent మొత్తం సమాచారాన్ని సేకరించి, విశ్లేషించి, ప్లాన్ సిద్ధం చేస్తుంది కానీ తుది యాక్షన్ తీసుకునే ముందు మనిషి అనుమతి తీసుకుంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Human approval అవసరమయ్యే ప్రమాదకర చర్యల వర్గీకరణ
 def requires_human_approval(action_type: str, amount: float = 0.0) -> bool:
@@ -10475,7 +10489,7 @@ CREATE TABLE agent_approval_requests (
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆమోదం తెలిపిన వ్యక్తి నిజంగా ఎవరో ధ్రువీకరించకపోతే సిస్టమ్ మోసపోయే అవకాశం ఉంది. ఏజెంట్ ఎగ్జిక్యూషన్ చేసే చర్యలకు ఎవరు బాధ్యత వహిస్తారో తెలుసుకోవడానికి స్పష్టమైన User Identity (Auth ID, Email, IP Address) ట్రాకింగ్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `Auth::user()-&gt;id` ద్వారా ప్రస్తుత లాగిన్ అయిన యూజర్‌ను పట్టుకుంటాం కదా! HITL వర్క్‌ఫ్లోలో ఆమోద బటన్ నొక్కినప్పుడు, సెషన్ లేదా JWT టోకెన్ నుండి ఆమోదించిన వ్యక్తి యూజర్ ఐడీని సేకరించి రికార్డు చేయాలి. ఒకరి పేరు మీద ఇంకొకరు ఆమోదించకుండా ఇది కాపాడుతుంది.</p>
+<p>Laravel లో `Auth::user()-&gt;id` ద్వారా ప్రస్తుత లాగిన్ అయిన యూజర్‌ను పట్టుకుంటాం కదా! HITL (Human-in-the-Loop) వర్క్‌ఫ్లోలో ఆమోద బటన్ నొక్కినప్పుడు, సెషన్ లేదా JWT టోకెన్ నుండి ఆమోదించిన వ్యక్తి యూజర్ ఐడీని సేకరించి రికార్డు చేయాలి. ఒకరి పేరు మీద ఇంకొకరు ఆమోదించకుండా ఇది కాపాడుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def verify_approver_identity(token: str) -> dict:
     # టోకెన్ ఆధారంగా యూజర్ గుర్తింపును పొందడం
@@ -10709,7 +10723,7 @@ validate_sql_execution("ALTER TABLE users DROP COLUMN phone_number;")</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>GDPR, HIPAA, SOC2 వంటి నియంత్రణ నిబంధనలు ఉన్న రంగాలలో ఆర్టిఫిషియల్ ఇంటెలిజెన్స్ స్వతంత్రంగా డేటాను ప్రాసెస్ చేయడం చట్టవిరుద్ధం కావచ్చు. కస్టమర్ డేటా ఎగుమతి లేదా గోప్యతా విధానాల మార్పులు లీగల్ మరియు కంప్లయన్స్ ఆఫీసర్ల పరిశీలన ద్వారానే జరగాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel అప్లికేషన్‌లో యూజర్ డేటా ఎక్స్‌పోర్ట్ కోసం ఒక రిక్వెస్ట్ పెట్టినప్పుడు DPO (Data Protection Officer) క్యూ లోకి వెళ్లి డాక్యుమెంట్ వెరిఫై అయిన తర్వాత డౌన్‌లోడ్ లింక్ జనరేట్ చేస్తాం కదా. AI Agent డాక్యుమెంట్స్ లేదా మెడికల్ డేటాను ప్రిపేర్ చేసినప్పుడు కంప్లయన్స్ చెక్‌లిస్ట్ పాస్ అయి ఆఫీసర్ సంతకం పెట్టేలా workflow ఉంటుంది.</p>
+<p>Laravel అప్లికేషన్‌లో యూజర్ డేటా ఎక్స్‌పోర్ట్ కోసం ఒక రిక్వెస్ట్ పెట్టినప్పుడు DPO (Direct Preference Optimization) (Data Protection Officer) క్యూ లోకి వెళ్లి డాక్యుమెంట్ వెరిఫై అయిన తర్వాత డౌన్‌లోడ్ లింక్ జనరేట్ చేస్తాం కదా. AI Agent డాక్యుమెంట్స్ లేదా మెడికల్ డేటాను ప్రిపేర్ చేసినప్పుడు కంప్లయన్స్ చెక్‌లిస్ట్ పాస్ అయి ఆఫీసర్ సంతకం పెట్టేలా workflow ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def compliance_check_gate(data_payload: dict) -> dict:
     contains_health_data = data_payload.get("contains_phi", False)
@@ -10840,7 +10854,7 @@ print(res)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక సమస్య సాధారణ సపోర్ట్ సిస్టమ్ ద్వారా పరిష్కారం కానప్పుడు లేదా గడువు ముగిసినప్పుడు ఉన్నతాధికారులకు చేరే మార్గం (Escalation Path) స్పష్టంగా నిర్వచించబడాలి. లేకపోతే ముఖ్యమైన పనులు ఆగిపోయి కస్టమర్లు అసంతృప్తికి లోనవుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో Cron job ద్వారా `if (ticket-&gt;created_at &lt; 2 hours ago &amp;&amp; unassigned) ticket-&gt;assignTo(team_lead)` ఎలా చేస్తామో, HITL ఆర్కిటెక్చర్‌లో కూడా ఒక ఏజెంట్ ఆగిన తర్వాత నిర్దిష్ట వ్యవధిలో స్పందన రాకపోతే తర్వాతి స్థాయి మేనేజర్‌కు ఆటోమేటిక్‌గా అలర్ట్ రీ-రూట్ అయ్యేలా ఎస్కలేషన్ హ్యాండ్లర్ రాస్తాం.</p>
+<p>Laravel లో Cron job ద్వారా `if (ticket-&gt;created_at &lt; 2 hours ago &amp;&amp; unassigned) ticket-&gt;assignTo(team_lead)` ఎలా చేస్తామో, HITL (Human-in-the-Loop) ఆర్కిటెక్చర్‌లో కూడా ఒక ఏజెంట్ ఆగిన తర్వాత నిర్దిష్ట వ్యవధిలో స్పందన రాకపోతే తర్వాతి స్థాయి మేనేజర్‌కు ఆటోమేటిక్‌గా అలర్ట్ రీ-రూట్ అయ్యేలా ఎస్కలేషన్ హ్యాండ్లర్ రాస్తాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def handle_escalation(ticket_id: str, current_level: int) -> dict:
     escalation_hierarchy = {

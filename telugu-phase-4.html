@@ -71,6 +71,20 @@ details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -105,7 +119,7 @@ details.t[data-status="archive"]:hover { opacity: 1; }
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM training డేటా ఒక నిర్దిష్ట తేదీ వరకే ఉంటుంది, మరియు అందులో మీ private డేటా (internal wiki, customer tickets, contracts) ఉండదు. ఆ డేటా లేకుండా business ప్రశ్నలకు నమ్మదగిన సమాధానం రాదు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మూడు ప్రధాన కారణాలు: (1) <b>Private data</b>: మీ కంపెనీ డేటా internet లో లేదు కాబట్టి model కి తెలియదు. (2) <b>Fresh data</b>: నిన్న మారిన policy model కి తెలియదు. (3) <b>Limited context window</b>: మొత్తం డేటాని prompt లో పెట్టలేం (అంతా పెడితే ఖర్చు మరియు నెమ్మది). కాబట్టి అవసరమైన భాగాన్ని మాత్రమే వెతికి ఇస్తాం. ఇది MySQL లో <code>SELECT *</code> బదులు <code>WHERE</code> తో అవసరమైన rows మాత్రమే తెచ్చుకున్నట్టే.</p>
+<p>మూడు ప్రధాన కారణాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Private data</b>: మీ కంపెనీ డేటా internet లో లేదు కాబట్టి model కి తెలియదు.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Fresh data</b>: నిన్న మారిన policy model కి తెలియదు.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Limited context window</b>: మొత్తం డేటాని prompt లో పెట్టలేం (అంతా పెడితే ఖర్చు మరియు నెమ్మది).</span></div></div><p>కాబట్టి అవసరమైన భాగాన్ని మాత్రమే వెతికి ఇస్తాం. ఇది MySQL లో <code>SELECT *</code> బదులు <code>WHERE</code> తో అవసరమైన rows మాత్రమే తెచ్చుకున్నట్టే.</p>
 <h4>ఉదాహరణ</h4>
 <p>Real-life scenario: HR chatbot. ఉద్యోగి "నాకు ఈ సంవత్సరం ఎన్ని casual leaves ఉన్నాయి?" అని అడిగాడు. LLM కి మీ కంపెనీ leave policy PDF తెలియదు. కాబట్టి policy PDF లోని సంబంధిత పేరాని వెతికి prompt లో ఇస్తే, LLM ఖచ్చితమైన సంఖ్యతో జవాబిస్తుంది. లేకపోతే "సాధారణంగా కంపెనీలు 12 ఇస్తాయి" లాంటి సాధారణ ఊహ ఇస్తుంది.</p>
 </div></details>
@@ -167,7 +181,7 @@ print("Re-ingest/verify చేయాల్సినవి:", stale)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>RAG లో ఏ భాగం ఏ పని చేస్తుందో తెలిస్తేనే సమస్య వచ్చినప్పుడు (తప్పు జవాబు) ఎక్కడ debug చేయాలో తెలుస్తుంది: parsing లోనా, chunking లోనా, retrieval లోనా, prompt లోనా.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>RAG system లో ప్రధాన భాగాలు: (1) <b>Document loader/parser</b>: files నుండి text తీయడం, (2) <b>Chunker</b>: text ని చిన్న ముక్కలుగా కోయడం, (3) <b>Embedding model</b>: ప్రతి ముక్కను సంఖ్యల vector గా మార్చడం, (4) <b>Vector store</b>: ఆ vectors ని నిల్వ చేసి వేగంగా వెతకడం, (5) <b>Retriever</b>: ప్రశ్నకు దగ్గరి chunks తేవడం, (6) <b>Prompt builder</b>: context + ప్రశ్న కలపడం, (7) <b>LLM (generator)</b>: జవాబు రాయడం. Laravel పోలిక: loader = file upload handler, vector store = MySQL table + index, retriever = Eloquent query scope, prompt builder = Blade template, LLM = external API service.</p>
+<p>RAG system లో ప్రధాన భాగాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Document loader/parser</b>: files నుండి text తీయడం</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Chunker</b>: text ని చిన్న ముక్కలుగా కోయడం</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Embedding model</b>: ప్రతి ముక్కను సంఖ్యల vector గా మార్చడం</span></div><div class="step-row"><span class="step-badge">4</span><span><b>Vector store</b>: ఆ vectors ని నిల్వ చేసి వేగంగా వెతకడం</span></div><div class="step-row"><span class="step-badge">5</span><span><b>Retriever</b>: ప్రశ్నకు దగ్గరి chunks తేవడం</span></div><div class="step-row"><span class="step-badge">6</span><span><b>Prompt builder</b>: context + ప్రశ్న కలపడం</span></div><div class="step-row"><span class="step-badge">7</span><span><b>LLM (generator)</b>: జవాబు రాయడం.</span></div></div><p>Laravel పోలిక: loader = file upload handler, vector store = MySQL table + index, retriever = Eloquent query scope, prompt builder = Blade template, LLM = external API service.</p>
 <h4>ఉదాహరణ</h4>
 <pre>ఫ్లో (వచనంలో):
 [Files] → parse → chunk → embed → [Vector Store]      ← offline (ముందుగా)
@@ -241,7 +255,7 @@ print(r.retrieve("refund days"))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>User ప్రశ్న వచ్చిన క్షణం నుండి LLM కి prompt వెళ్ళే వరకు జరిగే ప్రతి అడుగు జవాబు నాణ్యతను ప్రభావితం చేస్తుంది. ఈ క్రమం తెలిస్తే ప్రతి అడుగుని మెరుగుపరచవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>అడుగులు: (1) <b>Query</b> తీసుకోవడం (కావాలంటే clean/rewrite), (2) query ని <b>embed</b> చేయడం (documents కి వాడిన అదే model తో), (3) vector store లో <b>similarity search</b> (top-k), (4) (ఐచ్ఛికం) <b>filter/re-rank</b>, (5) chunks ని ఒక <b>context string</b> గా అమర్చడం (token limit లోపల), (6) <b>prompt</b> తయారు చేసి LLM కి పంపడం, (7) జవాబు + sources తిరిగి ఇవ్వడం. Laravel లో ఇది ఒక Service class లో <code>handle($question)</code> method లా ఉంటుంది.</p>
+<p>అడుగులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Query</b> తీసుకోవడం (కావాలంటే clean/rewrite)</span></div><div class="step-row"><span class="step-badge">2</span><span>query ని <b>embed</b> చేయడం (documents కి వాడిన అదే model తో)</span></div><div class="step-row"><span class="step-badge">3</span><span>vector store లో <b>similarity search</b> (top-k)</span></div><div class="step-row"><span class="step-badge">4</span><span>(ఐచ్ఛికం) <b>filter/re-rank</b></span></div><div class="step-row"><span class="step-badge">5</span><span>chunks ని ఒక <b>context string</b> గా అమర్చడం (token limit లోపల)</span></div><div class="step-row"><span class="step-badge">6</span><span><b>prompt</b> తయారు చేసి LLM కి పంపడం</span></div><div class="step-row"><span class="step-badge">7</span><span>జవాబు + sources తిరిగి ఇవ్వడం.</span></div></div><p>Laravel లో ఇది ఒక Service class లో <code>handle($question)</code> method లా ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -289,7 +303,7 @@ ADVANCED : query → rewrite → hybrid search (top-30) → metadata filter
 <h4>ఎందుకు అవసరం?</h4>
 <p>RAG ఎక్కడ బాగా పనిచేస్తుందో, ఎక్కడ పనిచేయదో తెలిస్తేనే client కి సరైన అంచనాలు చెప్పగలం, తప్పు project లో సమయం వృధా చేయకుండా ఉంటాం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Use cases</b>: company knowledge-base Q&amp;A, customer support bot, documentation/code search assistant, legal/contract lookup, HR/policy bots, research assistants. <b>Limitations</b>: (1) retrieval తప్పితే జవాబు తప్పు; (2) "మొత్తం documents లో ట్రెండ్ ఏమిటి?" లాంటి aggregate ప్రశ్నలకు top-k chunks సరిపోవు (అలాంటప్పుడు SQL/analytics మంచిది: "ఈ నెల ఎన్ని orders?" కి <code>COUNT(*)</code> వాడండి, RAG కాదు); (3) ఖచ్చితమైన ID/కోడ్ search కి keyword search మెరుగు; (4) చెడు parsing/chunking వల్ల నాణ్యత పడిపోతుంది; (5) ప్రతి query కి embedding + LLM ఖర్చు, latency; (6) multi-hop reasoning (చాలా documents ని కలిపి తర్కించడం) కష్టం; (7) documents లోని సున్నితమైన డేటా leak కాకుండా permissions చూసుకోవాలి.</p>
+<p><b>Use cases</b>: company knowledge-base Q&amp;A, customer support bot, documentation/code search assistant, legal/contract lookup, HR/policy bots, research assistants. <b>Limitations</b>:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>retrieval తప్పితే జవాబు తప్పు</span></div><div class="step-row"><span class="step-badge">2</span><span>"మొత్తం documents లో ట్రెండ్ ఏమిటి?" లాంటి aggregate ప్రశ్నలకు top-k chunks సరిపోవు (అలాంటప్పుడు SQL/analytics మంచిది: "ఈ నెల ఎన్ని orders?" కి <code>COUNT(*)</code> వాడండి, RAG కాదు)</span></div><div class="step-row"><span class="step-badge">3</span><span>ఖచ్చితమైన ID/కోడ్ search కి keyword search మెరుగు</span></div><div class="step-row"><span class="step-badge">4</span><span>చెడు parsing/chunking వల్ల నాణ్యత పడిపోతుంది</span></div><div class="step-row"><span class="step-badge">5</span><span>ప్రతి query కి embedding + LLM ఖర్చు, latency</span></div><div class="step-row"><span class="step-badge">6</span><span>multi-hop reasoning (చాలా documents ని కలిపి తర్కించడం) కష్టం</span></div><div class="step-row"><span class="step-badge">7</span><span>documents లోని సున్నితమైన డేటా leak కాకుండా permissions చూసుకోవాలి.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>"ఈ నెల మొత్తం sales ఎంత?"            → SQL (SUM) ; RAG కాదు
 "Refund policy ఏమిటి?"                  → RAG ✔
@@ -431,7 +445,7 @@ print(text)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక PDF లో కొన్ని పేజీలు అసలు text, కొన్ని స్కాన్ చేసిన చిత్రాలు ఉండొచ్చు. ప్రతి PDF కి OCR చేస్తే ఖరీదు, నెమ్మది. కాబట్టి ఏ పేజీ కి OCR అవసరమో గుర్తించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ విధానం: (1) ముందు సాధారణ text extraction ప్రయత్నించండి, (2) ఒక పేజీలో extract అయిన అక్షరాల సంఖ్య చాలా తక్కువగా (ఉదా: &lt; 20) ఉంటే అది స్కాన్ అని భావించి, (3) ఆ పేజీని చిత్రంగా render చేసి (ఉదా: <code>pdf2image</code> / <code>pypdfium2</code>) OCR చేయండి. Pre-processing (deskew, contrast పెంచడం, noise తీయడం) నాణ్యతను పెంచుతుంది. ఫలితాన్ని "source: ocr" అని metadata లో గుర్తించండి, తర్వాత quality సమస్యలు వస్తే ఇది ఉపయోగపడుతుంది.</p>
+<p>సాధారణ విధానం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ముందు సాధారణ text extraction ప్రయత్నించండి</span></div><div class="step-row"><span class="step-badge">2</span><span>ఒక పేజీలో extract అయిన అక్షరాల సంఖ్య చాలా తక్కువగా (ఉదా: &lt; 20) ఉంటే అది స్కాన్ అని భావించి</span></div><div class="step-row"><span class="step-badge">3</span><span>ఆ పేజీని చిత్రంగా render చేసి (ఉదా: <code>pdf2image</code> / <code>pypdfium2</code>) OCR చేయండి.</span></div></div><p>Pre-processing (deskew, contrast పెంచడం, noise తీయడం) నాణ్యతను పెంచుతుంది. ఫలితాన్ని "source: ocr" అని metadata లో గుర్తించండి, తర్వాత quality సమస్యలు వస్తే ఇది ఉపయోగపడుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from pypdf import PdfReader
 
@@ -475,7 +489,7 @@ for t in doc.tables:
 <h4>ఎందుకు అవసరం?</h4>
 <p>Metadata (title, author, తేదీ, source, page number, department) ఉంటే search ని filter చేయవచ్చు ("HR documents లో మాత్రమే వెతుకు"), citations ఇవ్వొచ్చు, access control అమలు చేయొచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Metadata రెండు రకాలు: (1) file లోపల ఉన్నది: PDF info (title, author, creation date), DOCX core properties; (2) మనం జోడించేది: source path/URL, ingestion time, department, language, access level. File లోని metadata తరచూ ఖాళీగా లేదా తప్పుగా ఉంటుంది, కాబట్టి దానిపైనే ఆధారపడకండి. ప్రతి chunk కి దాని document metadata కాపీ చేయండి. MySQL పోలిక: chunk table లో extra columns, వాటిపై <code>WHERE department = 'HR'</code>.</p>
+<p>Metadata రెండు రకాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>file లోపల ఉన్నది: PDF info (title, author, creation date), DOCX core properties</span></div><div class="step-row"><span class="step-badge">2</span><span>మనం జోడించేది: source path/URL, ingestion time, department, language, access level.</span></div></div><p>File లోని metadata తరచూ ఖాళీగా లేదా తప్పుగా ఉంటుంది, కాబట్టి దానిపైనే ఆధారపడకండి. ప్రతి chunk కి దాని document metadata కాపీ చేయండి. MySQL పోలిక: chunk table లో extra columns, వాటిపై <code>WHERE department = 'HR'</code>.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from pypdf import PdfReader
 from docx import Document
@@ -495,7 +509,7 @@ print(chunk_meta)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Document update అయినప్పుడు పాత chunks ని కనుక్కుని తీసేయాలంటే ప్రతి chunk "ఏ document ది" అని తెలియాలి. స్థిరమైన (stable) ID లేకపోతే re-ingest చేసినప్పుడు duplicates పేరుకుపోతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు విధానాలు: (1) <b>Source-based ID</b>: file path/URL/DB primary key నుండి deterministic ID (ఉదా: <code>uuid5</code> లేదా path యొక్క hash): ఒకే document కి ఎప్పుడూ ఒకే ID; (2) <b>Content-based ID</b>: content hash; content మారితే ID మారుతుంది. సాధారణంగా document_id (source-based) + chunk_id (<code>document_id:chunk_index</code>) వాడతారు. Laravel లో <code>updateOrCreate</code> కి natural key వాడినట్టే.</p>
+<p>రెండు విధానాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Source-based ID</b>: file path/URL/DB primary key నుండి deterministic ID (ఉదా: <code>uuid5</code> లేదా path యొక్క hash): ఒకే document కి ఎప్పుడూ ఒకే ID</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Content-based ID</b>: content hash; content మారితే ID మారుతుంది.</span></div></div><p>సాధారణంగా document_id (source-based) + chunk_id (<code>document_id:chunk_index</code>) వాడతారు. Laravel లో <code>updateOrCreate</code> కి natural key వాడినట్టే.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import uuid, hashlib
 
@@ -541,7 +555,7 @@ print(ingest("policy", "Refund 14 days."))     # v2, పాత chunks replace</p
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే document వేర్వేరు folders లో, లేదా చిన్న మార్పులతో చాలా కాపీలుగా ఉంటుంది. Duplicates ఉంటే top-k results లో అవే కాపీలు నిండిపోయి, ఇతర useful సమాచారం చేరదు; embedding ఖర్చు కూడా వృధా.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు స్థాయిలు: (1) <b>Exact duplicates</b>: text ని normalize (lowercase, extra spaces తీయడం) చేసి hash పోల్చడం. (2) <b>Near duplicates</b>: కొద్దిగా మారిన కాపీలు; <b>shingles</b> (వరుస పదాల సమూహాలు) తయారు చేసి <b>Jaccard similarity</b> (ఉమ్మడి shingles / మొత్తం shingles) లెక్కిస్తారు; పెద్ద స్థాయిలో MinHash/LSH వాడతారు. Threshold (ఉదా: 0.8) మీ డేటాకు అనుగుణంగా ఎంచుకోవాలి.</p>
+<p>రెండు స్థాయిలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Exact duplicates</b>: text ని normalize (lowercase, extra spaces తీయడం) చేసి hash పోల్చడం.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Near duplicates</b>: కొద్దిగా మారిన కాపీలు; <b>shingles</b> (వరుస పదాల సమూహాలు) తయారు చేసి <b>Jaccard similarity</b> (ఉమ్మడి shingles / మొత్తం shingles) లెక్కిస్తారు; పెద్ద స్థాయిలో MinHash/LSH వాడతారు.</span></div></div><p>Threshold (ఉదా: 0.8) మీ డేటాకు అనుగుణంగా ఎంచుకోవాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import hashlib, re
 
@@ -798,7 +812,7 @@ for c in recursive_split(text):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక పేరాలోనే topic మారిపోవచ్చు, లేదా ఒకే topic చాలా పేరాల్లో కొనసాగవచ్చు. అర్థం ఆధారంగా కోస్తే ప్రతి chunk ఒకే topic గురించి ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పద్ధతి: (1) text ని వాక్యాలుగా విడగొట్టండి, (2) ప్రతి వాక్యానికి embedding తీయండి, (3) పక్క పక్క వాక్యాల మధ్య similarity లెక్కించండి, (4) similarity బాగా పడిపోయిన చోట (topic మారిన చోట) కొత్త chunk మొదలుపెట్టండి. ఇది చాలా ఖరీదైనది (ప్రతి వాక్యానికి embedding), threshold ట్యూన్ చేయాలి, మరియు ఎప్పుడూ ఇది సాధారణ recursive splitting కంటే మెరుగ్గా ఉంటుందనే గ్యారంటీ లేదు: మీ డేటాపై పోల్చి చూడండి. క్రింద embedding బదులు సరళమైన word-overlap similarity వాడాను (అసలైన embedding model లేకుండా ఆలోచన అర్థమవ్వడానికి).</p>
+<p>పద్ధతి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>text ని వాక్యాలుగా విడగొట్టండి</span></div><div class="step-row"><span class="step-badge">2</span><span>ప్రతి వాక్యానికి embedding తీయండి</span></div><div class="step-row"><span class="step-badge">3</span><span>పక్క పక్క వాక్యాల మధ్య similarity లెక్కించండి</span></div><div class="step-row"><span class="step-badge">4</span><span>similarity బాగా పడిపోయిన చోట (topic మారిన చోట) కొత్త chunk మొదలుపెట్టండి.</span></div></div><p>ఇది చాలా ఖరీదైనది (ప్రతి వాక్యానికి embedding), threshold ట్యూన్ చేయాలి, మరియు ఎప్పుడూ ఇది సాధారణ recursive splitting కంటే మెరుగ్గా ఉంటుందనే గ్యారంటీ లేదు: మీ డేటాపై పోల్చి చూడండి. క్రింద embedding బదులు సరళమైన word-overlap similarity వాడాను (అసలైన embedding model లేకుండా ఆలోచన అర్థమవ్వడానికి).</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re
 from collections import Counter
@@ -928,7 +942,7 @@ for c in chunk_with_overlap(text):
 <h4>ఎందుకు అవసరం?</h4>
 <p>Chunk size రెండు వైపులా పనిచేస్తుంది: చిన్నదైతే ఖచ్చితమైన search కానీ సందర్భం తక్కువ; పెద్దదైతే సందర్భం ఎక్కువ కానీ అస్పష్టమైన match మరియు ఎక్కువ tokens ఖర్చు. "అందరికీ సరిపోయే" సంఖ్య లేదు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పరిశీలించాల్సినవి: (1) embedding model యొక్క max input tokens (దాటితే కత్తిరిస్తుంది), (2) ప్రశ్నల రకం: facts/లుకప్ ప్రశ్నలకు చిన్న chunks (కొన్ని వాక్యాలు), వివరణ/సారాంశ ప్రశ్నలకు పెద్దవి, (3) document రకం: FAQ లు సహజంగా చిన్నవి, legal contracts కి పెద్ద సందర్భం కావాలి, (4) top-k × chunk size ≤ LLM prompt లో పెట్టగలిగే context. సాధారణంగా ప్రారంభ బిందువుగా కొన్ని వందల tokens వాడతారు (ఉదా: 200-500), కానీ ఇది కేవలం ప్రారంభ అంచనా: తప్పనిసరిగా మీ ప్రశ్నల test set తో వేర్వేరు sizes ని పోల్చి కొలవండి. ఈ ప్రశ్నకు నా దగ్గర సార్వత్రిక సరైన సంఖ్య లేదు.</p>
+<p>పరిశీలించాల్సినవి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>embedding model యొక్క max input tokens (దాటితే కత్తిరిస్తుంది)</span></div><div class="step-row"><span class="step-badge">2</span><span>ప్రశ్నల రకం: facts/లుకప్ ప్రశ్నలకు చిన్న chunks (కొన్ని వాక్యాలు), వివరణ/సారాంశ ప్రశ్నలకు పెద్దవి</span></div><div class="step-row"><span class="step-badge">3</span><span>document రకం: FAQ లు సహజంగా చిన్నవి, legal contracts కి పెద్ద సందర్భం కావాలి</span></div><div class="step-row"><span class="step-badge">4</span><span>top-k × chunk size ≤ LLM prompt లో పెట్టగలిగే context.</span></div></div><p>సాధారణంగా ప్రారంభ బిందువుగా కొన్ని వందల tokens వాడతారు (ఉదా: 200-500), కానీ ఇది కేవలం ప్రారంభ అంచనా: తప్పనిసరిగా మీ ప్రశ్నల test set తో వేర్వేరు sizes ని పోల్చి కొలవండి. ఈ ప్రశ్నకు నా దగ్గర సార్వత్రిక సరైన సంఖ్య లేదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def experiment(sizes, test_questions, retrieve_fn):
     # ప్రతి size కి retrieval hit-rate ని కొలిచే ఫ్రేమ్‌వర్క్ (retrieve_fn మీరు అందించాలి)
@@ -949,7 +963,7 @@ print(experiment([100, 200, 400], tests, fake))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>తప్పు చోట కోస్తే అర్థం మారిపోతుంది: "Refund ఇవ్వం" అనే వాక్యం "Refund ఇవ్వం" / "... 7 రోజుల తర్వాత" గా విడిపోతే మొదటి ముక్క మాత్రమే retrieve అయి LLM తప్పు జవాబిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ సమస్యలు: (1) వాక్యం/పదం మధ్యలో తెగడం, (2) అంకెలు, తేదీలు, code blocks, lists, tables విడిపోవడం, (3) సర్వనామాలు ("ఇది", "అది") మునుపటి chunk లోని దేన్నో సూచించడం, కానీ ఆ chunk లేకపోవడం, (4) heading ఒక chunk లో, దాని కింది కంటెంట్ ఇంకో chunk లో ఉండడం. పరిష్కారాలు: structure-aware splitting (పేరా/వాక్యం/heading సరిహద్దులు), overlap, parent-child retrieval, ప్రతి chunk కి heading/title ని జోడించడం, tables/code blocks ని ఒకే chunk గా ఉంచడం. ముఖ్యంగా చేసే పని: chunks ని print చేసి కళ్ళతో తనిఖీ చేయండి.</p>
+<p>సాధారణ సమస్యలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>వాక్యం/పదం మధ్యలో తెగడం</span></div><div class="step-row"><span class="step-badge">2</span><span>అంకెలు, తేదీలు, code blocks, lists, tables విడిపోవడం</span></div><div class="step-row"><span class="step-badge">3</span><span>సర్వనామాలు ("ఇది", "అది") మునుపటి chunk లోని దేన్నో సూచించడం, కానీ ఆ chunk లేకపోవడం</span></div><div class="step-row"><span class="step-badge">4</span><span>heading ఒక chunk లో, దాని కింది కంటెంట్ ఇంకో chunk లో ఉండడం.</span></div></div><p>పరిష్కారాలు: structure-aware splitting (పేరా/వాక్యం/heading సరిహద్దులు), overlap, parent-child retrieval, ప్రతి chunk కి heading/title ని జోడించడం, tables/code blocks ని ఒకే chunk గా ఉంచడం. ముఖ్యంగా చేసే పని: chunks ని print చేసి కళ్ళతో తనిఖీ చేయండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>text = "Refund policy: మేము ఏ పరిస్థితిలోనూ refund ఇవ్వం, కానీ order 7 రోజుల్లోపు cancel చేస్తే తప్ప."
 
@@ -964,7 +978,7 @@ for c in bad:
 <h4>ఎందుకు అవసరం?</h4>
 <p>"గరిష్ట limit 5 లక్షలు" అనే chunk ఒంటరిగా ఏ విషయం గురించో చెప్పదు. "Loans > Personal Loan" అనే heading path దానితో ఉంటే, అటు search కీ, ఇటు LLM కీ సందర్భం తెలుస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Markdown/HTML/DOCX లోని headings ఆధారంగా document ని sections గా విడగొట్టి, ప్రతి chunk కి దాని <b>heading path</b> ని (1) chunk text ముందు చేర్చవచ్చు (embedding లోకి సందర్భం వెళ్తుంది), మరియు (2) metadata లో ఉంచవచ్చు (filter, citation కోసం). అలాగే lists, tables, code blocks ని విడగొట్టకూడదు. ఇది RAG నాణ్యతను పెంచే చవకైన, ప్రభావవంతమైన పద్ధతుల్లో ఒకటి.</p>
+<p>Markdown/HTML/DOCX లోని headings ఆధారంగా document ని sections గా విడగొట్టి, ప్రతి chunk కి దాని <b>heading path</b> ని</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>chunk text ముందు చేర్చవచ్చు (embedding లోకి సందర్భం వెళ్తుంది), మరియు</span></div><div class="step-row"><span class="step-badge">2</span><span>metadata లో ఉంచవచ్చు (filter, citation కోసం).</span></div></div><p>అలాగే lists, tables, code blocks ని విడగొట్టకూడదు. ఇది RAG నాణ్యతను పెంచే చవకైన, ప్రభావవంతమైన పద్ధతుల్లో ఒకటి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re
 
@@ -1176,7 +1190,7 @@ print("normalized dot == cosine:", np.isclose(an @ bn, cos))     # True</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొన్ని vector DB లు మరియు indexes డిఫాల్ట్ గా L2 (Euclidean) distance వాడతాయి. ఇది "similarity" కాదు "distance": తక్కువ = దగ్గర, అనే తేడా తెలియకపోతే ranking తిరగబడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Euclidean (L2) distance</b> = రెండు బిందువుల మధ్య నేరుగా ఉండే దూరం: <code>sqrt((a1-b1)² + (a2-b2)² + ...)</code>. ఇది పొడవుల తేడాను కూడా లెక్కిస్తుంది. Cosine/dot లో ఎక్కువ స్కోరు = దగ్గర; Euclidean లో తక్కువ విలువ = దగ్గర. Vectors normalized అయితే cosine, dot, Euclidean మూడూ ఒకే ranking (ఒకే క్రమం) ఇస్తాయి, ఎందుకంటే అప్పుడు <code>L2² = 2 − 2×cosine</code>. కాబట్టి normalized embeddings వాడితే metric ఎంపిక గురించి ఎక్కువ ఆందోళన అవసరం లేదు.</p>
+<p><b>Euclidean (L2) distance</b> = రెండు బిందువుల మధ్య నేరుగా ఉండే దూరం: <code>sqrt((a1-b</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>² + (a2-b</span></div><div class="step-row"><span class="step-badge">2</span><span>² + ...)</code>.</span></div></div><p>ఇది పొడవుల తేడాను కూడా లెక్కిస్తుంది. Cosine/dot లో ఎక్కువ స్కోరు = దగ్గర; Euclidean లో తక్కువ విలువ = దగ్గర. Vectors normalized అయితే cosine, dot, Euclidean మూడూ ఒకే ranking (ఒకే క్రమం) ఇస్తాయి, ఎందుకంటే అప్పుడు <code>L2² = 2 − 2×cosine</code>. కాబట్టి normalized embeddings వాడితే metric ఎంపిక గురించి ఎక్కువ ఆందోళన అవసరం లేదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -1194,7 +1208,7 @@ print(round(l2sq, 6), round(2 - 2*cos, 6))          # రెండూ సమా�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Embedding model మీ retrieval నాణ్యతను నేరుగా నిర్ణయిస్తుంది. తరువాత మార్చాలంటే మొత్తం data ని మళ్ళీ embed చేయాలి, కాబట్టి మొదటే ఆలోచించి ఎంచుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పరిశీలించాల్సినవి: (1) <b>భాష</b>: తెలుగు/బహుభాషా డేటా ఉంటే multilingual model కావాలి, (2) <b>నాణ్యత</b>: MTEB leaderboard (Hugging Face) లో రేటింగ్స్ చూడొచ్చు కానీ అవి సాధారణ benchmarks; మీ డేటాలో కొలవడమే ముఖ్యం, (3) <b>dimension మరియు ఖర్చు</b>: storage, వేగం, (4) <b>max input tokens</b>: chunk size కి సరిపోవాలి, (5) <b>hosted vs self-hosted</b>: API (వేగంగా మొదలవుతుంది, డేటా బయటకు వెళ్తుంది, per-token ఖర్చు) vs స్వంత server (డేటా privacy, GPU/CPU నిర్వహణ), (6) <b>license</b>, (7) <b>స్థిరత్వం</b>: model deprecate అవుతుందా? ఆచరణాత్మక పద్ధతి: 2-3 candidates తో మీ నిజమైన ప్రశ్నలు (30-50) మరియు సరైన జవాబు chunks తో retrieval hit-rate కొలవండి.</p>
+<p>పరిశీలించాల్సినవి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>భాష</b>: తెలుగు/బహుభాషా డేటా ఉంటే multilingual model కావాలి</span></div><div class="step-row"><span class="step-badge">2</span><span><b>నాణ్యత</b>: MTEB leaderboard (Hugging Face) లో రేటింగ్స్ చూడొచ్చు కానీ అవి సాధారణ benchmarks; మీ డేటాలో కొలవడమే ముఖ్యం</span></div><div class="step-row"><span class="step-badge">3</span><span><b>dimension మరియు ఖర్చు</b>: storage, వేగం</span></div><div class="step-row"><span class="step-badge">4</span><span><b>max input tokens</b>: chunk size కి సరిపోవాలి</span></div><div class="step-row"><span class="step-badge">5</span><span><b>hosted vs self-hosted</b>: API (వేగంగా మొదలవుతుంది, డేటా బయటకు వెళ్తుంది, per-token ఖర్చు) vs స్వంత server (డేటా privacy, GPU/CPU నిర్వహణ)</span></div><div class="step-row"><span class="step-badge">6</span><span><b>license</b></span></div><div class="step-row"><span class="step-badge">7</span><span><b>స్థిరత్వం</b>: model deprecate అవుతుందా? ఆచరణాత్మక పద్ధతి: 2-3 candidates తో మీ నిజమైన ప్రశ్నలు (30-50) మరియు సరైన జవాబు chunks తో retrieval hit-rate కొలవండి.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>def hit_rate(search_fn, test_set, k=3):
     # test_set: [(question, expected_chunk_id)]; search_fn(question, k) -> chunk ids
@@ -1268,7 +1282,7 @@ print(len(vectors), len(vectors[0]))      # 2, 1536</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ users తెలుగులో అడగొచ్చు, documents ఇంగ్లీష్ లో ఉండొచ్చు. English-only model తో తెలుగు ప్రశ్నకు సరైన ఇంగ్లీష్ chunk దొరకదు. Multilingual model ఒకే "అర్థపు స్థలం"లో అన్ని భాషలనూ ఉంచుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Multilingual embedding model</b> అంటే అనేక భాషల్లో train అయిన model: "refund policy" మరియు "రీఫండ్ విధానం" కి దగ్గరి vectors ఇస్తుంది, దీనినే cross-lingual retrieval అంటారు. ఉదాహరణలు: <code>paraphrase-multilingual-MiniLM-L12-v2</code>, <code>intfloat/multilingual-e5-*</code>, <code>BAAI/bge-m3</code>, మరియు hosted APIs లో బహుభాషా models. జాగ్రత్తలు: (1) తెలుగు నాణ్యత ఇంగ్లీష్ కంటే తక్కువ ఉండొచ్చు; అన్ని models తెలుగును సమానంగా బాగా సపోర్ట్ చేయవు, కాబట్టి మీ తెలుగు test ప్రశ్నలతో పరీక్షించండి, (2) తెలుగు tokenization లో tokens ఎక్కువ పట్టొచ్చు, కాబట్టి chunk size ని tokens లో చూసుకోండి, (3) తెలుగు + ఇంగ్లీష్ కలిపిన (code-mixed) text కూడా పరీక్షించండి.</p>
+<p><b>Multilingual embedding model</b> అంటే అనేక భాషల్లో train అయిన model: "refund policy" మరియు "రీఫండ్ విధానం" కి దగ్గరి vectors ఇస్తుంది, దీనినే cross-lingual retrieval అంటారు. ఉదాహరణలు: <code>paraphrase-multilingual-MiniLM-L12-v2</code>, <code>intfloat/multilingual-e5-*</code>, <code>BAAI/bge-m3</code>, మరియు hosted APIs లో బహుభాషా models. జాగ్రత్తలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>తెలుగు నాణ్యత ఇంగ్లీష్ కంటే తక్కువ ఉండొచ్చు; అన్ని models తెలుగును సమానంగా బాగా సపోర్ట్ చేయవు, కాబట్టి మీ తెలుగు test ప్రశ్నలతో పరీక్షించండి</span></div><div class="step-row"><span class="step-badge">2</span><span>తెలుగు tokenization లో tokens ఎక్కువ పట్టొచ్చు, కాబట్టి chunk size ని tokens లో చూసుకోండి</span></div><div class="step-row"><span class="step-badge">3</span><span>తెలుగు + ఇంగ్లీష్ కలిపిన (code-mixed) text కూడా పరీక్షించండి.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre># ILLUSTRATIVE: model download కావాలి; ఫలితాలు (స్కోరు విలువలు) model ని బట్టి మారతాయి
 from sentence_transformers import SentenceTransformer, util
@@ -1285,7 +1299,7 @@ print(scores)       # మొదటి doc కి ఎక్కువ రావా
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ models కి వైద్య, న్యాయ, ఆర్థిక, source-code వంటి రంగాల్లోని ప్రత్యేక పదజాలం బాగా అర్థం కాకపోవచ్చు. అప్పుడు retrieval నాణ్యత తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మూడు మార్గాలు: (1) <b>ముందే ఉన్న domain models</b> వాడడం (ఉదా: code కోసం code-embedding models, finance/legal/biomedical కి ప్రత్యేక models; Hugging Face లో వెతకండి), (2) <b>general model నే వాడి</b> మీ డేటాపై కొలవడం: తరచూ ఇది ఇప్పటికే సరిపోతుంది, ముందు ఇదే ప్రయత్నించండి, (3) <b>fine-tune</b> చేయడం: మీ (ప్రశ్న, సరైన passage) జతలతో model ని మళ్ళీ train చేయడం; ఇది ఎక్కువ శ్రమ, డేటా, evaluation కోరుతుంది. Fine-tune చేసిన తర్వాత మొత్తం index ని మళ్ళీ embed చేయాలి. అనవసరంగా ముందే ఇక్కడికి వెళ్ళకండి: ముందు chunking, hybrid search, re-ranking మెరుగుపరచడం తరచూ సులభమైన లాభం ఇస్తుంది.</p>
+<p>మూడు మార్గాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>ముందే ఉన్న domain models</b> వాడడం (ఉదా: code కోసం code-embedding models, finance/legal/biomedical కి ప్రత్యేక models; Hugging Face లో వెతకండి)</span></div><div class="step-row"><span class="step-badge">2</span><span><b>general model నే వాడి</b> మీ డేటాపై కొలవడం: తరచూ ఇది ఇప్పటికే సరిపోతుంది, ముందు ఇదే ప్రయత్నించండి</span></div><div class="step-row"><span class="step-badge">3</span><span><b>fine-tune</b> చేయడం: మీ (ప్రశ్న, సరైన passage) జతలతో model ని మళ్ళీ train చేయడం; ఇది ఎక్కువ శ్రమ, డేటా, evaluation కోరుతుంది.</span></div></div><p>Fine-tune చేసిన తర్వాత మొత్తం index ని మళ్ళీ embed చేయాలి. అనవసరంగా ముందే ఇక్కడికి వెళ్ళకండి: ముందు chunking, hybrid search, re-ranking మెరుగుపరచడం తరచూ సులభమైన లాభం ఇస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># fine-tuning కి కావలసిన training డేటా ఎలా ఉంటుందో చూపే ఉదాహరణ (కేవలం డేటా నిర్మాణం)
 training_pairs = [
@@ -1444,7 +1458,7 @@ except Exception as e:
 <h4>ఎందుకు అవసరం?</h4>
 <p>"దగ్గరగా ఉంది" అంటే ఏమిటో నిర్ణయించాలి. Embedding model కి సరిపోయే metric వాడకపోతే ranking తప్పుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Cosine similarity:</b> రెండు vectors మధ్య కోణం (దిశ) ని చూస్తుంది, పొడవు పట్టించుకోదు; -1 నుండి 1, ఎక్కువ = దగ్గర. Text embeddings కి అత్యంత సాధారణం. <b>Dot product:</b> సంఖ్యల గుణకారాల మొత్తం; vectors normalized (పొడవు 1) అయితే cosine తో సమానం, మరియు వేగంగా లెక్కవుతుంది. <b>Euclidean (L2) distance:</b> రెండు బిందువుల మధ్య సరళరేఖ దూరం; తక్కువ = దగ్గర. <b>Manhattan (L1):</b> అక్షాల వెంట దూరాల మొత్తం. నియమం: మీ embedding model docs లో చెప్పిన metric వాడండి (చాలా text models కి cosine లేదా dot).</p>
+<p><b>Cosine similarity:</b> రెండు vectors మధ్య కోణం (దిశ) ని చూస్తుంది, పొడవు పట్టించుకోదు; -1 నుండి 1, ఎక్కువ = దగ్గర. Text embeddings కి అత్యంత సాధారణం. <b>Dot product:</b> సంఖ్యల గుణకారాల మొత్తం; vectors normalized (పొడవు</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>అయితే cosine తో సమానం, మరియు వేగంగా లెక్కవుతుంది. <b>Euclidean (L</span></div><div class="step-row"><span class="step-badge">2</span><span>distance:</b> రెండు బిందువుల మధ్య సరళరేఖ దూరం; తక్కువ = దగ్గర. <b>Manhattan (L</span></div><div class="step-row"><span class="step-badge">1</span><span>:</b> అక్షాల వెంట దూరాల మొత్తం.</span></div></div><p>నియమం: మీ embedding model docs లో చెప్పిన metric వాడండి (చాలా text models కి cosine లేదా dot).</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -1467,7 +1481,7 @@ print("manhattan", manhattan)      # 6.0</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>10 కోట్ల vectors తో ప్రతి query కి అన్నిటినీ పోల్చితే సెకన్లు/నిమిషాలు పడుతుంది. Users కి మిల్లీసెకన్లలో జవాబు కావాలి. కొద్దిగా accuracy వదులుకుని చాలా వేగం సాధించడమే ANN.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>ANN</b> అంటే అన్ని vectors ని చూడకుండా, ముందే తయారు చేసిన index సహాయంతో "చాలా వరకు సరైన" top results ని త్వరగా ఇవ్వడం. ఒక్కోసారి నిజమైన #3 neighbor మిస్ అవ్వొచ్చు. ఈ నాణ్యతను <b>recall</b> తో కొలుస్తాం (నిజమైన top-K లో ఎన్ని దొరికాయి). MySQL index "exact" ఫలితం ఇస్తుంది; vector index "approximate". Qdrant లో HNSW, ఇతరులలో IVF వంటివి ANN algorithms. కింద ఉదాహరణ: random hyperplanes తో vectors ని buckets గా విభజించి, query బకెట్ లో మాత్రమే వెతికే చిన్న toy ANN (LSH idea).</p>
+<p><b>ANN</b> అంటే అన్ని vectors ని చూడకుండా, ముందే తయారు చేసిన index సహాయంతో "చాలా వరకు సరైన" top results ని త్వరగా ఇవ్వడం. ఒక్కోసారి నిజమైన #3 neighbor మిస్ అవ్వొచ్చు. ఈ నాణ్యతను <b>recall</b> తో కొలుస్తాం (నిజమైన top-K లో ఎన్ని దొరికాయి). MySQL index "exact" ఫలితం ఇస్తుంది; vector index "approximate". Qdrant లో HNSW (Hierarchical Navigable Small World), ఇతరులలో IVF వంటివి ANN algorithms. కింద ఉదాహరణ: random hyperplanes తో vectors ని buckets గా విభజించి, query బకెట్ లో మాత్రమే వెతికే చిన్న toy ANN (LSH idea).</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -1510,11 +1524,11 @@ print(top3, dists[top3].round(3))</pre>
 <p>Qdrant లో server కి వ్యతిరేకంగా: <code>client.query_points(..., search_params=models.SearchParams(exact=True))</code>.</p>
 </div></details>
 
-<details class="t"><summary>9. HNSW indexing<small>HNSW index (Hierarchical Navigable Small World)</small></summary><div class="body">
+<details class="t"><summary>9. HNSW (Hierarchical Navigable Small World) indexing<small>HNSW (Hierarchical Navigable Small World) index (Hierarchical Navigable Small World)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>HNSW అనేది ఈ రోజుల్లో అత్యంత ప్రజాదరణ పొందిన vector index; Qdrant, pgvector, Weaviate వంటి చాలా DB లు వాడతాయి. వేగం మరియు recall రెండూ బాగుంటాయి, కాబట్టి దీని settings తెలియాలి.</p>
+<p>HNSW (Hierarchical Navigable Small World) అనేది ఈ రోజుల్లో అత్యంత ప్రజాదరణ పొందిన vector index; Qdrant, pgvector, Weaviate వంటి చాలా DB లు వాడతాయి. వేగం మరియు recall రెండూ బాగుంటాయి, కాబట్టి దీని settings తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>HNSW ఒక <b>graph</b>: ప్రతి vector ఒక node, దగ్గరి vectors కి edges ఉంటాయి. అనేక పొరలు (layers): పై పొరలో తక్కువ nodes, దూరం దూకే "హైవే" లింకులు; కింది పొరలో అన్ని nodes, చిన్న దగ్గరి లింకులు. Search: పై పొర నుండి మొదలుపెట్టి, query కి దగ్గరగా ఉన్న neighbor కి గ్రీడీగా వెళ్తూ, కిందికి దిగుతూ చివరి పొరలో పరిసరాలను పరిశీలిస్తారు. ఇది దేశ పటంలో: ముందు జాతీయ రహదారి, తర్వాత జిల్లా రోడ్డు, చివరికి వీధి. MySQL B-tree sorted order పై పనిచేస్తుంది (1-D); vectors కి sorted order లేదు కాబట్టి graph వాడతారు. ముఖ్య parameters: <code>m</code> (ప్రతి node కి ఎన్ని edges; ఎక్కువ = ఎక్కువ recall, ఎక్కువ memory), <code>ef_construct</code> (index కట్టేటప్పుడు ఎంత విస్తృతంగా చూడాలి; ఎక్కువ = మంచి index, నెమ్మది build), <code>hnsw_ef</code> (search సమయంలో ఎంత విస్తృతంగా; ఎక్కువ = ఎక్కువ recall, నెమ్మది).</p>
+<p>HNSW (Hierarchical Navigable Small World) ఒక <b>graph</b>: ప్రతి vector ఒక node, దగ్గరి vectors కి edges ఉంటాయి. అనేక పొరలు (layers): పై పొరలో తక్కువ nodes, దూరం దూకే "హైవే" లింకులు; కింది పొరలో అన్ని nodes, చిన్న దగ్గరి లింకులు. Search: పై పొర నుండి మొదలుపెట్టి, query కి దగ్గరగా ఉన్న neighbor కి గ్రీడీగా వెళ్తూ, కిందికి దిగుతూ చివరి పొరలో పరిసరాలను పరిశీలిస్తారు. ఇది దేశ పటంలో: ముందు జాతీయ రహదారి, తర్వాత జిల్లా రోడ్డు, చివరికి వీధి. MySQL B-tree sorted order పై పనిచేస్తుంది (1-D); vectors కి sorted order లేదు కాబట్టి graph వాడతారు. ముఖ్య parameters: <code>m</code> (ప్రతి node కి ఎన్ని edges; ఎక్కువ = ఎక్కువ recall, ఎక్కువ memory), <code>ef_construct</code> (index కట్టేటప్పుడు ఎంత విస్తృతంగా చూడాలి; ఎక్కువ = మంచి index, నెమ్మది build), <code>hnsw_ef</code> (search సమయంలో ఎంత విస్తృతంగా; ఎక్కువ = ఎక్కువ recall, నెమ్మది).</p>
 <h4>ఉదాహరణ</h4>
 <pre>from qdrant_client import QdrantClient, models
 
@@ -1531,15 +1545,15 @@ res = client.query_points(
     search_params=models.SearchParams(hnsw_ef=64),               # search సమయంలో విస్తృతి
 )
 print([p.id for p in res.points])</pre>
-<p>గమనిక: local (:memory:) mode లో ఈ settings accept అవుతాయి కానీ ప్రభావం ఉండదు (ఎప్పుడూ brute-force). అసలు HNSW server (Docker) Qdrant లో పనిచేస్తుంది.</p>
+<p>గమనిక: local (:memory:) mode లో ఈ settings accept అవుతాయి కానీ ప్రభావం ఉండదు (ఎప్పుడూ brute-force). అసలు HNSW (Hierarchical Navigable Small World) server (Docker) Qdrant లో పనిచేస్తుంది.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> defaults ఎప్పుడూ మార్చకపోవడం, లేదా అర్థం లేకుండా <code>m</code> పెంచేయడం. Recall మరియు latency ని కొలిచి మాత్రమే ట్యూన్ చేయండి.</div>
 </div></details>
 
 <details class="t"><summary>10. IVF indexing concepts<small>IVF index భావనలు (Inverted File)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>Faiss, Milvus, pgvector వంటి వాటిలో IVF కనిపిస్తుంది. HNSW తో పోల్చి ఎప్పుడు IVF మంచిదో అర్థం చేసుకోవడానికి దీని ఆలోచన తెలియాలి.</p>
+<p>Faiss, Milvus, pgvector వంటి వాటిలో IVF కనిపిస్తుంది. HNSW (Hierarchical Navigable Small World) తో పోల్చి ఎప్పుడు IVF మంచిదో అర్థం చేసుకోవడానికి దీని ఆలోచన తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>IVF (Inverted File index):</b> ముందు అన్ని vectors ని k-means తో <b>clusters</b> గా విభజిస్తారు, ప్రతి cluster కి ఒక కేంద్రం (centroid). Search సమయంలో query కి దగ్గరగా ఉన్న కొన్ని clusters ని మాత్రమే ఎంచుకుని (దీన్ని <code>nprobe</code> అంటారు), వాటిలోనే వెతుకుతారు. ఇది లైబ్రరీలో: ముందు సరైన అల్మారా (cluster), తర్వాత ఆ అల్మారాలోనే పుస్తకం వెతకడం. ఎక్కువ <code>nprobe</code> = ఎక్కువ recall, నెమ్మది. HNSW తో పోలిస్తే memory తక్కువ, build వేగంగా ఉంటుంది కానీ సాధారణంగా అదే recall కి నెమ్మదిగా ఉంటుంది. (Qdrant ప్రధానంగా HNSW వాడుతుంది, IVF కాదు.)</p>
+<p><b>IVF (Inverted File index):</b> ముందు అన్ని vectors ని k-means తో <b>clusters</b> గా విభజిస్తారు, ప్రతి cluster కి ఒక కేంద్రం (centroid). Search సమయంలో query కి దగ్గరగా ఉన్న కొన్ని clusters ని మాత్రమే ఎంచుకుని (దీన్ని <code>nprobe</code> అంటారు), వాటిలోనే వెతుకుతారు. ఇది లైబ్రరీలో: ముందు సరైన అల్మారా (cluster), తర్వాత ఆ అల్మారాలోనే పుస్తకం వెతకడం. ఎక్కువ <code>nprobe</code> = ఎక్కువ recall, నెమ్మది. HNSW (Hierarchical Navigable Small World) తో పోలిస్తే memory తక్కువ, build వేగంగా ఉంటుంది కానీ సాధారణంగా అదే recall కి నెమ్మదిగా ఉంటుంది. (Qdrant ప్రధానంగా HNSW (Hierarchical Navigable Small World) వాడుతుంది, IVF కాదు.)</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -1601,7 +1615,7 @@ print(type(qcfg).__name__)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజమైన apps లో "ఈ user కి చెందిన documents లో మాత్రమే", "2024 తర్వాతివి మాత్రమే", "English లో మాత్రమే" అని వెతకాలి. Filter లేకుండా multi-tenant RAG లో ఇతరుల data లీక్ అయ్యే ప్రమాదం కూడా ఉంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Metadata filtering అంటే similarity search తో పాటు payload పై షరతులు పెట్టడం. ఇది MySQL లో <code>WHERE city = 'Hyd' AND year >= 2024</code> లాంటిది, కానీ దాన్ని <code>ORDER BY similarity LIMIT k</code> తో కలిపినట్టు. రెండు విధానాలు: <b>pre-filtering</b> (ముందు filter చేసి, ఆ set లో వెతకడం: ఖచ్చితమైన K results వస్తాయి) మరియు <b>post-filtering</b> (ముందు top-K తీసి, తర్వాత filter: filter కఠినంగా ఉంటే 0 results రావచ్చు). Qdrant search సమయంలోనే filter ని వర్తింపజేస్తుంది (filterable HNSW). Server లో తరచూ వాడే fields కి payload index పెట్టడం మంచిది (MySQL index లాగే).</p>
+<p>Metadata filtering అంటే similarity search తో పాటు payload పై షరతులు పెట్టడం. ఇది MySQL లో <code>WHERE city = 'Hyd' AND year >= 2024</code> లాంటిది, కానీ దాన్ని <code>ORDER BY similarity LIMIT k</code> తో కలిపినట్టు. రెండు విధానాలు: <b>pre-filtering</b> (ముందు filter చేసి, ఆ set లో వెతకడం: ఖచ్చితమైన K results వస్తాయి) మరియు <b>post-filtering</b> (ముందు top-K తీసి, తర్వాత filter: filter కఠినంగా ఉంటే 0 results రావచ్చు). Qdrant search సమయంలోనే filter ని వర్తింపజేస్తుంది (filterable HNSW (Hierarchical Navigable Small World)). Server లో తరచూ వాడే fields కి payload index పెట్టడం మంచిది (MySQL index లాగే).</p>
 <h4>ఉదాహరణ</h4>
 <pre>from qdrant_client import QdrantClient, models
 
@@ -1664,7 +1678,7 @@ if not res.points:
 <h4>ఎందుకు అవసరం?</h4>
 <p>Production లో ఖర్చు, వేగం, accuracy మూడూ ఒకేసారి గరిష్టంగా ఉండవు. ఏది వదులుకోవాలో తెలిస్తేనే సరైన infrastructure ఎంచుకోగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రధాన trade-offs: (1) <b>RAM vs disk:</b> vectors మరియు index RAM లో ఉంటే వేగం, disk (<code>on_disk=True</code>) లో ఉంటే చౌక కానీ నెమ్మది. (2) <b>Index memory vs recall:</b> HNSW <code>m</code> పెంచితే recall పెరుగుతుంది, memory కూడా. (3) <b>Quantization:</b> memory తగ్గుతుంది, కొంత accuracy పోతుంది. (4) <b>Build time vs search quality:</b> <code>ef_construct</code> ఎక్కువైతే index నెమ్మదిగా తయారవుతుంది. (5) <b>Write speed vs search speed:</b> index నిరంతరం update అవుతూ ఉంటే ingestion నెమ్మదిస్తుంది (MySQL లో ఎక్కువ indexes ఉంటే INSERT నెమ్మది అయినట్టే). ముందు వేగంగా memory అంచనా వేసుకోండి.</p>
+<p>ప్రధాన trade-offs:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>RAM vs disk:</b> vectors మరియు index RAM లో ఉంటే వేగం, disk (<code>on_disk=True</code>) లో ఉంటే చౌక కానీ నెమ్మది.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Index memory vs recall:</b> HNSW (Hierarchical Navigable Small World) <code>m</code> పెంచితే recall పెరుగుతుంది, memory కూడా.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Quantization:</b> memory తగ్గుతుంది, కొంత accuracy పోతుంది.</span></div><div class="step-row"><span class="step-badge">4</span><span><b>Build time vs search quality:</b> <code>ef_construct</code> ఎక్కువైతే index నెమ్మదిగా తయారవుతుంది.</span></div><div class="step-row"><span class="step-badge">5</span><span><b>Write speed vs search speed:</b> index నిరంతరం update అవుతూ ఉంటే ingestion నెమ్మదిస్తుంది (MySQL లో ఎక్కువ indexes ఉంటే INSERT నెమ్మది అయినట్టే).</span></div></div><p>ముందు వేగంగా memory అంచనా వేసుకోండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def estimate_gb(n_vectors, dim, bytes_per_num=4, hnsw_m=16):
     raw = n_vectors * dim * bytes_per_num
@@ -1740,7 +1754,7 @@ client = QdrantClient(":memory:")
 #    gRPC వాడాలంటే: QdrantClient(host="localhost", grpc_port=6334, prefer_grpc=True)
 
 print(client.get_collections())   # ఇంకా collections లేవు</pre>
-<p>గమనిక: local mode పరీక్షలకు మంచిది, కానీ production లో server mode వాడండి (local mode లో payload indexes, snapshots, HNSW ప్రభావం ఉండవు).</p>
+<p>గమనిక: local mode పరీక్షలకు మంచిది, కానీ production లో server mode వాడండి (local mode లో payload indexes, snapshots, HNSW (Hierarchical Navigable Small World) ప్రభావం ఉండవు).</p>
 </div></details>
 
 <details class="t"><summary>2. Collections<small>Qdrant Collections</small></summary><div class="body">
@@ -1944,7 +1958,7 @@ print(client.count("c").count)        # 1</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షల points ని ఒక్కొక్కటిగా పంపితే network round trips వల్ల చాలా నెమ్మది. ఒకేసారి అన్నీ పంపితే request పెద్దదై fail అవుతుంది. అందుకే batches.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL లో bulk <code>INSERT</code> (ఒక statement లో 500 rows) వేగంగా ఉన్నట్టే. రెండు మార్గాలు: (1) మీరే loop లో points ని 100-1000 చొప్పున ముక్కలు చేసి <code>upsert</code> చేయడం; (2) <code>client.upload_points(...)</code> లేదా <code>upload_collection(...)</code> వాడటం, ఇవి batch చేయడం, retry, (ఐచ్ఛికంగా) parallel ని స్వయంగా చూసుకుంటాయి. Batch size సాధారణంగా కొన్ని వందలు; మీ vector size మరియు network ని బట్టి పరీక్షించి నిర్ణయించండి. Embeddings ని కూడా batch గా generate చేయండి (ఒక్కో text కి ఒక API call చేయవద్దు).</p>
+<p>MySQL లో bulk <code>INSERT</code> (ఒక statement లో 500 rows) వేగంగా ఉన్నట్టే. రెండు మార్గాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>మీరే loop లో points ని 100-1000 చొప్పున ముక్కలు చేసి <code>upsert</code> చేయడం</span></div><div class="step-row"><span class="step-badge">2</span><span><code>client.upload_points(...)</code> లేదా <code>upload_collection(...)</code> వాడటం, ఇవి batch చేయడం, retry, (ఐచ్ఛికంగా) parallel ని స్వయంగా చూసుకుంటాయి.</span></div></div><p>Batch size సాధారణంగా కొన్ని వందలు; మీ vector size మరియు network ని బట్టి పరీక్షించి నిర్ణయించండి. Embeddings ని కూడా batch గా generate చేయండి (ఒక్కో text కి ఒక API call చేయవద్దు).</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from qdrant_client import QdrantClient, models
@@ -2085,7 +2099,7 @@ print([p.id for p in pts])</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Data పెరిగేకొద్దీ search వేగం, memory, ingestion వేగం మారతాయి. సరైన settings తో ఖర్చు తగ్గించి వేగం పెంచవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ముఖ్యమైన అంశాలు: (1) <b>Payload index</b>: తరచూ filter చేసే fields కి (MySQL index లాగా). (2) <b>HNSW settings</b> (<code>m</code>, <code>ef_construct</code>) మరియు search సమయంలో <code>hnsw_ef</code>. (3) <b>Quantization</b>: memory తగ్గించడానికి. (4) <b>on_disk</b>: vectors/payload ని disk కి మార్చి RAM ఆదా చేయడం. (5) <b>Optimizers</b>: background లో segments ని merge చేసి, <code>indexing_threshold</code> దాటిన తర్వాత index నిర్మించేవి; <code>update_collection</code> తో మార్చవచ్చు. Bulk load చేసేటప్పుడు సాధారణ పద్ధతి: indexing ఆలస్యం చేసి, load అయ్యాక enable చేయడం (Qdrant docs లో "bulk upload" సలహా చూడండి). Collection <code>status</code> <code>green</code> అంటే optimizers పని పూర్తి చేసి సిద్ధంగా ఉందని అర్థం.</p>
+<p>ముఖ్యమైన అంశాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Payload index</b>: తరచూ filter చేసే fields కి (MySQL index లాగా).</span></div><div class="step-row"><span class="step-badge">2</span><span><b>HNSW (Hierarchical Navigable Small World) settings</b> (<code>m</code>, <code>ef_construct</code>) మరియు search సమయంలో <code>hnsw_ef</code>.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Quantization</b>: memory తగ్గించడానికి.</span></div><div class="step-row"><span class="step-badge">4</span><span><b>on_disk</b>: vectors/payload ని disk కి మార్చి RAM ఆదా చేయడం.</span></div><div class="step-row"><span class="step-badge">5</span><span><b>Optimizers</b>: background లో segments ని merge చేసి, <code>indexing_threshold</code> దాటిన తర్వాత index నిర్మించేవి; <code>update_collection</code> తో మార్చవచ్చు.</span></div></div><p>Bulk load చేసేటప్పుడు సాధారణ పద్ధతి: indexing ఆలస్యం చేసి, load అయ్యాక enable చేయడం (Qdrant docs లో "bulk upload" సలహా చూడండి). Collection <code>status</code> <code>green</code> అంటే optimizers పని పూర్తి చేసి సిద్ధంగా ఉందని అర్థం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from qdrant_client import QdrantClient, models
 
@@ -2484,7 +2498,7 @@ for p in res.points:
 <h4>ఎందుకు అవసరం?</h4>
 <p>Search ఇచ్చిన raw ఫలితాలన్నీ LLM కి ఇవ్వకూడదు: తక్కువ score వి, duplicates (overlap వల్ల దాదాపు ఒకే text) ఉంటాయి. వాటిని శుద్ధి చేస్తే సమాధానం మెరుగై ఖర్చు తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Retrieval తర్వాత చేసే సాధారణ దశలు: (1) <b>score threshold</b> కంటే తక్కువ వి తొలగించడం, (2) <b>duplicates</b> తొలగించడం, (3) అవసరమైతే top-K కి కుదించడం. ఏమీ మిగలకపోతే (సంబంధిత chunk లేదు), LLM ని అడగకుండానే "తగిన సమాచారం లేదు" అని చెప్పవచ్చు; ఇది hallucination తగ్గిస్తుంది. (మరింత అధునాతన పద్ధతులు: reranking, MMR: తర్వాత నేర్చుకునేవి.) Threshold విలువ మీ embedding model మరియు data పై పరీక్షించి నిర్ణయించాలి; ఇక్కడ ఇచ్చిన సంఖ్య ఉదాహరణ మాత్రమే.</p>
+<p>Retrieval తర్వాత చేసే సాధారణ దశలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>score threshold</b> కంటే తక్కువ వి తొలగించడం</span></div><div class="step-row"><span class="step-badge">2</span><span><b>duplicates</b> తొలగించడం</span></div><div class="step-row"><span class="step-badge">3</span><span>అవసరమైతే top-K కి కుదించడం.</span></div></div><p>ఏమీ మిగలకపోతే (సంబంధిత chunk లేదు), LLM ని అడగకుండానే "తగిన సమాచారం లేదు" అని చెప్పవచ్చు; ఇది hallucination తగ్గిస్తుంది. (మరింత అధునాతన పద్ధతులు: reranking, MMR: తర్వాత నేర్చుకునేవి.) Threshold విలువ మీ embedding model మరియు data పై పరీక్షించి నిర్ణయించాలి; ఇక్కడ ఇచ్చిన సంఖ్య ఉదాహరణ మాత్రమే.</p>
 <h4>ఉదాహరణ</h4>
 <pre># (score, payload) జాబితా: search ఫలితాలు అనుకోండి
 hits = [
@@ -2778,7 +2792,7 @@ for d in docs:
 <h4>ఎందుకు అవసరం?</h4>
 <p>Keyword search లో ఒక query కి వందల documents match అవుతాయి. వాటిని ఏ క్రమంలో చూపాలో నిర్ణయించే formula BM25. Elasticsearch, OpenSearch, Lucene default ranking ఇదే (modern versions లో).</p>
 <h4>సరళమైన వివరణ</h4>
-<p>BM25 మూడు ఆలోచనలను కలుపుతుంది: (1) <b>TF</b>: query పదం document లో ఎక్కువసార్లు ఉంటే score ఎక్కువ, కానీ ఒక దశ తర్వాత లాభం తగ్గుతుంది (saturation, <code>k1</code> తో నియంత్రణ); (2) <b>IDF</b>: అరుదైన పదాలకు ఎక్కువ బరువు, "the" లాంటి వాటికి దాదాపు 0; (3) <b>Length normalization</b>: పొడవైన document లో పదం ఉండటం తక్కువ విలువైనది (<code>b</code> తో నియంత్రణ). MySQL FULLTEXT NATURAL LANGUAGE MODE కూడా TF-IDF లాంటి relevance ఇస్తుంది, BM25 దానికి మెరుగైన రూపం అనుకోవచ్చు. కింద చిన్న implementation ఉంది.</p>
+<p>BM25 మూడు ఆలోచనలను కలుపుతుంది:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>TF</b>: query పదం document లో ఎక్కువసార్లు ఉంటే score ఎక్కువ, కానీ ఒక దశ తర్వాత లాభం తగ్గుతుంది (saturation, <code>k1</code> తో నియంత్రణ)</span></div><div class="step-row"><span class="step-badge">2</span><span><b>IDF</b>: అరుదైన పదాలకు ఎక్కువ బరువు, "the" లాంటి వాటికి దాదాపు 0</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Length normalization</b>: పొడవైన document లో పదం ఉండటం తక్కువ విలువైనది (<code>b</code> తో నియంత్రణ).</span></div></div><p>MySQL FULLTEXT NATURAL LANGUAGE MODE కూడా TF-IDF లాంటి relevance ఇస్తుంది, BM25 దానికి మెరుగైన రూపం అనుకోవచ్చు. కింద చిన్న implementation ఉంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import math, re
 docs = [&quot;laravel queue worker restart&quot;, &quot;queue queue queue overview of many unrelated words in a long long text&quot;,
@@ -2971,7 +2985,7 @@ print(rrf(lists))     # అన్ని variants ఫలితాలు కలి
 <h4>ఎందుకు అవసరం?</h4>
 <p>Question మరియు answer ఒకే శైలిలో ఉండవు; embedding space లో "ప్రశ్న" కంటే "సమాధాన పాఠ్యం" documents కి దగ్గరగా ఉంటుంది. HyDE ఈ అంతరాన్ని తగ్గించే ప్రయత్నం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>HyDE ఆలోచన (Gao et al. paper, "Precise Zero-Shot Dense Retrieval without Relevance Labels"): (1) LLM ని అడిగి ప్రశ్నకు ఒక <b>కల్పిత సమాధానం</b> రాయిస్తారు, అది తప్పులతో ఉన్నా పర్లేదు; (2) ఆ కల్పిత text ని embed చేస్తారు; (3) దానికి దగ్గరి నిజమైన documents ని తెస్తారు. కల్పిత text నే answer గా వాడరు, search కి మాత్రమే. ఖచ్చితమైన ప్రయోగ ఫలితాల కోసం original paper చూడండి. ప్రమాదం: LLM కి topic తెలియకపోతే కల్పన తప్పు దిశలో వెళ్తుంది.</p>
+<p>HyDE ఆలోచన (Gao et al. paper, "Precise Zero-Shot Dense Retrieval without Relevance Labels"):</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>LLM ని అడిగి ప్రశ్నకు ఒక <b>కల్పిత సమాధానం</b> రాయిస్తారు, అది తప్పులతో ఉన్నా పర్లేదు</span></div><div class="step-row"><span class="step-badge">2</span><span>ఆ కల్పిత text ని embed చేస్తారు</span></div><div class="step-row"><span class="step-badge">3</span><span>దానికి దగ్గరి నిజమైన documents ని తెస్తారు.</span></div></div><p>కల్పిత text నే answer గా వాడరు, search కి మాత్రమే. ఖచ్చితమైన ప్రయోగ ఫలితాల కోసం original paper చూడండి. ప్రమాదం: LLM కి topic తెలియకపోతే కల్పన తప్పు దిశలో వెళ్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import math, re
 # STUB embedding: నిజమైన model కాదు. అర్థం ఒకటే ఉన్న పదాలను ఒకే dimension కి map చేస్తాం (demo కోసం మాత్రమే)
@@ -3102,7 +3116,7 @@ for hop in range(max_hops):
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షల chunks లో ప్రతిదాన్నీ భారీ model తో పరిశీలించడం అసాధ్యం. కానీ చివరి 5-10 chunks ఎంపిక మాత్రం చాలా ఖచ్చితంగా ఉండాలి. అందుకే రెండు దశలు వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Retrieval</b> (stage 1): వేగంగా, అంచనాతో, లక్షల నుండి top 50-100 candidates తెస్తుంది (BM25, vector search). లక్ష్యం: మంచివి మిస్ కాకూడదు (recall). <b>Reranking</b> (stage 2): ఆ candidates ని మాత్రమే నెమ్మదైన, ఖచ్చితమైన model తో మళ్లీ క్రమం చేసి top 3-8 ఎంచుకుంటుంది. లక్ష్యం: సరైనవి పైన ఉండాలి (precision). MySQL లో <code>WHERE</code> తో వేగంగా తగ్గించి, తర్వాత కష్టమైన scoring ని చిన్న result set మీద చేసినట్టే.</p>
+<p><b>Retrieval</b> (stage</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>: వేగంగా, అంచనాతో, లక్షల నుండి top 50-100 candidates తెస్తుంది (BM25, vector search). లక్ష్యం: మంచివి మిస్ కాకూడదు (recall). <b>Reranking</b> (stage</span></div><div class="step-row"><span class="step-badge">2</span><span>: ఆ candidates ని మాత్రమే నెమ్మదైన, ఖచ్చితమైన model తో మళ్లీ క్రమం చేసి top 3-8 ఎంచుకుంటుంది.</span></div></div><p>లక్ష్యం: సరైనవి పైన ఉండాలి (precision). MySQL లో <code>WHERE</code> తో వేగంగా తగ్గించి, తర్వాత కష్టమైన scoring ని చిన్న result set మీద చేసినట్టే.</p>
 <h4>ఉదాహరణ</h4>
 <pre>corpus = [f&quot;doc{i}&quot; for i in range(100000)]
 def stage1_retrieve(query, k=50):
@@ -3374,7 +3388,7 @@ print(long_context_reorder([&quot;r1&quot;, &quot;r2&quot;, &quot;r3&quot;, &quo
 <h4>ఎందుకు అవసరం?</h4>
 <p>Overlapping chunks లేదా ఒకే సమాచారం ఉన్న అనేక docs వల్ల top-k లో దాదాపు ఒకే text చాలాసార్లు వస్తుంది. అది tokens వృథా చేసి వైవిధ్యాన్ని తగ్గిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు స్థాయిలు: (1) <b>Exact/near-duplicate</b> తొలగింపు: text hash లేదా similarity > threshold ఉన్నవి తీయడం. (2) <b>Diversity</b>: <b>MMR (Maximal Marginal Relevance)</b> అంటే query కి సంబంధం ఎక్కువ మరియు ఇప్పటికే ఎంచుకున్న వాటికి భిన్నంగా ఉన్నది ఒక్కొక్కటిగా ఎంచుకోవడం; <code>λ</code> తో relevance మరియు diversity మధ్య సమతుల్యం.</p>
+<p>రెండు స్థాయిలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Exact/near-duplicate</b> తొలగింపు: text hash లేదా similarity > threshold ఉన్నవి తీయడం.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Diversity</b>: <b>MMR (Maximal Marginal Relevance)</b> అంటే query కి సంబంధం ఎక్కువ మరియు ఇప్పటికే ఎంచుకున్న వాటికి భిన్నంగా ఉన్నది ఒక్కొక్కటిగా ఎంచుకోవడం; <code>λ</code> తో relevance మరియు diversity మధ్య సమతుల్యం.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>def jaccard(a, b):
     a, b = set(a.lower().split()), set(b.lower().split())
@@ -3665,7 +3679,7 @@ print(build_prompt(&quot;What is the refund window and fee?&quot;, chunks))</pre
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంపెనీ డేటాలో చాలా భాగం tables లో ఉంటుంది (orders, customers). వాటిని సాధారణ text chunks గా చేసి embed చేస్తే సంఖ్యలు, లెక్కలు (sum, count) సరిగా రావు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మార్గాలు: (1) ప్రతి row ని ఒక sentence/JSON గా మార్చి embed చేయడం (ఒక record గురించిన lookup కి మంచిది); (2) లెక్కలకు DB ని నేరుగా query చేయడం (తరువాతి topic); (3) metadata filter + vector search కలపడం. Tables ని chunk చేసేటప్పుడు column headers ప్రతి chunk లో ఉంచండి. మీ MySQL డేటా విషయంలో, aggregate ప్రశ్నలకు embedding కాదు SQL సరైన సాధనం.</p>
+<p>మార్గాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ప్రతి row ని ఒక sentence/JSON గా మార్చి embed చేయడం (ఒక record గురించిన lookup కి మంచిది)</span></div><div class="step-row"><span class="step-badge">2</span><span>లెక్కలకు DB ని నేరుగా query చేయడం (తరువాతి topic)</span></div><div class="step-row"><span class="step-badge">3</span><span>metadata filter + vector search కలపడం.</span></div></div><p>Tables ని chunk చేసేటప్పుడు column headers ప్రతి chunk లో ఉంచండి. మీ MySQL డేటా విషయంలో, aggregate ప్రశ్నలకు embedding కాదు SQL సరైన సాధనం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>rows = [{&quot;id&quot;: 1, &quot;name&quot;: &quot;Asha&quot;, &quot;plan&quot;: &quot;Pro&quot;, &quot;city&quot;: &quot;Hyderabad&quot;},
         {&quot;id&quot;: 2, &quot;name&quot;: &quot;Ravi&quot;, &quot;plan&quot;: &quot;Free&quot;, &quot;city&quot;: &quot;Guntur&quot;}]
@@ -3932,7 +3946,7 @@ print(round(sum(sims) / len(sims), 2))   # 0.91 -&gt; relevant
 <h4>ఎందుకు అవసరం?</h4>
 <p>Enterprise లో user 'ఏ document?' అని చూసి verify చేస్తారు. Citation తప్పైతే నమ్మకం పోతుంది, legal/compliance సమస్యలు రావచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు స్థాయిలు: (1) <b>Validity</b>: citation లో ఉన్న ID నిజంగా retrieved list లో ఉందా (code తో చేయొచ్చు). (2) <b>Support</b>: ఆ chunk నిజంగా ఆ వాక్యాన్ని సమర్థిస్తుందా (NLI model లేదా LLM judge, లేదా సులభ overlap heuristic). కింది code మొదటిది పూర్తిగా, రెండవది కఠినమైన approximation గా చేస్తుంది.</p>
+<p>రెండు స్థాయిలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Validity</b>: citation లో ఉన్న ID నిజంగా retrieved list లో ఉందా (code తో చేయొచ్చు).</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Support</b>: ఆ chunk నిజంగా ఆ వాక్యాన్ని సమర్థిస్తుందా (NLI model లేదా LLM judge, లేదా సులభ overlap heuristic).</span></div></div><p>కింది code మొదటిది పూర్తిగా, రెండవది కఠినమైన approximation గా చేస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re
 chunks = {&quot;c1&quot;: &quot;Refund is allowed within 30 days of purchase.&quot;, &quot;c2&quot;: &quot;Shipping takes 5 business days.&quot;}
@@ -4035,7 +4049,7 @@ print(agree)   # 0.8 -&gt; judge ని ఎంత నమ్మొచ్చో �
 <h4>ఎందుకు అవసరం?</h4>
 <p>మంచి dataset లేకపోతే ఎన్ని metrics ఉన్నా తప్పుదోవ పడతాం. ఇది evaluation లో అత్యంత కష్టమైన, అత్యంత విలువైన భాగం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>దశలు: (1) production logs/support tickets నుండి నిజమైన ప్రశ్నలు సేకరించండి, (2) వివిధ రకాలు చేర్చండి: సులభం, multi-document, సమాధానం లేనివి, అస్పష్టమైనవి, (3) LLM తో కొన్ని synthetic ప్రశ్నలు తయారు చేసి మనిషి review చేయండి, (4) ప్రతి దానికి relevant chunk IDs మరియు reference answer రాయండి, (5) dataset కి version పెట్టి Git లో ఉంచండి, (6) తప్పిపోయిన కేసులు కనిపించినప్పుడల్లా కొత్తవి జోడించండి. Laravel లో factories/seeders + regression tests లాంటి పద్ధతి.</p>
+<p>దశలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>production logs/support tickets నుండి నిజమైన ప్రశ్నలు సేకరించండి</span></div><div class="step-row"><span class="step-badge">2</span><span>వివిధ రకాలు చేర్చండి: సులభం, multi-document, సమాధానం లేనివి, అస్పష్టమైనవి</span></div><div class="step-row"><span class="step-badge">3</span><span>LLM తో కొన్ని synthetic ప్రశ్నలు తయారు చేసి మనిషి review చేయండి</span></div><div class="step-row"><span class="step-badge">4</span><span>ప్రతి దానికి relevant chunk IDs మరియు reference answer రాయండి</span></div><div class="step-row"><span class="step-badge">5</span><span>dataset కి version పెట్టి Git లో ఉంచండి</span></div><div class="step-row"><span class="step-badge">6</span><span>తప్పిపోయిన కేసులు కనిపించినప్పుడల్లా కొత్తవి జోడించండి.</span></div></div><p>Laravel లో factories/seeders + regression tests లాంటి పద్ధతి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import json, collections
 dataset = [
@@ -4128,7 +4142,7 @@ print(enforce_citations(&quot;Refund 30 days [c1]. Shipping is free.&quot;, {&qu
 <h4>ఎందుకు అవసరం?</h4>
 <p>తప్పు సమాధానం కంటే 'తెలియదు' అనడం మెరుగు, ముఖ్యంగా HR, legal, finance లో. Abstain చేయడం నేర్పని system అన్నిటికీ ఏదో చెప్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Abstention వ్యూహాలు: (1) retrieval score చాలా తక్కువగా ఉంటే LLM ని పిలవకుండానే ఆగడం, (2) prompt లో NOT_IN_DOCS నియమం, (3) సమాధానం తర్వాత faithfulness check విఫలమైతే ఆగడం, (4) అస్పష్ట ప్రశ్నకు clarification అడగడం, (5) మనిషికి escalate చేయడం (ticket). ఇది API లో 404 / 422 తిరిగి ఇవ్వడం లాంటిది: ఊహించి 200 ఇవ్వకూడదు.</p>
+<p>Abstention వ్యూహాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>retrieval score చాలా తక్కువగా ఉంటే LLM ని పిలవకుండానే ఆగడం</span></div><div class="step-row"><span class="step-badge">2</span><span>prompt లో NOT_IN_DOCS నియమం</span></div><div class="step-row"><span class="step-badge">3</span><span>సమాధానం తర్వాత faithfulness check విఫలమైతే ఆగడం</span></div><div class="step-row"><span class="step-badge">4</span><span>అస్పష్ట ప్రశ్నకు clarification అడగడం</span></div><div class="step-row"><span class="step-badge">5</span><span>మనిషికి escalate చేయడం (ticket).</span></div></div><p>ఇది API లో 404 / 422 తిరిగి ఇవ్వడం లాంటిది: ఊహించి 200 ఇవ్వకూడదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def answer_or_abstain(hits, min_score=0.45, min_gap=0.05):
     # hits: [(chunk, similarity)] sorted desc
@@ -4232,7 +4246,7 @@ print(ranked)   # [(&#x27;policy&#x27;, 0.8), (&#x27;wiki&#x27;, 0.78), (&#x27;s
 <h4>ఎందుకు అవసరం?</h4>
 <p>Citation ఉండటం వేరు, సరైనదై ఉండటం వేరు. Model లేని ID రాయొచ్చు లేదా సంబంధం లేని chunk ని చూపొచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మూడు తనిఖీలు: (1) ID retrieved set లో ఉందా, (2) ఆ chunk లో వాక్యానికి సంబంధించిన సమాచారం ఉందా (NLI/LLM judge లేదా overlap heuristic), (3) quote ఇచ్చినట్లయితే exact substring ఉందా. విఫలమైన citations ని తొలగించి సమాధానాన్ని మళ్ళీ తయారు చేయడం లేదా abstain చేయడం చేయవచ్చు.</p>
+<p>మూడు తనిఖీలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ID retrieved set లో ఉందా</span></div><div class="step-row"><span class="step-badge">2</span><span>ఆ chunk లో వాక్యానికి సంబంధించిన సమాచారం ఉందా (NLI/LLM judge లేదా overlap heuristic)</span></div><div class="step-row"><span class="step-badge">3</span><span>quote ఇచ్చినట్లయితే exact substring ఉందా.</span></div></div><p>విఫలమైన citations ని తొలగించి సమాధానాన్ని మళ్ళీ తయారు చేయడం లేదా abstain చేయడం చేయవచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re
 chunks = {&quot;c1&quot;: &quot;Refund is allowed within 30 days of purchase.&quot;, &quot;c2&quot;: &quot;Shipping takes 5 business days.&quot;}
@@ -4296,7 +4310,7 @@ if not hits:
 <h4>ఎందుకు అవసరం?</h4>
 <p>వ్యవస్థ సమాధానం ఇవ్వలేనప్పుడు user కి దారి చూపే స్పష్టమైన response ఉండాలి; లేకపోతే నిరాశ మరియు నమ్మకం కోల్పోవడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మంచి fallback ఎంపికలు: (1) 'documents లో కనబడలేదు' + ప్రశ్న మార్చే సూచనలు, (2) సంబంధిత top documents లింకులు మాత్రమే చూపడం (keyword search), (3) మనిషికి/ticket కి escalate, (4) అస్పష్టమైతే clarifying question. కారణాన్ని బట్టి (low confidence, no results, system error) వేరే సందేశాలు ఉంచి, ప్రతి fallback ని log చేయండి: అవి కొత్త eval cases కి మంచి వనరు.</p>
+<p>మంచి fallback ఎంపికలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>'documents లో కనబడలేదు' + ప్రశ్న మార్చే సూచనలు</span></div><div class="step-row"><span class="step-badge">2</span><span>సంబంధిత top documents లింకులు మాత్రమే చూపడం (keyword search)</span></div><div class="step-row"><span class="step-badge">3</span><span>మనిషికి/ticket కి escalate</span></div><div class="step-row"><span class="step-badge">4</span><span>అస్పష్టమైతే clarifying question.</span></div></div><p>కారణాన్ని బట్టి (low confidence, no results, system error) వేరే సందేశాలు ఉంచి, ప్రతి fallback ని log చేయండి: అవి కొత్త eval cases కి మంచి వనరు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>FALLBACKS = {
     &quot;no_results&quot;:     &quot;మా documents లో దీని గురించి సమాచారం దొరకలేదు. ప్రశ్నను వేరుగా అడగండి లేదా HR ని సంప్రదించండి.&quot;,
@@ -4395,7 +4409,7 @@ print(handlers[change[&quot;op&quot;]], change[&quot;id&quot;])   # re-ingest 42
 <h4>ఎందుకు అవసరం?</h4>
 <p>Document మారితే పాత chunks ని మార్చాలి, లేకపోతే పాత సమాచారం సమాధానాలలో వస్తుంది. కానీ మారని దాన్ని మళ్ళీ embed చేయడం ఖర్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గుర్తించే పద్ధతులు: (1) modified time/<code>updated_at</code> (సరళం, కానీ content మారకుండా touch చేసినా మారుతుంది), (2) ETag/version number, (3) <b>content hash</b> (SHA-256) పోల్చడం: అత్యంత నమ్మదగినది. పాత hash ని DB లో save చేసి, కొత్త hash తో పోల్చండి. Laravel Eloquent లో <code>isDirty()</code> / <code>wasChanged()</code> లాంటి భావన.</p>
+<p>గుర్తించే పద్ధతులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>modified time/<code>updated_at</code> (సరళం, కానీ content మారకుండా touch చేసినా మారుతుంది)</span></div><div class="step-row"><span class="step-badge">2</span><span>ETag/version number</span></div><div class="step-row"><span class="step-badge">3</span><span><b>content hash</b> (SHA-256) పోల్చడం: అత్యంత నమ్మదగినది.</span></div></div><p>పాత hash ని DB లో save చేసి, కొత్త hash తో పోల్చండి. Laravel Eloquent లో <code>isDirty()</code> / <code>wasChanged()</code> లాంటి భావన.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import hashlib
 def content_hash(text):
@@ -4620,7 +4634,7 @@ for d in docs:
 <h4>ఎందుకు అవసరం?</h4>
 <p>DLQ లోని documents ని bug fix చేసిన తర్వాత లేదా transient సమస్య తీరిన తర్వాత తిరిగి ప్రయత్నించే సురక్షిత మార్గం ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రక్రియ: (1) DLQ/failed table లో error రకాల వారీగా చూడండి, (2) కారణం సరిచేయండి (parser bug, API key, file ఫార్మాట్), (3) jobs ని main queue కి తిరిగి పంపండి (attempts reset), (4) అవి idempotent కాబట్టి duplicates రావు. Laravel లో <code>php artisan queue:retry all</code> / <code>queue:retry {id}</code> అదే. శాశ్వతంగా చెడిన files ని మనిషి సమీక్షకు పంపండి.</p>
+<p>ప్రక్రియ:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>DLQ/failed table లో error రకాల వారీగా చూడండి</span></div><div class="step-row"><span class="step-badge">2</span><span>కారణం సరిచేయండి (parser bug, API key, file ఫార్మాట్)</span></div><div class="step-row"><span class="step-badge">3</span><span>jobs ని main queue కి తిరిగి పంపండి (attempts reset)</span></div><div class="step-row"><span class="step-badge">4</span><span>అవి idempotent కాబట్టి duplicates రావు.</span></div></div><p>Laravel లో <code>php artisan queue:retry all</code> / <code>queue:retry {id}</code> అదే. శాశ్వతంగా చెడిన files ని మనిషి సమీక్షకు పంపండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>dlq = [
     {&quot;name&quot;: &quot;bad.pdf&quot;, &quot;error&quot;: &quot;corrupt PDF&quot;, &quot;attempts&quot;: 3},
@@ -5024,7 +5038,7 @@ test_no_cross_tenant_leak()
 <h4>ఎందుకు అవసరం?</h4>
 <p>Customer "నా డేటా తొలగించండి" అన్నప్పుడు (GDPR "right to erasure") vector DB, original files, caches, backups అన్నిటి నుంచి పోవాలి. Source DB లో delete చేసి vector DB లో వదిలేస్తే, ఆ డేటా answers లో ఇంకా వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Deletion అన్ని చోట్ల జరగాలి: (1) vector store points, (2) original file storage, (3) metadata DB rows, (4) caches (embedding/answer cache), (5) logs లో personal data, (6) backups (retention policy ప్రకారం కాలక్రమేణా). Qdrant లో <code>FilterSelector</code> తో ఒక document లేదా మొత్తం tenant యొక్క points delete చేయవచ్చు. Laravel soft deletes కి విరుద్ధంగా, compliance కోసం hard delete కావాలి. Qdrant లో delete అయిన data disk నుంచి optimizer ద్వారా తర్వాత compact అవుతుంది (వెంటనే కాదు); ఈ విషయంలో ఖచ్చితమైన హామీల కోసం docs చూడండి.</p>
+<p>Deletion అన్ని చోట్ల జరగాలి:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>vector store points</span></div><div class="step-row"><span class="step-badge">2</span><span>original file storage</span></div><div class="step-row"><span class="step-badge">3</span><span>metadata DB rows</span></div><div class="step-row"><span class="step-badge">4</span><span>caches (embedding/answer cache)</span></div><div class="step-row"><span class="step-badge">5</span><span>logs లో personal data</span></div><div class="step-row"><span class="step-badge">6</span><span>backups (retention policy ప్రకారం కాలక్రమేణా).</span></div></div><p>Qdrant లో <code>FilterSelector</code> తో ఒక document లేదా మొత్తం tenant యొక్క points delete చేయవచ్చు. Laravel soft deletes కి విరుద్ధంగా, compliance కోసం hard delete కావాలి. Qdrant లో delete అయిన data disk నుంచి optimizer ద్వారా తర్వాత compact అవుతుంది (వెంటనే కాదు); ఈ విషయంలో ఖచ్చితమైన హామీల కోసం docs చూడండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from qdrant_client import QdrantClient, models
 
@@ -5118,7 +5132,7 @@ del tenant_keys["acme"]   # crypto-shredding: key పోతే acme డేటా
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కి ఒకసారి text ఇచ్చాక దాన్ని "చూపవద్దు" అని చెప్పినా నమ్మలేం (prompt injection తో బయటకు రావచ్చు). అందుకే access check retrieval కి ముందు లేదా retrieval లోనే జరగాలి, LLM తర్వాత కాదు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సరైన క్రమం: (1) request authenticate చేయండి, (2) token నుంచి tenant, roles తీసుకోండి, (3) వాటి నుంచి filter తయారుచేయండి, (4) ఆ filter తో search, (5) అనుమతించిన chunks మాత్రమే prompt లోకి, (6) audit log. తప్పు క్రమం: అందరి chunks తెచ్చి, prompt లో "user కి HR docs చెప్పకు" అని రాయడం. ఇది Laravel లో controller లో data తెచ్చి view లో hide చేయడం లాంటిది; data ఇప్పటికే బయటకు వచ్చేసింది. అలాగే రెండో రక్షణగా, తిరిగి వచ్చిన ప్రతి chunk ని మళ్లీ ఒకసారి policy తో verify చేయండి (defense in depth).</p>
+<p>సరైన క్రమం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>request authenticate చేయండి</span></div><div class="step-row"><span class="step-badge">2</span><span>token నుంచి tenant, roles తీసుకోండి</span></div><div class="step-row"><span class="step-badge">3</span><span>వాటి నుంచి filter తయారుచేయండి</span></div><div class="step-row"><span class="step-badge">4</span><span>ఆ filter తో search</span></div><div class="step-row"><span class="step-badge">5</span><span>అనుమతించిన chunks మాత్రమే prompt లోకి</span></div><div class="step-row"><span class="step-badge">6</span><span>audit log.</span></div></div><p>తప్పు క్రమం: అందరి chunks తెచ్చి, prompt లో "user కి HR docs చెప్పకు" అని రాయడం. ఇది Laravel లో controller లో data తెచ్చి view లో hide చేయడం లాంటిది; data ఇప్పటికే బయటకు వచ్చేసింది. అలాగే రెండో రక్షణగా, తిరిగి వచ్చిన ప్రతి chunk ని మళ్లీ ఒకసారి policy తో verify చేయండి (defense in depth).</p>
 <h4>ఉదాహరణ</h4>
 <pre>from qdrant_client import QdrantClient, models
 
@@ -5270,7 +5284,7 @@ print(len(store))           # ఇంకా 3: మళ్లీ run చేసి�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Chunk పరిమాణం retrieval quality ని నేరుగా ప్రభావితం చేస్తుంది. చాలా పెద్దవైతే శబ్దం ఎక్కువ, చాలా చిన్నవైతే సందర్భం కోల్పోతాం. Document రకాన్ని బట్టి వేర్వేరు strategy కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ strategies: (1) <b>Fixed-size</b> (ఉదా. 500 tokens + overlap) సరళం కానీ వాక్యాల మధ్యలో తెగవచ్చు. (2) <b>Structure-aware</b>: headings/paragraphs ఆధారంగా విడగొట్టడం, policy docs కి మంచిది. (3) <b>Sentence/semantic</b> chunking. Overlap వల్ల సరిహద్దులో ఉన్న సమాచారం రెండు chunks లోనూ ఉంటుంది. ప్రతి chunk కి heading, page number వంటి metadata కూడా జతచేయండి (citations కి). Chunk size కి "సరైన" సంఖ్య లేదు, మీ eval set తో ప్రయోగాలు చేసి నిర్ణయించండి (కొలిచే topics తర్వాత వస్తాయి).</p>
+<p>సాధారణ strategies:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Fixed-size</b> (ఉదా. 500 tokens + overlap) సరళం కానీ వాక్యాల మధ్యలో తెగవచ్చు.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Structure-aware</b>: headings/paragraphs ఆధారంగా విడగొట్టడం, policy docs కి మంచిది.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Sentence/semantic</b> chunking.</span></div></div><p>Overlap వల్ల సరిహద్దులో ఉన్న సమాచారం రెండు chunks లోనూ ఉంటుంది. ప్రతి chunk కి heading, page number వంటి metadata కూడా జతచేయండి (citations కి). Chunk size కి "సరైన" సంఖ్య లేదు, మీ eval set తో ప్రయోగాలు చేసి నిర్ణయించండి (కొలిచే topics తర్వాత వస్తాయి).</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re
 
@@ -5424,7 +5438,7 @@ print("hybrid :", rrf([dense_rank(q), keyword_rank(q)]))   # d1 పైన ఉం
 <h4>ఎందుకు అవసరం?</h4>
 <p>మొదటి retrieval వేగంగా ఉంటుంది కానీ కొంచెం ముతకగా. Top 50 లో సరైన chunk ఉన్నా 8వ స్థానంలో ఉండవచ్చు, LLM కి top 5 మాత్రమే ఇస్తే అది మిస్ అవుతుంది. Reranker దాన్ని పైకి తెస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు దశలు: (1) retrieval తో ఎక్కువ candidates (ఉదా. 30-50) తెచ్చుకోవడం, (2) <b>reranker</b> (cross-encoder model) తో ప్రతి (query, chunk) జతను కలిపి చదివి ఖచ్చితంగా స్కోర్ ఇచ్చి, top 3-5 ఎంచుకోవడం. Cross-encoder మరింత ఖచ్చితమైనది కానీ నెమ్మది, అందుకే చిన్న candidate set కే వాడతాం. ఎంపికలు: <code>sentence-transformers</code> CrossEncoder (ఉదా. <code>cross-encoder/ms-marco-MiniLM-L-6-v2</code>), Cohere Rerank API, Qdrant లో మరో embedding తో re-score చేయడం. కింద runnable ఉదాహరణ ఒక నకిలీ reranker (పదాల అతివ్యాప్తి) తో ఆకృతిని మాత్రమే చూపుతుంది.</p>
+<p>రెండు దశలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>retrieval తో ఎక్కువ candidates (ఉదా. 30-50) తెచ్చుకోవడం</span></div><div class="step-row"><span class="step-badge">2</span><span><b>reranker</b> (cross-encoder model) తో ప్రతి (query, chunk) జతను కలిపి చదివి ఖచ్చితంగా స్కోర్ ఇచ్చి, top 3-5 ఎంచుకోవడం.</span></div></div><p>Cross-encoder మరింత ఖచ్చితమైనది కానీ నెమ్మది, అందుకే చిన్న candidate set కే వాడతాం. ఎంపికలు: <code>sentence-transformers</code> CrossEncoder (ఉదా. <code>cross-encoder/ms-marco-MiniLM-L-6-v2</code>), Cohere Rerank API, Qdrant లో మరో embedding తో re-score చేయడం. కింద runnable ఉదాహరణ ఒక నకిలీ reranker (పదాల అతివ్యాప్తి) తో ఆకృతిని మాత్రమే చూపుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re
 
@@ -5563,7 +5577,7 @@ print(sync({"b": "VPN needs approval and MFA."}))                               
 <h4>ఎందుకు అవసరం?</h4>
 <p>"బాగా పనిచేస్తోంది అనిపిస్తోంది" అనేది కొలత కాదు. Chunk size, model, reranker మార్చినప్పుడు మెరుగైందా చెడిందా తెలియాలంటే స్థిరమైన test set కావాలి. ఇది PHPUnit tests లాంటిది RAG కి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Eval dataset అంటే (question, expected source chunk/doc, ideal answer) జతల జాబితా. వనరులు: (1) నిజమైన users ప్రశ్నలు (logs నుంచి, అనుమతితో), (2) domain experts రాసినవి, (3) LLM తో documents నుంచి synthetic ప్రశ్నలు తయారుచేసి మనుషులు సమీక్షించడం. వైవిధ్యం ఉండాలి: సులభమైనవి, కష్టమైనవి, "సమాధానం లేనివి" (system "తెలియదు" అనాలి), permission test cases (ఈ user కి ఈ doc కనిపించకూడదు). 30-100 మంచి ప్రశ్నలతో మొదలుపెట్టి నెమ్మదిగా పెంచండి. Version control లో (JSONL) ఉంచండి.</p>
+<p>Eval dataset అంటే (question, expected source chunk/doc, ideal answer) జతల జాబితా. వనరులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>నిజమైన users ప్రశ్నలు (logs నుంచి, అనుమతితో)</span></div><div class="step-row"><span class="step-badge">2</span><span>domain experts రాసినవి</span></div><div class="step-row"><span class="step-badge">3</span><span>LLM తో documents నుంచి synthetic ప్రశ్నలు తయారుచేసి మనుషులు సమీక్షించడం.</span></div></div><p>వైవిధ్యం ఉండాలి: సులభమైనవి, కష్టమైనవి, "సమాధానం లేనివి" (system "తెలియదు" అనాలి), permission test cases (ఈ user కి ఈ doc కనిపించకూడదు). 30-100 మంచి ప్రశ్నలతో మొదలుపెట్టి నెమ్మదిగా పెంచండి. Version control లో (JSONL) ఉంచండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import json
 
@@ -5620,7 +5634,7 @@ print("MRR     :", round(mrr(results), 2))              # (1 + 0.5 + 0) / 3 = 0.
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కొన్నిసార్లు sources లో లేని విషయాలను ఆత్మవిశ్వాసంతో చెబుతుంది. Enterprise లో తప్పు policy సమాచారం నష్టం కలిగించవచ్చు. Production లో కొలిచి హెచ్చరించే వ్యవస్థ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Hallucination</b> అంటే retrieved sources మద్దతు లేని సమాధానం. ఖచ్చితంగా పట్టుకోవడం కష్టం, కానీ సంకేతాలు కొలవవచ్చు: (1) citation లేని లేదా చెల్లని citation ఉన్న answers, (2) <b>groundedness/faithfulness</b> score (answer వాక్యాలు sources తో మద్దతు పొందాయా, తరచుగా మరో LLM లేదా NLI model తో judge చేస్తారు), (3) retrieval score తక్కువగా ఉన్నా LLM నమ్మకంగా సమాధానం చెప్పడం, (4) users thumbs-down. వీటిని metrics గా log చేసి dashboard లో చూపి, పరిమితి దాటితే alert పంపండి; sample చేసిన answers ని మనుషులు సమీక్షించండి. కింది heuristic చాలా ముతక (పదాల అతివ్యాప్తి), నిజమైన judge కి ప్రత్యామ్నాయం కాదు.</p>
+<p><b>Hallucination</b> అంటే retrieved sources మద్దతు లేని సమాధానం. ఖచ్చితంగా పట్టుకోవడం కష్టం, కానీ సంకేతాలు కొలవవచ్చు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>citation లేని లేదా చెల్లని citation ఉన్న answers</span></div><div class="step-row"><span class="step-badge">2</span><span><b>groundedness/faithfulness</b> score (answer వాక్యాలు sources తో మద్దతు పొందాయా, తరచుగా మరో LLM లేదా NLI model తో judge చేస్తారు)</span></div><div class="step-row"><span class="step-badge">3</span><span>retrieval score తక్కువగా ఉన్నా LLM నమ్మకంగా సమాధానం చెప్పడం</span></div><div class="step-row"><span class="step-badge">4</span><span>users thumbs-down.</span></div></div><p>వీటిని metrics గా log చేసి dashboard లో చూపి, పరిమితి దాటితే alert పంపండి; sample చేసిన answers ని మనుషులు సమీక్షించండి. కింది heuristic చాలా ముతక (పదాల అతివ్యాప్తి), నిజమైన judge కి ప్రత్యామ్నాయం కాదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import re, json, time
 

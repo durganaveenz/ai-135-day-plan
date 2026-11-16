@@ -71,6 +71,20 @@ details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -147,7 +161,7 @@ details.t[data-status="archive"]:hover { opacity: 1; }
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ పని చేయడం మాత్రమే కాదు, అది ఎంత వేగంగా, ఎంత సురక్షితంగా, ఎంతమంది యూజర్లను తట్టుకోగలదో నిర్ణయించకపోతే ప్రొడక్షన్ లో సిస్టమ్ కూలిపోతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PHP/Laravel లో 99.99% అప్‌టైమ్, 500ms లోపు పేజీ లోడ్ కావడం, CSRF/XSS ప్రొటెక్షన్, MySQL కనెక్షన్ పూలింగ్ వంటివి NFRs. AI ఆర్కిటెక్చర్‌లో NFRs: Time-to-First-Token (TTFT &lt; 800ms), మాగ్జిమం కాస్ట్ పర్ యూజర్ ($0.05 per session), డేటా ప్రైవసీ (కస్టమర్ డేటా తో మోడల్ ట్రైనింగ్ జరగకూడదు), మరియు మోడల్ హాలూసినేషన్ రేట్ &lt; 1%.</p>
+<p>PHP/Laravel లో 99.99% అప్‌టైమ్, 500ms లోపు పేజీ లోడ్ కావడం, CSRF/XSS ప్రొటెక్షన్, MySQL కనెక్షన్ పూలింగ్ వంటివి NFRs. AI ఆర్కిటెక్చర్‌లో NFRs: Time-to-First-Token (TTFT (Time to First Token) &lt; 800ms), మాగ్జిమం కాస్ట్ పర్ యూజర్ ($0.05 per session), డేటా ప్రైవసీ (కస్టమర్ డేటా తో మోడల్ ట్రైనింగ్ జరగకూడదు), మరియు మోడల్ హాలూసినేషన్ రేట్ &lt; 1%.</p>
 <h4>ఉదాహరణ</h4>
 <pre># AI Architecture NFR SLA:
 # - Availability: 99.9% uptime (with multi-region failover)
@@ -619,7 +633,7 @@ response = bedrock.invoke_model(
 from openai import OpenAI
 client = OpenAI(base_url="http://internal-vllm.corp.local:8000/v1", api_key="none")
 res = client.chat.completions.create(model="Meta-Llama-3-8B-Instruct", messages=[...])</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> GPU మెమరీ (VRAM) సరిపోక అవుట్ ఆఫ్ మెమరీ (OOM) ఎర్రర్లతో సర్వర్లు క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> GPU మెమరీ (VRAM (Video RAM / GPU Memory)) సరిపోక అవుట్ ఆఫ్ మెమరీ (OOM (Out Of Memory)) ఎర్రర్లతో సర్వర్లు క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>35. Hybrid AI architecture.<small>హైబ్రిడ్ AI ఆర్కిటెక్చర్</small></summary><div class="body">
@@ -710,14 +724,14 @@ spec:
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ఇన్ఫరెన్స్ చాలా వేగంగా జరగడానికి సాధారణ CPUలు చాలవు; వేలకొద్దీ సమాంతర గణనలను చేసే గ్రాఫిక్స్ ప్రాసెసింగ్ యూనిట్లు (GPUs) అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PHP కి RAM మరియు CPU కోర్స్ ఎలా ముఖ్యమో, మోడల్ వెయిట్స్‌ని లోడ్ చేయడానికి GPU యొక్క VRAM (వీడియో ర్యామ్) కీలకం. ఉదాహరణకు, 70B మోడల్ ని 16-bit లో రన్ చేయడానికి దాదాపు 140GB VRAM కావాలి, అంటే 2x NVIDIA A100 (80GB) కార్డ్స్ అవసరం.</p>
+<p>PHP కి RAM మరియు CPU కోర్స్ ఎలా ముఖ్యమో, మోడల్ వెయిట్స్‌ని లోడ్ చేయడానికి GPU యొక్క VRAM (Video RAM / GPU Memory) (వీడియో ర్యామ్) కీలకం. ఉదాహరణకు, 70B మోడల్ ని 16-bit లో రన్ చేయడానికి దాదాపు 140GB VRAM (Video RAM / GPU Memory) కావాలి, అంటే 2x NVIDIA A100 (80GB) కార్డ్స్ అవసరం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># GPU VRAM Estimation:
 # Model Parameters: 8 Billion (8B)
 # FP16 Precision: 8 * 2 bytes = 16 GB VRAM
 # KV Cache + Activations: ~8 GB
 # Recommended GPU: 1x NVIDIA A10G (24GB) or RTX 4090 (24GB)</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> KV Cache మరియు కాంకరెంట్ యూజర్ల వల్ల పెరిగే మెమరీని లెక్కించకుండా కేవలం మోడల్ వెయిట్స్ సైజుకే GPU కొనుగోలు చేయడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> KV (Key-Value) cache మరియు కాంకరెంట్ యూజర్ల వల్ల పెరిగే మెమరీని లెక్కించకుండా కేవలం మోడల్ వెయిట్స్ సైజుకే GPU కొనుగోలు చేయడం.</div>
 </div></details>
 
 <details class="t"><summary>41. Network isolation.<small>నెట్‌వర్క్ ఐసోలేషన్ (నెట్‌వర్క్ వేరుచేయడం)</small></summary><div class="body">
@@ -1293,9 +1307,9 @@ metadata = {
 
 <details class="t"><summary>7. Indexing architecture.<small>ఇండెక్సింగ్ ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మిలియన్ల కొద్దీ వెక్టర్లలో మిల్లీసెకన్లలో సెర్చ్ జరగాలంటే వెక్టర్ డేటాబేస్ సరైన ఇండెక్సింగ్ అల్గోరిథం (HNSW, IVF-Flat) తో కాన్ఫిగర్ అయి ఉండాలి.</p>
+<p>మిలియన్ల కొద్దీ వెక్టర్లలో మిల్లీసెకన్లలో సెర్చ్ జరగాలంటే వెక్టర్ డేటాబేస్ సరైన ఇండెక్సింగ్ అల్గోరిథం (HNSW (Hierarchical Navigable Small World), IVF-Flat) తో కాన్ఫిగర్ అయి ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL లో B-Tree ఇండెక్స్ వేయకపోతే పూర్తి టేబుల్ స్కాన్ జరిగి డేటాబేస్ ఎలా హ్యాంగ్ అవుతుందో, వెక్టర్స్ లో HNSW (Hierarchical Navigable Small World) ఇండెక్స్ లేకపోతే ప్రతి రిక్వెస్ట్ కి అన్ని వెక్టర్లతో డిస్టెన్స్ కాలిక్యులేట్ చేయాల్సి వస్తుంది. HNSW గ్రాఫ్ ఆధారంగా 99% పోలికలను 5 మిల్లీసెకన్లలో వెతుకుతుంది.</p>
+<p>MySQL లో B-Tree ఇండెక్స్ వేయకపోతే పూర్తి టేబుల్ స్కాన్ జరిగి డేటాబేస్ ఎలా హ్యాంగ్ అవుతుందో, వెక్టర్స్ లో HNSW (Hierarchical Navigable Small World) ఇండెక్స్ లేకపోతే ప్రతి రిక్వెస్ట్ కి అన్ని వెక్టర్లతో డిస్టెన్స్ కాలిక్యులేట్ చేయాల్సి వస్తుంది. HNSW (Hierarchical Navigable Small World) గ్రాఫ్ ఆధారంగా 99% పోలికలను 5 మిల్లీసెకన్లలో వెతుకుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Qdrant HNSW Index Configuration:
 client.create_collection(
@@ -2229,7 +2243,7 @@ def check_hallucination(answer: str, context: str) -&gt; bool:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆటోమేటెడ్ టూల్స్ ఎంత బాగున్నా, మానవ భావోద్వేగాలు, బిజినెస్ సందర్భం మరియు నిజమైన సౌలభ్యాన్ని అంతిమంగా మానవ నిపుణులే సరిగ్గా అంచనా వేయగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>డొమైన్ ఎక్స్‌పర్ట్‌లకు (HR, లీగల్ లేదా డాక్టర్లు) ఒక చిన్న వెబ్ UI ఇస్తాం. అందులో AI ఇచ్చిన సమాధానాలు కనిపిస్తాయి. వారు 1 నుండి 5 స్టార్ రేటింగ్ ఇవ్వడం, "సమాధానం సరిగ్గా లేదు, ఎందుకంటే 2024 అప్‌డేట్ చేర్చలేదు" అని కామెంట్స్ రాయడం చేస్తారు (RLHF కి ఇది ఆధారం).</p>
+<p>డొమైన్ ఎక్స్‌పర్ట్‌లకు (HR, లీగల్ లేదా డాక్టర్లు) ఒక చిన్న వెబ్ UI ఇస్తాం. అందులో AI ఇచ్చిన సమాధానాలు కనిపిస్తాయి. వారు 1 నుండి 5 స్టార్ రేటింగ్ ఇవ్వడం, "సమాధానం సరిగ్గా లేదు, ఎందుకంటే 2024 అప్‌డేట్ చేర్చలేదు" అని కామెంట్స్ రాయడం చేస్తారు (RLHF (Reinforcement Learning from Human Feedback) కి ఇది ఆధారం).</p>
 <h4>ఉదాహరణ</h4>
 <pre># Human Feedback Review Record:
 {
@@ -2785,7 +2799,7 @@ async def chat_completions(req: ChatCompletionRequest):
 <h4>ఎందుకు అవసరం?</h4>
 <p>లైవ్ చాట్ లేదా వాయిస్ అసిస్టెంట్లలో యూజర్ వేచి ఉండలేరు; 500 మిల్లీసెకన్లలో మొదటి టోకెన్ ఇచ్చే అత్యంత వేగవంతమైన సర్వర్‌కు రూట్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Cloudflare Anycast లేదా CDN లాంటిది. Groq, Cerebras లేదా స్థానిక ఆన్-ప్రెమ్ vLLM లలో ఏది ప్రస్తుతానికి తక్కువ టైమ్-టు-ఫస్ట్-టోకెన్ (TTFT) ఇస్తుందో ఆ మోడల్‌కు ట్రాఫిక్‌ను మళ్లిస్తాం.</p>
+<p>Cloudflare Anycast లేదా CDN లాంటిది. Groq, Cerebras లేదా స్థానిక ఆన్-ప్రెమ్ vLLM లలో ఏది ప్రస్తుతానికి తక్కువ టైమ్-టు-ఫస్ట్-టోకెన్ (TTFT (Time to First Token)) ఇస్తుందో ఆ మోడల్‌కు ట్రాఫిక్‌ను మళ్లిస్తాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Pick endpoint with lowest moving P90 latency:
 best_endpoint = min(
@@ -2925,7 +2939,7 @@ enterprise-llm: { provider: bedrock, model: anthropic.claude-3-5-sonnet }</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రతి కొత్త మోడల్ మార్కెట్లోకి వచ్చినప్పుడు మన కంపెనీ డేటాపై అది ఎంత వేగంగా, ఎంత నాణ్యంగా స్పందిస్తుందో వాస్తవంగా లెక్కించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Apache Bench (`ab`) లేదా Pest బెంచ్‌మార్క్ లాంటిది. ఒకే 100 ప్రశ్నల సెట్‌ను GPT-4o, Claude 3.5, Llama-3-70B లకు పంపి: సగటు TTFT (లేటెన్సీ), అక్యురసీ స్కోర్ మరియు మొత్తం టోకెన్ ఖర్చులను లెక్కించి టేబుల్ రూపంలో విశ్లేషిస్తాం.</p>
+<p>Apache Bench (`ab`) లేదా Pest బెంచ్‌మార్క్ లాంటిది. ఒకే 100 ప్రశ్నల సెట్‌ను GPT-4o, Claude 3.5, Llama-3-70B లకు పంపి: సగటు TTFT (Time to First Token) (లేటెన్సీ), అక్యురసీ స్కోర్ మరియు మొత్తం టోకెన్ ఖర్చులను లెక్కించి టేబుల్ రూపంలో విశ్లేషిస్తాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Automated Benchmarking Script:
 for model in ["azure/gpt-4o", "anthropic/claude-3-5-sonnet", "groq/llama-3-70b"]:
@@ -4208,7 +4222,7 @@ queue = asyncio.Queue(maxsize=100) # గరిష్టంగా 100 ఐటమ�
 
 # క్యూ నిండితే put() బ్లాక్ అవుతుంది, ప్రొడ్యూసర్ ఆటోమేటిక్‌గా వేచి చూస్తుంది
 await queue.put(heavy_doc_item)</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> అన్‌బౌండెడ్ క్యూలు (అపరిమిత సైజు) వాడి లక్షలాది టాస్క్‌లు మెమరీలోకి వచ్చి Out-of-Memory (OOM) తో సర్వర్ చనిపోవడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> అన్‌బౌండెడ్ క్యూలు (అపరిమిత సైజు) వాడి లక్షలాది టాస్క్‌లు మెమరీలోకి వచ్చి Out-of-Memory (OOM (Out Of Memory)) తో సర్వర్ చనిపోవడం.</div>
 </div></details>
 
 <details class="t"><summary>51. Rate limiting.<small>డిస్ట్రిబ్యూటెడ్ రేట్ లిమిటింగ్ (సర్వర్ల వ్యాప్త వేగ నియంత్రణ)</small></summary><div class="body">
@@ -4278,7 +4292,7 @@ chord(job_signatures)(notify_ingestion_complete.s())</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కోట్లాది టెక్స్ట్ చంక్స్ కి వెక్టర్స్ జనరేట్ చేయడం చాలా హెవీ కంప్యూట్ పని; బహుళ GPU కార్డ్స్ పై సమాంతరంగా బ్యాచ్ ప్రాసెసింగ్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Ray Core లేదా PyTorch DataParallel ప్యాటర్న్. 10 లక్షల చంక్స్ ని 2048 పరిమాణంగల బ్యాచ్‌లుగా విడదీసి, 4 వేర్వేరు GPU నోడ్లకు పంచుతాం. ప్రతి నోడ్ తన VRAM లో బ్యాచ్ ని లోడ్ చేసి వేగంగా వెక్టర్స్ తయారుచేసి Qdrant లోకి బల్క్ అప్‌లోడ్ చేస్తుంది.</p>
+<p>Ray Core లేదా PyTorch DataParallel ప్యాటర్న్. 10 లక్షల చంక్స్ ని 2048 పరిమాణంగల బ్యాచ్‌లుగా విడదీసి, 4 వేర్వేరు GPU నోడ్లకు పంచుతాం. ప్రతి నోడ్ తన VRAM (Video RAM / GPU Memory) లో బ్యాచ్ ని లోడ్ చేసి వేగంగా వెక్టర్స్ తయారుచేసి Qdrant లోకి బల్క్ అప్‌లోడ్ చేస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Ray Actor Pool for multi-GPU embedding generation:
 @ray.remote(num_gpus=1)
@@ -4530,7 +4544,7 @@ async def test_resilience_when_vector_db_dies():
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్చర్ లో ఎటువంటి మార్పులు చేయకుండా, మరింత పెద్ద RAM, CPU లేదా GPU ఉన్న సర్వర్‌కు మారడం ద్వారా సిస్టమ్ సామర్థ్యాన్ని తక్షణమే పెంచవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో ట్రాఫిక్ పెరిగినప్పుడు DigitalOcean లేదా AWS లో 4GB RAM డ్రాప్‌లెట్ నుండి 64GB RAM సర్వర్‌కి (Resize Droplet / Upgrade Instance Type) మార్చినట్లే. AI లో ఒకే GPU కార్డు (24GB VRAM) సరిపోకపోతే, 80GB VRAM ఉన్న NVIDIA H100 సర్వర్‌కి అప్‌గ్రేడ్ చేయడం వర్టికల్ స్కేలింగ్. దీనికి ఒక హార్డ్ లిమిట్ ఉంటుంది.</p>
+<p>Laravel లో ట్రాఫిక్ పెరిగినప్పుడు DigitalOcean లేదా AWS లో 4GB RAM డ్రాప్‌లెట్ నుండి 64GB RAM సర్వర్‌కి (Resize Droplet / Upgrade Instance Type) మార్చినట్లే. AI లో ఒకే GPU కార్డు (24GB VRAM (Video RAM / GPU Memory)) సరిపోకపోతే, 80GB VRAM (Video RAM / GPU Memory) ఉన్న NVIDIA H100 సర్వర్‌కి అప్‌గ్రేడ్ చేయడం వర్టికల్ స్కేలింగ్. దీనికి ఒక హార్డ్ లిమిట్ ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Vertical Scaling (Scale-up):
 # Step 1: AWS EC2 t3.xlarge (4 vCPU, 16GB RAM)
@@ -4572,7 +4586,7 @@ async def chat_handler(req: ChatRequest):
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్‌లు, వెక్టర్ స్టోర్లు మరియు GPU లోడ్ అయిన మోడల్ వెయిట్స్ (Weights) మెమరీలో ఉండాలి కాబట్టి వాటిని ప్రత్యేక పద్ధతిలో స్కేల్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL, Redis, Qdrant వంటివి స్టేట్‌ఫుల్. వీటిని కేవలం కొత్త సర్వర్ ఆన్ చేసి వెంటనే ట్రాఫిక్ పంపలేము; అవి ముందుగా డిస్క్ నుండి డేటాను లేదా GPU VRAM లోకి 40GB మోడల్ ఫైల్స్‌ను లోడ్ చేసుకోవాలి. దీని కోసం Kubernetes StatefulSets మరియు Persistent Volume Claims (PVC) వాడుతాం.</p>
+<p>MySQL, Redis, Qdrant వంటివి స్టేట్‌ఫుల్. వీటిని కేవలం కొత్త సర్వర్ ఆన్ చేసి వెంటనే ట్రాఫిక్ పంపలేము; అవి ముందుగా డిస్క్ నుండి డేటాను లేదా GPU VRAM (Video RAM / GPU Memory) లోకి 40GB మోడల్ ఫైల్స్‌ను లోడ్ చేసుకోవాలి. దీని కోసం Kubernetes StatefulSets మరియు Persistent Volume Claims (PVC) వాడుతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Kubernetes StatefulSet for Qdrant Vector DB:
 apiVersion: apps/v1
@@ -4637,11 +4651,11 @@ upstream ai_backends {
 <div class="mistake"><b>సాధారణ తప్పు:</b> అసలు బాటిల్‌నెక్ వేరే చోట ఉంటే (LLM latency), సంబంధం లేని మైక్రో-ఆప్టిమైజేషన్లు చేస్తూ సమయం వృధా చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>8. Throughput.<small>త్రూపుట్ (యూనిట్ సమయానికి పూర్తయ్యే పనులు - RPS / TPS)</small></summary><div class="body">
+<details class="t"><summary>8. Throughput.<small>త్రూపుట్ (యూనిట్ సమయానికి పూర్తయ్యే పనులు - RPS / TPS (Tokens Per Second))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ ఒక సెకనులో ఎన్ని వందల లేదా వేల రిక్వెస్ట్‌లను సజావుగా ప్రాసెస్ చేయగలదో లెక్కించడానికి త్రూపుట్ అత్యంత కీలకమైన కొలమానం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `ab -n 1000 -c 50` రన్ చేసినప్పుడు వచ్చే "Requests per second (RPS)". AI లో రెండు రకాల త్రూపుట్స్ ఉంటాయి: 1. API Requests Per Second (RPS), 2. LLM Tokens Per Second (TPS). సిస్టమ్ త్రూపుట్ పెరిగితే ఎక్కువమంది వినియోగదారులకు ఒకేసారి సేవలందించవచ్చు.</p>
+<p>Laravel లో `ab -n 1000 -c 50` రన్ చేసినప్పుడు వచ్చే "Requests per second (RPS)". AI లో రెండు రకాల త్రూపుట్స్ ఉంటాయి: 1. API Requests Per Second (RPS), 2. LLM Tokens Per Second (TPS (Tokens Per Second)). సిస్టమ్ త్రూపుట్ పెరిగితే ఎక్కువమంది వినియోగదారులకు ఒకేసారి సేవలందించవచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Throughput Calculation:
 # Total completed requests in 1 minute = 6,000
@@ -4759,7 +4773,7 @@ stress_test_target_rps = baseline_peak_rps * safety_factor # 90 RPS</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> హెడ్‌రూమ్ లేకుండా 100% సర్వర్ సామర్థ్యం దగ్గరే పీక్ ట్రాఫిక్ ని ప్లాన్ చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>17. Model token throughput.<small>మోడల్ టోకెన్ త్రూపుట్ (TPS గణన)</small></summary><div class="body">
+<details class="t"><summary>17. Model token throughput.<small>మోడల్ టోకెన్ త్రూపుట్ (TPS (Tokens Per Second) గణన)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొవైడర్ విధించే TPM (Tokens Per Minute) కోటాను మనం దాటకుండా ఉండటానికి మన సిస్టమ్ ఎంత టోకెన్ త్రూపుట్ వాడుతుందో లెక్కించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4856,11 +4870,11 @@ daily_total_tokens = daily_sessions * tokens_per_session # 37,500,000 tokens/day
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం ఒక్క ప్రశ్ననే పూర్తి సెషన్ గా భావించి మొత్తం ఖర్చును తక్కువగా అంచనా వేయడం.</div>
 </div></details>
 
-<details class="t"><summary>24. Tokens per second.<small>టోకెన్స్ పర్ సెకండ్ (TPS - జనరేషన్ వేగం)</small></summary><div class="body">
+<details class="t"><summary>24. Tokens per second.<small>టోకెన్స్ పర్ సెకండ్ (TPS (Tokens Per Second) - జనరేషన్ వేగం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ చదివే వేగం కంటే మోడల్ టోకెన్లు ఇచ్చే వేగం వేగంగా ఉండాలి; లేకపోతే రీడింగ్ ఎక్స్‌పీరియన్స్ విసుగు పుట్టిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ మానవుడు సెకనుకు 4 నుండి 6 పదాలు చదవగలడు (సుమారు 8 టోకెన్లు/సెకను). GPT-4o సెకనుకు 60-80 టోకెన్లు ఇస్తుంది. Groq LPU సెకనుకు 400+ టోకెన్లు ఇస్తుంది. మోడల్ జనరేషన్ TPS &gt; 30 ఉంటే యూజర్‌కు సమాధానం చాలా వేగంగా అనిపిస్తుంది.</p>
+<p>సాధారణ మానవుడు సెకనుకు 4 నుండి 6 పదాలు చదవగలడు (సుమారు 8 టోకెన్లు/సెకను). GPT-4o సెకనుకు 60-80 టోకెన్లు ఇస్తుంది. Groq LPU సెకనుకు 400+ టోకెన్లు ఇస్తుంది. మోడల్ జనరేషన్ TPS (Tokens Per Second) &gt; 30 ఉంటే యూజర్‌కు సమాధానం చాలా వేగంగా అనిపిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Measuring Streaming TPS:
 t0 = time.time()
@@ -4870,14 +4884,14 @@ for chunk in stream:
 generation_time = time.time() - t0
 tps = tokens_received / generation_time
 print(f"Generation Speed: {tps:.1f} tokens/second")</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> స్థానిక ఆన్-ప్రెమ్ సర్వర్‌లో సరైన GPU ఆప్టిమైజేషన్ లేక TPS 5 కి పడిపోయి రోబోటిక్ నత్తనడక నడవడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> స్థానిక ఆన్-ప్రెమ్ సర్వర్‌లో సరైన GPU ఆప్టిమైజేషన్ లేక TPS (Tokens Per Second) 5 కి పడిపోయి రోబోటిక్ నత్తనడక నడవడం.</div>
 </div></details>
 
-<details class="t"><summary>25. Time to First Token.<small>టైమ్ టు ఫస్ట్ టోకెన్ (TTFT - మొదటి అక్షరం వచ్చే సమయం)</small></summary><div class="body">
+<details class="t"><summary>25. Time to First Token.<small>టైమ్ టు ఫస్ట్ టోకెన్ (TTFT (Time to First Token) - మొదటి అక్షరం వచ్చే సమయం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ బటన్ నొక్కిన తర్వాత మొదటి అక్షరం స్క్రీన్ పై కనిపించడానికి పట్టే సమయమే యూజర్ కి అసలైన వేగపు అనుభూతిని (Perceived Latency) ఇస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>TTFT లో: నెట్‌వర్క్ జాప్యం + RAG వెక్టర్ సెర్చ్ + ప్రొవైడర్ ప్రాంప్ట్ ప్రాసెసింగ్ (Prompt Evaluation) కలిసి ఉంటాయి. TTFT 800 మిల్లీసెకన్ల కంటే తక్కువగా ఉంటే యూజర్ చాలా వేగంగా ఉందని ఫీల్ అవుతారు. ఇది 3 సెకన్లు దాటితే యూజర్ సిస్టమ్ హ్యాంగ్ అయిందేమో అనుకుంటారు.</p>
+<p>TTFT (Time to First Token) లో: నెట్‌వర్క్ జాప్యం + RAG వెక్టర్ సెర్చ్ + ప్రొవైడర్ ప్రాంప్ట్ ప్రాసెసింగ్ (Prompt Evaluation) కలిసి ఉంటాయి. TTFT (Time to First Token) 800 మిల్లీసెకన్ల కంటే తక్కువగా ఉంటే యూజర్ చాలా వేగంగా ఉందని ఫీల్ అవుతారు. ఇది 3 సెకన్లు దాటితే యూజర్ సిస్టమ్ హ్యాంగ్ అయిందేమో అనుకుంటారు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># TTFT Measurement:
 start_time = time.time()
@@ -4886,7 +4900,7 @@ for first_chunk in stream:
     ttft_ms = (time.time() - start_time) * 1000
     print(f"Time To First Token: {ttft_ms:.0f} ms")
     break # మొదటి టోకెన్ సమయం రికార్డ్ అయింది</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ప్రాంప్ట్ లో 50,000 టోకెన్ల అనవసర డాక్యుమెంట్లు పెట్టి ప్రొవైడర్ ప్రాంప్ట్ ప్రాసెసింగ్ టైమ్ పెరగడం వల్ల TTFT 5 సెకన్లకు చేరడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ప్రాంప్ట్ లో 50,000 టోకెన్ల అనవసర డాక్యుమెంట్లు పెట్టి ప్రొవైడర్ ప్రాంప్ట్ ప్రాసెసింగ్ టైమ్ పెరగడం వల్ల TTFT (Time to First Token) 5 సెకన్లకు చేరడం.</div>
 </div></details>
 
 
@@ -4945,23 +4959,23 @@ if token_count &gt; 120000:
 
 <details class="t"><summary>30. GPU memory requirements.<small>GPU మెమరీ అవసరాల ఖచ్చితమైన గణన</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>సొంతంగా ఓపెన్ సోర్స్ మోడల్స్ ని హోస్ట్ చేయడానికి ఎన్ని GPUలు, ఎంత VRAM అవసరమో గణితాత్మకంగా లెక్కించాలి.</p>
+<p>సొంతంగా ఓపెన్ సోర్స్ మోడల్స్ ని హోస్ట్ చేయడానికి ఎన్ని GPUలు, ఎంత VRAM (Video RAM / GPU Memory) అవసరమో గణితాత్మకంగా లెక్కించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సూత్రం: `VRAM = (Parameters * Bytes_per_param) + KV_Cache + Activations`. 8-బిలియన్ (8B) మోడల్ 16-బిట్ (FP16) లో రన్ అవ్వాలంటే: `8B * 2 bytes = 16 GB` (కేవలం మోడల్ వెయిట్స్ కి). ఇంకా 50 మంది యూజర్ల కాంటెక్స్ట్ ని దాచడానికి KV Cache కి మరో 8 GB కావాలి. అంటే మొత్తం కనీసం 24 GB VRAM (ఉదా: 1x RTX 4090 లేదా A10G) అవసరం.</p>
+<p>సూత్రం: `VRAM (Video RAM / GPU Memory) = (Parameters * Bytes_per_param) + KV_Cache + Activations`. 8-బిలియన్ (8B) మోడల్ 16-బిట్ (FP16) లో రన్ అవ్వాలంటే: `8B * 2 bytes = 16 GB` (కేవలం మోడల్ వెయిట్స్ కి). ఇంకా 50 మంది యూజర్ల కాంటెక్స్ట్ ని దాచడానికి KV (Key-Value) cache కి మరో 8 GB కావాలి. అంటే మొత్తం కనీసం 24 GB VRAM (Video RAM / GPU Memory) (ఉదా: 1x RTX 4090 లేదా A10G) అవసరం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># 70B Model VRAM Sizing (FP16):
 # Weights: 70 * 2 = 140 GB
 # KV Cache (4096 context, batch size 16): ~20 GB
 # Total VRAM needed = ~160 GB
 # Hardware needed: 2x NVIDIA A100 (80GB each) or 4x A10G (24GB each)</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం మోడల్ వెయిట్స్ సైజునే చూసి, కాంకరెంట్ యూజర్ల వల్ల పెరిగే KV Cache మెమరీని లెక్కించక సర్వర్ CUDA OOM తో క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం మోడల్ వెయిట్స్ సైజునే చూసి, కాంకరెంట్ యూజర్ల వల్ల పెరిగే KV (Key-Value) cache మెమరీని లెక్కించక సర్వర్ CUDA OOM (Out Of Memory) తో క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>31. Inference throughput.<small>ఇన్ఫరెన్స్ త్రూపుట్ ఆప్టిమైజేషన్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>GPU యొక్క ప్రతి డాలర్ ఖర్చుకు గరిష్ట సంఖ్యలో టోకెన్లను ఉత్పత్తి చేయడమే ఇన్ఫరెన్స్ త్రూపుట్ లక్ష్యం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>TensorRT-LLM, vLLM లోని PagedAttention మరియు FlashAttention-2 ఆప్టిమైజేషన్లు. ఇవి VRAM లోని ఖాళీ స్థలాన్ని వర్చువల్ మెమరీ లాగా మేనేజ్ చేసి, ఒకే GPU పై 3 నుండి 5 రెట్లు ఎక్కువ మంది యూజర్ల టోకెన్లను ప్రాసెస్ చేసేలా చేస్తాయి.</p>
+<p>TensorRT-LLM, vLLM లోని PagedAttention మరియు FlashAttention-2 ఆప్టిమైజేషన్లు. ఇవి VRAM (Video RAM / GPU Memory) లోని ఖాళీ స్థలాన్ని వర్చువల్ మెమరీ లాగా మేనేజ్ చేసి, ఒకే GPU పై 3 నుండి 5 రెట్లు ఎక్కువ మంది యూజర్ల టోకెన్లను ప్రాసెస్ చేసేలా చేస్తాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># vLLM high-throughput launch flags:
 # python -m vllm.entrypoints.openai.api_server \
@@ -5044,17 +5058,17 @@ total_storage = (vector_bytes + metadata_bytes) * 1.5 # 1.5x buffer = ~1.8 GB</p
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ సైజు మాత్రమే చూసి, పక్కనే స్టోర్ అయ్యే ఒరిజినల్ టెక్స్ట్ పేలోడ్ మరియు JSON మెటాడేటా సైజును విస్మరించడం.</div>
 </div></details>
 
-<details class="t"><summary>37. Index memory requirements.<small>ఇండెక్స్ మెమరీ అవసరాలు (HNSW RAM సైజింగ్)</small></summary><div class="body">
+<details class="t"><summary>37. Index memory requirements.<small>ఇండెక్స్ మెమరీ అవసరాలు (HNSW (Hierarchical Navigable Small World) RAM సైజింగ్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>HNSW గ్రాఫ్ ఇండెక్స్ వేగంగా పనిచేయాలంటే అది మొత్తం సర్వర్ RAM లోనే ఉండాలి; RAM సరిపోకపోతే సెర్చ్ వేగం తీవ్రంగా పడిపోతుంది.</p>
+<p>HNSW (Hierarchical Navigable Small World) గ్రాఫ్ ఇండెక్స్ వేగంగా పనిచేయాలంటే అది మొత్తం సర్వర్ RAM లోనే ఉండాలి; RAM సరిపోకపోతే సెర్చ్ వేగం తీవ్రంగా పడిపోతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>HNSW ఇండెక్స్ గ్రాఫ్ కనెక్షన్ల (Edges) కోసం వెక్టర్ పరిమాణానికి అదనంగా మరో 20% నుండి 50% RAM అవసరం. మన 1 GB వెక్టర్లకు HNSW ఇండెక్స్ మెమరీ సుమారు 1.5 GB RAM తీసుకుంటుంది. అంటే 4GB RAM ఉన్న ఒక చిన్న సర్వర్ 1.6 లక్షల వెక్టర్లను హాయిగా RAM లోనే నడపగలదు.</p>
+<p>HNSW (Hierarchical Navigable Small World) ఇండెక్స్ గ్రాఫ్ కనెక్షన్ల (Edges) కోసం వెక్టర్ పరిమాణానికి అదనంగా మరో 20% నుండి 50% RAM అవసరం. మన 1 GB వెక్టర్లకు HNSW (Hierarchical Navigable Small World) ఇండెక్స్ మెమరీ సుమారు 1.5 GB RAM తీసుకుంటుంది. అంటే 4GB RAM ఉన్న ఒక చిన్న సర్వర్ 1.6 లక్షల వెక్టర్లను హాయిగా RAM లోనే నడపగలదు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># HNSW RAM Rule of Thumb:
 # RAM_needed = num_vectors * (dimensions * 4 + M * 8)
 # For 1M vectors with 1536 dims and M=16:
 # RAM = 1,000,000 * (6144 + 128) = ~6.27 GB RAM</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> HNSW ఇండెక్స్ సైజు కంటే తక్కువ RAM ఉన్న సర్వర్ పెట్టి డిస్క్ స్వాపింగ్ (Disk Thashing) జరిగి సెర్చ్ మిల్లీసెకన్ల నుండి సెకన్లకు చేరడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> HNSW (Hierarchical Navigable Small World) ఇండెక్స్ సైజు కంటే తక్కువ RAM ఉన్న సర్వర్ పెట్టి డిస్క్ స్వాపింగ్ (Disk Thashing) జరిగి సెర్చ్ మిల్లీసెకన్ల నుండి సెకన్లకు చేరడం.</div>
 </div></details>
 
 <details class="t"><summary>38. Query volume.<small>క్వెరీ వాల్యూమ్ (రోజువారీ శోధనల పరిమాణం)</small></summary><div class="body">
@@ -5204,7 +5218,7 @@ spec:
 # Master 1 (Slots 0 - 5460)      &lt;-- Replica 1
 # Master 2 (Slots 5461 - 10922)  &lt;-- Replica 2
 # Master 3 (Slots 10923 - 16383) &lt;-- Replica 3</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> Redis లో `maxmemory-policy` సెట్ చేయకపోవడం వల్ల మెమరీ నిండినప్పుడు కొత్త రైట్స్ అన్నీ `OOM command not allowed` తో ఫెయిల్ అవ్వడం (allkeys-lru వాడాలి).</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> Redis లో `maxmemory-policy` సెట్ చేయకపోవడం వల్ల మెమరీ నిండినప్పుడు కొత్త రైట్స్ అన్నీ `OOM (Out Of Memory) command not allowed` తో ఫెయిల్ అవ్వడం (allkeys-lru వాడాలి).</div>
 </div></details>
 
 <details class="t"><summary>47. Vector database scaling.<small>వెక్టర్ డేటాబేస్ స్కేలింగ్ (షార్డింగ్ &amp; రెప్లికేషన్)</small></summary><div class="body">
@@ -7762,7 +7776,7 @@ SYSTEM_PROMPT_REGISTRY = {
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఏజెంట్‌ను మాస్టర్ అడ్మిన్ క్రెడెన్షియల్స్‌తో రన్ చేసి సాధారణ యూజర్ల ప్రశ్నలకు సమాధానం ఇచ్చేలా చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>54. Human approval.<small>హ్యూమన్ అప్రూవల్ గేట్స్ (HITL Gateways)</small></summary><div class="body">
+<details class="t"><summary>54. Human approval.<small>హ్యూమన్ అప్రూవల్ గేట్స్ (HITL (Human-in-the-Loop) Gateways)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఖరీదైన లావాదేవీలు లేదా రద్దు చేయలేని చర్యలు (Irreversible actions - ఉదా: సర్వర్ రీబూట్, పెద్ద ఈమెయిల్ బ్లాస్ట్) జరిగే ముందు మానవ అధికారి "అవును, కొనసాగించు" అని బటన్ క్లిక్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8161,7 +8175,7 @@ builder.add_edge("generate_summary", END)
 <div class="mistake"><b>సాధారణ తప్పు:</b> స్థిరమైన రూల్స్ ఉన్న సరళమైన బిజినెస్ ప్రాసెస్‌కు అనవసరంగా సంక్లిష్టమైన అటానమస్ ఏజెంట్ ఆర్కిటెక్చర్ వాడి లేటెన్సీ మరియు అస్థిరతను పెంచుకోవడం.</div>
 </div></details>
 
-<details class="t"><summary>6. Human-in-the-loop architecture.<small>హ్యూమన్-ఇన్-ది-లూప్ (HITL) ఆర్కిటెక్చర్</small></summary><div class="body">
+<details class="t"><summary>6. Human-in-the-loop architecture.<small>హ్యూమన్-ఇన్-ది-లూప్ (HITL (Human-in-the-Loop)) ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI తీసుకునే తీవ్రమైన చర్యలను (డేటా తొలగింపు, చెల్లింపులు, చట్టపరమైన ఆమోదాలు) మానవుడు పరిశీలించి ఆమోదించే వరకు తాత్కాలికంగా ఆపే భద్రతా నిర్మాణం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8180,7 +8194,7 @@ app.invoke({"amount": 5000}, config=config)
 # అడ్మిన్ వెబ్ పోర్టల్‌లో అప్రూవ్ చేసిన తర్వాత తిరిగి రెజ్యూమ్ చేయడం:
 # app.invoke(None, config=config)
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> స్టేట్ పర్సిస్టెన్స్ (Checkpointer) లేకుండా HITL చేయాలనుకోవడం; సర్వర్ రీస్టార్ట్ అయితే మధ్యలో ఆగిన వర్క్‌ఫ్లో స్టేట్ పోతుంది.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> స్టేట్ పర్సిస్టెన్స్ (Checkpointer) లేకుండా HITL (Human-in-the-Loop) చేయాలనుకోవడం; సర్వర్ రీస్టార్ట్ అయితే మధ్యలో ఆగిన వర్క్‌ఫ్లో స్టేట్ పోతుంది.</div>
 </div></details>
 
 <details class="t"><summary>7. Multimodal AI architecture.<small>మల్టీమోడల్ AI ఆర్కిటెక్చర్ (Text + Image + Audio)</small></summary><div class="body">
@@ -9289,7 +9303,7 @@ CREATE TABLE enterprise_chunks (
 );
 CREATE INDEX idx_chunks_tenant_vec ON enterprise_chunks USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ కాలమ్స్ పై ఇండెక్స్ (HNSW లేదా IVFFlat) వేయడం మర్చిపోయి క్వెరీ రన్ చేసిన ప్రతిసారీ ఫుల్ టేబుల్ స్కాన్ జరగడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ కాలమ్స్ పై ఇండెక్స్ (HNSW (Hierarchical Navigable Small World) లేదా IVFFlat) వేయడం మర్చిపోయి క్వెరీ రన్ చేసిన ప్రతిసారీ ఫుల్ టేబుల్ స్కాన్ జరగడం.</div>
 </div></details>
 
 <details class="t"><summary>7. Component decomposition.<small>కాంపోనెంట్ డీకంపోజిషన్ (సిస్టమ్ విభజన)</small></summary><div class="body">
@@ -9305,7 +9319,7 @@ CREATE INDEX idx_chunks_tenant_vec ON enterprise_chunks USING ivfflat (embedding
     "Chat_State_Manager": "LangGraph ఆధారిత ఏజెంట్ మెమరీ మరియు చెక్‌పాయింట్స్"
 }
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని పనులను (PDF రీడింగ్, ఎంబెడ్డింగ్, చాట్ API) ఒకే పైథాన్ వెబ్ ప్రాసెస్‌లో పెట్టి సర్వర్ మెమరీ ఔట్-ఆఫ్-మెమరీ (OOM) తో క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని పనులను (PDF రీడింగ్, ఎంబెడ్డింగ్, చాట్ API) ఒకే పైథాన్ వెబ్ ప్రాసెస్‌లో పెట్టి సర్వర్ మెమరీ ఔట్-ఆఫ్-మెమరీ (OOM (Out Of Memory)) తో క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>8. Architecture diagrams.<small>ఆర్కిటెక్చర్ డయాగ్రమ్‌ల రూపకల్పన (C4 Model)</small></summary><div class="body">
@@ -9441,7 +9455,7 @@ async def batch_embed_chunks(client: AsyncOpenAI, chunks: list[str]) -&gt; list[
 <div class="mistake"><b>సాధారణ తప్పు:</b> లూప్‌లో `for chunk in chunks:` అని రాసి ఒక్కొక్క చంక్‌కు వేర్వేరుగా సింక్రోనస్ API కాల్స్ చేస్తూ గంటల తరబడి సమయం వృథా చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>15. Vector indexing.<small>వెక్టర్ ఇండెక్సింగ్ (HNSW vs IVFFlat)</small></summary><div class="body">
+<details class="t"><summary>15. Vector indexing.<small>వెక్టర్ ఇండెక్సింగ్ (HNSW (Hierarchical Navigable Small World) vs IVFFlat)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మిలియన్ల కొద్దీ వెక్టర్లు ఉన్నప్పుడు క్వెరీ వెక్టర్ ఏ వెక్టర్‌కు దగ్గరగా ఉందో ప్రతి ఒక్కదాన్నీ కొలవడం (Exact Search) చాలా నెమ్మది. మిల్లీసెకన్లలో దగ్గరి వాటిని కనుగొనడానికి Approximate Nearest Neighbor (ANN) ఇండెక్స్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9451,7 +9465,7 @@ async def batch_embed_chunks(client: AsyncOpenAI, chunks: list[str]) -&gt; list[
 CREATE INDEX ON document_vectors USING hnsw (embedding vector_cosine_ops)
 WITH (m = 16, ef_construction = 64);
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> HNSW ఇండెక్స్ పెట్టినప్పుడు రామ్ (RAM) మెమరీ అవసరాలను లెక్కించకపోవడం; HNSW ఇండెక్స్ మొత్తం RAM లోనే ఉండాలి.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> HNSW (Hierarchical Navigable Small World) ఇండెక్స్ పెట్టినప్పుడు రామ్ (RAM) మెమరీ అవసరాలను లెక్కించకపోవడం; HNSW (Hierarchical Navigable Small World) ఇండెక్స్ మొత్తం RAM లోనే ఉండాలి.</div>
 </div></details>
 
 <details class="t"><summary>16. Hybrid retrieval.<small>హైబ్రిడ్ రిట్రీవల్ (Dense Vector + Sparse BM25 Keyword)</small></summary><div class="body">
@@ -10476,9 +10490,9 @@ VALID_FINE_TUNING_CASES = [
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రాంప్ట్ ఇంజనీరింగ్ లేదా ఫ్యూ-షాట్ ప్రాంప్టింగ్‌ను సరిగ్గా ప్రయత్నించకుండానే మొదటి రోజే ఫైన్-ట్యూనింగ్‌కు వెళ్లడం.</div>
 </div></details>
 
-<details class="t"><summary>3. Supervised fine-tuning.<small>సూపర్‌వైజ్డ్ ఫైన్-ట్యూనింగ్ (SFT) ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="t"><summary>3. Supervised fine-tuning.<small>సూపర్‌వైజ్డ్ ఫైన్-ట్యూనింగ్ (SFT (Supervised Fine-Tuning)) ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ముందుగా ట్రైన్ అయిన బేస్ మోడల్ కేవలం వాక్యాలను పూర్తి చేయడం (Text Completion) మాత్రమే చేస్తుంది. దానిని యూజర్ ప్రశ్నలకు అర్థవంతంగా సమాధానాలు ఇచ్చే ఇన్స్ట్రక్షన్-ఫాలోయింగ్ మోడల్‌గా మార్చడానికి SFT అవసరం.</p>
+<p>ముందుగా ట్రైన్ అయిన బేస్ మోడల్ కేవలం వాక్యాలను పూర్తి చేయడం (Text Completion) మాత్రమే చేస్తుంది. దానిని యూజర్ ప్రశ్నలకు అర్థవంతంగా సమాధానాలు ఇచ్చే ఇన్స్ట్రక్షన్-ఫాలోయింగ్ మోడల్‌గా మార్చడానికి SFT (Supervised Fine-Tuning) అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>ప్రశ్న-సమాధానాల జంటల (Prompt-Response Pairs) తో మోడల్‌ను ట్రైన్ చేయడం. ఉదాహరణకు వేలాది `"input": "ఈ పేరాగ్రాఫ్ నుండి లీడ్స్ తీయి", "output": "{...}"` ఉదాహరణలను ఇచ్చి మోడల్ వెయిట్స్‌ను అడ్జస్ట్ చేయడం.</p>
 <h4>ఉదాహరణ</h4>
@@ -10648,22 +10662,22 @@ lora_config = LoraConfig(
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఆధునిక PEFT పద్ధతులు అందుబాటులో ఉన్నప్పటికీ ఇంకా ఖరీదైన ఫుల్ ఫైన్-ట్యూనింగ్ వెనుక పరిగెత్తడం.</div>
 </div></details>
 
-<details class="t"><summary>13. LoRA.<small>లో-ర్యాంక్ అడాప్టేషన్ (LoRA: Low-Rank Adaptation)</small></summary><div class="body">
+<details class="t"><summary>13. LoRA (Low-Rank Adaptation).<small>లో-ర్యాంక్ అడాప్టేషన్ (LoRA (Low-Rank Adaptation): Low-Rank Adaptation)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>భారీ వెయిట్ మ్యాట్రిక్స్ $\Delta W$ ను రెండు చిన్న లో-ర్యాంక్ మ్యాట్రిక్స్‌లుగా ($A \times B$) విభజించి తక్కువ GPU మెమరీతో వేగంగా ట్రైన్ చేసే పరిశ్రమ ప్రమాణం LoRA.</p>
+<p>భారీ వెయిట్ మ్యాట్రిక్స్ $\Delta W$ ను రెండు చిన్న లో-ర్యాంక్ మ్యాట్రిక్స్‌లుగా ($A \times B$) విభజించి తక్కువ GPU మెమరీతో వేగంగా ట్రైన్ చేసే పరిశ్రమ ప్రమాణం LoRA (Low-Rank Adaptation).</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఉదాహరణకు 4096 x 4096 మ్యాట్రిక్స్‌లో 16 మిలియన్ పారామీటర్లు ఉంటాయి. LoRA Rank $r=8$ వాడితే $4096 \times 8 + 8 \times 4096 = 65,536$ పారామీటర్లు మాత్రమే ఉంటాయి (250 రెట్లు తక్కువ!). ఫలితంగా సింగిల్ GPU లోనే ఫైన్-ట్యూనింగ్ సాధ్యమవుతుంది.</p>
+<p>ఉదాహరణకు 4096 x 4096 మ్యాట్రిక్స్‌లో 16 మిలియన్ పారామీటర్లు ఉంటాయి. LoRA (Low-Rank Adaptation) Rank $r=8$ వాడితే $4096 \times 8 + 8 \times 4096 = 65,536$ పారామీటర్లు మాత్రమే ఉంటాయి (250 రెట్లు తక్కువ!). ఫలితంగా సింగిల్ GPU లోనే ఫైన్-ట్యూనింగ్ సాధ్యమవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># LoRA Architecture Concept
 # Forward Pass: output = W0(x) + (B * A)(x) * (alpha / r)
 # ఇక్కడ W0 ఫ్రోజెన్ (మార్చబడదు), కేవలం A మరియు B మాత్రమే నేర్చుకుంటాయి.
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> LoRA Rank ($r$) ని విపరీతంగా పెంచేయడం ($r=256$); సాధారణ టాస్క్‌లకు $r=8$ లేదా $r=16$ సరిపోతుంది.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> LoRA (Low-Rank Adaptation) Rank ($r$) ని విపరీతంగా పెంచేయడం ($r=256$); సాధారణ టాస్క్‌లకు $r=8$ లేదా $r=16$ సరిపోతుంది.</div>
 </div></details>
 
-<details class="t"><summary>14. QLoRA.<small>క్వాంటైజ్డ్ లోరా (QLoRA: 4-bit Quantized LoRA)</small></summary><div class="body">
+<details class="t"><summary>14. QLoRA (Quantized Low-Rank Adaptation).<small>క్వాంటైజ్డ్ లోరా (QLoRA (Quantized Low-Rank Adaptation): 4-bit Quantized LoRA (Low-Rank Adaptation))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>బేస్ మోడల్‌ను 4-బిట్ నార్మల్‌ఫ్లోట్ (NF4) లోకి కంప్రెస్ చేసి, దానిపై LoRA అడాప్టర్లను ట్రైన్ చేయడం ద్వారా ఒకే ఒక్క సాధారణ కన్స్యూమర్ GPU (ఉదా: 24GB RTX 3090/4090) లో భారీ 70B మోడల్‌ను ఫైన్-ట్యూన్ చేయవచ్చు.</p>
+<p>బేస్ మోడల్‌ను 4-బిట్ నార్మల్‌ఫ్లోట్ (NF4) లోకి కంప్రెస్ చేసి, దానిపై LoRA (Low-Rank Adaptation) అడాప్టర్లను ట్రైన్ చేయడం ద్వారా ఒకే ఒక్క సాధారణ కన్స్యూమర్ GPU (ఉదా: 24GB RTX 3090/4090) లో భారీ 70B మోడల్‌ను ఫైన్-ట్యూన్ చేయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>ఒక పెద్ద ఫైల్‌ను జిప్ (Zip) చేసి చూస్తూ పక్కన నోట్స్ రాసుకున్నట్లు. అసలైన బేస్ మోడల్ మెమరీని 4-బిట్‌తో కనిష్ట స్థాయికి తగ్గించి, ట్రైనింగ్ బ్యాక్‌ప్రొపగేషన్ మాత్రం 16-బిట్ బ్రెయిన్‌ఫ్లోట్ (BF16) లో జరగడం.</p>
 <h4>ఉదాహరణ</h4>
@@ -10677,7 +10691,7 @@ bnb_config = BitsAndBytesConfig(
 )
 # మోడల్ 4-బిట్ లోడ్ అవుతుంది, సాధారణ GPU లో ఫిట్ అవుతుంది
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ట్రైనింగ్ పూర్తయ్యాక 4-బిట్ బేస్ మోడల్‌తో LoRA అడాప్టర్లను మెర్జ్ చేసేటప్పుడు ప్రెసిషన్ కోల్పోవడం; ప్రొడక్షన్ ఇన్ఫరెన్స్‌కు 16-బిట్‌లో మెర్జ్ చేయాలి.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ట్రైనింగ్ పూర్తయ్యాక 4-బిట్ బేస్ మోడల్‌తో LoRA (Low-Rank Adaptation) అడాప్టర్లను మెర్జ్ చేసేటప్పుడు ప్రెసిషన్ కోల్పోవడం; ప్రొడక్షన్ ఇన్ఫరెన్స్‌కు 16-బిట్‌లో మెర్జ్ చేయాలి.</div>
 </div></details>
 
 <details class="t"><summary>15. Adapter layers.<small>అడాప్టర్ లేయర్‌ల నిర్వహణ మరియు హాట్-స్వాపింగ్</small></summary><div class="body">
@@ -10746,7 +10760,7 @@ trainer = SFTTrainer(
 <h4>ఎందుకు అవసరం?</h4>
 <p>లెర్నింగ్ రేట్ చాలా ఎక్కువగా ఉంటే మోడల్ ఏమీ నేర్చుకోలేదు (Divergence); చాలా తక్కువగా ఉంటే నెమ్మదిగా సాగుతుంది. సరైన విలువలను ఎంచుకోవడం విజయానికి కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>వంటలో ఉప్పు, మసాలాలు సరైన మోతాదులో వేసినట్లు. LoRA ఫైన్-ట్యూనింగ్‌కు గోల్డెన్ రూల్స్: `learning_rate = 2e-4`, `epochs = 3`, `cosine scheduler`, `warmup_ratio = 0.03`.</p>
+<p>వంటలో ఉప్పు, మసాలాలు సరైన మోతాదులో వేసినట్లు. LoRA (Low-Rank Adaptation) ఫైన్-ట్యూనింగ్‌కు గోల్డెన్ రూల్స్: `learning_rate = 2e-4`, `epochs = 3`, `cosine scheduler`, `warmup_ratio = 0.03`.</p>
 <h4>ఉదాహరణ</h4>
 <pre>GOLDEN_HYPERPARAMETERS = {
     "learning_rate": 0.0002,     # 2e-4
@@ -10780,7 +10794,7 @@ early_stop = EarlyStoppingCallback(
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్‌కు కొత్త టాస్క్ (ఉదా: SQL కోడింగ్) నేర్పించేటప్పుడు, అది గతంలో నేర్చుకున్న సాధారణ ఇంగ్లీష్ మాట్లాడటం లేదా లాజిక్‌ను పూర్తిగా మర్చిపోయే ప్రమాదం ఉంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక డ్రైవర్‌కు పైలట్ శిక్షణ ఇస్తున్నప్పుడు అతను కారు నడపడమే మర్చిపోవడం లాంటిది. దీన్ని నివారించడానికి PEFT/LoRA వాడాలి (అసలు మోడల్ ఫ్రోజెన్‌గా ఉంటుంది) లేదా ట్రైనింగ్ డేటాలో 10% సాధారణ ఇంగ్లీష్/రీజనింగ్ ప్రశ్నలను కలపాలి (Rehearsal Data).</p>
+<p>ఒక డ్రైవర్‌కు పైలట్ శిక్షణ ఇస్తున్నప్పుడు అతను కారు నడపడమే మర్చిపోవడం లాంటిది. దీన్ని నివారించడానికి PEFT/LoRA (Low-Rank Adaptation) వాడాలి (అసలు మోడల్ ఫ్రోజెన్‌గా ఉంటుంది) లేదా ట్రైనింగ్ డేటాలో 10% సాధారణ ఇంగ్లీష్/రీజనింగ్ ప్రశ్నలను కలపాలి (Rehearsal Data).</p>
 <h4>ఉదాహరణ</h4>
 <pre>def mix_rehearsal_dataset(specialized_dataset: list, general_qa_dataset: list) -&gt; list:
     # 90% స్పెషలైజ్డ్ + 10% జనరల్ డేటా మిక్సింగ్ ద్వారా పాత తెలివితేటలను కాపాడటం
@@ -10808,7 +10822,7 @@ early_stop = EarlyStoppingCallback(
 
 <details class="t"><summary>22. Model loading.<small>మోడల్ లోడింగ్ మరియు మెమరీ అలొకేషన్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఒక 14GB మోడల్ ఫైల్‌ను హార్డ్‌డిస్క్ నుండి GPU VRAM లోకి లోడ్ చేయడానికి సమయం పడుతుంది. ప్రొడక్షన్ సర్వర్లు వేగంగా స్టార్ట్ అవ్వడానికి సరైన మోడల్ లోడింగ్ టెక్నిక్స్ ఉండాలి.</p>
+<p>ఒక 14GB మోడల్ ఫైల్‌ను హార్డ్‌డిస్క్ నుండి GPU VRAM (Video RAM / GPU Memory) లోకి లోడ్ చేయడానికి సమయం పడుతుంది. ప్రొడక్షన్ సర్వర్లు వేగంగా స్టార్ట్ అవ్వడానికి సరైన మోడల్ లోడింగ్ టెక్నిక్స్ ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Safetensors ఫార్మాట్ వాడటం. పాత Pickle ఫార్మాట్ కంటే Safetensors మెమరీ మ్యాపింగ్ (mmap) ద్వారా నేరుగా జీరో-కాపీతో GPU లోకి లోడ్ అవుతుంది మరియు సురక్షితమైనది.</p>
 <h4>ఉదాహరణ</h4>
@@ -10824,11 +10838,11 @@ model = AutoModelForCausalLM.from_pretrained(
 <div class="mistake"><b>సాధారణ తప్పు:</b> పాత `pytorch_model.bin` (Pickle) ఫైళ్లను వాడటం వల్ల సెక్యూరిటీ వల్నరబిలిటీలు మరియు స్లో లోడింగ్ టైమ్స్ ఎదురవ్వడం.</div>
 </div></details>
 
-<details class="t"><summary>23. GPU memory.<small>GPU మెమరీ నిర్వహణ (VRAM: Weights, KV Cache, Activations)</small></summary><div class="body">
+<details class="t"><summary>23. GPU memory.<small>GPU మెమరీ నిర్వహణ (VRAM (Video RAM / GPU Memory): Weights, KV (Key-Value) cache, Activations)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>GPU VRAM చాలా పరిమితం (16GB, 24GB, 80GB). మోడల్ వెయిట్స్‌తో పాటు KV Cache మరియు యాక్టివేషన్స్ కూడా VRAM లోనే ఉంటాయి. మెమరీ ఎలా పంచుకోవాలో తెలియకపోతే OOM క్రాష్ అవుతుంది.</p>
+<p>GPU VRAM (Video RAM / GPU Memory) చాలా పరిమితం (16GB, 24GB, 80GB). మోడల్ వెయిట్స్‌తో పాటు KV (Key-Value) cache మరియు యాక్టివేషన్స్ కూడా VRAM (Video RAM / GPU Memory) లోనే ఉంటాయి. మెమరీ ఎలా పంచుకోవాలో తెలియకపోతే OOM (Out Of Memory) క్రాష్ అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గణన: 8B మోడల్ BF16 లో = 16GB VRAM (కేవలం వెయిట్స్). ఇన్ఫరెన్స్ రన్ అయ్యేటప్పుడు 4,000 టోకెన్ల కాంటెక్స్ట్‌కు KV Cache కి మరో 2-4GB కావాలి. కాబట్టి 8B మోడల్‌కు కనీసం 24GB GPU (A10G లేదా RTX 3090/4090) ఉండాలి.</p>
+<p>గణన: 8B మోడల్ BF16 లో = 16GB VRAM (Video RAM / GPU Memory) (కేవలం వెయిట్స్). ఇన్ఫరెన్స్ రన్ అయ్యేటప్పుడు 4,000 టోకెన్ల కాంటెక్స్ట్‌కు KV (Key-Value) cache కి మరో 2-4GB కావాలి. కాబట్టి 8B మోడల్‌కు కనీసం 24GB GPU (A10G లేదా RTX 3090/4090) ఉండాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def calculate_vram_needs(param_billions: float, bytes_per_param: int = 2, max_context_tokens: int = 4096) -&gt; float:
     weights_gb = param_billions * bytes_per_param
@@ -10838,33 +10852,33 @@ model = AutoModelForCausalLM.from_pretrained(
 
 # print(calculate_vram_needs(8.0)) -&gt; ~18.5 GB
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం మోడల్ వెయిట్స్ సైజు మాత్రమే చూసి, భారీ కాంటెక్స్ట్ విండో వాడినప్పుడు KV Cache వల్ల వచ్చే మెమరీ ఓవర్‌ఫ్లోను విస్మరించడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం మోడల్ వెయిట్స్ సైజు మాత్రమే చూసి, భారీ కాంటెక్స్ట్ విండో వాడినప్పుడు KV (Key-Value) cache వల్ల వచ్చే మెమరీ ఓవర్‌ఫ్లోను విస్మరించడం.</div>
 </div></details>
 
-<details class="t"><summary>24. Model quantization.<small>ఇన్ఫరెన్స్ క్వాంటైజేషన్ ఫార్మాట్లు (AWQ vs GPTQ vs GGUF)</small></summary><div class="body">
+<details class="t"><summary>24. Model quantization.<small>ఇన్ఫరెన్స్ క్వాంటైజేషన్ ఫార్మాట్లు (AWQ (Activation-aware Weight Quantization) vs GPTQ vs GGUF (GPT-Generated Unified Format))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొడక్షన్ ఇన్ఫరెన్స్‌లో మోడల్ నాణ్యత తగ్గకుండా వేగాన్ని 3 రెట్లు పెంచడానికి AWQ (Activation-aware Weight Quantization) లేదా GPTQ టెక్నాలజీలు ఉపయోగపడతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>AWQ అనేది అధునాతన 4-బిట్ క్వాంటైజేషన్. అన్ని వెయిట్స్‌ను గుడ్డిగా కుదించకుండా, మోడల్ యాక్టివేషన్స్‌లో ముఖ్యమైన 1% వెయిట్స్‌ను భద్రపరిచి మిగిలిన వాటిని 4-బిట్‌గా మారుస్తుంది. ఫలితంగా నాణ్యత నష్టం దాదాపు శూన్యం.</p>
+<p>AWQ (Activation-aware Weight Quantization) అనేది అధునాతన 4-బిట్ క్వాంటైజేషన్. అన్ని వెయిట్స్‌ను గుడ్డిగా కుదించకుండా, మోడల్ యాక్టివేషన్స్‌లో ముఖ్యమైన 1% వెయిట్స్‌ను భద్రపరిచి మిగిలిన వాటిని 4-బిట్‌గా మారుస్తుంది. ఫలితంగా నాణ్యత నష్టం దాదాపు శూన్యం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># vLLM లో AWQ క్వాంటైజ్డ్ మోడల్ రన్ చేయడం
 # vllm serve TheBloke/Llama-2-7B-Chat-AWQ --quantization awq --dtype half
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> CPU ఇన్ఫరెన్స్ కోసం రూపొందించిన GGUF ఫార్మాట్‌ను హై-ఎండ్ డేటాసెంటర్ GPU సర్వర్లలో వాడటం; GPU లకు AWQ అత్యుత్తమం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> CPU ఇన్ఫరెన్స్ కోసం రూపొందించిన GGUF (GPT-Generated Unified Format) ఫార్మాట్‌ను హై-ఎండ్ డేటాసెంటర్ GPU సర్వర్లలో వాడటం; GPU లకు AWQ (Activation-aware Weight Quantization) అత్యుత్తమం.</div>
 </div></details>
 
-<details class="t"><summary>25. KV cache.<small>కీ-వాల్యూ (KV) క్యాష్ మెకానిజం</small></summary><div class="body">
+<details class="t"><summary>25. KV (Key-Value) cache.<small>కీ-వాల్యూ (KV) క్యాష్ మెకానిజం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>LLM ప్రతి టోకెన్‌ను ఒక్కొక్కటిగా జనరేట్ చేస్తుంది. మునుపటి టోకెన్ల అటెన్షన్ కీలు మరియు వాల్యూలను ప్రతిసారీ రీ-కాలిక్యులేట్ చేయకుండా VRAM లో కాష్ చేయడం ద్వారా ఇన్ఫరెన్స్ వేగం విపరీతంగా పెరుగుతుంది.</p>
+<p>LLM ప్రతి టోకెన్‌ను ఒక్కొక్కటిగా జనరేట్ చేస్తుంది. మునుపటి టోకెన్ల అటెన్షన్ కీలు మరియు వాల్యూలను ప్రతిసారీ రీ-కాలిక్యులేట్ చేయకుండా VRAM (Video RAM / GPU Memory) లో కాష్ చేయడం ద్వారా ఇన్ఫరెన్స్ వేగం విపరీతంగా పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గణితంలో మెమోయిజేషన్ (Memoization) లాంటిది. 10వ పదం కనిపెట్టడానికి పాత 9 పదాల అటెన్షన్ స్టేట్‌ను మళ్లీ లెక్కించకుండా క్యాష్ నుండి చదువుకోవడం. vLLM లోని PagedAttention ఈ KV Cache ని వర్చువల్ మెమరీ పేజీల లాగా ముక్కలు చేసి మెమరీ వేస్టేజ్‌ను సున్నా చేస్తుంది.</p>
+<p>గణితంలో మెమోయిజేషన్ (Memoization) లాంటిది. 10వ పదం కనిపెట్టడానికి పాత 9 పదాల అటెన్షన్ స్టేట్‌ను మళ్లీ లెక్కించకుండా క్యాష్ నుండి చదువుకోవడం. vLLM లోని PagedAttention ఈ KV (Key-Value) cache ని వర్చువల్ మెమరీ పేజీల లాగా ముక్కలు చేసి మెమరీ వేస్టేజ్‌ను సున్నా చేస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Conceptual KV Cache Loop in Attention
 # if kv_cache is present:
 #     key = torch.cat([kv_cache.key, new_key], dim=-1)
 #     value = torch.cat([kv_cache.value, new_value], dim=-1)
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> పొడవైన కాంటెక్స్ట్ (32K+ టోకెన్లు) ఉన్నప్పుడు KV Cache సైజు GPU మెమరీని మించిపోతుందని గుర్తించకపోవడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> పొడవైన కాంటెక్స్ట్ (32K+ టోకెన్లు) ఉన్నప్పుడు KV (Key-Value) cache సైజు GPU మెమరీని మించిపోతుందని గుర్తించకపోవడం.</div>
 </div></details>
 
 <details class="t"><summary>26. Batching.<small>సాంప్రదాయ స్టాటిక్ బ్యాచింగ్ (Static Batching)</small></summary><div class="body">
@@ -10896,7 +10910,7 @@ input_batch = ["హలో", "భారత రాజ్యాంగం గుర�
 
 <details class="t"><summary>28. Streaming inference.<small>స్ట్రీమింగ్ ఇన్ఫరెన్స్ మరియు టోకెన్-బై-టోకెన్ డెలివరీ</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>యూజర్ అనుభవాన్ని మెరుగుపరచడానికి Time-to-First-Token (TTFT) ను కనిష్ట స్థాయికి తీసుకురావడం. మోడల్ జనరేట్ చేసిన ప్రతి టోకెన్‌ను మిల్లీసెకన్లలో క్లయింట్‌కు పంపాలి.</p>
+<p>యూజర్ అనుభవాన్ని మెరుగుపరచడానికి Time-to-First-Token (TTFT (Time to First Token)) ను కనిష్ట స్థాయికి తీసుకురావడం. మోడల్ జనరేట్ చేసిన ప్రతి టోకెన్‌ను మిల్లీసెకన్లలో క్లయింట్‌కు పంపాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>FastAPI లో `StreamingResponse` మరియు పైథాన్ `async generator` వాడటం. SSE (Server-Sent Events) ప్రోటోకాల్ ద్వారా ఫ్రంటెండ్ రియాక్ట్ చాట్ విండోలో అక్షరాలు టైప్ అవుతున్నట్లు కనిపిస్తాయి.</p>
 <h4>ఉదాహరణ</h4>
@@ -10919,7 +10933,7 @@ input_batch = ["హలో", "భారత రాజ్యాంగం గుర�
 #   --tensor-parallel-size 2 \
 #   --max-num-seqs 64 # గరిష్టంగా 64 ఏకకాల రిక్వెస్ట్‌లు
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> కాంకరెన్సీ కోసం బహుళ పైథాన్ ప్రాసెస్‌లు ఒకే GPU మెమరీని లోడ్ చేయడానికి ప్రయత్నించి OOM అవ్వడం; సింగిల్ ఇంజిన్ టెన్సర్ పారలలిజం వాడాలి.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> కాంకరెన్సీ కోసం బహుళ పైథాన్ ప్రాసెస్‌లు ఒకే GPU మెమరీని లోడ్ చేయడానికి ప్రయత్నించి OOM (Out Of Memory) అవ్వడం; సింగిల్ ఇంజిన్ టెన్సర్ పారలలిజం వాడాలి.</div>
 </div></details>
 
 <details class="t"><summary>30. Inference optimization.<small>ఇన్ఫరెన్స్ ఆప్టిమైజేషన్ టెక్నిక్స్ (FlashAttention, Speculative Decoding)</small></summary><div class="body">
@@ -10997,11 +11011,11 @@ LEADERBOARD_METRICS = {
 <div class="mistake"><b>సాధారణ తప్పు:</b> బెంచ్‌మార్క్ లీడర్‌బోర్డ్ స్కోర్లు బాగున్నంత మాత్రాన మీ నిర్దిష్ట ప్రాంతీయ భాషకు లేదా డొమైన్‌కు ఆ మోడల్ బాగుంటుందని గుడ్డిగా నమ్మడం.</div>
 </div></details>
 
-<details class="t"><summary>35. Model formats.<small>మోడల్ ఫైల్ ఫార్మాట్లు (PyTorch, ONNX, Safetensors, GGUF)</small></summary><div class="body">
+<details class="t"><summary>35. Model formats.<small>మోడల్ ఫైల్ ఫార్మాట్లు (PyTorch, ONNX, Safetensors, GGUF (GPT-Generated Unified Format))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్‌ను ఎక్కడ డిప్లాయ్ చేస్తున్నాం (క్లౌడ్ GPU నా, క్లౌడ్ CPU నా, లేక ఎడ్జ్ డివైజా) అనే దానిపై ఆధారపడి సరైన ఫైల్ ఫార్మాట్‌ను ఎంచుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇమేజ్ ఫార్మాట్ల లాంటిది (RAW vs PNG vs WebP). క్లౌడ్ GPU ట్రైనింగ్ &amp; సర్వింగ్‌కు `Safetensors`; లోకల్ లాప్‌టాప్ / CPU ఇన్ఫరెన్స్‌కు `GGUF`; మైక్రోసర్వీస్ C++ ఎంబెడెడ్ హై-స్పీడ్ ప్రిడిక్షన్లకు `ONNX` ఫార్మాట్ వాడతాం.</p>
+<p>ఇమేజ్ ఫార్మాట్ల లాంటిది (RAW vs PNG vs WebP). క్లౌడ్ GPU ట్రైనింగ్ &amp; సర్వింగ్‌కు `Safetensors`; లోకల్ లాప్‌టాప్ / CPU ఇన్ఫరెన్స్‌కు `GGUF (GPT-Generated Unified Format)`; మైక్రోసర్వీస్ C++ ఎంబెడెడ్ హై-స్పీడ్ ప్రిడిక్షన్లకు `ONNX` ఫార్మాట్ వాడతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>FORMAT_APPLICATIONS = {
     "safetensors": "GPU VRAM ఇన్ఫరెన్స్ (vLLM, TGI, Hugging Face)",
@@ -11026,16 +11040,16 @@ tensors = load_file("model.safetensors")
 <div class="mistake"><b>సాధారణ తప్పు:</b> సెక్యూరిటీ కారణాల వల్ల పాత `.bin` ఫైళ్లను ప్రొడక్షన్ సర్వర్లలో ఎగ్జిక్యూట్ చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>37. GGUF.<small>GGUF ఫార్మాట్ మరియు llama.cpp ఎకోసిస్టమ్</small></summary><div class="body">
+<details class="t"><summary>37. GGUF (GPT-Generated Unified Format).<small>GGUF (GPT-Generated Unified Format) ఫార్మాట్ మరియు llama.cpp ఎకోసిస్టమ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఖరీదైన GPU లు లేకుండా సాధారణ CPU మరియు ల్యాప్‌టాప్ ర్యామ్ (RAM) పై మోడల్స్‌ను క్వాంటైజ్ చేసి అత్యంత వేగంగా నడపడానికి llama.cpp సృష్టించిన ఫార్మాట్ GGUF.</p>
+<p>ఖరీదైన GPU లు లేకుండా సాధారణ CPU మరియు ల్యాప్‌టాప్ ర్యామ్ (RAM) పై మోడల్స్‌ను క్వాంటైజ్ చేసి అత్యంత వేగంగా నడపడానికి llama.cpp సృష్టించిన ఫార్మాట్ GGUF (GPT-Generated Unified Format).</p>
 <h4>సరళమైన వివరణ</h4>
 <p>ఆపిల్ సిలికాన్ మ్యాక్‌బుక్స్ (M1/M2/M3) లేదా సాధారణ క్లౌడ్ CPU సర్వర్లలో మోడల్ రన్ చేయడానికి ఇది వరం. మోడల్ ఆర్కిటెక్చర్ మెటాడేటా, టోకనైజర్ మరియు 4-బిట్ క్వాంటైజ్డ్ వెయిట్స్ అన్నీ ఒకే సింగిల్ `.gguf` ఫైల్‌లో ఉంటాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Running a GGUF model via llama.cpp
 # ./llama-cli -m llama-3-8b-instruct.Q4_K_M.gguf -p "నమస్కారం!" -n 128
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ఒక మోడల్ ఫైల్ డౌన్‌లోడ్ చేసి పక్కన టోకనైజర్ ఫైల్స్ లేవని వెతకడం; GGUF లో టోకనైజర్ కూడా అదే సింగిల్ ఫైల్‌లో ఎంబెడ్ అయి ఉంటుంది.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ఒక మోడల్ ఫైల్ డౌన్‌లోడ్ చేసి పక్కన టోకనైజర్ ఫైల్స్ లేవని వెతకడం; GGUF (GPT-Generated Unified Format) లో టోకనైజర్ కూడా అదే సింగిల్ ఫైల్‌లో ఎంబెడ్ అయి ఉంటుంది.</div>
 </div></details>
 
 <details class="t"><summary>38. vLLM.<small>vLLM: హై-త్రూపుట్ ప్రొడక్షన్ LLM సర్వింగ్ ఇంజిన్</small></summary><div class="body">
@@ -11320,11 +11334,11 @@ image_emb = clip_model.encode(Image.open("puppy.jpg"))
 <div class="mistake"><b>సాధారణ తప్పు:</b> వాయిస్ ఏజెంట్లకు US రీజియన్‌లోని మోడల్‌ను వాడి కేవలం నెట్‌వర్క్ రౌండ్‌ట్రిప్ కే 400ms సమయం పోగొట్టుకోవడం.</div>
 </div></details>
 
-<details class="t"><summary>55. Throughput requirements.<small>త్రూపుట్ అవసరాలు (Tokens Per Second - TPS)</small></summary><div class="body">
+<details class="t"><summary>55. Throughput requirements.<small>త్రూపుట్ అవసరాలు (Tokens Per Second - TPS (Tokens Per Second))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>పీక్ సమయంలో సెకనుకు 10,000 టోకెన్లు జనరేట్ చేయాల్సి వస్తే ఎన్ని GPU సర్వర్లు అవసరమో లెక్కించి క్లస్టర్ కెపాసిటీని నిర్మించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక A10G GPU vLLM తో సెకనుకు సుమారు 800 టోకెన్లు జనరేట్ చేయగలదు. మనకు పీక్‌లో 8,000 TPS కావాలంటే కనీసం 10 GPU లు క్లస్టర్‌లో ఉండాలి.</p>
+<p>ఒక A10G GPU vLLM తో సెకనుకు సుమారు 800 టోకెన్లు జనరేట్ చేయగలదు. మనకు పీక్‌లో 8,000 TPS (Tokens Per Second) కావాలంటే కనీసం 10 GPU లు క్లస్టర్‌లో ఉండాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def estimate_required_gpus(peak_tokens_per_second: int, gpu_tps_capacity: int = 800) -&gt; int:
     import math
@@ -11465,7 +11479,7 @@ def compare_inference(prompt: str):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇంటర్నెట్ లేదా బయటి క్లౌడ్ అవసరం లేకుండా మీ స్వంత కంప్యూటర్‌లోనే పూర్తిగా ఆఫ్‌లైన్‌లో మోడల్‌ను రన్ చేసే ప్రాక్టికల్ ఇంప్లిమెంటేషన్.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పైథాన్‌లో `llama-cpp-python` లైబ్రరీ ద్వారా GGUF ఫైల్‌ను లోడ్ చేసి నేరుగా CPU/GPU పై ఇన్ఫరెన్స్ రన్ చేయడం.</p>
+<p>పైథాన్‌లో `llama-cpp-python` లైబ్రరీ ద్వారా GGUF (GPT-Generated Unified Format) ఫైల్‌ను లోడ్ చేసి నేరుగా CPU/GPU పై ఇన్ఫరెన్స్ రన్ చేయడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from llama_cpp import Llama
 
@@ -11510,11 +11524,11 @@ async def predict(prompt: str):
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి API రిక్వెస్ట్ లోపల మోడల్‌ను రీ-లోడ్ చేయడం; మోడల్ ఎల్లప్పుడూ స్టార్టప్‌లోనే లోడ్ అవ్వాలి.</div>
 </div></details>
 
-<details class="t"><summary>65. Benchmark latency.<small>ప్రాక్టికల్: లేటెన్సీ మరియు TTFT బెంచ్‌మార్క్ స్క్రిప్ట్</small></summary><div class="body">
+<details class="t"><summary>65. Benchmark latency.<small>ప్రాక్టికల్: లేటెన్సీ మరియు TTFT (Time to First Token) బెంచ్‌మార్క్ స్క్రిప్ట్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>Time-to-First-Token (TTFT) మరియు మొత్తం జనరేషన్ సమయాన్ని స్వయంగా కొలవడానికి ప్రొఫెషనల్ బెంచ్‌మార్కింగ్ టూల్ తయారుచేయడం.</p>
+<p>Time-to-First-Token (TTFT (Time to First Token)) మరియు మొత్తం జనరేషన్ సమయాన్ని స్వయంగా కొలవడానికి ప్రొఫెషనల్ బెంచ్‌మార్కింగ్ టూల్ తయారుచేయడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>స్ట్రీమింగ్ కనెక్షన్ ఓపెన్ చేసి, మొదటి చంక్ బైట్ ఎప్పుడు వచ్చిందో (TTFT), చివరి చంక్ ఎప్పుడు వచ్చిందో టైమ్‌స్టాంపులతో రికార్డ్ చేయడం.</p>
+<p>స్ట్రీమింగ్ కనెక్షన్ ఓపెన్ చేసి, మొదటి చంక్ బైట్ ఎప్పుడు వచ్చిందో (TTFT (Time to First Token)), చివరి చంక్ ఎప్పుడు వచ్చిందో టైమ్‌స్టాంపులతో రికార్డ్ చేయడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import time
 from openai import OpenAI
@@ -11607,7 +11621,7 @@ def process_pdf_multimodal(pdf_path: str):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఫైన్-ట్యూనింగ్, హోస్టింగ్ ఇంజిన్, క్వాంటైజేషన్ మరియు మల్టీమోడల్ ఆర్కిటెక్చర్లలో తీసుకున్న సాంకేతిక నిర్ణయాలను, వాటి పరిమితులను రికార్డ్ చేయడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఎంటర్‌ప్రైజ్ ఆర్కిటెక్చర్ డాక్యుమెంట్: "మేము vLLM లో AWQ 4-బిట్ క్వాంటైజేషన్‌తో Llama-3-8B ని ప్రైవేట్ క్లౌడ్‌లో డిప్లాయ్ చేశాము. దీనివల్ల నెలకు $2,000 ఆదా అయింది, అయితే మోడల్ రీజనింగ్ క్వాలిటీలో 1.5% నష్టం ఉంది, ఇది మా కస్టమర్ సపోర్ట్ కేసుకు పూర్తిగా ఆమోదయోగ్యమైనది."</p>
+<p>ఎంటర్‌ప్రైజ్ ఆర్కిటెక్చర్ డాక్యుమెంట్: "మేము vLLM లో AWQ (Activation-aware Weight Quantization) 4-బిట్ క్వాంటైజేషన్‌తో Llama-3-8B ని ప్రైవేట్ క్లౌడ్‌లో డిప్లాయ్ చేశాము. దీనివల్ల నెలకు $2,000 ఆదా అయింది, అయితే మోడల్ రీజనింగ్ క్వాలిటీలో 1.5% నష్టం ఉంది, ఇది మా కస్టమర్ సపోర్ట్ కేసుకు పూర్తిగా ఆమోదయోగ్యమైనది."</p>
 <h4>ఉదాహరణ</h4>
 <pre>DEPLOYMENT_TRADEOFF_RECORD = {
     "model_selected": "Meta-Llama-3-8B-Instruct-AWQ",
@@ -11710,7 +11724,7 @@ def render_prompt_standard(template: str, variables: Dict[str, Any]) -&gt; str:
 <h4>ఎందుకు అవసరం?</h4>
 <p>వచ్చే 3 నుండి 12 నెలల్లో AI ఫీచర్లు, ఇన్ఫ్రాస్ట్రక్చర్ అప్‌గ్రేడ్లు, మరియు మోడల్ మైగ్రేషన్లు ఎలా జరగబోతున్నాయో స్పష్టమైన ప్లాన్ ఉంటేనే వ్యాపార లక్ష్యాలను చేరుకోగలం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel మోనోలిత్‌ను మైక్రోసర్వీసెస్‌గా మార్చడానికి లేదా PHP 7 నుండి 8 కి అప్‌గ్రేడ్ చేయడానికి క్వార్టర్లీ మైల్‌స్టోన్స్ ఎలా వేస్తారో, AI లో Q1: RAG PoC, Q2: Multi-tenant RAG + Eval Pipeline, Q3: Autonomous Agents with HITL అని ప్లాన్ చేయడమే టెక్నికల్ రోడ్‌మ్యాప్.</p>
+<p>Laravel మోనోలిత్‌ను మైక్రోసర్వీసెస్‌గా మార్చడానికి లేదా PHP 7 నుండి 8 కి అప్‌గ్రేడ్ చేయడానికి క్వార్టర్లీ మైల్‌స్టోన్స్ ఎలా వేస్తారో, AI లో Q1: RAG PoC, Q2: Multi-tenant RAG + Eval Pipeline, Q3: Autonomous Agents with HITL (Human-in-the-Loop) అని ప్లాన్ చేయడమే టెక్నికల్ రోడ్‌మ్యాప్.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Technical Roadmap మైల్‌స్టోన్ డాక్యుమెంటేషన్ డేటాస్ట్రక్చర్
 roadmap = {
@@ -11966,7 +11980,7 @@ print(clean_text)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రతి కొత్త ప్రాజెక్ట్‌కి మొదటి నుండి చక్రాన్ని కనుగొనాల్సిన (reinvent the wheel) అవసరం లేకుండా, నిరూపితమైన ఆర్కిటెక్చర్ బ్లూప్రింట్లను టీమ్‌కి అందించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో ఒక ఈ-కామర్స్ లేదా SaaS బాయిలర్‌ప్లేట్ ఉంటే కొత్త ప్రాజెక్ట్ ఎంత వేగంగా మొదలవుతుందో, AI లో "Enterprise RAG Reference Architecture" లేదా "Agent-with-HITL Blueprint" ఉంటే డెవలపర్లు సురక్షితమైన పద్ధతులను వేగంగా అమలు చేయగలరు.</p>
+<p>Laravel లో ఒక ఈ-కామర్స్ లేదా SaaS బాయిలర్‌ప్లేట్ ఉంటే కొత్త ప్రాజెక్ట్ ఎంత వేగంగా మొదలవుతుందో, AI లో "Enterprise RAG Reference Architecture" లేదా "Agent-with-HITL (Human-in-the-Loop) Blueprint" ఉంటే డెవలపర్లు సురక్షితమైన పద్ధతులను వేగంగా అమలు చేయగలరు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Reference Architecture Blueprint Specifications
 REF_ARCH_ENTERPRISE_RAG = {
@@ -12007,7 +12021,7 @@ class BackendResponseContract(BaseModel):
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI సొల్యూషన్ ఆర్కిటెక్ట్ కస్టమ్ మోడల్ ట్రైనింగ్, ఫైన్-ట్యూనింగ్ మరియు వెయిట్స్ మేనేజ్ చేసే ML ఇంజనీర్లతో కలిసి సరైన ఇన్ఫరెన్స్ స్ట్రాటజీని రూపొందించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ML ఇంజనీర్లు PyTorch లో Lora/QLoRA తో మోడల్‌ను ఫైన్-ట్యూన్ చేసి HuggingFace లేదా S3 లో సేవ్ చేసినప్పుడు, దానిని vLLM లేదా Triton Inference Server లో ఎలా సర్వ్ చేయాలి మరియు అప్లికేషన్ లేయర్ ఎలా కనెక్ట్ అవ్వాలో లీడ్ సమన్వయం చేయాలి.</p>
+<p>ML ఇంజనీర్లు PyTorch లో Lora/QLoRA (Quantized Low-Rank Adaptation) తో మోడల్‌ను ఫైన్-ట్యూన్ చేసి HuggingFace లేదా S3 లో సేవ్ చేసినప్పుడు, దానిని vLLM లేదా Triton Inference Server లో ఎలా సర్వ్ చేయాలి మరియు అప్లికేషన్ లేయర్ ఎలా కనెక్ట్ అవ్వాలో లీడ్ సమన్వయం చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># ML Engineer Hand-off Specification
 ML_MODEL_ARTIFACT = {
@@ -12064,7 +12078,7 @@ spec:
             nvidia.com/gpu: 1 # 1 A10G GPU per replica
 """
 print(k8s_gpu_spec.strip())</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> GPU మెమరీ లిమిట్స్ మరియు ఆటో-స్కేలింగ్ థ్రెషోల్డ్స్ ముందే డిఫైన్ చేయకపోవడం వల్ల ప్రొడక్షన్‌లో OOM (Out of Memory) క్రాషెస్ రావడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> GPU మెమరీ లిమిట్స్ మరియు ఆటో-స్కేలింగ్ థ్రెషోల్డ్స్ ముందే డిఫైన్ చేయకపోవడం వల్ల ప్రొడక్షన్‌లో OOM (Out Of Memory) (Out of Memory) క్రాషెస్ రావడం.</div>
 </div></details>
 
 <details class="t"><summary>23. Working with security teams.<small>సెక్యూరిటీ బృందాలతో సమన్వయం</small></summary><div class="body">
@@ -12106,7 +12120,7 @@ print(assess_feature_feasibility("Medical Prescription Diagnosis", 0.999))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాంకేతిక వివరాలు బిజినెస్ లీడర్లకు అర్థం కాకపోవచ్చు. AI ప్రాజెక్ట్ వల్ల ఖర్చు ఎంత ఆదా అవుతుంది లేదా రెవెన్యూ ఎంత పెరుగుతుందో (ROI) బిజినెస్ భాషలో చూపించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సిస్టమ్ ఆర్కిటెక్ట్ గా మీరు కేవలం "మేము LangGraph మరియు HNSW ఇండెక్స్ వాడాము" అని కాకుండా, "కస్టమర్ కేర్ ఎగ్జిక్యూటివ్ రిజల్యూషన్ టైమ్ 15 నిమిషాల నుండి 2 నిమిషాలకు తగ్గింది, దీనివల్ల నెలకి $50,000 ఆదా అవుతోంది" అని కమ్యూనికేట్ చేయాలి.</p>
+<p>సిస్టమ్ ఆర్కిటెక్ట్ గా మీరు కేవలం "మేము LangGraph మరియు HNSW (Hierarchical Navigable Small World) ఇండెక్స్ వాడాము" అని కాకుండా, "కస్టమర్ కేర్ ఎగ్జిక్యూటివ్ రిజల్యూషన్ టైమ్ 15 నిమిషాల నుండి 2 నిమిషాలకు తగ్గింది, దీనివల్ల నెలకి $50,000 ఆదా అవుతోంది" అని కమ్యూనికేట్ చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Business ROI Calculation Model
 def calculate_ai_roi(monthly_support_tickets: int, human_cost_per_ticket: float, ai_resolution_rate: float, ai_cost_per_ticket: float):
@@ -12840,7 +12854,7 @@ mock_llm_call("హలో")</pre>
 
 <details class="t"><summary>4. Generators.<small>జనరేటర్లు మరియు `yield` కీవర్డ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>LLM స్ట్రీమింగ్ రెస్పాన్సులు (టోకెన్ బై టోకెన్) మరియు భారీ టెక్స్ట్ డాక్యుమెంట్ల ప్రాసెసింగ్ మెమరీ నిండకుండా (OOM లేకుండా) జరగడానికి జనరేటర్లు అత్యంత కీలకం.</p>
+<p>LLM స్ట్రీమింగ్ రెస్పాన్సులు (టోకెన్ బై టోకెన్) మరియు భారీ టెక్స్ట్ డాక్యుమెంట్ల ప్రాసెసింగ్ మెమరీ నిండకుండా (OOM (Out Of Memory) లేకుండా) జరగడానికి జనరేటర్లు అత్యంత కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>PHP లో `yield` తో కర్సర్ ఆధారిత లార్జ్ డేటాసెట్ రీడింగ్ ఎలా చేస్తామో, పైథాన్‌లో మొత్తం 10GB డేటాను లిస్ట్‌గా మెమరీలోకి లోడ్ చేయకుండా ఒక్కొక్క ఐటెమ్‌ను ఆన్-డిమాండ్ ఉత్పత్తి చేయడానికి `yield` వాడతాం.</p>
 <h4>ఉదాహరణ</h4>
@@ -12985,7 +12999,7 @@ print(f"రిఫరెన్స్ కౌంట్: {sys.getrefcount(large_list
 del large_list
 gc.collect()  # బలవంతంగా గార్బేజ్ కలెక్షన్ రన్ చేయడం
 print("మెమరీ క్లీనప్ పూర్తయింది")</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> గ్లోబల్ వేరియబుల్స్‌లో భారీ డేటాను స్టోర్ చేసి డిలీట్ చేయకపోవడం వల్ల ప్రొడక్షన్ పాడ్ OOM అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> గ్లోబల్ వేరియబుల్స్‌లో భారీ డేటాను స్టోర్ చేసి డిలీట్ చేయకపోవడం వల్ల ప్రొడక్షన్ పాడ్ OOM (Out Of Memory) అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>11. Exception handling.<small>మినహాయింపుల నిర్వహణ మరియు కస్టమ్ ఎక్సెప్షన్స్</small></summary><div class="body">
@@ -13082,7 +13096,7 @@ async def get_user_chat_sessions(session: AsyncSession, user_id: int):
 <div class="mistake"><b>సాధారణ తప్పు:</b> FastAPI అసింక్ రూట్స్‌లో సింక్రోనస్ SQLAlchemy సెషన్ వాడి త్రూపుట్‌ను దెబ్బతీయడం.</div>
 </div></details>
 
-<details class="t"><summary>16. PostgreSQL indexing.<small>పోస్ట్‌గ్రేస్ ఇండెక్సింగ్ (B-Tree, GIN, HNSW, IVFFlat)</small></summary><div class="body">
+<details class="t"><summary>16. PostgreSQL indexing.<small>పోస్ట్‌గ్రేస్ ఇండెక్సింగ్ (B-Tree, GIN, HNSW (Hierarchical Navigable Small World), IVFFlat)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వెక్టర్ సెర్చ్ మరియు మెటాడేటా ఫిల్టరింగ్ మిలియన్ల రికార్డులపై వేగంగా జరగడానికి సరైన ఇండెక్సింగ్ వ్యూహం ఆర్కిటెక్ట్‌కు తెలిసి ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -13975,7 +13989,7 @@ class AgentMemoryStore:
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి సంభాషణలోని ప్రతి మాటనూ ఫిల్టర్ లేకుండా లాంగ్-టర్మ్ మెమరీలో స్టోర్ చేసి నాయిస్ పెంచడం.</div>
 </div></details>
 
-<details class="t"><summary>69. Human-in-the-loop.<small>హ్యూమన్-ఇన్-ది-లూప్ (HITL &amp; Interruption)</small></summary><div class="body">
+<details class="t"><summary>69. Human-in-the-loop.<small>హ్యూమన్-ఇన్-ది-లూప్ (HITL (Human-in-the-Loop) &amp; Interruption)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>డబ్బులు ట్రాన్స్‌ఫర్ చేయడం, సర్వర్ రీబూట్ చేయడం లేదా లీగల్ కాంట్రాక్ట్స్ పంపడం వంటి సున్నితమైన పనులను ఏజెంట్ నేరుగా చేయకుండా మనిషి ఆమోదం కోసం ఆపాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -14282,7 +14296,7 @@ async def fixed_fetch(url: str):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్ట్ ఇంటర్వ్యూలలో రీసెర్చ్, ఆర్డర్ ఫుల్‌ఫిల్‌మెంట్ లేదా కోడింగ్ అసిస్టెంట్ వంటి మల్టీ-స్టెప్ ఏజెంట్‌ను డిజైన్ చేయమని అడుగుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>LangGraph ఆధారిత స్టేట్‌గ్రాఫ్‌ను వివరించాలి: Planner Node -&gt; Tool Executor Node -&gt; Critique Node -&gt; HITL Approval Node. స్టేట్ చెక్‌పాయింటింగ్ కోసం Postgres, రిలయబిలిటీ కోసం మాక్స్ ఇటరేషన్ గార్డ్స్ చేర్చాలి.</p>
+<p>LangGraph ఆధారిత స్టేట్‌గ్రాఫ్‌ను వివరించాలి: Planner Node -&gt; Tool Executor Node -&gt; Critique Node -&gt; HITL (Human-in-the-Loop) Approval Node. స్టేట్ చెక్‌పాయింటింగ్ కోసం Postgres, రిలయబిలిటీ కోసం మాక్స్ ఇటరేషన్ గార్డ్స్ చేర్చాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Agent Architecture Blueprint
 AGENT_DESIGN = {
@@ -14858,7 +14872,7 @@ def support_triage_node(state: dict):
 <div class="mistake"><b>సాధారణ తప్పు:</b> MCP సర్వర్లకు అపరిమిత అడ్మిన్ అధికారాలు ఇచ్చి ఏజెంట్ డేటాబేస్ టేబుల్స్ డ్రాప్ చేసే ప్రమాదం కొనితెచ్చుకోవడం.</div>
 </div></details>
 
-<details class="t"><summary>30. Design a human approval workflow.<small>మానవ ఆమోద వర్క్‌ఫ్లో (HITL) రూపకల్పన</small></summary><div class="body">
+<details class="t"><summary>30. Design a human approval workflow.<small>మానవ ఆమోద వర్క్‌ఫ్లో (HITL (Human-in-the-Loop)) రూపకల్పన</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొడక్షన్‌లో ఏజెంట్ చేసే సున్నితమైన చర్యలకు (డబ్బులు పంపడం, డేటా డిలీట్ చేయడం) నిర్వాహకుల అధికారిక ఆమోదం తీసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -14954,7 +14968,7 @@ def route_request(query: str) -&gt; str:
 #    --model meta-llama/Meta-Llama-3-70B-Instruct \
 #    --tensor-parallel-size 4 \
 #    --gpu-memory-utilization 0.95</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> టెన్సార్ ప్యారలలిజం లేకుండా 70B మోడల్‌ను సింగిల్ 24GB VRAM GPU పై లోడ్ చేయడానికి ప్రయత్నించి క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> టెన్సార్ ప్యారలలిజం లేకుండా 70B మోడల్‌ను సింగిల్ 24GB VRAM (Video RAM / GPU Memory) GPU పై లోడ్ చేయడానికి ప్రయత్నించి క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>37. Design an AI SaaS platform.<small>ఎంటర్‌ప్రైజ్ AI SaaS ప్లాట్‌ఫామ్ రూపకల్పన</small></summary><div class="body">
@@ -15252,7 +15266,7 @@ PRACTICE_CHECKLIST = [
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్ట్ ఇంటర్వ్యూలలో విజేతగా నిలవడానికి జూనియర్ లాంటి సమాధానాలు కాకుండా ఎగ్జిక్యూటివ్ స్థాయి స్పష్టత మరియు నిపుణుడి స్థాయి లోతు ప్రదర్శించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పైపైన పదాలు (Buzzwords) వాడకుండా అంతర్గత మెకానిజమ్స్ వివరించడం: "మేము వెక్టర్ సెర్చ్ వాడాము" అనడం కంటే "మేము pgvector లో m=16, ef_construction=64 తో HNSW ఇండెక్స్ వాడాము, ఇది 98% రికాల్ తో 8ms లో రిజల్ట్స్ ఇస్తుంది" అని చెప్పడమే ప్రొఫెషనల్ స్పష్టత మరియు లోతు.</p>
+<p>పైపైన పదాలు (Buzzwords) వాడకుండా అంతర్గత మెకానిజమ్స్ వివరించడం: "మేము వెక్టర్ సెర్చ్ వాడాము" అనడం కంటే "మేము pgvector లో m=16, ef_construction=64 తో HNSW (Hierarchical Navigable Small World) ఇండెక్స్ వాడాము, ఇది 98% రికాల్ తో 8ms లో రిజల్ట్స్ ఇస్తుంది" అని చెప్పడమే ప్రొఫెషనల్ స్పష్టత మరియు లోతు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Elevating Technical Depth Example
 # Junior: "We use a vector database to find similar text."
@@ -15283,7 +15297,7 @@ PORTFOLIO_STRUCTURE = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇంటర్నెట్‌లో అందరూ చేసే సాధారణ టైటానిక్ ప్రిడిక్షన్ లేదా బేసిక్ చాట్‌బాట్ ప్రాజెక్టులు పెడితే రిక్రూటర్లు వెంటనే తిరస్కరిస్తారు. ఎంటర్‌ప్రైజ్ విలువ కలిగిన ప్రాజెక్టులను ఎంచుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>కంపెనీలు ఎదుర్కొనే వాస్తవ సమస్యలను పరిష్కరించే ప్రాజెక్టులు ఎంచుకోవాలి: ఉదాహరణకు మల్టీ-టెనంట్ లీగల్ డాక్యుమెంట్ సెర్చ్, సేల్స్ ఆర్డర్ ఫుల్‌ఫిల్‌మెంట్ అటానమస్ ఏజెంట్ విత్ HITL, లేదా సెంట్రలైజ్డ్ మోడల్ గేట్‌వే విత్ కాస్ట్ ఆప్టిమైజేషన్.</p>
+<p>కంపెనీలు ఎదుర్కొనే వాస్తవ సమస్యలను పరిష్కరించే ప్రాజెక్టులు ఎంచుకోవాలి: ఉదాహరణకు మల్టీ-టెనంట్ లీగల్ డాక్యుమెంట్ సెర్చ్, సేల్స్ ఆర్డర్ ఫుల్‌ఫిల్‌మెంట్ అటానమస్ ఏజెంట్ విత్ HITL (Human-in-the-Loop), లేదా సెంట్రలైజ్డ్ మోడల్ గేట్‌వే విత్ కాస్ట్ ఆప్టిమైజేషన్.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Project Selection Matrix
 def is_enterprise_worthy(project_name: str, has_auth: bool, has_multitenancy: bool, has_evals: bool) -&gt; bool:
@@ -15691,7 +15705,7 @@ for k, v in ENTERPRISE_RAG_HIGHLIGHTS.items():
 # Nodes: [Triage_Agent] -&gt; [Order_Agent] -&gt; [Refund_Approval_Gate (HITL)] -&gt; [Email_Agent]
 # Persistence: PostgresSaver Checkpointer
 # UI: Streamlit with Chat Interface &amp; Interactive Approval Dashboard</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ఏజెంట్ ఆర్కిటెక్చర్‌లో మానవ ఆమోద గేట్ (HITL) మరియు పర్సిస్టెన్స్ లేకపోవడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ఏజెంట్ ఆర్కిటెక్చర్‌లో మానవ ఆమోద గేట్ (HITL (Human-in-the-Loop)) మరియు పర్సిస్టెన్స్ లేకపోవడం.</div>
 </div></details>
 
 <details class="t"><summary>22. LLM model gateway.<small>పోర్ట్‌ఫోలియో ప్రాజెక్ట్ 3: ఎంటర్‌ప్రైజ్ LLM మోడల్ గేట్‌వే</small></summary><div class="body">
@@ -16429,11 +16443,11 @@ def set_cached_response(prompt_hash: str, response: str, ttl: int = 3600):
 <div class="mistake"><b>సాధారణ తప్పు:</b> క్యాష్ కీలకు సరైన TTL (ఎక్స్‌పైరీ) సెట్ చేయకపోవడం వల్ల మెమరీ ఫుల్ అవ్వడం.</div>
 </div></details>
 
-<details class="t"><summary>6. Vector database.<small>వెక్టర్ డేటాబేస్ (pgvector HNSW ఇండెక్స్)</small></summary><div class="body">
+<details class="t"><summary>6. Vector database.<small>వెక్టర్ డేటాబేస్ (pgvector HNSW (Hierarchical Navigable Small World) ఇండెక్స్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మిలియన్ల ఎంబెడ్డింగ్స్ పై సబ్-50ms లేటెన్సీతో అప్రాక్సిమేట్ నియరెస్ట్ నైబర్ (ANN) శోధన జరపడానికి సరైన వెక్టర్ ఇండెక్స్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>`pgvector` లో HNSW ఇండెక్స్ కాన్ఫిగర్ చేయడం: `m = 16`, `ef_construction = 64`. క్వెరీ రన్ చేసేటప్పుడు `SET hnsw.ef_search = 40` తో స్పీడ్ మరియు రికాల్ బ్యాలెన్స్ చేయడం.</p>
+<p>`pgvector` లో HNSW (Hierarchical Navigable Small World) ఇండెక్స్ కాన్ఫిగర్ చేయడం: `m = 16`, `ef_construction = 64`. క్వెరీ రన్ చేసేటప్పుడు `SET hnsw.ef_search = 40` తో స్పీడ్ మరియు రికాల్ బ్యాలెన్స్ చేయడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>-- pgvector HNSW Configuration
 CREATE INDEX idx_chunks_hnsw_cosine 
@@ -16513,7 +16527,7 @@ app = workflow.compile()</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టూల్స్ అన్నింటినీ పైథాన్ కోడ్‌లో హార్డ్‌కోడ్ చేసి స్టాండర్డ్ MCP ప్రోటోకాల్ పాటించకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>11. Human-in-the-loop.<small>హ్యూమన్-ఇన్-ది-లూప్ (HITL) గవర్నెన్స్</small></summary><div class="body">
+<details class="t"><summary>11. Human-in-the-loop.<small>హ్యూమన్-ఇన్-ది-లూప్ (HITL (Human-in-the-Loop)) గవర్నెన్స్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ క్రిటికల్ ప్రొడక్షన్ యాక్షన్స్ (ఉదా: సర్వర్ రీబూట్, డేటా డిలీషన్) చేసే ముందు ఇంజనీర్ ఆమోదం కోసం ఆగిపోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -16705,7 +16719,7 @@ def add_trace_header(headers: dict) -&gt; dict:
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్యాప్‌స్టోన్ ప్రాజెక్ట్ యొక్క స్థిరత్వాన్ని నిరూపించడానికి 80%+ టెస్ట్ కవరేజ్‌తో కూడిన కఠినమైన టెస్ట్ సూట్ ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Auth, Ingestion, Vector Search, Agent HITL లూప్స్ అన్నింటినీ కవర్ చేసే 50+ Pytest కేసులు రాయడం.</p>
+<p>Auth, Ingestion, Vector Search, Agent HITL (Human-in-the-Loop) లూప్స్ అన్నింటినీ కవర్ చేసే 50+ Pytest కేసులు రాయడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Comprehensive Pytest Suite Execution Command
 # pytest tests/ -v --cov=src --cov-report=term-missing --cov-fail-under=80</pre>
@@ -16982,7 +16996,7 @@ HLD_STRUCTURE = [
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ ఒక క్వెరీ పంపినప్పుడు లేదా ఇన్సిడెంట్ అలర్ట్ వచ్చినప్పుడు స్టెప్-బై-స్టెప్ ఈవెంట్ ఫ్లో ఎలా ఉంటుందో చూపించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Webhook Alert -&gt; FastAPI -&gt; Agent LangGraph -&gt; MCP Log Query -&gt; RAG Runbook Search -&gt; Slack HITL Approval -&gt; Resolve.</p>
+<p>Webhook Alert -&gt; FastAPI -&gt; Agent LangGraph -&gt; MCP Log Query -&gt; RAG Runbook Search -&gt; Slack HITL (Human-in-the-Loop) Approval -&gt; Resolve.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Sequence Diagram Markdown Representation
 # User -&gt; API: POST /incident/triage
@@ -17064,7 +17078,7 @@ class AIPlatformUser(HttpUser):
 
 <details class="t"><summary>45. Latency measurements.<small>లేటెన్సీ కొలమానాలు (P50, P95, P99)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>యూజర్‌కి ఎంత త్వరగా మొదటి టోకెన్ వచ్చింది (Time to First Token - TTFT) మరియు మొత్తం రెస్పాన్స్ ఎంత సమయంలో పూర్తయిందో కొలవాలి.</p>
+<p>యూజర్‌కి ఎంత త్వరగా మొదటి టోకెన్ వచ్చింది (Time to First Token - TTFT (Time to First Token)) మరియు మొత్తం రెస్పాన్స్ ఎంత సమయంలో పూర్తయిందో కొలవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>P50: 350ms, P95: 820ms, P99: 1450ms. ఈ నంబర్లు ప్రొడక్షన్ SLA కి అనుగుణంగా ఉన్నాయని చూపే గ్రాఫ్‌ను ప్రదర్శించడం.</p>
 <h4>ఉదాహరణ</h4>
@@ -17408,7 +17422,7 @@ RESUME_CHECKLIST = [
 <h4>ఎందుకు అవసరం?</h4>
 <p>పైథాన్ ఇంటర్నల్స్, అసింక్ ప్రోగ్రామింగ్, ఆర్కిటెక్చర్ మరియు ఎర్రర్ హ్యాండ్లింగ్ పై లోతైన ప్రశ్నలను లైవ్‌గా ఎదుర్కొనే ప్రాక్టీస్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక సీనియర్ పీర్ లేదా AI అసిస్టెంట్‌తో 60 నిమిషాల టెక్నికల్ డ్రిల్: GIL, Asyncio vs Multiprocessing, HNSW ഇండెక్స్ పారామీటర్స్, మరియు LCEL vs LangGraph లపై సమాధానాలు చెప్పడం.</p>
+<p>ఒక సీనియర్ పీర్ లేదా AI అసిస్టెంట్‌తో 60 నిమిషాల టెక్నికల్ డ్రిల్: GIL, Asyncio vs Multiprocessing, HNSW (Hierarchical Navigable Small World) ഇండెక్స్ పారామీటర్స్, మరియు LCEL vs LangGraph లపై సమాధానాలు చెప్పడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Senior Technical Mock Questions Drill
 MOCK_QUESTIONS = [

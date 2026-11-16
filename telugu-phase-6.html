@@ -71,6 +71,20 @@ details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -879,7 +893,7 @@ async def find_similar_vectors(session, query_vector: list[float], limit: int = 
     result = await session.execute(query, {"vec": str(query_vector), "lim": limit})
     return result.fetchall()
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ఇండెక్స్ (HNSW/IVFFlat) క్రియేట్ చేయకుండా మిలియన్ల రికార్డులపై ఫుల్-టేబుల్ వెక్టర్ స్కాన్ చేయడం వల్ల క్వెరీలు నిమిషాల తరబడి రన్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ఇండెక్స్ (HNSW (Hierarchical Navigable Small World)/IVFFlat) క్రియేట్ చేయకుండా మిలియన్ల రికార్డులపై ఫుల్-టేబుల్ వెక్టర్ స్కాన్ చేయడం వల్ల క్వెరీలు నిమిషాల తరబడి రన్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>34. Agent execution service.<small>ఏజెంట్ ఎగ్జిక్యూషన్ సర్వీస్ (Long-running Agent Runners)</small></summary><div class="body">
@@ -947,7 +961,7 @@ async def enqueue_indexing(doc_id: int):
     def extract_text(self, path: str) -&gt; str:
         return "Extracted clean document text"
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> 50MB PDF ఫైల్‌ను మెమరీలో పూర్తిగా లోడ్ చేసి సింగిల్ త్రెడ్‌లో పార్స్ చేయడం వల్ల అవుట్-ఆఫ్-మెమరీ (OOM) క్రాష్ రావడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> 50MB PDF ఫైల్‌ను మెమరీలో పూర్తిగా లోడ్ చేసి సింగిల్ త్రెడ్‌లో పార్స్ చేయడం వల్ల అవుట్-ఆఫ్-మెమరీ (OOM (Out Of Memory)) క్రాష్ రావడం.</div>
 </div></details>
 
 <details class="t"><summary>37. Authentication service.<small>ఆథెంటికేషన్ సర్వీస్ (OAuth2 &amp; JWT)</small></summary><div class="body">
@@ -2269,7 +2283,7 @@ async def upload_large_file(file: UploadFile = File(...)):
             await out_file.write(content)
     return {"filename": file.filename, "status": "saved"}
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> `await file.read()` అని పారామీటర్ లేకుండా వాడి మొత్తం ఫైల్‌ను ఒకేసారి మెమరీలోకి లాగి OOM క్రాష్ తెచ్చుకోవడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> `await file.read()` అని పారామీటర్ లేకుండా వాడి మొత్తం ఫైల్‌ను ఒకేసారి మెమరీలోకి లాగి OOM (Out Of Memory) క్రాష్ తెచ్చుకోవడం.</div>
 </div></details>
 
 <details class="t"><summary>30. Synchronous vs asynchronous AI execution.<small>సింక్రోనస్ వర్సెస్ అసమకాలిక AI ఎగ్జిక్యూషన్</small></summary><div class="body">
@@ -3091,7 +3105,7 @@ SHOW maintenance_work_mem;-- ఇండెక్స్ క్రియేషన�
 
 <details class="t"><summary>2. Client-server connections.<small>క్లయింట్-సర్వర్ కనెక్షన్లు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>PostgreSQL లో ప్రతి కనెక్షన్ 5-10MB RAM ని తీసుకుంటుంది. వేలాది వెబ్ కనెక్షన్లు నేరుగా డేటాబేస్ కు కనెక్ట్ అయితే సర్వర్ క్షణాల్లో Out of Memory (OOM) తో క్రాష్ అవుతుంది.</p>
+<p>PostgreSQL లో ప్రతి కనెక్షన్ 5-10MB RAM ని తీసుకుంటుంది. వేలాది వెబ్ కనెక్షన్లు నేరుగా డేటాబేస్ కు కనెక్ట్ అయితే సర్వర్ క్షణాల్లో Out of Memory (OOM (Out Of Memory)) తో క్రాష్ అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>MySQL లో 500 కనెక్షన్లు హ్యాండిల్ చేయడం సులభం, కానీ PostgreSQL లో డైరెక్ట్ కనెక్షన్ల సంఖ్యను 100-200 లోపు ఉంచాలి. అందువల్ల బాహ్య కనెక్షన్ పూలర్ (PgBouncer) లేదా అప్లికేషన్ పూలర్ వాడటం తప్పనిసరి.</p>
 <h4>ఉదాహరణ</h4>
@@ -3170,7 +3184,7 @@ SET lock_timeout = '3s';
 <h4>ఎందుకు అవసరం?</h4>
 <p>మిలియన్ల కొద్దీ రికార్డులు ఉన్నప్పుడు ఇండెక్స్ లేకపోతే ప్రతి క్వెరీ టేబుల్ మొత్తాన్ని స్కాన్ (Seq Scan) చేస్తుంది. క్వెరీ సమయం నిమిషాల నుండి మిల్లీసెకన్లకు తగ్గించడానికి సరైన ఇండెక్స్ డిజైన్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL లో లాగే PostgreSQL లో B-Tree ఇండెక్స్ డీఫాల్ట్ (`=, &lt;, &gt;, ORDER BY`). కానీ AI అప్లికేషన్లలో JSONB మెటాడేటా శోధించడానికి GIN (Generalized Inverted Index), మరియు వెక్టర్ సెర్చ్ కోసం HNSW ఇండెక్స్‌లు వాడతాం.</p>
+<p>MySQL లో లాగే PostgreSQL లో B-Tree ఇండెక్స్ డీఫాల్ట్ (`=, &lt;, &gt;, ORDER BY`). కానీ AI అప్లికేషన్లలో JSONB మెటాడేటా శోధించడానికి GIN (Generalized Inverted Index), మరియు వెక్టర్ సెర్చ్ కోసం HNSW (Hierarchical Navigable Small World) ఇండెక్స్‌లు వాడతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>-- JSONB ఫీల్డ్ లో మెటాడేటా వేగంగా వెతకడానికి GIN ఇండెక్స్
 CREATE INDEX idx_messages_metadata_gin ON messages USING gin (metadata);
@@ -3494,7 +3508,7 @@ async def safe_create_user(session: AsyncSession, user_data: dict):
 
 <details class="t"><summary>26. Redis memory management.<small>రెడిస్ మెమరీ నిర్వహణ (maxmemory)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>Redis కి కేటాయించిన RAM పూర్తిగా నిండిపోతే సర్వర్ కొత్త డేటాను రాయడం నిరాకరిస్తుంది (`OOM command not allowed`). సరైన మెమరీ లిమిట్స్ సెట్ చేయాలి.</p>
+<p>Redis కి కేటాయించిన RAM పూర్తిగా నిండిపోతే సర్వర్ కొత్త డేటాను రాయడం నిరాకరిస్తుంది (`OOM (Out Of Memory) command not allowed`). సరైన మెమరీ లిమిట్స్ సెట్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>`maxmemory 2gb` మరియు `maxmemory-policy allkeys-lru` సెట్ చేస్తే, మెమరీ నిండినప్పుడు ఉపయోగించని పాత కీలు ఆటోమేటిక్ గా తొలగించబడతాయి.</p>
 <h4>ఉదాహరణ</h4>
@@ -3502,7 +3516,7 @@ async def safe_create_user(session: AsyncSession, user_data: dict):
 # maxmemory 4gb
 # maxmemory-policy allkeys-lru
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> `maxmemory` సెట్ చేయకపోవడం వల్ల Redis హోస్ట్ సర్వర్ లోని మొత్తం RAM ని తినేసి OS లెవల్ OOM Killer ద్వారా చంపబడటం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> `maxmemory` సెట్ చేయకపోవడం వల్ల Redis హోస్ట్ సర్వర్ లోని మొత్తం RAM ని తినేసి OS లెవల్ OOM (Out Of Memory) Killer ద్వారా చంపబడటం.</div>
 </div></details>
 
 <details class="t"><summary>27. Persistence: RDB and AOF.<small>రెడిస్ పర్సిస్టెన్స్: RDB మరియు AOF</small></summary><div class="body">
@@ -3591,7 +3605,7 @@ r.setex("cache:prompt_hash_123", 7200, "Cached AI Response")
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్‌లో లేని ఐడీల కోసం (ఉదా: దురుద్దేశపూర్వకంగా `id=-9999`) హ్యాకర్లు లక్షల రిక్వెస్ట్‌లు పంపితే, ప్రతి రిక్వెస్ట్ క్యాష్ మిస్ అయి డేటాబేస్ పై పడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు పరిష్కారాలు: 1) డేటా లేకపోయినా `null` విలువను 2 నిమిషాల TTL తో క్యాష్ చేయడం. 2) Redis Bloom Filter వాడి ఆ ఐడీ అసలు ఉందో లేదో ముందే తేల్చడం.</p>
+<p>రెండు పరిష్కారాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>డేటా లేకపోయినా `null` విలువను 2 నిమిషాల TTL తో క్యాష్ చేయడం.</span></div><div class="step-row"><span class="step-badge">2</span><span>Redis Bloom Filter వాడి ఆ ఐడీ అసలు ఉందో లేదో ముందే తేల్చడం.</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>def get_user_chat(chat_id: str):
     cached = r.get(f"chat:{chat_id}")
@@ -5262,7 +5276,7 @@ services:
 
 <details class="t"><summary>60. Model volume management.<small>మోడల్ వాల్యూమ్ మేనేజ్‌మెంట్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>20GB నుండి 70GB సైజుండే LLM మోడల్ ఫైల్స్ (Hugging Face / GGUF) ను సమర్థవంతంగా హోస్ట్ స్టోరేజ్ నుండి కంటైనర్లకు మ్యాప్ చేయాలి.</p>
+<p>20GB నుండి 70GB సైజుండే LLM మోడల్ ఫైల్స్ (Hugging Face / GGUF (GPT-Generated Unified Format)) ను సమర్థవంతంగా హోస్ట్ స్టోరేజ్ నుండి కంటైనర్లకు మ్యాప్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>హోస్ట్ లో ఒక సెంట్రల్ మోడల్స్ డైరెక్టరీ (`/mnt/models`) ఉంచి, దాన్ని Read-Only (`:ro`) గా కంటైనర్ లోని `/models` కు మౌంట్ చేస్తాం.</p>
 <h4>ఉదాహరణ</h4>
@@ -6577,7 +6591,7 @@ kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable
       limits:
         nvidia.com/gpu: 1
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> షేర్డ్ మెమరీ (`/dev/shm`) సైజ్ పెంచకపోవడం వల్ల PyTorch మల్టీ-ప్రాసెస్ లో OOM క్రాష్ అవ్వడం (`shm` మౌంట్ అవసరం).</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> షేర్డ్ మెమరీ (`/dev/shm`) సైజ్ పెంచకపోవడం వల్ల PyTorch మల్టీ-ప్రాసెస్ లో OOM (Out Of Memory) క్రాష్ అవ్వడం (`shm` మౌంట్ అవసరం).</div>
 </div></details>
 
 <details class="t"><summary>68. Inference service scaling.<small>ఇన్‌ఫరెన్స్ సర్వీస్ స్కేలింగ్</small></summary><div class="body">
@@ -9218,7 +9232,7 @@ cur = conn.cursor()
 cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
 conn.commit()
 print("pgvector ఎక్స్‌టెన్షన్ విజయవంతంగా ఎనేబుల్ చేయబడింది")</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> pgvector లో HNSW లేదా IVFFlat ఇండెక్స్ క్రియేట్ చేయకుండా మిలియన్ల కొద్దీ వెక్టర్లపై సీక్వెన్షియల్ సెర్చ్ చేసి డేటాబేస్‌ను నెమ్మదింపజేయడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> pgvector లో HNSW (Hierarchical Navigable Small World) లేదా IVFFlat ఇండెక్స్ క్రియేట్ చేయకుండా మిలియన్ల కొద్దీ వెక్టర్లపై సీక్వెన్షియల్ సెర్చ్ చేసి డేటాబేస్‌ను నెమ్మదింపజేయడం.</div>
 </div></details>
 
 <details class="t"><summary>38. ElastiCache Redis.<small>AI ఆర్కిటెక్చర్‌లో ElastiCache Redis పాత్ర</small></summary><div class="body">
@@ -9413,9 +9427,9 @@ print(result['content'][0]['text'])</pre>
 
 <details class="t"><summary>47. GPU instance selection.<small>GPU ఇన్‌స్టాన్స్ ఎంపిక (సరైన హార్డ్‌వేర్ సైజింగ్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మోడల్ పారామీటర్ల పరిమాణం (7B, 13B, 70B) మరియు ప్రెసిషన్ (FP16, INT8, INT4) ఆధారంగా సరిపోయే VRAM ఉన్న సరైన GPU సర్వర్‌ను ఎంచుకోవాలి.</p>
+<p>మోడల్ పారామీటర్ల పరిమాణం (7B, 13B, 70B) మరియు ప్రెసిషన్ (FP16, INT8, INT4) ఆధారంగా సరిపోయే VRAM (Video RAM / GPU Memory) ఉన్న సరైన GPU సర్వర్‌ను ఎంచుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>GPU లో అతి ముఖ్యమైనది **VRAM (వీడియో రామ్)**. 7B మోడల్‌కు 16GB VRAM కావాలి (NVIDIA A10G - `g5.xlarge`). 70B మోడల్‌కు కనీసం 140GB VRAM కావాలి (`g5.12xlarge` లేదా 8x A100 ఉన్న `p4d.24xlarge`). తక్కువ VRAM ఉన్న సర్వర్‌ను ఎంచుకుంటే 'CUDA Out of Memory' ఎర్రర్ వస్తుంది; అవసరం లేకపోయినా అతిపెద్ద GPU ఎంచుకుంటే డబ్బు వృధా అవుతుంది.</p>
+<p>GPU లో అతి ముఖ్యమైనది **VRAM (Video RAM / GPU Memory) (వీడియో రామ్)**. 7B మోడల్‌కు 16GB VRAM (Video RAM / GPU Memory) కావాలి (NVIDIA A10G - `g5.xlarge`). 70B మోడల్‌కు కనీసం 140GB VRAM (Video RAM / GPU Memory) కావాలి (`g5.12xlarge` లేదా 8x A100 ఉన్న `p4d.24xlarge`). తక్కువ VRAM (Video RAM / GPU Memory) ఉన్న సర్వర్‌ను ఎంచుకుంటే 'CUDA Out of Memory' ఎర్రర్ వస్తుంది; అవసరం లేకపోయినా అతిపెద్ద GPU ఎంచుకుంటే డబ్బు వృధా అవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># VRAM సైజింగ్ సాధారణ సూత్రం:
 # FP16 ప్రెసిషన్: 1 బిలియన్ పారామీటర్లకు ~2 GB VRAM + కేవీ క్యాష్ కోసం 20% అదనంగా
@@ -9423,7 +9437,7 @@ def calculate_min_vram_gb(param_billions: float):
     return (param_billions * 2.0) * 1.25
 
 print(f"Llama-3-8B కోసం కావలసిన కనీస GPU VRAM: {calculate_min_vram_gb(8):.1f} GB (g5.xlarge 24GB VRAM సరిపోతుంది)")</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> మోడల్ సైజుకు సరిపడా VRAM లేని చిన్న GPU ని ఎంచుకుని బూట్ సమయంలోనే 'CUDA Out of Memory' ఎర్రర్ తెచ్చుకోవడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> మోడల్ సైజుకు సరిపడా VRAM (Video RAM / GPU Memory) లేని చిన్న GPU ని ఎంచుకుని బూట్ సమయంలోనే 'CUDA Out of Memory' ఎర్రర్ తెచ్చుకోవడం.</div>
 </div></details>
 
 <details class="t"><summary>48. EC2 GPU instances.<small>EC2 GPU ఇన్‌స్టాన్సెస్ (G4, G5, P4, P5 సిరీస్)</small></summary><div class="body">
@@ -11377,7 +11391,7 @@ class AskAIRequest(BaseModel):
     top_p: float = Field(default=0.9, ge=0.0, le=1.0)
 
 # క్లయింట్ 50,000 అక్షరాల భారీ పేలోడ్ పంపితే ఇక్కడే రిజెక్ట్ అవుతుంది!</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> టెక్స్ట్ ఫీల్డ్స్‌పై `max_length` పెట్టకపోవడం వల్ల హ్యాకర్లు గిగాబైట్ల భారీ స్ట్రింగ్స్ పంపి సర్వర్ మెమరీ అవుట్-ఆఫ్-మెమరీ (OOM) అయ్యేలా చేయడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> టెక్స్ట్ ఫీల్డ్స్‌పై `max_length` పెట్టకపోవడం వల్ల హ్యాకర్లు గిగాబైట్ల భారీ స్ట్రింగ్స్ పంపి సర్వర్ మెమరీ అవుట్-ఆఫ్-మెమరీ (OOM (Out Of Memory)) అయ్యేలా చేయడం.</div>
 </div></details>
 
 <details class="t"><summary>22. Direct prompt injection.<small>డైరెక్ట్ ప్రాంప్ట్ ఇంజెక్షన్ (సిస్టమ్ ప్రాంప్ట్ ఓవర్‌రైడ్ దాడులు)</small></summary><div class="body">
@@ -11448,7 +11462,7 @@ def retrieve_rag_context(user_query_vector, tenant_id: str, top_k=3):
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఏజెంట్లకు ఇచ్చే టూల్స్ (SQL క్వెరీ, ఈమెయిల్ పంపడం, ఫైల్ డిలీట్ చేయడం) హ్యాకర్ల ద్వారా అనధికార చర్యలకు గురికాకుండా కఠినమైన బౌండరీలు పెట్టడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మీరు ఒక AI ఏజెంట్‌కు `execute_sql_query` అనే టూల్ ఇచ్చారనుకోండి. ప్రాంప్ట్ ఇంజెక్షన్ ద్వారా హ్యాకర్: *"DROP TABLE users;"* అని రన్ చేయించవచ్చు. దీని నివారణకు: టూల్స్ ఎల్లప్పుడూ లీస్ట్-ప్రివిలేజ్ తో ఉండాలి (ఉదా: కేవలం SELECT మాత్రమే చేయగల రీడ్-ఓన్లీ డేటాబేస్ యూజర్ క్రెడెన్షియల్స్ ఇవ్వాలి). డబ్బులు బదిలీ చేయడం లేదా డిలీట్ చేయడం వంటి విధ్వంసక పనులకు 'హ్యూమన్-ఇన్-ది-లూప్' (HITL) అనుమతి ఉండాలి.</p>
+<p>మీరు ఒక AI ఏజెంట్‌కు `execute_sql_query` అనే టూల్ ఇచ్చారనుకోండి. ప్రాంప్ట్ ఇంజెక్షన్ ద్వారా హ్యాకర్: *"DROP TABLE users;"* అని రన్ చేయించవచ్చు. దీని నివారణకు: టూల్స్ ఎల్లప్పుడూ లీస్ట్-ప్రివిలేజ్ తో ఉండాలి (ఉదా: కేవలం SELECT మాత్రమే చేయగల రీడ్-ఓన్లీ డేటాబేస్ యూజర్ క్రెడెన్షియల్స్ ఇవ్వాలి). డబ్బులు బదిలీ చేయడం లేదా డిలీట్ చేయడం వంటి విధ్వంసక పనులకు 'హ్యూమన్-ఇన్-ది-లూప్' (HITL (Human-in-the-Loop)) అనుమతి ఉండాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># ప్రమాదకర టూల్స్ కు ముందస్తు మానవ అనుమతి (Human Approval Gate)
 def send_email_tool(recipient: str, subject: str, body: str, is_approved_by_admin: bool = False):
@@ -12288,7 +12302,7 @@ def test_prompt_injection_is_blocked(client: TestClient, valid_user_token):
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ పనిచేయడం ఆగిపోయిందని తెలుసుకోవడం (Monitoring) మరియు ఎందుకు, ఎక్కడ, ఏ అంతర్గత కారణం వల్ల ఆగిపోయిందో మూలాలను శోధించడం (Observability) మధ్య తేడాను గుర్తించడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel దృక్కోణంలో పోలిక:<br>1. **Monitoring:** డాష్‌బోర్డ్‌లో సర్వర్ ఆన్‌లో ఉందా లేదా (Ping check), CPU 90% దాటిందా అని చూడటం. ఇది 'సిస్టమ్ విఫలమైంది' (What is broken) అని మాత్రమే చెబుతుంది. ఇది బాహ్య పరిశీలన.<br>2. **Observability:** సిస్టమ్ ఇచ్చే అవుట్‌పుట్‌లు (Logs, Metrics, Traces) ఆధారంగా సిస్టమ్ లోపల ఏం జరుగుతుందో అర్థం చేసుకోవడం. ఉదాహరణకు: 'ఒక నిర్దిష్ట టెనెంట్ అప్‌లోడ్ చేసిన 500 పేజీల డాక్యుమెంట్ వల్ల pgvector లో HNSW లాక్ పడి, దాంతో కనెక్షన్ పూల్ అయిపోయి 504 గేట్‌వే టైమ్‌అవుట్ వచ్చింది' అని సమస్య యొక్క రూట్ కాజ్ (Why is it broken) ను విశ్లేషించే శక్తిని అబ్జర్వబిలిటీ అంటారు.</p>
+<p>Laravel దృక్కోణంలో పోలిక:<br>1. **Monitoring:** డాష్‌బోర్డ్‌లో సర్వర్ ఆన్‌లో ఉందా లేదా (Ping check), CPU 90% దాటిందా అని చూడటం. ఇది 'సిస్టమ్ విఫలమైంది' (What is broken) అని మాత్రమే చెబుతుంది. ఇది బాహ్య పరిశీలన.<br>2. **Observability:** సిస్టమ్ ఇచ్చే అవుట్‌పుట్‌లు (Logs, Metrics, Traces) ఆధారంగా సిస్టమ్ లోపల ఏం జరుగుతుందో అర్థం చేసుకోవడం. ఉదాహరణకు: 'ఒక నిర్దిష్ట టెనెంట్ అప్‌లోడ్ చేసిన 500 పేజీల డాక్యుమెంట్ వల్ల pgvector లో HNSW (Hierarchical Navigable Small World) లాక్ పడి, దాంతో కనెక్షన్ పూల్ అయిపోయి 504 గేట్‌వే టైమ్‌అవుట్ వచ్చింది' అని సమస్య యొక్క రూట్ కాజ్ (Why is it broken) ను విశ్లేషించే శక్తిని అబ్జర్వబిలిటీ అంటారు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Monitoring vs Observability భావన:
 # Monitoring: "FastAPI /ask-ai ఎండ్‌పాయింట్ 500 ఎర్రర్ ఇస్తోంది!" (లక్షణం)
@@ -12656,7 +12670,7 @@ with REQUEST_LATENCY.labels(endpoint='/api/ask-ai').time():
 <h4>ఎందుకు అవసరం?</h4>
 <p>మన అప్లికేషన్ సెకనుకు ఎన్ని రిక్వెస్ట్‌లను లేదా నిమిషానికి ఎన్ని మెగాబైట్ల డేటాను విజయవంతంగా ప్రాసెస్ చేయగలదో కొలిచి కెపాసిటీ ప్లాన్ చేయడానికి త్రూపుట్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో మీరు ఒకే సర్వర్‌పై సెకనుకు 200 రిక్వెస్ట్‌లు హ్యాండిల్ చేయగలరా లేదా 2000 చేయగలరా అని Apache Benchmark (`ab -n 1000 -c 50`) తో చూస్తారు కదా? అదే త్రూపుట్. AI అప్లికేషన్లలో అదనంగా **Tokens Per Second (TPS)** ని కూడా త్రూపుట్ కింద కొలుస్తారు.</p>
+<p>Laravel లో మీరు ఒకే సర్వర్‌పై సెకనుకు 200 రిక్వెస్ట్‌లు హ్యాండిల్ చేయగలరా లేదా 2000 చేయగలరా అని Apache Benchmark (`ab -n 1000 -c 50`) తో చూస్తారు కదా? అదే త్రూపుట్. AI అప్లికేషన్లలో అదనంగా **Tokens Per Second (TPS (Tokens Per Second))** ని కూడా త్రూపుట్ కింద కొలుస్తారు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># త్రూపుట్ (RPS) లెక్కింపు లాజిక్
 import time
@@ -12990,11 +13004,11 @@ print(f"ఇన్పుట్ టోకెన్లు: {response_usage['prompt_
 <div class="mistake"><b>సాధారణ తప్పు:</b> స్ట్రీమింగ్ రెస్పాన్స్ (Server-Sent Events) వాడేటప్పుడు టోకెన్ కౌంట్ ను ట్రాక్ చేయడం మర్చిపోవడం (స్ట్రీమింగ్ లో ప్రత్యేక టోకెన్ కౌంటర్ లేదా టిక్‌టోకెన్ వాడాలి).</div>
 </div></details>
 
-<details class="t"><summary>42. Model latency.<small>మోడల్ లేటెన్సీ (TTFT మరియు ఇన్‌ఫరెన్స్ సమయాలు)</small></summary><div class="body">
+<details class="t"><summary>42. Model latency.<small>మోడల్ లేటెన్సీ (TTFT (Time to First Token) మరియు ఇన్‌ఫరెన్స్ సమయాలు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>యూజర్ స్క్రీన్‌పై మొదటి పదం ఎప్పుడు పడింది (Time To First Token - TTFT) మరియు మొత్తం సమాధానం రావడానికి ఎంత సమయం పట్టిందో కొలిచి యూజర్ అనుభవాన్ని మెరుగుపరచడం.</p>
+<p>యూజర్ స్క్రీన్‌పై మొదటి పదం ఎప్పుడు పడింది (Time To First Token - TTFT (Time to First Token)) మరియు మొత్తం సమాధానం రావడానికి ఎంత సమయం పట్టిందో కొలిచి యూజర్ అనుభవాన్ని మెరుగుపరచడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>LLM లలో రెండు లేటెన్సీలుంటాయి:<br>1. **TTFT (Time To First Token):** యూజర్ ప్రశ్న అడిగాక మొదటి అక్షరం స్క్రీన్‌పై కనిపించడానికి పట్టిన సమయం (ఇది 500ms లోపు ఉండాలి).<br>2. **E2E Latency (End-to-End):** మొత్తం 500 పదాల పారాగ్రాఫ్ పూర్తవడానికి పట్టిన సమయం (స్ట్రీమింగ్ వాడితే యూజర్ వెయిట్ చేయాల్సిన పని ఉండదు).</p>
+<p>LLM లలో రెండు లేటెన్సీలుంటాయి:<br>1. **TTFT (Time to First Token) (Time To First Token):** యూజర్ ప్రశ్న అడిగాక మొదటి అక్షరం స్క్రీన్‌పై కనిపించడానికి పట్టిన సమయం (ఇది 500ms లోపు ఉండాలి).<br>2. **E2E Latency (End-to-End):** మొత్తం 500 పదాల పారాగ్రాఫ్ పూర్తవడానికి పట్టిన సమయం (స్ట్రీమింగ్ వాడితే యూజర్ వెయిట్ చేయాల్సిన పని ఉండదు).</p>
 <h4>ఉదాహరణ</h4>
 <pre># TTFT (Time to first token) కొలత లాజిక్
 import time
@@ -13617,7 +13631,7 @@ current, peak = tracemalloc.get_traced_memory()
 print(f"ప్రస్తుత మెమరీ: {current / 10**6:.2f} MB")
 print(f"పీక్ మెమరీ: {peak / 10**6:.2f} MB")
 tracemalloc.stop()</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> భారీ ఫైళ్లను స్ట్రీమింగ్ చేయకుండా ఒకేసారి మెమరీలోకి రీడ్ చేయడం వల్ల OOM ఎర్రర్ రావడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> భారీ ఫైళ్లను స్ట్రీమింగ్ చేయకుండా ఒకేసారి మెమరీలోకి రీడ్ చేయడం వల్ల OOM (Out Of Memory) ఎర్రర్ రావడం.</div>
 </div></details>
 
 <details class="t"><summary>8. Bottleneck identification.<small>సిస్టమ్‌లో అడ్డంకులు (Bottlenecks) గుర్తించడం</small></summary><div class="body">
@@ -13661,11 +13675,11 @@ def process_rag(query: str):
 <div class="mistake"><b>సాధారణ తప్పు:</b> ముందస్తు బేస్‌లైన్ కొలవకుండా నేరుగా మోడల్ లేదా ప్రాంప్ట్ పారామితులు మార్చడం.</div>
 </div></details>
 
-<details class="t"><summary>10. Time to First Token.<small>మొదటి టోకెన్ వచ్చే సమయం (TTFT)</small></summary><div class="body">
+<details class="t"><summary>10. Time to First Token.<small>మొదటి టోకెన్ వచ్చే సమయం (TTFT (Time to First Token))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>యూజర్ ప్రాంప్ట్ పంపిన తర్వాత స్క్రీన్ మీద మొదటి పదం (ఫస్ట్ టోకెన్) కనిపించే వరకు పట్టే సమయమే TTFT. ఇది ఎంత తక్కువగా ఉంటే యూజర్‌కు అప్లికేషన్ అంత రెస్పాన్సివ్‌గా అనిపిస్తుంది.</p>
+<p>యూజర్ ప్రాంప్ట్ పంపిన తర్వాత స్క్రీన్ మీద మొదటి పదం (ఫస్ట్ టోకెన్) కనిపించే వరకు పట్టే సమయమే TTFT (Time to First Token). ఇది ఎంత తక్కువగా ఉంటే యూజర్‌కు అప్లికేషన్ అంత రెస్పాన్సివ్‌గా అనిపిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>వెబ్ డెవలప్‌మెంట్‌లో TTFB (Time to First Byte) లాంటిదే AI లో TTFT. యూజర్ ప్రశ్న అడగ్గానే LLM మొత్తం సమాధానం ఆలోచించి ఇవ్వడానికి 10 సెకన్లు పడితే యూజర్ వెబ్‌సైట్ ఫ్రీజ్ అయిందనుకుంటాడు. కానీ TTFT 400ms ఉంటే, 400 మిల్లీసెకన్లలోనే మొదటి పదం టైప్ అవ్వడం మొదలై యూజర్ ఆసక్తిగా చదవడం ప్రారంభిస్తాడు.</p>
+<p>వెబ్ డెవలప్‌మెంట్‌లో TTFB (Time to First Byte) లాంటిదే AI లో TTFT (Time to First Token). యూజర్ ప్రశ్న అడగ్గానే LLM మొత్తం సమాధానం ఆలోచించి ఇవ్వడానికి 10 సెకన్లు పడితే యూజర్ వెబ్‌సైట్ ఫ్రీజ్ అయిందనుకుంటాడు. కానీ TTFT (Time to First Token) 400ms ఉంటే, 400 మిల్లీసెకన్లలోనే మొదటి పదం టైప్ అవ్వడం మొదలై యూజర్ ఆసక్తిగా చదవడం ప్రారంభిస్తాడు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import time
 import openai
@@ -13687,14 +13701,14 @@ for chunk in response:
             print(f"Time to First Token (TTFT): {ttft:.3f} సెకన్లు")
             first_token = False
         print(chunk.choices[0].delta.content, end="", flush=True)</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> స్ట్రీమింగ్ వాడకుండా మొత్తం రెస్పాన్స్ వచ్చేవరకు వేచి ఉండటం వల్ల TTFT చాలా ఎక్కువగా ఉండటం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> స్ట్రీమింగ్ వాడకుండా మొత్తం రెస్పాన్స్ వచ్చేవరకు వేచి ఉండటం వల్ల TTFT (Time to First Token) చాలా ఎక్కువగా ఉండటం.</div>
 </div></details>
 
-<details class="t"><summary>11. Tokens per second.<small>సెకనుకు జనరేట్ అయ్యే టోకెన్లు (TPS)</small></summary><div class="body">
+<details class="t"><summary>11. Tokens per second.<small>సెకనుకు జనరేట్ అయ్యే టోకెన్లు (TPS (Tokens Per Second))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మోడల్ ఎంత వేగంగా సమాధానాన్ని టైప్ చేయగలదో కొలిచే మెట్రిక్ TPS. TPS తక్కువగా ఉంటే యూజర్ స్క్రీన్ ముందు పదం పదం కోసం అసహనంగా ఎదురుచూడాల్సి వస్తుంది.</p>
+<p>మోడల్ ఎంత వేగంగా సమాధానాన్ని టైప్ చేయగలదో కొలిచే మెట్రిక్ TPS (Tokens Per Second). TPS (Tokens Per Second) తక్కువగా ఉంటే యూజర్ స్క్రీన్ ముందు పదం పదం కోసం అసహనంగా ఎదురుచూడాల్సి వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మనిషి సగటున సెకనుకు 4-5 పదాలు చదువుతాడు. LLM యొక్క జనరేషన్ స్పీడ్ సెకనుకు 30-50 టోకెన్లు ఉంటే చాలా స్మూత్‌గా అనిపిస్తుంది. TPS అనేది మీ GPU కంప్యూట్ పవర్, మోడల్ సైజు (7B vs 70B), మరియు క్వాంటైజేషన్ మీద ఆధారపడి ఉంటుంది. vLLM వంటి ఆధునిక ఇంజిన్లు హై-స్పీడ్ TPS ని అందిస్తాయి.</p>
+<p>మనిషి సగటున సెకనుకు 4-5 పదాలు చదువుతాడు. LLM యొక్క జనరేషన్ స్పీడ్ సెకనుకు 30-50 టోకెన్లు ఉంటే చాలా స్మూత్‌గా అనిపిస్తుంది. TPS (Tokens Per Second) అనేది మీ GPU కంప్యూట్ పవర్, మోడల్ సైజు (7B vs 70B), మరియు క్వాంటైజేషన్ మీద ఆధారపడి ఉంటుంది. vLLM వంటి ఆధునిక ఇంజిన్లు హై-స్పీడ్ TPS (Tokens Per Second) ని అందిస్తాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import time
 
@@ -13705,14 +13719,14 @@ generation_duration = 3.0  # సెకన్లు
 tps = total_tokens / generation_duration
 print(f"Generation Speed: {tps:.1f} tokens/sec")
 # 50.0 tokens/sec అంటే చాలా అద్భుతమైన వేగం</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> TPS పెంచడానికి నెట్‌వర్క్ బ్యాండ్‌విడ్త్ కారణం అనుకోవడం; అసలైన కారణం GPU మెమరీ బ్యాండ్‌విడ్త్.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> TPS (Tokens Per Second) పెంచడానికి నెట్‌వర్క్ బ్యాండ్‌విడ్త్ కారణం అనుకోవడం; అసలైన కారణం GPU మెమరీ బ్యాండ్‌విడ్త్.</div>
 </div></details>
 
 <details class="t"><summary>12. Prefill and decode.<small>ప్రీఫిల్ మరియు డీకోడ్ దశలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ఇన్ఫరెన్స్ రెండు వేర్వేరు దశల్లో జరుగుతుంది: ప్రాంప్ట్‌ను అర్థం చేసుకోవడం (Prefill) మరియు ఒక్కో పదాన్ని అవుట్‌పుట్‌గా తయారు చేయడం (Decode). వీటి పనితీరు భిన్నంగా ఉంటుంది కాబట్టి వేర్వేరుగా ఆప్టిమైజ్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>1. <b>Prefill దశ:</b> యూజర్ ఇచ్చిన 2000 పదాల ప్రాంప్ట్‌ను ఒకేసారి ప్యారలల్‌గా GPU లో ప్రాసెస్ చేస్తుంది (Compute-bound). ఇది TTFT ని నిర్ణయిస్తుంది.
+<p>1. <b>Prefill దశ:</b> యూజర్ ఇచ్చిన 2000 పదాల ప్రాంప్ట్‌ను ఒకేసారి ప్యారలల్‌గా GPU లో ప్రాసెస్ చేస్తుంది (Compute-bound). ఇది TTFT (Time to First Token) ని నిర్ణయిస్తుంది.
 2. <b>Decode దశ:</b> మునుపటి పదాల ఆధారంగా ఒక్కో టోకెన్‌ను సీరియల్‌గా జనరేట్ చేస్తుంది (Memory-bandwidth bound). ఇది Tokens per second ని నిర్ణయిస్తుంది.
 ఈ రెండు ఫేజెస్‌ను వేరు చేసి అర్థం చేసుకుంటే RAG లో ప్రాంప్ట్ సైజు ఎందుకు తగ్గించాలో సులభంగా అర్థమవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -13722,9 +13736,9 @@ print(f"Generation Speed: {tps:.1f} tokens/sec")
 <div class="mistake"><b>సాధారణ తప్పు:</b> పెద్ద డాక్యుమెంట్లు పంపినప్పుడు Prefill దశ ఎక్కువ సమయం తీసుకుంటుందని గమనించకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>13. KV caching.<small>కీ-వ్యాల్యూ క్యాషింగ్ (KV Cache)</small></summary><div class="body">
+<details class="t"><summary>13. KV caching.<small>కీ-వ్యాల్యూ క్యాషింగ్ (KV (Key-Value) cache)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>LLM ప్రతి కొత్త టోకెన్ జనరేట్ చేసేటప్పుడు మునుపటి టోకెన్ల Attention ను మళ్లీ మళ్లీ రీ-కాలిక్యులేట్ చేయకుండా ఉండటానికి KV Cache ప్రాణాధారం. ఇది లేకపోతే జనరేషన్ విపరీతమైన ఆలస్యమవుతుంది.</p>
+<p>LLM ప్రతి కొత్త టోకెన్ జనరేట్ చేసేటప్పుడు మునుపటి టోకెన్ల Attention ను మళ్లీ మళ్లీ రీ-కాలిక్యులేట్ చేయకుండా ఉండటానికి KV (Key-Value) cache ప్రాణాధారం. ఇది లేకపోతే జనరేషన్ విపరీతమైన ఆలస్యమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Laravel లో ఒక భారీ క్వెరీ రిజల్ట్‌ను Redis లో క్యాష్ చేసి తర్వాతి రిక్వెస్ట్‌లలో రీ-యూజ్ చేసినట్లే, LLM లో Attention లేయర్ల Key మరియు Value వెక్టర్లను GPU మెమరీలో క్యాష్ చేస్తారు. దీనివల్ల 50వ టోకెన్ రాసేటప్పుడు మొదటి 49 టోకెన్లను మళ్లీ కంప్యూట్ చేయక్కర్లేదు. vLLM లోని PagedAttention ఈ KV క్యాష్‌ను వర్చువల్ మెమరీ పేజీల లాగా అత్యంత సమర్థవంతంగా మేనేజ్ చేస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -13734,7 +13748,7 @@ print(f"Generation Speed: {tps:.1f} tokens/sec")
 #    --model meta-llama/Meta-Llama-3-8B-Instruct \
 #    --gpu-memory-utilization 0.90 \
 #    --max-model-len 4096</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> KV Cache GPU VRAM ని భారీగా ఆక్రమిస్తుందని గ్రహించకుండా కాన్‌కరెన్సీని విపరీతంగా పెంచడం (OOM కి దారితీస్తుంది).</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> KV (Key-Value) cache GPU VRAM (Video RAM / GPU Memory) ని భారీగా ఆక్రమిస్తుందని గ్రహించకుండా కాన్‌కరెన్సీని విపరీతంగా పెంచడం (OOM (Out Of Memory) కి దారితీస్తుంది).</div>
 </div></details>
 
 <details class="t"><summary>14. Continuous batching.<small>కంటిన్యూయస్ బ్యాచింగ్</small></summary><div class="body">
@@ -13757,9 +13771,9 @@ outputs = llm.generate(prompts, sampling_params) # Iteration-level scheduling</p
 
 <details class="t"><summary>15. Quantization.<small>మోడల్ క్వాంటైజేషన్ (FP16 నుండి INT8/INT4 కు మార్చడం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>పెద్ద LLM మోడల్స్ 16-bit ఫ్లోటింగ్ పాయింట్స్ (FP16) లో ఉంటాయి, వీటికి భారీ GPU VRAM (ఉదా: 70B మోడల్‌కు 140GB+) కావాలి. Quantization ద్వారా మోడల్ సైజును 4-bit లేదా 8-bit కి తగ్గించి సాధారణ GPUలలో నడపవచ్చు.</p>
+<p>పెద్ద LLM మోడల్స్ 16-bit ఫ్లోటింగ్ పాయింట్స్ (FP16) లో ఉంటాయి, వీటికి భారీ GPU VRAM (Video RAM / GPU Memory) (ఉదా: 70B మోడల్‌కు 140GB+) కావాలి. Quantization ద్వారా మోడల్ సైజును 4-bit లేదా 8-bit కి తగ్గించి సాధారణ GPUలలో నడపవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇమేజ్ కంప్రెషన్‌లో 24-bit PNG ని 8-bit WebP కి మార్చినట్లుగా, న్యూరల్ నెట్‌వర్క్ వెయిట్స్‌ను 16-bit (FP16) నుండి 4-bit (AWQ లేదా GPTQ లేదా GGUF) కు కుదిస్తారు. 70B మోడల్ సైజు 140GB నుండి కేవలం 40GB కి తగ్గుతుంది! VRAM వినియోగం తగ్గడమే కాకుండా మెమరీ ట్రాన్స్‌ఫర్ స్పీడ్ పెరిగి ఇన్ఫరెన్స్ వేగం కూడా పెరుగుతుంది, మోడల్ క్వాలిటీ దాదాపు 98% అలాగే ఉంటుంది.</p>
+<p>ఇమేజ్ కంప్రెషన్‌లో 24-bit PNG ని 8-bit WebP కి మార్చినట్లుగా, న్యూరల్ నెట్‌వర్క్ వెయిట్స్‌ను 16-bit (FP16) నుండి 4-bit (AWQ (Activation-aware Weight Quantization) లేదా GPTQ లేదా GGUF (GPT-Generated Unified Format)) కు కుదిస్తారు. 70B మోడల్ సైజు 140GB నుండి కేవలం 40GB కి తగ్గుతుంది! VRAM (Video RAM / GPU Memory) వినియోగం తగ్గడమే కాకుండా మెమరీ ట్రాన్స్‌ఫర్ స్పీడ్ పెరిగి ఇన్ఫరెన్స్ వేగం కూడా పెరుగుతుంది, మోడల్ క్వాలిటీ దాదాపు 98% అలాగే ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># AWQ 4-bit Quantized మోడల్‌ను vLLM లో రన్ చేయడం
 # vllm serve casperhansen/llama-3-8b-instruct-awq --quantization awq
@@ -13793,21 +13807,21 @@ outputs = llm.generate(prompts, sampling_params) # Iteration-level scheduling</p
 # అవుట్‌పుట్:
 # utilization.gpu [%], utilization.memory [%], memory.used [MiB], memory.total [MiB]
 # 87 %, 72 %, 21500 MiB, 24576 MiB</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> `nvidia-smi` లో కేవలం మెమరీ 100% నిండినంత మాత్రాన GPU కోర్స్ 100% వాడుతున్నాయని భ్రమపడటం (VRAM అలొకేట్ అయినా కంప్యూట్ ఖాళీగా ఉండవచ్చు).</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> `nvidia-smi` లో కేవలం మెమరీ 100% నిండినంత మాత్రాన GPU కోర్స్ 100% వాడుతున్నాయని భ్రమపడటం (VRAM (Video RAM / GPU Memory) అలొకేట్ అయినా కంప్యూట్ ఖాళీగా ఉండవచ్చు).</div>
 </div></details>
 
 <details class="t"><summary>18. Model concurrency.<small>ఒకే మోడల్ ఇన్‌స్టాన్స్‌లో ఏకకాల ప్రాసెసింగ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొడక్షన్‌లో ఒకే సమయంలో వచ్చే పదుల సంఖ్యలోని రిక్వెస్ట్‌లను మోడల్ సర్వర్ క్రాష్ కాకుండా లేదా క్యూ పెరిగిపోకుండా నిర్వహించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PHP-FPM లో `pm.max_children = 50` పెట్టి ఒకేసారి 50 రిక్వెస్ట్‌లను హ్యాండిల్ చేసినట్లే, vLLM లేదా Triton Inference Server లో `--max-num-seqs` ద్వారా మోడల్ ఒకేసారి ఎన్ని సీక్వెన్సులను ప్రాసెస్ చేయగలదో సెట్ చేస్తాం. VRAM కెపాసిటీని బట్టి ఈ సంఖ్యను (ఉదాహరణకు 64 లేదా 128) ట్యూన్ చేయాలి.</p>
+<p>PHP-FPM లో `pm.max_children = 50` పెట్టి ఒకేసారి 50 రిక్వెస్ట్‌లను హ్యాండిల్ చేసినట్లే, vLLM లేదా Triton Inference Server లో `--max-num-seqs` ద్వారా మోడల్ ఒకేసారి ఎన్ని సీక్వెన్సులను ప్రాసెస్ చేయగలదో సెట్ చేస్తాం. VRAM (Video RAM / GPU Memory) కెపాసిటీని బట్టి ఈ సంఖ్యను (ఉదాహరణకు 64 లేదా 128) ట్యూన్ చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># vLLM సర్వర్‌లో కాన్‌కరెన్సీని కాన్ఫిగర్ చేయడం:
 # python -m vllm.entrypoints.openai.api_server \
 #   --model meta-llama/Meta-Llama-3-8B-Instruct \
 #   --max-num-seqs 64 \
 #   --max-model-len 4096</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> GPU మెమరీ సరిపోదని ఆలోచించకుండా max sequences విపరీతంగా పెంచేసి OOM క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> GPU మెమరీ సరిపోదని ఆలోచించకుండా max sequences విపరీతంగా పెంచేసి OOM (Out Of Memory) క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>19. Streaming optimization.<small>స్ట్రీమింగ్ ఆప్టిమైజేషన్ (SSE / WebSockets)</small></summary><div class="body">
@@ -13853,7 +13867,7 @@ client.create_collection(
         ef_construct=100  # ఇండెక్స్ బిల్డింగ్ క్వాలిటీ
     )
 )</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ సైజు పెరిగేకొద్దీ HNSW ఇండెక్స్ లేకుండా డిఫాల్ట్ ఫ్లాట్ సెర్చ్ వాడటం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ సైజు పెరిగేకొద్దీ HNSW (Hierarchical Navigable Small World) ఇండెక్స్ లేకుండా డిఫాల్ట్ ఫ్లాట్ సెర్చ్ వాడటం.</div>
 </div></details>
 
 <details class="t"><summary>21. Embedding generation latency.<small>ఎంబెడ్డింగ్ జనరేషన్ వేగం మెరుగుపరచడం</small></summary><div class="body">
@@ -13878,7 +13892,7 @@ print(f"వెక్టర్ డైమెన్షన్: {len(embeddings[0])}"
 <h4>ఎందుకు అవసరం?</h4>
 <p>మిలియన్ల కొద్దీ వెక్టర్లు ఉన్నప్పుడు ఇండెక్స్ బిల్డ్ అవ్వడానికి గంటల సమయం పట్టవచ్చు మరియు సెర్చ్ స్పీడ్ పడిపోవచ్చు. ఇండెక్స్ పారామితులను సరిగ్గా ట్యూన్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL లో B-Tree ఇండెక్స్ ఎలాగో, వెక్టర్ డేటాబేస్‌లలో HNSW మరియు IVF (Inverted File) ఇండెక్స్‌లు ఉంటాయి. HNSW లో `ef_search` అనే పారామితి ఉంటుంది. `ef_search` విలువ పెంచితే సెర్చ్ ఖచ్చితత్వం (Recall) పెరుగుతుంది కానీ సమయం ఎక్కువ పడుతుంది. ప్రొడక్షన్‌లో వేగం మరియు ఖచ్చితత్వానికి తగినట్లుగా దీన్ని బ్యాలెన్స్ చేయాలి.</p>
+<p>MySQL లో B-Tree ఇండెక్స్ ఎలాగో, వెక్టర్ డేటాబేస్‌లలో HNSW (Hierarchical Navigable Small World) మరియు IVF (Inverted File) ఇండెక్స్‌లు ఉంటాయి. HNSW (Hierarchical Navigable Small World) లో `ef_search` అనే పారామితి ఉంటుంది. `ef_search` విలువ పెంచితే సెర్చ్ ఖచ్చితత్వం (Recall) పెరుగుతుంది కానీ సమయం ఎక్కువ పడుతుంది. ప్రొడక్షన్‌లో వేగం మరియు ఖచ్చితత్వానికి తగినట్లుగా దీన్ని బ్యాలెన్స్ చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Qdrant లో సెర్చ్ సమయంలో ef పారామితి ట్యూనింగ్
 results = client.search(
@@ -14628,7 +14642,7 @@ async def profile_pipeline(query: str):
 <h4>ఎందుకు అవసరం?</h4>
 <p>గుర్తించిన బాటిల్‌నెక్స్‌లో డేటాబేస్ సమస్యలు ఉంటే సరైన ఇండెక్సింగ్ మరియు క్వెరీ ట్యూనింగ్ ద్వారా వాటిని సరిదిద్దాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `php artisan schema:dump` చూసి ఇండెక్స్‌లు వేసినట్లు, PostgreSQL లో `EXPLAIN ANALYZE` వాడి సీక్వెన్షియల్ స్కాన్‌లను ఇండెక్స్ స్కాన్‌లుగా మారుస్తాం. అవసరమైన చోట HNSW ఇండెక్స్ వేసి, అనవసరమైన జాయిన్లను తగ్గిస్తాం.</p>
+<p>Laravel లో `php artisan schema:dump` చూసి ఇండెక్స్‌లు వేసినట్లు, PostgreSQL లో `EXPLAIN ANALYZE` వాడి సీక్వెన్షియల్ స్కాన్‌లను ఇండెక్స్ స్కాన్‌లుగా మారుస్తాం. అవసరమైన చోట HNSW (Hierarchical Navigable Small World) ఇండెక్స్ వేసి, అనవసరమైన జాయిన్లను తగ్గిస్తాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>-- క్వెరీని వేగవంతం చేయడానికి పార్టిషియల్ ఇండెక్స్
 CREATE INDEX idx_active_sessions 
@@ -14699,7 +14713,7 @@ class OptimizedLLMGateway:
 <h4>సరళమైన వివరణ</h4>
 <p>ఆర్కిటెక్చర్ డెసిషన్ రికార్డ్ (ADR) లో ఈ క్రింది అంశాలను స్పష్టంగా రాస్తాం:
 1. సెమాంటిక్ క్యాష్ వాడటం వల్ల సమాధానం 10ms లో వస్తుంది, కానీ డేటా మారితే 1 గంట వరకు పాత సమాధానమే కనిపించే అవకాశం ఉంది.
-2. 4-bit Quantization వల్ల VRAM 70% తగ్గింది, కానీ మ్యాథమెటికల్ రీజనింగ్‌లో 2% అక్యూరసీ తగ్గింది.
+2. 4-bit Quantization వల్ల VRAM (Video RAM / GPU Memory) 70% తగ్గింది, కానీ మ్యాథమెటికల్ రీజనింగ్‌లో 2% అక్యూరసీ తగ్గింది.
 ఈ డాక్యుమెంటేషన్ భవిష్యత్తులో టీమ్ సభ్యులకు నిర్ణయాలు తీసుకోవడంలో సహాయపడుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># ADR-042: AI Performance & Cost Trade-offs
@@ -15076,7 +15090,7 @@ def publish_ai_job(job_data):
         # క్యూ ఓవర్‌లోడ్ అయింది! బ్యాక్‌ప్రెషర్ అప్లై చేయండి
         raise Exception("క్యూ సామర్థ్యం నిండిపోయింది. దయచేసి కాసేపటి తర్వాత ప్రయత్నించండి.")
     r.lpush("ai_task_queue", json.dumps(job_data))</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> క్యూ సైజును పర్యవేక్షించకుండా అపరిమితంగా మెసేజ్‌లు పోగుపడనిచ్చి బ్రోకర్ OOM క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> క్యూ సైజును పర్యవేక్షించకుండా అపరిమితంగా మెసేజ్‌లు పోగుపడనిచ్చి బ్రోకర్ OOM (Out Of Memory) క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>21. Kafka architecture.<small>అపాచీ కాఫ్కా ఆర్కిటెక్చర్ అవలోకనం</small></summary><div class="body">
@@ -15511,7 +15525,7 @@ embedding_job = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షలాది కస్టమర్ రికార్డులు లేదా పాత డేటాసెట్‌లపై AI మోడల్‌ను రన్ చేయాల్సి వచ్చినప్పుడు మెసేజ్ క్యూలు ఆ లోడ్‌ను సమానంగా విభజించి ప్యారలల్‌గా ప్రాసెస్ చేయగలవు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `Bus::batch([new ProcessChunk(1), new ProcessChunk(2)...])` లాగా, లక్ష రికార్డులను చిన్న చిన్న బ్యాచ్‌లుగా క్యూలోకి పంపి, 20 GPU వర్కర్లను ఆన్ చేసి రాత్రికి రాత్రే మొత్తం డేటాను ప్రాసెస్ చేయవచ్చు. వర్కర్లు పెరిగేకొద్దీ పని సమయం తగ్గుతుంది.</p>
+<p>Laravel లో `Bus::batch([new ProcessChunk</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>, new ProcessChunk</span></div><div class="step-row"><span class="step-badge">2</span><span>...])` లాగా, లక్ష రికార్డులను చిన్న చిన్న బ్యాచ్‌లుగా క్యూలోకి పంపి, 20 GPU వర్కర్లను ఆన్ చేసి రాత్రికి రాత్రే మొత్తం డేటాను ప్రాసెస్ చేయవచ్చు.</span></div></div><p>వర్కర్లు పెరిగేకొద్దీ పని సమయం తగ్గుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># 10,000 టాస్క్‌లను క్యూలోకి బ్యాచ్ చేయడం
 for batch_id in range(100):
@@ -15540,7 +15554,7 @@ for msg in consumer:
 
 <details class="t"><summary>51. Consumer failures.<small>కన్స్యూమర్ వైఫల్యాలు మరియు పరిష్కారాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>వర్కర్ ప్రాసెస్ మెమరీ అయిపోయి (OOM) లేదా సిస్టమ్ క్రాష్ అయి ఆగిపోతే, ఆ వర్కర్ హ్యాండిల్ చేస్తున్న మెసేజ్ నష్టపోకుండా వేరే వర్కర్‌కు వెంటనే బదిలీ కావాలి.</p>
+<p>వర్కర్ ప్రాసెస్ మెమరీ అయిపోయి (OOM (Out Of Memory)) లేదా సిస్టమ్ క్రాష్ అయి ఆగిపోతే, ఆ వర్కర్ హ్యాండిల్ చేస్తున్న మెసేజ్ నష్టపోకుండా వేరే వర్కర్‌కు వెంటనే బదిలీ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>కన్స్యూమర్ క్రమం తప్పకుండా బ్రోకర్‌కు హార్ట్‌బీట్ (Heartbeat) పంపుతుంది. ఒకవేళ 10 సెకన్ల పాటు హార్ట్‌బీట్ రాకపోతే, బ్రోకర్ ఆ వర్కర్‌ను 'డెడ్' గా ప్రకటిస్తుంది. అది ప్రాసెస్ చేస్తున్న అన్‌-అక్నాలెడ్జ్డ్ మెసేజ్‌లను తిరిగి క్యూలోకి పంపి యాక్టివ్‌గా ఉన్న మరొక వర్కర్‌కు కేటాయిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -15633,7 +15647,7 @@ if memory_is_full():
     consumer.pause(consumer.assignment()) # కన్సంప్షన్ తాత్కాలికంగా ఆపడం
 else:
     consumer.resume(consumer.assignment()) # మళ్లీ కొనసాగించడం</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ప్రాసెస్ చేయలేనంత వేగంగా డేటాను మెమరీలోకి లాగి వర్కర్ OOM అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ప్రాసెస్ చేయలేనంత వేగంగా డేటాను మెమరీలోకి లాగి వర్కర్ OOM (Out Of Memory) అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>57. Partition rebalancing.<small>పార్టిషన్ రీబ్యాలెన్సింగ్</small></summary><div class="body">
@@ -16433,7 +16447,7 @@ appendfsync everysec    # ప్రతి సెకనుకు డిస్క�
 <h4>ఎందుకు అవసరం?</h4>
 <p>మిలియన్ల కొద్దీ వెక్టర్లను మళ్లీ మొదటి నుండి ఎంబెడ్డింగ్ తీయాలంటే రోజులు పడుతుంది మరియు వేల డాలర్లు ఖర్చవుతుంది. కాబట్టి వెక్టర్ డేటాబేస్ స్నాప్‌షాట్‌లను క్రమం తప్పకుండా బ్యాకప్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Qdrant లేదా Milvus లో కలెక్షన్ స్నాప్‌షాట్ API ఉంటుంది. ఇది వెక్టర్లు, పేలోడ్లు, HNSW ఇండెక్స్ గ్రాఫ్‌ను ఒకే బైనరీ టార్ ఫైల్ (.snapshot) రూపంలో ఎగుమతి చేస్తుంది. ఆ ఫైల్‌ను తక్షణమే AWS S3 కి అప్‌లోడ్ చేస్తాం. సర్వర్ పోయినా 10 నిమిషాల్లో స్నాప్‌షాట్ నుండి రికవర్ చేయవచ్చు.</p>
+<p>Qdrant లేదా Milvus లో కలెక్షన్ స్నాప్‌షాట్ API ఉంటుంది. ఇది వెక్టర్లు, పేలోడ్లు, HNSW (Hierarchical Navigable Small World) ఇండెక్స్ గ్రాఫ్‌ను ఒకే బైనరీ టార్ ఫైల్ (.snapshot) రూపంలో ఎగుమతి చేస్తుంది. ఆ ఫైల్‌ను తక్షణమే AWS S3 కి అప్‌లోడ్ చేస్తాం. సర్వర్ పోయినా 10 నిమిషాల్లో స్నాప్‌షాట్ నుండి రికవర్ చేయవచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from qdrant_client import QdrantClient
 
@@ -16707,7 +16721,7 @@ latest_checkpoint = state_history[0]</pre>
 
 <details class="t"><summary>54. Pending human approvals.<small>పెండింగ్ హ్యూమన్ అప్రూవల్స్ నిర్వహణ</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>Human-in-the-loop (HITL) లో ఏజెంట్ ఒక ఈమెయిల్ పంపడానికి లేదా పేమెంట్ చేయడానికి అడ్మిన్ అప్రూవల్ కోసం గంటల తరబడి వేచి చూస్తుంటుంది. సర్వర్ రీస్టార్ట్ అయినా ఈ పెండింగ్ అప్రూవల్ పోకూడదు.</p>
+<p>Human-in-the-loop (HITL (Human-in-the-Loop)) లో ఏజెంట్ ఒక ఈమెయిల్ పంపడానికి లేదా పేమెంట్ చేయడానికి అడ్మిన్ అప్రూవల్ కోసం గంటల తరబడి వేచి చూస్తుంటుంది. సర్వర్ రీస్టార్ట్ అయినా ఈ పెండింగ్ అప్రూవల్ పోకూడదు.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Laravel లో అడ్మిన్ అప్రూవల్ కోసం మోడల్ స్టేటస్ `pending_approval` గా డేటాబేస్‌లో ఉంచినట్లే. ఏజెంట్ `interrupt()` నోడ్ వద్ద ఆగి తన స్టేట్‌ను Postgres లో సేవ్ చేసి స్లీప్ అవుతుంది. అడ్మిన్ 3 రోజుల తర్వాత లాగిన్ అయి "Approved" అని క్లిక్ చేయగానే, ఏజెంట్ సరిగ్గా ఆ పాయింట్ నుండి నిద్రలేచి తదుపరి చర్యను ఎగ్జిక్యూట్ చేస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -17195,7 +17209,7 @@ resource "aws_subnet" "private_app" {
   desired_count   = 3
   launch_type     = "FARGATE"
 }</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> CPU/RAM లిమిట్స్ చాలా తక్కువగా ఇవ్వడం వల్ల Pydantic/FastAPI టాస్క్ OOM క్రాష్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> CPU/RAM లిమిట్స్ చాలా తక్కువగా ఇవ్వడం వల్ల Pydantic/FastAPI టాస్క్ OOM (Out Of Memory) క్రాష్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>17. RDS instances.<small>టెర్రాఫార్మ్‌తో RDS PostgreSQL సృష్టి</small></summary><div class="body">
@@ -18127,7 +18141,7 @@ CREATE TABLE documents (
     content TEXT NOT NULL,
     embedding vector(1536)
 );</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ సెర్చ్ కోసం HNSW ఇండెక్స్ వేయకపోవడం వల్ల రికార్డులు పెరిగినప్పుడు క్వెరీ సెకన్ల తరబడి ఆగడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ సెర్చ్ కోసం HNSW (Hierarchical Navigable Small World) ఇండెక్స్ వేయకపోవడం వల్ల రికార్డులు పెరిగినప్పుడు క్వెరీ సెకన్ల తరబడి ఆగడం.</div>
 </div></details>
 
 <details class="t"><summary>7. Redis.<small>రెడిస్ (క్యాష్, సెషన్లు, రేట్ లిమిట్స్)</small></summary><div class="body">
@@ -18152,7 +18166,7 @@ async def is_rate_limited(user_id: str, max_requests: int = 30) -&gt; bool:
 
 <details class="t"><summary>8. Qdrant.<small>క్యూడ్రాంట్ (డెడికేటెడ్ వెక్టర్ డేటాబేస్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మిలియన్ల కొద్దీ డాక్యుమెంట్ల వెక్టర్లను అత్యంత వేగంగా, పేలోడ్ ఫిల్టరింగ్‌తో మరియు HNSW ఇండెక్సింగ్ సామర్థ్యంతో సెర్చ్ చేయడానికి డెడికేటెడ్ వెక్టర్ DB అవసరం.</p>
+<p>మిలియన్ల కొద్దీ డాక్యుమెంట్ల వెక్టర్లను అత్యంత వేగంగా, పేలోడ్ ఫిల్టరింగ్‌తో మరియు HNSW (Hierarchical Navigable Small World) ఇండెక్సింగ్ సామర్థ్యంతో సెర్చ్ చేయడానికి డెడికేటెడ్ వెక్టర్ DB అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Rust లో నిర్మించబడిన హై-పెర్ఫార్మెన్స్ వెక్టర్ ఇంజిన్. Cosine Distance తో పాటు `tenant_id == 'org_1'` వంటి మెటాడేటా ఫిల్టర్లను ఒకే క్వెరీలో సూపర్ ఫాస్ట్‌గా ఎగ్జిక్యూట్ చేస్తుంది. డిస్ట్రిబ్యూటెడ్ క్లస్టరింగ్ మరియు స్నాప్‌షాట్ బ్యాకప్‌లను అందిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>

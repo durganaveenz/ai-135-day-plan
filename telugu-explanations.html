@@ -71,6 +71,20 @@ details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -104,7 +118,7 @@ details.t[data-status="archive"]:hover { opacity: 1; }
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python "నెమ్మదిగా" ఎందుకు ఉంటుంది, GIL అంటే ఏమిటి, performance ఎక్కడ పోతుంది అని అర్థం చేసుకోవాలంటే Python లోపల ఎలా పనిచేస్తుందో తెలియాలి. Senior interviews లో ఇది తరచూ అడుగుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>CPython</b> అనేది Python యొక్క official implementation (C భాషలో రాసినది). మీరు <code>python</code> అని run చేసినప్పుడు జరిగేది: (1) మీ <code>.py</code> source code ని <b>bytecode</b> గా compile చేస్తుంది (ఇది మిషీన్ కోడ్ కాదు, ఒక మధ్యస్థ రూపం), (2) ఆ bytecode ని <b>Python Virtual Machine (PVM)</b> ఒక్కో instruction గా అమలు చేస్తుంది. PHP లో Zend Engine opcodes ని run చేసినట్టే ఇది.</p>
+<p><b>CPython</b> అనేది Python యొక్క official implementation (C భాషలో రాసినది). మీరు <code>python</code> అని run చేసినప్పుడు జరిగేది:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>మీ <code>.py</code> source code ని <b>bytecode</b> గా compile చేస్తుంది (ఇది మిషీన్ కోడ్ కాదు, ఒక మధ్యస్థ రూపం)</span></div><div class="step-row"><span class="step-badge">2</span><span>ఆ bytecode ని <b>Python Virtual Machine (PVM)</b> ఒక్కో instruction గా అమలు చేస్తుంది.</span></div></div><p>PHP లో Zend Engine opcodes ని run చేసినట్టే ఇది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import dis
 

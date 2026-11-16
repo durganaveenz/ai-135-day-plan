@@ -74,6 +74,20 @@ details.t[data-status="archive"]:hover { opacity: 1; }
 
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
 
+
+.steps-box { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0 14px; }
+.step-row { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.6; }
+.step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+pre { position: relative; padding-top: 36px; }
+.copy-code-btn { position: absolute; top: 6px; right: 8px; padding: 3px 9px; font-size: 11.5px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.12); color: var(--codet); cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); }
+.copy-code-btn.copied { background: var(--ok); color: #fff; border-color: var(--ok); }
+
+.font-ctrls { display: flex; gap: 4px; }
+.font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
+.font-ctrls button:hover { border-color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -131,7 +145,7 @@ python3 app.py             # code run చేయండి</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python "నెమ్మదిగా" ఎందుకు ఉంటుంది, GIL అంటే ఏమిటి, performance ఎక్కడ పోతుంది అని అర్థం చేసుకోవాలంటే Python లోపల ఎలా పనిచేస్తుందో తెలియాలి. Senior interviews లో ఇది తరచూ అడుగుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>CPython</b> అనేది Python యొక్క official implementation (C భాషలో రాసినది). మీరు <code>python</code> అని run చేసినప్పుడు జరిగేది: (1) మీ <code>.py</code> source code ని <b>bytecode</b> గా compile చేస్తుంది (ఇది మిషీన్ కోడ్ కాదు, ఒక మధ్యస్థ రూపం), (2) ఆ bytecode ని <b>Python Virtual Machine (PVM)</b> ఒక్కో instruction గా అమలు చేస్తుంది. PHP లో Zend Engine opcodes ని run చేసినట్టే ఇది.</p>
+<p><b>CPython</b> అనేది Python యొక్క official implementation (C భాషలో రాసినది). మీరు <code>python</code> అని run చేసినప్పుడు జరిగేది:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>మీ <code>.py</code> source code ని <b>bytecode</b> గా compile చేస్తుంది (ఇది మిషీన్ కోడ్ కాదు, ఒక మధ్యస్థ రూపం)</span></div><div class="step-row"><span class="step-badge">2</span><span>ఆ bytecode ని <b>Python Virtual Machine (PVM)</b> ఒక్కో instruction గా అమలు చేస్తుంది.</span></div></div><p>PHP లో Zend Engine opcodes ని run చేసినట్టే ఇది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import dis
 
@@ -1047,7 +1061,7 @@ def impure_now():              # ❌ ప్రతిసారి వేరే �
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటా పైప్‌లైన్‌లు (ETL, AI data preprocessing, LLM output processing) functional శైలిలో రాస్తే చదవడానికి సులభం, test చేయడానికి సులభం. Python పూర్తి functional భాష కాదు, కానీ ఈ సూత్రాలు వాడొచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ముఖ్య సూత్రాలు: (1) <b>Pure functions</b> ఎక్కువగా వాడటం. (2) <b>Immutability</b>: data ని మార్చకుండా కొత్తది తయారు చేయడం (tuple, frozenset, <code>@dataclass(frozen=True)</code>). (3) <b>First-class / higher-order functions</b>. (4) <b>Composition</b>: చిన్న functions ని కలిపి పెద్ద పని చేయడం. (5) లూప్ లో state మార్చడం కంటే expressions (comprehension, map/filter) ఇష్టపడటం. Python లో <code>itertools</code>, <code>functools</code> modules ఇందుకు సహాయపడతాయి.</p>
+<p>ముఖ్య సూత్రాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>Pure functions</b> ఎక్కువగా వాడటం.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Immutability</b>: data ని మార్చకుండా కొత్తది తయారు చేయడం (tuple, frozenset, <code>@dataclass(frozen=True)</code>).</span></div><div class="step-row"><span class="step-badge">3</span><span><b>First-class / higher-order functions</b>.</span></div><div class="step-row"><span class="step-badge">4</span><span><b>Composition</b>: చిన్న functions ని కలిపి పెద్ద పని చేయడం.</span></div><div class="step-row"><span class="step-badge">5</span><span>లూప్ లో state మార్చడం కంటే expressions (comprehension, map/filter) ఇష్టపడటం.</span></div></div><p>Python లో <code>itertools</code>, <code>functools</code> modules ఇందుకు సహాయపడతాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from functools import reduce
 
@@ -1801,7 +1815,7 @@ print(os.path.exists(path))       # False: with అయిపోగానే fold
 <h4>ఎందుకు అవసరం?</h4>
 <p><code>with</code> అనేది context manager ని వాడే సరైన మార్గం. <code>f.close()</code> మర్చిపోయే సమస్య ఉండదు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><code>with A as x:</code> అని రాస్తే Python: (1) <code>A.__enter__()</code> పిలుస్తుంది, ఫలితం <code>x</code> లోకి వస్తుంది, (2) లోపలి block run చేస్తుంది, (3) block అయిపోయినా, error వచ్చినా <code>A.__exit__()</code> తప్పకుండా పిలుస్తుంది. ఒకే <code>with</code> లో కామాతో ఒకటి కంటే ఎక్కువ managers వాడొచ్చు.</p>
+<p><code>with A as x:</code> అని రాస్తే Python:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><code>A.__enter__()</code> పిలుస్తుంది, ఫలితం <code>x</code> లోకి వస్తుంది</span></div><div class="step-row"><span class="step-badge">2</span><span>లోపలి block run చేస్తుంది</span></div><div class="step-row"><span class="step-badge">3</span><span>block అయిపోయినా, error వచ్చినా <code>A.__exit__()</code> తప్పకుండా పిలుస్తుంది.</span></div></div><p>ఒకే <code>with</code> లో కామాతో ఒకటి కంటే ఎక్కువ managers వాడొచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import tempfile, os
 
@@ -1826,7 +1840,7 @@ with tempfile.TemporaryDirectory() as d:
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ సొంత setup/cleanup (timer, DB transaction, temporary config, lock) కి కూడా ఇదే పద్ధతి వాడొచ్చు. Code శుభ్రంగా, తప్పులు లేకుండా ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు మార్గాలు: (1) class లో <code>__enter__</code> మరియు <code>__exit__</code> రాయడం, (2) <code>contextlib.contextmanager</code> decorator తో ఒక generator function రాయడం: <code>yield</code> కి ముందు setup, తర్వాత cleanup. రెండో మార్గం చిన్నది కాబట్టి ఎక్కువగా వాడతారు. Cleanup ఎల్లప్పుడూ run అవ్వాలంటే <code>try/finally</code> లో రాయండి.</p>
+<p>రెండు మార్గాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>class లో <code>__enter__</code> మరియు <code>__exit__</code> రాయడం</span></div><div class="step-row"><span class="step-badge">2</span><span><code>contextlib.contextmanager</code> decorator తో ఒక generator function రాయడం: <code>yield</code> కి ముందు setup, తర్వాత cleanup.</span></div></div><p>రెండో మార్గం చిన్నది కాబట్టి ఎక్కువగా వాడతారు. Cleanup ఎల్లప్పుడూ run అవ్వాలంటే <code>try/finally</code> లో రాయండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import time
 from contextlib import contextmanager
@@ -3027,7 +3041,7 @@ uv export --format requirements-txt &gt; req.txt &amp;&amp; pip-audit -r req.txt
 <h4>ఎందుకు అవసరం?</h4>
 <p>దాడి చేసేవారు పాపులర్ package లా కనిపించే నకిలీ package (typosquatting) పెట్టడం, లేదా నిజమైన package ని హ్యాక్ చేసి విషపూరిత version విడుదల చేయడం జరుగుతూనే ఉంది. మీ dependency ల ద్వారా మీ server లోకి చొరబడగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Pinning</b> = ఖచ్చితమైన version కి లాక్ చేయడం, తద్వారా కొత్త (హానికరమైన) release స్వయంచాలకంగా రాదు. <b>Hash pinning</b> = ప్రతి file యొక్క hash ను కూడా తనిఖీ చేయడం (<code>--require-hashes</code>); uv.lock/poetry.lock లో hashes ఉంటాయి. ఇతర జాగ్రత్తలు: (1) package పేరు జాగ్రత్తగా చూడండి (typosquatting); (2) private index తో <code>--extra-index-url</code> వాడకండి (dependency confusion ప్రమాదం), uv లో index పరిమితులు వాడండి; (3) అనవసర dependencies తగ్గించండి; (4) Dependabot/Renovate తో updates ని review చేసి వేయండి (pin చేసినా అప్డేట్లు మర్చిపోకూడదు); (5) CI లో secrets ని కాపాడండి; (6) కొత్తగా విడుదలైన versions ని కొంతకాలం ఆపడానికి (cooldown) uv లో <code>exclude-newer</code> సెట్టింగ్ ఉంది (వివరాలు docs లో చూడండి). ఇది Composer లో <code>composer.lock</code> + <code>composer audit</code> + నమ్మదగిన packages నియమం లాంటిదే.</p>
+<p><b>Pinning</b> = ఖచ్చితమైన version కి లాక్ చేయడం, తద్వారా కొత్త (హానికరమైన) release స్వయంచాలకంగా రాదు. <b>Hash pinning</b> = ప్రతి file యొక్క hash ను కూడా తనిఖీ చేయడం (<code>--require-hashes</code>); uv.lock/poetry.lock లో hashes ఉంటాయి. ఇతర జాగ్రత్తలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>package పేరు జాగ్రత్తగా చూడండి (typosquatting)</span></div><div class="step-row"><span class="step-badge">2</span><span>private index తో <code>--extra-index-url</code> వాడకండి (dependency confusion ప్రమాదం), uv లో index పరిమితులు వాడండి</span></div><div class="step-row"><span class="step-badge">3</span><span>అనవసర dependencies తగ్గించండి</span></div><div class="step-row"><span class="step-badge">4</span><span>Dependabot/Renovate తో updates ని review చేసి వేయండి (pin చేసినా అప్డేట్లు మర్చిపోకూడదు)</span></div><div class="step-row"><span class="step-badge">5</span><span>CI లో secrets ని కాపాడండి</span></div><div class="step-row"><span class="step-badge">6</span><span>కొత్తగా విడుదలైన versions ని కొంతకాలం ఆపడానికి (cooldown) uv లో <code>exclude-newer</code> సెట్టింగ్ ఉంది (వివరాలు docs లో చూడండి).</span></div></div><p>ఇది Composer లో <code>composer.lock</code> + <code>composer audit</code> + నమ్మదగిన packages నియమం లాంటిదే.</p>
 <h4>ఉదాహరణ</h4>
 <pre># terminal లో (illustrative)
 pip install --require-hashes -r requirements.txt   # hashes సరిపోకపోతే ఇన్‌స్టాల్ ఆగుతుంది
@@ -3045,7 +3059,7 @@ pip-audit                 # తెలిసిన లోపాల తనిఖ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Laptop లో <code>uvicorn main:app</code> నడవడం వేరు; server/Docker లో ఎల్లప్పుడూ ఒకేలా నడిచేలా ప్యాకేజీ చేయడం వేరు. Day 7 లోని అన్ని అంశాలు ఇక్కడ కలుస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ దశలు: (1) <code>src/</code> layout తో package నిర్మాణం; (2) <code>pyproject.toml</code> లో dependencies + build backend; (3) <code>uv lock</code> తో lock file, commit; (4) Docker image లో <code>uv sync --locked --no-dev</code> తో lock ప్రకారం ఇన్‌స్టాల్; (5) <code>uvicorn</code> తో run. Docker లో dependencies layer ను ముందు, మీ code layer ను తర్వాత పెట్టండి, తద్వారా code మారినప్పుడు dependencies మళ్ళీ ఇన్‌స్టాల్ కావు (Laravel Docker లో <code>composer install</code> layer cache లాంటిదే). PHP-FPM + nginx బదులు ఇక్కడ <code>uvicorn</code> (ASGI server) నేరుగా నడుస్తుంది; production లో అనేక containers లేదా workers ను orchestrator/ప్రాసెస్ మేనేజర్ నిర్వహిస్తుంది. క్రింది files illustrative: నడిపి చూడలేదు, మీ uv/Docker versions ను బట్టి చిన్న మార్పులు అవసరం కావచ్చు.</p>
+<p>సాధారణ దశలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><code>src/</code> layout తో package నిర్మాణం</span></div><div class="step-row"><span class="step-badge">2</span><span><code>pyproject.toml</code> లో dependencies + build backend</span></div><div class="step-row"><span class="step-badge">3</span><span><code>uv lock</code> తో lock file, commit</span></div><div class="step-row"><span class="step-badge">4</span><span>Docker image లో <code>uv sync --locked --no-dev</code> తో lock ప్రకారం ఇన్‌స్టాల్</span></div><div class="step-row"><span class="step-badge">5</span><span><code>uvicorn</code> తో run.</span></div></div><p>Docker లో dependencies layer ను ముందు, మీ code layer ను తర్వాత పెట్టండి, తద్వారా code మారినప్పుడు dependencies మళ్ళీ ఇన్‌స్టాల్ కావు (Laravel Docker లో <code>composer install</code> layer cache లాంటిదే). PHP-FPM + nginx బదులు ఇక్కడ <code>uvicorn</code> (ASGI server) నేరుగా నడుస్తుంది; production లో అనేక containers లేదా workers ను orchestrator/ప్రాసెస్ మేనేజర్ నిర్వహిస్తుంది. క్రింది files illustrative: నడిపి చూడలేదు, మీ uv/Docker versions ను బట్టి చిన్న మార్పులు అవసరం కావచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: project నిర్మాణం
 # myapi/
@@ -3426,7 +3440,7 @@ async def test_fetch_user():
 <h4>ఎందుకు అవసరం?</h4>
 <p>DB queries తప్పు అయితే data corrupt అవుతుంది. కానీ tests production data ని ముట్టుకోకూడదు మరియు ఒకదానికొకటి అడ్డు రాకూడదు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక్కో test కి శుభ్రమైన DB కావాలి. పద్ధతులు: (1) in-memory SQLite వాడటం (వేగం, కానీ Postgres కి భిన్నంగా ప్రవర్తించవచ్చు), (2) నిజమైన test Postgres DB (ఎక్కువ నమ్మదగినది), (3) ప్రతి test ని transaction లో run చేసి చివర <b>rollback</b> చేయడం. Laravel లో <code>RefreshDatabase</code>/<code>DatabaseTransactions</code> trait చేసేది ఇదే. Fixture తో engine/session ఇచ్చి, yield తర్వాత cleanup చేస్తారు.</p>
+<p>ఒక్కో test కి శుభ్రమైన DB కావాలి. పద్ధతులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>in-memory SQLite వాడటం (వేగం, కానీ Postgres కి భిన్నంగా ప్రవర్తించవచ్చు)</span></div><div class="step-row"><span class="step-badge">2</span><span>నిజమైన test Postgres DB (ఎక్కువ నమ్మదగినది)</span></div><div class="step-row"><span class="step-badge">3</span><span>ప్రతి test ని transaction లో run చేసి చివర <b>rollback</b> చేయడం.</span></div></div><p>Laravel లో <code>RefreshDatabase</code>/<code>DatabaseTransactions</code> trait చేసేది ఇదే. Fixture తో engine/session ఇచ్చి, yield తర్వాత cleanup చేస్తారు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import pytest
 from sqlalchemy import create_engine, select
@@ -3765,7 +3779,7 @@ def delete_user(uid: int):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక request వచ్చి response వెళ్లే మధ్యలో ఏ దశలో ఏం జరుగుతుందో తెలిస్తే, error ఎక్కడ వచ్చిందో, middleware/validation ఎక్కడ పని చేస్తాయో అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>FastAPI లో క్రమం: (1) Uvicorn request ని స్వీకరిస్తుంది, (2) middleware లు (బయటి నుండి లోపలికి), (3) route matching, (4) dependencies run, (5) path/query/body parsing మరియు Pydantic validation (fail అయితే 422), (6) మీ endpoint function, (7) return value ని <code>response_model</code> తో validate/filter చేసి JSON గా మార్చడం, (8) middleware లు (లోపలి నుండి బయటికి), (9) Uvicorn client కి పంపుతుంది. Laravel: middleware → route → FormRequest → controller → resource → middleware లాంటిదే.</p>
+<p>FastAPI లో క్రమం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>Uvicorn request ని స్వీకరిస్తుంది</span></div><div class="step-row"><span class="step-badge">2</span><span>middleware లు (బయటి నుండి లోపలికి)</span></div><div class="step-row"><span class="step-badge">3</span><span>route matching</span></div><div class="step-row"><span class="step-badge">4</span><span>dependencies run</span></div><div class="step-row"><span class="step-badge">5</span><span>path/query/body parsing మరియు Pydantic validation (fail అయితే 422)</span></div><div class="step-row"><span class="step-badge">6</span><span>మీ endpoint function</span></div><div class="step-row"><span class="step-badge">7</span><span>return value ని <code>response_model</code> తో validate/filter చేసి JSON గా మార్చడం</span></div><div class="step-row"><span class="step-badge">8</span><span>middleware లు (లోపలి నుండి బయటికి)</span></div><div class="step-row"><span class="step-badge">9</span><span>Uvicorn client కి పంపుతుంది.</span></div></div><p>Laravel: middleware → route → FormRequest → controller → resource → middleware లాంటిదే.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from fastapi import FastAPI, Depends, Request
 
@@ -4845,7 +4859,7 @@ async def demo(r):
 <h4>ఎందుకు అవసరం?</h4>
 <p>భారీ DB queries లేదా ఖరీదైన LLM calls ఫలితాన్ని ఒకసారి లెక్కించి, తర్వాతి requests కి Redis నుండి వేగంగా ఇవ్వడానికి. DB భారం తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Cache-aside (lazy loading)</b>: app లోనే cache తర్కం ఉంటుంది. (1) Redis లో key చూడండి; (2) ఉంటే (<b>cache hit</b>) అది ఇవ్వండి; (3) లేకపోతే (<b>cache miss</b>) DB నుండి తీసుకుని, Redis లో TTL తో పెట్టి, ఇవ్వండి. Laravel <code>Cache::remember('key', 600, fn() => ...)</code> సరిగ్గా ఇదే. Objects ని JSON string గా నిల్వ చేస్తారు.</p>
+<p><b>Cache-aside (lazy loading)</b>: app లోనే cache తర్కం ఉంటుంది.</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>Redis లో key చూడండి</span></div><div class="step-row"><span class="step-badge">2</span><span>ఉంటే (<b>cache hit</b>) అది ఇవ్వండి</span></div><div class="step-row"><span class="step-badge">3</span><span>లేకపోతే (<b>cache miss</b>) DB నుండి తీసుకుని, Redis లో TTL తో పెట్టి, ఇవ్వండి.</span></div></div><p>Laravel <code>Cache::remember('key', 600, fn() => ...)</code> సరిగ్గా ఇదే. Objects ని JSON string గా నిల్వ చేస్తారు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: Redis + DB కావాలి
 import json
@@ -4896,7 +4910,7 @@ async def stream_demo(r):
 <h4>ఎందుకు అవసరం?</h4>
 <p>DB లో data మారినా cache లో పాతది ఉంటే users కి తప్పు సమాచారం కనిపిస్తుంది (ఉదా. ధర మారింది కానీ పాత ధర చూపిస్తోంది). "కంప్యూటర్ సైన్స్ లో కష్టమైన రెండు విషయాల్లో ఇదొకటి" అని ప్రసిద్ధి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>వ్యూహాలు: (1) <b>TTL-ఆధారిత</b>: గడువుతో సహజంగా పోవడం, సరళం కానీ కొంతసేపు పాత data ఉండవచ్చు. (2) <b>Write-time delete</b>: data update చేసినప్పుడు ఆ cache key ని <code>DEL</code> చేయడం, తర్వాతి read కొత్తది లోడ్ చేస్తుంది (సాధారణంగా మంచి ఎంపిక; update చేసి cache ని కూడా update చేయడం కంటే delete సురక్షితం). (3) <b>Versioned keys</b>: <code>product:5:v3</code>, version పెంచడం ద్వారా పాత వాటిని నిర్లక్ష్యం చేయడం. (4) Event ఆధారిత: Pub/Sub లేదా Streams ద్వారా సంబంధిత services అన్నింటికీ తెలియజేయడం. Laravel <code>Cache::forget('key')</code>, model events లో cache clear చేయడం లాంటిదే. DB commit అయిన తర్వాత మాత్రమే cache ని delete చేయండి.</p>
+<p>వ్యూహాలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>TTL-ఆధారిత</b>: గడువుతో సహజంగా పోవడం, సరళం కానీ కొంతసేపు పాత data ఉండవచ్చు.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Write-time delete</b>: data update చేసినప్పుడు ఆ cache key ని <code>DEL</code> చేయడం, తర్వాతి read కొత్తది లోడ్ చేస్తుంది (సాధారణంగా మంచి ఎంపిక; update చేసి cache ని కూడా update చేయడం కంటే delete సురక్షితం).</span></div><div class="step-row"><span class="step-badge">3</span><span><b>Versioned keys</b>: <code>product:5:v3</code>, version పెంచడం ద్వారా పాత వాటిని నిర్లక్ష్యం చేయడం.</span></div><div class="step-row"><span class="step-badge">4</span><span>Event ఆధారిత: Pub/Sub లేదా Streams ద్వారా సంబంధిత services అన్నింటికీ తెలియజేయడం.</span></div></div><p>Laravel <code>Cache::forget('key')</code>, model events లో cache clear చేయడం లాంటిదే. DB commit అయిన తర్వాత మాత్రమే cache ని delete చేయండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: Redis + DB కావాలి
 async def update_price(product_id: int, new_price: float, db, r):
