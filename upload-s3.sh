@@ -39,16 +39,18 @@ if ! aws sts get-caller-identity --region "$REGION" >/dev/null; then
   exit 1
 fi
 
+STAGE="$(mktemp -d)"
+trap 'rm -rf "$STAGE"' EXIT
+cp index.html style.css app.js favicon.svg "$STAGE/"
+cp telugu-*.html "$STAGE/"
+
 echo "Uploading site files to s3://${BUCKET}/${PREFIX}/"
-aws s3 sync "$ROOT" "s3://${BUCKET}/${PREFIX}/" \
-  --region "$REGION" \
-  --exclude "*" \
-  --include "index.html" \
-  --include "style.css" \
-  --include "app.js" \
-  --include "favicon.svg" \
-  --include "telugu-*.html" \
-  --cache-control "no-cache"
+(
+  cd "$STAGE"
+  aws s3 sync . "s3://${BUCKET}/${PREFIX}/" \
+    --region "$REGION" \
+    --cache-control "no-cache"
+)
 
 echo
 echo "Uploaded. Existing s3://${BUCKET}/ai/ was not changed."
