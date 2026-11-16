@@ -60,14 +60,77 @@ summary { display: flex !important; align-items: flex-start; justify-content: sp
   .pill-archive { background: #1e293b; color: #94a3b8; border-color: #334155; }
 }
 
-.topic-status-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--soft); padding: 8px 12px; border-radius: 8px; margin: 12px 0 10px; font-size: 13.5px; }
-.topic-status-box label { font-weight: 600; color: var(--text); }
-.st-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font: inherit; font-size: 12.5px; cursor: pointer; transition: all 0.2s; }
-.st-btn:hover { border-color: var(--accent); }
-.st-btn.active-start { background: var(--muted); color: #fff; border-color: var(--muted); font-weight: 700; }
-.st-btn.active-progress { background: #d97706; color: #fff; border-color: #d97706; font-weight: 700; }
-.st-btn.active-done { background: #16a34a; color: #fff; border-color: #16a34a; font-weight: 700; }
-.st-btn.active-archive { background: #475569; color: #fff; border-color: #475569; font-weight: 700; }
+.status-icon-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--soft);
+  padding: 3px 6px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+  user-select: none;
+}
+.st-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 12.5px;
+  padding: 0;
+  transition: all 0.18s ease;
+  line-height: 1;
+  opacity: 0.45;
+}
+.st-icon-btn:hover {
+  opacity: 1;
+  transform: scale(1.15);
+  background: var(--panel);
+}
+.st-icon-btn.active {
+  opacity: 1;
+  transform: scale(1.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+.st-icon-btn.btn-start.active {
+  background: var(--panel);
+  border-color: var(--line);
+}
+.st-icon-btn.btn-progress.active {
+  background: #fef3c7;
+  border-color: #f59e0b;
+}
+.st-icon-btn.btn-done.active {
+  background: #dcfce7;
+  border-color: #10b981;
+}
+.st-icon-btn.btn-archive.active {
+  background: var(--panel);
+  border-color: var(--muted);
+}
+@media (prefers-color-scheme: dark) {
+  .st-icon-btn.btn-start.active {
+    background: #1e293b;
+    border-color: #475569;
+  }
+  .st-icon-btn.btn-progress.active {
+    background: #451a03;
+    border-color: #b45309;
+  }
+  .st-icon-btn.btn-done.active {
+    background: #064e3b;
+    border-color: #059669;
+  }
+  .st-icon-btn.btn-archive.active {
+    background: #1e293b;
+    border-color: #64748b;
+  }
+}
 details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
 details.t[data-status="archive"]:hover { opacity: 1; }
 .empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
@@ -4542,18 +4605,7 @@ print(tok.decode(model.generate(**ids, max_new_tokens=20)[0]))</pre>
       var key = 't_' + idx;
       var st = statusData[key] || 'start';
       d.setAttribute('data-status', st);
-      var pill = d.querySelector('.status-pill');
-      if (pill && labels[st]) {
-        pill.className = 'status-pill ' + labels[st].cls;
-        pill.textContent = labels[st].pill;
-      }
-      var btns = d.querySelectorAll('.topic-status-box .st-btn');
-      if (btns) {
-        btns.forEach(function(b) {
-          var s = b.getAttribute('data-set-status');
-          b.className = 'st-btn' + (s === st ? ' active-' + s : '');
-        });
-      }
+      updateTopicStatusIcons(d, st);
     });
   }
 
@@ -4624,30 +4676,32 @@ print(tok.decode(model.generate(**ids, max_new_tokens=20)[0]))</pre>
         summary.appendChild(contentWrapper);
       }
 
-      var pill = summary.querySelector('.status-pill');
-      if (!pill) {
-        pill = document.createElement('span');
-        summary.appendChild(pill);
+      var iconGroup = summary.querySelector('.status-icon-group');
+      if (!iconGroup) {
+        iconGroup = document.createElement('div');
+        iconGroup.className = 'status-icon-group';
+        iconGroup.title = 'స్థితిని మార్చండి (Change Status)';
+        iconGroup.innerHTML = 
+          '<button type="button" class="st-icon-btn btn-start' + (st === 'start' ? ' active' : '') + '" data-status="start" title="⚪ Start (ప్రారంభించండి)">⚪</button>' +
+          '<button type="button" class="st-icon-btn btn-progress' + (st === 'progress' ? ' active' : '') + '" data-status="progress" title="⏳ In Progress (చదువుతున్నాను)">⏳</button>' +
+          '<button type="button" class="st-icon-btn btn-done' + (st === 'done' ? ' active' : '') + '" data-status="done" title="✅ Completed (పూర్తయింది)">✅</button>' +
+          '<button type="button" class="st-icon-btn btn-archive' + (st === 'archive' ? ' active' : '') + '" data-status="archive" title="📦 Archive (ఆర్కైవ్)">📦</button>';
+        summary.appendChild(iconGroup);
+
+        var iconBtns = iconGroup.querySelectorAll('.st-icon-btn');
+        iconBtns.forEach(function(btn) {
+          btn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            var targetStatus = btn.getAttribute('data-status');
+            setTopicStatus(key, targetStatus);
+          });
+        });
       }
-      pill.className = 'status-pill ' + (labels[st] ? labels[st].cls : 'pill-start');
-      pill.textContent = labels[st] ? labels[st].pill : '⚪ Start';
-      pill.title = 'Click to cycle status (Start -> In Progress -> Completed -> Archive)';
-      pill.onclick = function(ev) {
-        ev.stopPropagation();
-        var cur = d.getAttribute('data-status') || 'start';
-        var nextIdx = (cycleOrder.indexOf(cur) + 1) % cycleOrder.length;
-        setTopicStatus(key, cycleOrder[nextIdx]);
-      };
     }
 
     var body = d.querySelector('.body');
     if (body) {
-      var box = body.querySelector('.topic-status-box');
-      if (!box) {
-        box = document.createElement('div');
-        box.className = 'topic-status-box';
-        body.insertBefore(box, body.firstChild);
-      }
+
 
       // Notes box
       var notesBox = body.querySelector('.topic-notes-box');
@@ -4730,19 +4784,21 @@ print(tok.decode(model.generate(**ids, max_new_tokens=20)[0]))</pre>
           });
         }
       }
-      box.innerHTML = '<label>స్థితి (Status):</label>' +
-        '<button type="button" class="st-btn btn-start ' + (st === 'start' ? 'active-start' : '') + '">⚪ Start</button>' +
-        '<button type="button" class="st-btn btn-progress ' + (st === 'progress' ? 'active-progress' : '') + '">⏳ In Progress</button>' +
-        '<button type="button" class="st-btn btn-done ' + (st === 'done' ? 'active-done' : '') + '">✅ Completed</button>' +
-        '<button type="button" class="st-btn btn-archive ' + (st === 'archive' ? 'active-archive' : '') + '">📦 Archive</button>';
-      
-      var btns = box.querySelectorAll('.st-btn');
-      btns[0].addEventListener('click', function() { setTopicStatus(key, 'start'); });
-      btns[1].addEventListener('click', function() { setTopicStatus(key, 'progress'); });
-      btns[2].addEventListener('click', function() { setTopicStatus(key, 'done'); });
-      btns[3].addEventListener('click', function() { setTopicStatus(key, 'archive'); });
+
     }
   });
+
+  function updateTopicStatusIcons(d, st) {
+    var iconBtns = d.querySelectorAll('.status-icon-group .st-icon-btn');
+    iconBtns.forEach(function(b) {
+      var s = b.getAttribute('data-status');
+      if (s === st) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+  }
 
   function setTopicStatus(key, newSt) {
     statusData[key] = newSt;
@@ -4751,18 +4807,7 @@ print(tok.decode(model.generate(**ids, max_new_tokens=20)[0]))</pre>
     var d = document.querySelector('details.t[data-topic-id="' + key + '"]');
     if (d) {
       d.setAttribute('data-status', newSt);
-      var pill = d.querySelector('.status-pill');
-      if (pill && labels[newSt]) {
-        pill.className = 'status-pill ' + labels[newSt].cls;
-        pill.textContent = labels[newSt].pill;
-      }
-      var btns = d.querySelectorAll('.topic-status-box .st-btn');
-      if (btns.length === 4) {
-        btns[0].className = 'st-btn btn-start' + (newSt === 'start' ? ' active-start' : '');
-        btns[1].className = 'st-btn btn-progress' + (newSt === 'progress' ? ' active-progress' : '');
-        btns[2].className = 'st-btn btn-done' + (newSt === 'done' ? ' active-done' : '');
-        btns[3].className = 'st-btn btn-archive' + (newSt === 'archive' ? ' active-archive' : '');
-      }
+      updateTopicStatusIcons(d, newSt);
     }
     updateCountsAndFilter();
     updateUserUI();
