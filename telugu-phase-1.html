@@ -4763,6 +4763,7 @@ async def demo():
 <p>Cache లో data శాశ్వతంగా ఉంటే memory నిండుతుంది మరియు పాత data చూపిస్తుంది. TTL తో కొంతసేపటికి ఆటోమేటిక్ గా తొలగుతుంది; OTP, sessions, rate limits కి ఇదే పద్ధతి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>TTL (Time To Live)</b> అంటే key ఎన్ని సెకన్లు బతికి ఉండాలి. సమయం ముగియగానే Redis ఆ key ని తొలగిస్తుంది. <code>SET key value EX 60</code> లేదా <code>EXPIRE key 60</code>; మిగిలిన సమయం <code>TTL key</code> (-1 = expiry లేదు, -2 = key లేదు). Laravel <code>Cache::put('k', $v, 60)</code> లాంటిదే. గమనిక: ఒక key ని మళ్లీ <code>SET</code> చేస్తే TTL తొలగిపోతుంది (పాత expiry పోతుంది), మళ్లీ ఇవ్వాలి.</p>
+<h4>ఉదాహరణ</h4>
 <pre># illustrative: Redis server కావాలి
 async def demo(r):
     await r.set("otp:9876543210", "482910", ex=300)   # 5 నిమిషాల OTP
