@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>135-Day AI Roadmap – తెలుగు వివరణలు</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f8fb;--panel:#fff;--text:#1b2433;--muted:#5d6b82;--line:#e3e8f0;--accent:#4f46e5;--soft:#eceafd;--ok:#16a34a;--warn:#fff4e0;--warnb:#b45309;--code:#0f172a;--codet:#e2e8f0}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1320;--panel:#161d2e;--text:#e6ebf5;--muted:#93a1ba;--line:#26304a;--accent:#8b8cff;--soft:#232a52;--warn:#33270f;--warnb:#f5b04c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.85 "Noto Sans Telugu",system-ui,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.7rem;line-height:1.3;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 16px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 20px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5}
+.tools input{flex:1;min-width:200px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit}
+.tools button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;font:inherit}
+.day{margin:28px 0 8px;font-size:1.25rem;color:var(--accent);border-bottom:2px solid var(--soft);padding-bottom:6px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0}
+summary{cursor:pointer;padding:12px 16px;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--accent)}
+details[open]>summary::before{content:"▾ "}
+summary small{display:block;font-weight:400;color:var(--muted)}
+.body{padding:0 18px 16px;border-top:1px solid var(--line)}
+.body h4{margin:16px 0 4px;color:var(--accent);font-size:1rem}
+.body p{margin:4px 0}
+pre{background:var(--code);color:var(--codet);padding:12px 14px;border-radius:10px;overflow-x:auto;font:13.5px/1.6 ui-monospace,Menlo,Consolas,monospace;margin:8px 0}
+.mistake{background:var(--warn);border-left:4px solid var(--warnb);padding:8px 12px;border-radius:8px;margin-top:12px}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--soft);padding:1px 5px;border-radius:5px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు (Sample: Day 1)</h1>
+<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
+<div class="tools">
+  <input id="q" type="search" placeholder="Search / వెతకండి…">
+  <button id="all">అన్నీ తెరువు / మూసివేయి</button>
+</div>
+
+<h2 class="day">Day 1: Python language fundamentals</h2>
+
+<details class="t"><summary>1. Python installation and interpreter architecture<small>Python ఇన్‌స్టాలేషన్ మరియు interpreter నిర్మాణం</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Python code రాయడానికి ముందు మీ కంప్యూటర్‌లో Python సరైన version లో ఉండాలి, మరియు మీ code ఎలా run అవుతుందో తెలిస్తేనే error వచ్చినప్పుడు కారణం అర్థమవుతుంది. PHP లో మీరు PHP binary ఇన్‌స్టాల్ చేసినట్టే ఇది కూడా.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>Interpreter</b> అంటే మీ code ని line by line చదివి అమలు చేసే program. Python ని మీరు <code>python3</code> command తో run చేస్తారు. ఒకే మెషీన్‌లో వేర్వేరు projects కి వేర్వేరు versions కావాలి కాబట్టి <b>virtual environment (venv)</b> వాడతాం. ఇది PHP లో Composer తో per-project vendor folder ఉన్నట్టే: ప్రతి project కి దాని సొంత packages.</p>
+<h4>ఉదాహరణ</h4>
+<pre>python3 --version          # ఏ version ఉందో చూడండి
+python3 -m venv .venv      # కొత్త virtual environment తయారు
+source .venv/bin/activate  # activate చేయండి (Mac/Linux)
+pip install requests       # ఈ project కి మాత్రమే package ఇన్‌స్టాల్
+python3 app.py             # code run చేయండి</pre>
+<p>పై commands తో <code>requests</code> package ఈ project folder లోనే ఉంటుంది, మీ system మొత్తాన్ని పాడు చేయదు.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> venv లేకుండా అన్ని packages global గా ఇన్‌స్టాల్ చేయడం. తర్వాత projects మధ్య version conflicts వస్తాయి.</div>
+</div></details>
+
+<details class="t"><summary>2. CPython, bytecode and Python Virtual Machine<small>CPython, bytecode, Python VM</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Python "నెమ్మదిగా" ఎందుకు ఉంటుంది, GIL అంటే ఏమిటి, performance ఎక్కడ పోతుంది అని అర్థం చేసుకోవాలంటే Python లోపల ఎలా పనిచేస్తుందో తెలియాలి. Senior interviews లో ఇది తరచూ అడుగుతారు.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>CPython</b> అనేది Python యొక్క official implementation (C భాషలో రాసినది). మీరు <code>python</code> అని run చేసినప్పుడు జరిగేది: (1) మీ <code>.py</code> source code ని <b>bytecode</b> గా compile చేస్తుంది (ఇది మిషీన్ కోడ్ కాదు, ఒక మధ్యస్థ రూపం), (2) ఆ bytecode ని <b>Python Virtual Machine (PVM)</b> ఒక్కో instruction గా అమలు చేస్తుంది. PHP లో Zend Engine opcodes ని run చేసినట్టే ఇది.</p>
+<h4>ఉదాహరణ</h4>
+<pre>import dis
+
+def add(a, b):
+    return a + b
+
+dis.dis(add)   # bytecode చూపిస్తుంది
+# LOAD_FAST a, LOAD_FAST b, BINARY_OP +, RETURN_VALUE</pre>
+<p>ఇక్కడ మీ <code>a + b</code> అనేది చిన్న చిన్న bytecode instructions గా మారడం కనిపిస్తుంది. కంపైల్ అయిన bytecode ని Python <code>__pycache__</code> folder లో <code>.pyc</code> files గా save చేస్తుంది, తద్వారా తర్వాతి run వేగంగా మొదలవుతుంది.</p>
+</div></details>
+
+<details class="t"><summary>3. Python syntax, indentation and code execution<small>Syntax, indentation (ఖాళీలు), code ఎలా అమలవుతుంది</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Python లో <code>{ }</code> brackets బదులు indentation (ఖాళీలు) తోనే code block నిర్ణయమవుతుంది. తప్పు spacing వల్ల code పని చేయదు లేదా తప్పు ఫలితం వస్తుంది.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>ఒక block (if, loop, function) లోని lines అన్నీ ఒకే ఖాళీల సంఖ్యతో (సాధారణంగా 4 spaces) మొదలవ్వాలి. Code పై నుండి కిందికి వరుసగా అమలవుతుంది. <code>#</code> తో comments రాస్తారు.</p>
+<h4>ఉదాహరణ</h4>
+<pre>age = 20
+if age >= 18:
+    print("Adult")      # 4 spaces: if లోపల
+    print("Can vote")   # ఇదీ if లోపలే
+print("Done")           # indentation లేదు: if బయట, ఎప్పుడూ run అవుతుంది</pre>
+<p>age 20 అయినప్పుడు మొదటి రెండు lines మరియు చివరి line print అవుతాయి. age 10 అయితే "Done" మాత్రమే print అవుతుంది.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> tabs మరియు spaces కలపడం, దీనివల్ల <code>IndentationError</code> వస్తుంది. ఎప్పుడూ 4 spaces వాడండి.</div>
+</div></details>
+
+<details class="t"><summary>4. Variables, identifiers and naming conventions<small>Variables, పేర్లు పెట్టే నియమాలు</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>డేటాని గుర్తుంచుకోడానికి variables కావాలి. మంచి పేర్లు పెడితే మీ code ని మీరే (లేదా team) 6 నెలల తర్వాత కూడా చదవగలరు.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>Python లో variable అంటే ఒక value కి పెట్టిన <b>పేరు (label)</b>. PHP లా <code>$</code> అవసరం లేదు. <b>Identifier</b> అంటే variable/function/class కి మనం పెట్టే పేరు. నియమాలు: అక్షరం లేదా <code>_</code> తో మొదలవ్వాలి, ఖాళీలు ఉండకూడదు, <code>if</code>, <code>for</code> లాంటి keywords వాడకూడదు. Convention (PEP 8): variables మరియు functions కి <code>snake_case</code>, classes కి <code>PascalCase</code>, constants కి <code>UPPER_CASE</code>.</p>
+<h4>ఉదాహరణ</h4>
+<pre>user_name = "Naveen"      # snake_case variable
+MAX_RETRIES = 3           # constant (మార్చకూడదు అనే సంకేతం)
+
+class OrderService:       # PascalCase class
+    pass
+
+2name = "x"               # ❌ తప్పు: అంకెతో మొదలు కాకూడదు</pre>
+</div></details>
+
+<details class="t"><summary>5. Dynamic typing and strong typing<small>Dynamic typing మరియు strong typing</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Python లో type ముందే declare చేయనవసరం లేదు, కానీ type పూర్తిగా పట్టించుకోదు అని కాదు. ఈ తేడా తెలియకపోతే runtime bugs వస్తాయి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>Dynamic typing:</b> variable కి type run అయ్యేటప్పుడు value ని బట్టి నిర్ణయమవుతుంది, అదే variable కి తర్వాత వేరే type value ఇవ్వొచ్చు. <b>Strong typing:</b> Python అనుకోకుండా types ని కలపదు. PHP లో <code>"5" + 3 = 8</code> అవుతుంది (weak), కానీ Python లో error వస్తుంది.</p>
+<h4>ఉదాహరణ</h4>
+<pre>x = 10          # int
+x = "hello"     # ఇప్పుడు str: dynamic typing, ఇది సరే
+
+"5" + 3         # ❌ TypeError: strong typing, Python కలపదు
+int("5") + 3    # ✅ 8: మనమే స్పష్టంగా convert చేయాలి</pre>
+</div></details>
+
+<details class="t"><summary>6. Mutable and immutable objects<small>మార్చగలిగే / మార్చలేని objects</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>ఒక function లో list ని మార్చితే బయట ఉన్న original కూడా మారిపోతుంది. ఇది Python లో అత్యంత సాధారణ bug లలో ఒకటి. దీన్ని అర్థం చేసుకోవాలంటే mutable/immutable తెలియాలి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>Immutable:</b> సృష్టించాక మార్చలేం (<code>int</code>, <code>float</code>, <code>str</code>, <code>tuple</code>, <code>bool</code>). మార్చినట్టు కనిపిస్తే నిజానికి కొత్త object తయారవుతుంది. <b>Mutable:</b> అదే object ని మార్చొచ్చు (<code>list</code>, <code>dict</code>, <code>set</code>). Variables ఒకే object ని చూపిస్తే (reference), ఒకరు మార్చితే అందరికీ కనిపిస్తుంది.</p>
+<h4>ఉదాహరణ</h4>
+<pre>a = [1, 2, 3]
+b = a            # b కూడా అదే list ని చూపిస్తుంది (copy కాదు)
+b.append(4)
+print(a)         # [1, 2, 3, 4]  ← a కూడా మారింది!
+
+s = "abc"
+s[0] = "x"       # ❌ TypeError: str immutable
+
+c = a.copy()     # ✅ నిజమైన copy కావాలంటే</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> function లో default argument గా <code>def f(x=[])</code> వాడటం. ఆ list అన్ని calls లో share అవుతుంది.</div>
+</div></details>
+
+<details class="t"><summary>7. Integers, floats, strings and booleans<small>ప్రాథమిక data types</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>ఏ program అయినా ఈ నాలుగు ప్రాథమిక types తోనే మొదలవుతుంది: సంఖ్యలు, దశాంశాలు, text, true/false.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><code>int</code> పూర్ణ సంఖ్యలు (Python లో size limit లేదు), <code>float</code> దశాంశ సంఖ్యలు, <code>str</code> text (single లేదా double quotes), <code>bool</code> <code>True</code>/<code>False</code>. Floats లో చిన్న precision తేడాలు ఉంటాయి, కాబట్టి డబ్బు లెక్కలకు <code>Decimal</code> వాడండి.</p>
+<h4>ఉదాహరణ</h4>
+<pre>count = 5                 # int
+price = 99.99             # float
+name = "Naveen"           # str
+is_active = True          # bool
+
+print(0.1 + 0.2)          # 0.30000000000000004 (float precision)
+print(f"Hi {name}, you have {count} items")   # f-string</pre>
+</div></details>
+
+<details class="t"><summary>8. Type conversion and type checking<small>Type మార్చడం మరియు తనిఖీ చేయడం</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>User input, API responses, files నుండి వచ్చే data తరచూ text (str) గానే వస్తుంది. లెక్కలు చేయాలంటే సరైన type కి మార్చాలి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code> తో convert చేస్తారు. Type తెలుసుకోడానికి <code>type(x)</code>, మరియు సరైన పద్ధతిలో తనిఖీకి <code>isinstance(x, int)</code>. Convert కుదరకపోతే <code>ValueError</code> వస్తుంది కాబట్టి <code>try/except</code> వాడండి.</p>
+<h4>ఉదాహరణ</h4>
+<pre>age_text = "25"
+age = int(age_text)             # 25 (int)
+print(isinstance(age, int))     # True
+
+try:
+    n = int("abc")
+except ValueError:
+    print("సంఖ్య కాదు")          # ఇది print అవుతుంది</pre>
+</div></details>
+
+<details class="t"><summary>9. Operators and operator precedence<small>Operators మరియు వాటి ప్రాధాన్యత</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>లెక్కలు, పోలికలు, conditions అన్నీ operators తోనే. Precedence (ఏది ముందు లెక్కవుతుంది) తెలియకపోతే ఫలితం తప్పుగా వస్తుంది.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>Arithmetic: <code>+ - * / // % **</code> (<code>//</code> పూర్తి భాగం, <code>%</code> మిగిలినది, <code>**</code> power). Comparison: <code>== != &lt; &gt;</code>. Logical: <code>and or not</code>. ప్రాధాన్యత క్రమం సుమారుగా: <code>**</code> → <code>* / // %</code> → <code>+ -</code> → comparison → <code>not</code> → <code>and</code> → <code>or</code>. సందేహం ఉంటే brackets <code>( )</code> వాడండి.</p>
+<h4>ఉదాహరణ</h4>
+<pre>print(2 + 3 * 4)       # 14  (ముందు 3*4)
+print((2 + 3) * 4)     # 20  (brackets ముందు)
+print(7 // 2, 7 % 2)   # 3 1
+print(2 ** 3)          # 8
+print(True or False and False)   # True  (and ముందు, తర్వాత or)</pre>
+</div></details>
+
+<details class="t"><summary>10. Conditional statements: if, elif, else<small>షరతులు (conditions)</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Program పరిస్థితిని బట్టి వేర్వేరు నిర్ణయాలు తీసుకోవాలి. ఉదా: user admin అయితే ఒక పేజీ, లేకపోతే ఇంకొకటి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><code>if</code> షరతు true అయితేనే ఆ block run అవుతుంది. <code>elif</code> (PHP లో elseif) మరిన్ని షరతులకు, <code>else</code> ఏదీ కాకపోతే. Python లో <b>falsy</b> values: <code>0</code>, <code>""</code>, <code>[]</code>, <code>{}</code>, <code>None</code>, <code>False</code>; మిగతావన్నీ truthy.</p>
+<h4>ఉదాహరణ</h4>
+<pre>marks = 72
+if marks >= 90:
+    grade = "A"
+elif marks >= 60:
+    grade = "B"      # ఇది ఎంచుకోబడుతుంది
+else:
+    grade = "C"
+print(grade)         # B
+
+items = []
+if not items:
+    print("Cart ఖాళీ")   # empty list falsy</pre>
+</div></details>
+
+<details class="t"><summary>11. Loops: for, while, break, continue, pass<small>Loops (పునరావృతం)</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>వేల records ని ఒకదాని తర్వాత ఒకటి process చేయాలంటే (ఉదా: ప్రతి document ని embed చేయడం) loops తప్పనిసరి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><code>for</code> ఒక collection లోని ప్రతి item కి run అవుతుంది. <code>while</code> షరతు true ఉన్నంత వరకు. <code>break</code> loop ని వెంటనే ఆపుతుంది, <code>continue</code> ప్రస్తుత round ని వదిలి తర్వాతిదానికి వెళ్తుంది, <code>pass</code> ఏమీ చేయదు (ఖాళీ block కి placeholder).</p>
+<h4>ఉదాహరణ</h4>
+<pre>for n in range(1, 6):
+    if n == 2:
+        continue      # 2 ని వదిలేయి
+    if n == 5:
+        break         # 5 వద్ద ఆపేయి
+    print(n)          # 1, 3, 4
+
+count = 3
+while count > 0:
+    print(count)      # 3, 2, 1
+    count -= 1</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> <code>while</code> లో condition మారే statement మరచిపోవడం → infinite loop.</div>
+</div></details>
+
+<details class="t"><summary>12. List comprehensions and conditional comprehensions<small>చిన్న రూపంలో list తయారీ</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Data ని filter/transform చేయడం AI/data work లో నిరంతరం జరుగుతుంది. Comprehension తో 4-5 lines కోడ్ ఒక్క line లో, చదవడానికి సులభంగా రాయొచ్చు.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>రూపం: <code>[expression for item in collection if condition]</code>. PHP లో <code>array_map</code> + <code>array_filter</code> కలిపి చేసే పనిని ఇది ఒక్కసారే చేస్తుంది.</p>
+<h4>ఉదాహరణ</h4>
+<pre># సాధారణ loop
+squares = []
+for n in range(5):
+    squares.append(n * n)
+
+# comprehension తో (అదే ఫలితం)
+squares = [n * n for n in range(5)]            # [0, 1, 4, 9, 16]
+
+# conditional: సరి సంఖ్యల squares మాత్రమే
+even_sq = [n * n for n in range(10) if n % 2 == 0]   # [0, 4, 16, 36, 64]</pre>
+</div></details>
+
+<details class="t"><summary>13. Match-case statements<small>match-case (Python 3.10+)</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>చాలా <code>elif</code> లు వరుసగా రాయడం కంటే, ఒక value ని అనేక pattern లతో పోల్చడానికి match-case స్పష్టంగా ఉంటుంది. Commands, API event types handle చేయడానికి ఉపయోగకరం.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>PHP/JS లోని <code>switch</code> లాంటిది, కానీ శక్తివంతమైనది: tuples, lists, dicts నిర్మాణాన్ని కూడా match చేయగలదు. <code>_</code> అంటే "మిగతావన్నీ" (default). ఇది Python 3.10 లేదా అంతకంటే పైన మాత్రమే పనిచేస్తుంది.</p>
+<h4>ఉదాహరణ</h4>
+<pre>def handle(command):
+    match command:
+        case "start":
+            return "Starting..."
+        case "stop" | "quit":      # రెండిట్లో ఏదైనా
+            return "Stopping..."
+        case ["move", x, y]:       # list structure match
+            return f"Move to {x},{y}"
+        case _:
+            return "Unknown"
+
+print(handle(["move", 3, 4]))      # Move to 3,4</pre>
+</div></details>
+
+<details class="t"><summary>14. Input and output operations<small>Input / Output (ఇన్‌పుట్, అవుట్‌పుట్)</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Program user నుండి లేదా files నుండి data తీసుకోవాలి, ఫలితాన్ని చూపించాలి లేదా save చేయాలి. Logs, scripts, CLI tools అన్నింటికీ ఇది ఆధారం.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><code>print()</code> స్క్రీన్‌పై చూపిస్తుంది. <code>input()</code> user టైప్ చేసిన దాన్ని <b>ఎప్పుడూ str గా</b> ఇస్తుంది. Files కోసం <code>open()</code> ని <code>with</code> తో వాడండి, అప్పుడు file దానంతట అదే close అవుతుంది.</p>
+<h4>ఉదాహరణ</h4>
+<pre>name = input("మీ పేరు: ")
+age = int(input("వయసు: "))       # input str, అందుకే int() తో మార్చాం
+print(f"{name}, వచ్చే ఏడాది మీకు {age + 1}")
+
+# file కి రాయడం
+with open("notes.txt", "w", encoding="utf-8") as f:
+    f.write("Hello Python\n")
+
+# file చదవడం
+with open("notes.txt", encoding="utf-8") as f:
+    print(f.read())</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> <code>input()</code> ఫలితాన్ని నేరుగా సంఖ్యలా వాడటం, ఇది str కాబట్టి లెక్కలు తప్పు అవుతాయి లేదా error వస్తుంది.</div>
+</div></details>
+
+</div>
+<script>
+var q=document.getElementById('q'),ds=[].slice.call(document.querySelectorAll('details.t'));
+q.addEventListener('input',function(){var v=q.value.toLowerCase().trim();ds.forEach(function(d){var m=!v||d.textContent.toLowerCase().indexOf(v)>-1;d.classList.toggle('hide',!m);if(v&&m)d.open=true;});});
+var openAll=false;document.getElementById('all').addEventListener('click',function(){openAll=!openAll;ds.forEach(function(d){d.open=openAll;});});
+</script>
+</body>
+</html>
