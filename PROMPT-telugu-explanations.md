@@ -1,46 +1,39 @@
-# Prompt: Telugu explanations for every topic
+# Prompt: Telugu explanations in a separate document
 
 Paste this into Claude Code, run from the `ai-135-day-plan` folder.
 
 ```text
-My 135-day AI engineering roadmap website is in this folder (index.html, built by build.py from ~/Downloads/notes.html).
-Right now it only lists topic names. I need a clear explanation for EVERY topic, in Telugu, so I don't have to search outside.
+In this folder I have:
+- notes.html source: ~/Downloads/notes.html (my 135-day AI engineering syllabus, topics only)
+- telugu-explanations.html (a finished sample for Day 1). Use it as the exact style, structure and design template.
 
 TASK
-For each topic (every bullet/list item under each Day), write an explanation with this exact structure:
+Create the Telugu explanation document for the remaining days (Day 2 to Day 135) in the SAME style as Day 1, as separate files. Do NOT modify index.html, build.py, app.js or style.css.
 
-1. Topic name (English, exactly as in my document) + Telugu name/meaning in brackets
-2. ఎందుకు అవసరం? (Why do we need this?): 2-3 simple sentences, real-world reason
-3. సరళమైన వివరణ (Simple explanation): explain from basics, as if to a backend developer with 15 years of PHP/Laravel/MySQL experience. Compare with PHP/Laravel equivalents wherever possible.
-4. ఉదాహరణ (Example): a small, concrete example. Use real runnable code (Python) for coding topics, or a real-life analogy/scenario for concept topics. Add the Telugu explanation of the example line by line.
-5. సాధారణ తప్పులు (Common mistake): 1 line, only where relevant.
+For EVERY topic (every bullet under each Day in my notes), write:
+1. Topic name (English, exactly as in my document) + Telugu meaning below it
+2. ఎందుకు అవసరం? (Why we need it): 2-3 simple sentences, real-world reason
+3. సరళమైన వివరణ (Simple explanation): from basics, for a backend developer with 15 years of PHP/Laravel/MySQL experience; compare with PHP/Laravel equivalents wherever possible
+4. ఉదాహరణ (Example): small concrete example, real runnable code for coding topics (with Telugu comments), or a real-life scenario for concept topics
+5. సాధారణ తప్పు (Common mistake): 1 line, only where relevant
 
 LANGUAGE RULES
-- Explanation text in Telugu script (conversational, easy to understand, not heavy literary Telugu).
-- Keep technical terms in English (e.g., embedding, token, vector database, Kubernetes) and explain them in Telugu the first time they appear.
+- Explanations in simple conversational Telugu script. Technical terms stay in English (embedding, token, Kubernetes...), explained in Telugu the first time they appear.
 - Code, commands and variable names stay in English.
 
 QUALITY RULES
-- Be technically accurate. If unsure about a detail, say so rather than guessing.
-- No filler. Short, clear, example-driven.
-- Do not change or remove my original topics. Explanations are added on top.
+- Technically accurate. If unsure about a detail, say so instead of guessing. Check current library/API names before using them (LangChain, LangGraph, MCP, etc. change often).
+- Short, clear, example-driven. No filler.
+- Do not change, merge or skip my original topics.
 
-HOW TO WORK (the content is large, so do it in batches)
-1. FIRST do a sample only: Day 1 (all topics). Show it to me in the website so I can approve the style before continuing.
-2. After I approve, generate the remaining days in batches of 5 days (one phase at a time). Run independent batches in parallel with subagents if possible.
-3. Store explanations as data files (e.g. data/day-001.json ... day-135.json), one entry per topic, keyed by Day number + topic text. Do not hard-code them into index.html.
-4. Update build.py / app.js so that:
-   - every topic bullet gets a small "తెలుగులో వివరణ" button; clicking it expands the explanation under that topic
-   - a "Expand all explanations" toggle exists per day
-   - the existing search also searches the Telugu explanations
-   - code examples are shown in a formatted code block with a Copy button
-   - the Telugu font renders properly (use Noto Sans Telugu from Google Fonts)
-   - topics with no explanation yet show nothing extra, and the page still works
-5. Keep existing features working (progress checkboxes, search, dark mode, mobile layout).
-6. At the end, list which days are done and which are pending, and verify in the browser preview that Telugu text displays correctly and the buttons work.
+HOW TO WORK
+- One HTML file per phase: telugu-phase-1.html ... telugu-phase-8.html (same design as the Day 1 sample, with search and expand-all), plus telugu-index.html linking to all phases.
+- Work phase by phase. For each phase, split the days across parallel subagents (about 5 days each), then merge and check the results.
+- After each phase, open it in the browser preview, verify the Telugu renders and the code blocks look right, and tell me which days are done.
+- Start with Phase 1 (finish Days 2-10) and wait for my OK before starting Phase 2.
 ```
 
 ## Tips
-- Start with the Day 1 sample, then say "continue Phase 1" and so on.
-- If answers feel too long or too short, tell it before the full run, such as "shorter" or "add more code".
-- To get a plain printable file as well, add: "Also generate a single PDF/HTML per phase with all Telugu explanations."
+- Say "continue Phase 2" and so on after you review each phase.
+- Want it shorter or more detailed? Say so before the full run.
+- Want one printable PDF per phase? Add: "Also export each phase file to PDF."
