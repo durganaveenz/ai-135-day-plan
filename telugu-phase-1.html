@@ -88,38 +88,455 @@ pre { position: relative; padding-top: 36px; }
 .font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
 .font-ctrls button:hover { border-color: var(--accent); }
 
+
+/* === Super Compact Header & Popup Modal === */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.top-nav-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav-back-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.nav-phase-badge {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--accent);
+  background: var(--soft);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.nav-days-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .nav-days-text { display: none; }
+}
+
+.nav-center {
+  flex: 1;
+  max-width: 360px;
+}
+.nav-search-box {
+  position: relative;
+  width: 100%;
+}
+.nav-search-box input {
+  width: 100%;
+  padding: 6px 12px 6px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: 13.5px/1.4 inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.nav-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-popup-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.pill-arrow {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  margin: 6px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.page-title-bar h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+.page-title-bar .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.modal-overlay.hide {
+  display: none;
+}
+.modal-card {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.2s ease-out;
+}
+@keyframes modalPop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-phase-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: block;
+}
+.modal-close-btn {
+  background: var(--soft);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--accent);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-section-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.progress-card {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.progress-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prog-card-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.prog-card-pct {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ok);
+}
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-action-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.modal-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.font-ctrl-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-ctrl-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-index-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.modal-index-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.modal-done-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.modal-done-btn:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
+
+<header class="top-nav">
+  <div class="top-nav-wrap">
+    <div class="nav-left">
+      <a href="telugu-index.html" class="nav-back-link" title="అన్ని phases ఇండెక్స్">←</a>
+      <span class="nav-phase-badge">Phase 1</span>
+      <span class="nav-days-text">Day 1–10</span>
+    </div>
+    
+    <div class="nav-center">
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+        <input id="q" type="search" placeholder="Search / వెతకండి… (/)" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
+        <span class="pill-dot"></span>
+        <span id="nav-pill-status">0% · 📋 All</span>
+        <span class="pill-arrow">▾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Phase 1 (Day 1–10)</h1>
-<p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
-<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
-<div class="tools">
-  <div class="tools-row">
-    <input id="q" type="search" placeholder="Search / వెతకండి…">
-    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
-    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
-    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
-    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
-    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
-  </div>
-  <div class="progress-container">
-    <div class="progress-wrap">
-      <div id="prog-bar" class="progress-bar"></div>
-    </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
-    </div>
-  </div>
+
+<div class="page-title-bar">
+  <h1>135-Day AI Engineering Roadmap<br>Phase 1: Python Engineering for AI Development</h1>
+  <p class="sub">Days 1–10 · 197 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
 </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+
+<!-- Header Popup Modal -->
+<div id="header-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Phase 1: Python Engineering</h3>
+        <span class="modal-phase-meta">Days 1–10 · మొత్తం 197 టాపిక్స్</span>
+      </div>
+      <button id="close-modal-btn" class="modal-close-btn" title="మూసివేయి (Esc)">✕</button>
+    </div>
+    
+    <div class="modal-body">
+      <!-- 1. Progress Overview Card -->
+      <div class="modal-section progress-card">
+        <div class="progress-card-top">
+          <span class="prog-card-title">అభ్యసన పురోగతి (Progress)</span>
+          <span id="prog-pct" class="prog-card-pct">0% పూర్తయింది</span>
+        </div>
+        <div class="progress-wrap">
+          <div id="prog-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="prog-ratio">0 / 197 టాపిక్స్ పూర్తయ్యాయి</span>
+          <span id="prog-breakdown">⏳ 0 చదువుతున్నారు · 📦 0 ఆర్కైవ్</span>
+        </div>
+      </div>
+
+      <!-- 2. Filter Tabs -->
+      <div class="modal-section">
+        <div class="modal-section-head">టాపిక్స్ ఫిల్టర్ చేయండి (Filter by Status):</div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="all">
+            అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span>
+          </button>
+          <button class="tab-btn" data-tab="start">
+            ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span>
+          </button>
+          <button class="tab-btn" data-tab="progress">
+            చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span>
+          </button>
+          <button class="tab-btn" data-tab="done">
+            పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span>
+          </button>
+          <button class="tab-btn" data-tab="archive">
+            ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Page Controls -->
+      <div class="modal-section">
+        <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
+        <div class="modal-actions-row">
+          <button id="all" class="modal-action-btn">
+            <span>📂</span> అన్నీ తెరువు / మూసివేయి
+          </button>
+          
+          <div class="font-ctrl-wrap">
+            <span class="font-ctrl-label">ఫాంట్ సైజ్:</span>
+            <div class="font-ctrls">
+              <button id="font-dec" title="చిన్న ఫాంట్">A-</button>
+              <button id="font-reset" title="సాధారణ ఫాంట్">A</button>
+              <button id="font-inc" title="పెద్ద ఫాంట్">A+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="telugu-index.html" class="modal-index-link">← అన్ని phases ఇండెక్స్</a>
+      <button id="done-modal-btn" class="modal-done-btn">పూర్తయింది (Done)</button>
     </div>
   </div>
 </div>
@@ -5159,6 +5576,40 @@ appendfsync everysec             # సెకనుకోసారి disk కి
       });
     });
   }
+
+  
+  // Modal Open / Close Logic
+  var modalEl = document.getElementById('header-modal');
+  var openPopupBtn = document.getElementById('open-popup-btn');
+  var closeModalBtn = document.getElementById('close-modal-btn');
+  var doneModalBtn = document.getElementById('done-modal-btn');
+
+  function openModal() {
+    if (modalEl) modalEl.classList.remove('hide');
+  }
+  function closeModal() {
+    if (modalEl) modalEl.classList.add('hide');
+  }
+
+  if (openPopupBtn) openPopupBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (doneModalBtn) doneModalBtn.addEventListener('click', closeModal);
+
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === modalEl) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalEl && !modalEl.classList.contains('hide')) {
+      closeModal();
+    }
+    if (e.key === '/' && document.activeElement !== q && q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
 
   updateCountsAndFilter();
 })();

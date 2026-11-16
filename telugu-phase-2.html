@@ -85,35 +85,497 @@ pre { position: relative; padding-top: 36px; }
 .font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
 .font-ctrls button:hover { border-color: var(--accent); }
 
+
+/* === Super Compact Header & Popup Modal === */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.top-nav-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav-back-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.nav-phase-badge {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--accent);
+  background: var(--soft);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.nav-days-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .nav-days-text { display: none; }
+}
+
+.nav-center {
+  flex: 1;
+  max-width: 360px;
+}
+.nav-search-box {
+  position: relative;
+  width: 100%;
+}
+.nav-search-box input {
+  width: 100%;
+  padding: 6px 12px 6px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: 13.5px/1.4 inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.nav-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-popup-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.pill-arrow {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  margin: 6px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.page-title-bar h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+.page-title-bar .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.modal-overlay.hide {
+  display: none;
+}
+.modal-card {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.2s ease-out;
+}
+@keyframes modalPop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-phase-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: block;
+}
+.modal-close-btn {
+  background: var(--soft);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--accent);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-section-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.progress-card {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.progress-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prog-card-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.prog-card-pct {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ok);
+}
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-action-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.modal-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.font-ctrl-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-ctrl-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-index-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.modal-index-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.modal-done-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.modal-done-btn:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
+
+<header class="top-nav">
+  <div class="top-nav-wrap">
+    <div class="nav-left">
+      <a href="telugu-index.html" class="nav-back-link" title="అన్ని phases ఇండెక్స్">←</a>
+      <span class="nav-phase-badge">Phase 2</span>
+      <span class="nav-days-text">Day 11–20</span>
+    </div>
+    
+    <div class="nav-center">
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+        <input id="q" type="search" placeholder="Search / వెతకండి… (/)" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
+        <span class="pill-dot"></span>
+        <span id="nav-pill-status">0% · 📋 All</span>
+        <span class="pill-arrow">▾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Phase 2 (Day 11–20)</h1>
-<p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
-<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
-<div class="tools">
-  <div class="tools-row">
-    <input id="q" type="search" placeholder="Search / వెతకండి…">
-    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
-    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
-    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
-    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
-    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
-  </div>
-  <div class="progress-container">
-    <div class="progress-wrap">
-      <div id="prog-bar" class="progress-bar"></div>
+
+<div class="page-title-bar">
+  <h1>135-Day AI Engineering Roadmap<br>Phase 2: Machine Learning and AI Fundamentals</h1>
+  <p class="sub">Day 11–20 · 160 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
+</div>
+
+<!-- Header Popup Modal -->
+<div id="header-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Phase 2: Machine Learning and AI Fundamentals</h3>
+        <span class="modal-phase-meta">Day 11–20 · మొత్తం 160 టాపిక్స్</span>
+      </div>
+      <button id="close-modal-btn" class="modal-close-btn" title="మూసివేయి (Esc)">✕</button>
     </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+    
+    <div class="modal-body">
+      <!-- 1. Progress Overview Card -->
+      <div class="modal-section progress-card">
+        <div class="progress-card-top">
+          <span class="prog-card-title">అభ్యసన పురోగతి (Progress)</span>
+          <span id="prog-pct" class="prog-card-pct">0% పూర్తయింది</span>
+        </div>
+        <div class="progress-wrap">
+          <div id="prog-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="prog-ratio">0 / 160 టాపిక్స్ పూర్తయ్యాయి</span>
+          <span id="prog-breakdown">⏳ 0 చదువుతున్నారు · 📦 0 ఆర్కైవ్</span>
+        </div>
+      </div>
+
+      <!-- 2. Filter Tabs -->
+      <div class="modal-section">
+        <div class="modal-section-head">టాపిక్స్ ఫిల్టర్ చేయండి (Filter by Status):</div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="all">
+            అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span>
+          </button>
+          <button class="tab-btn" data-tab="start">
+            ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span>
+          </button>
+          <button class="tab-btn" data-tab="progress">
+            చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span>
+          </button>
+          <button class="tab-btn" data-tab="done">
+            పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span>
+          </button>
+          <button class="tab-btn" data-tab="archive">
+            ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Page Controls -->
+      <div class="modal-section">
+        <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
+        <div class="modal-actions-row">
+          <button id="all" class="modal-action-btn">
+            <span>📂</span> అన్నీ తెరువు / మూసివేయి
+          </button>
+          
+          <div class="font-ctrl-wrap">
+            <span class="font-ctrl-label">ఫాంట్ సైజ్:</span>
+            <div class="font-ctrls">
+              <button id="font-dec" title="చిన్న ఫాంట్">A-</button>
+              <button id="font-reset" title="సాధారణ ఫాంట్">A</button>
+              <button id="font-inc" title="పెద్ద ఫాంట్">A+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="telugu-index.html" class="modal-index-link">← అన్ని phases ఇండెక్స్ డాష్‌బోర్డ్</a>
+      <button id="done-modal-btn" class="modal-done-btn">పూర్తయింది (Done)</button>
     </div>
   </div>
+</div>
+
+<h2 class="day">Day 11: Mathematics for Machine Learning</h2>
+
+<details class="t"><summary>1. Scalars, vectors, matrices and tensors<small>ఒక సంఖ్య, సంఖ్యల వరుస, సంఖ్యల పట్టిక, బహుళ-పరిమాణ పట్టికలు</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Machine learning లో ప్రతి data (ఫోటో, text, user row) చివరికి సంఖ్యల రూపంలోనే model కి వెళ్తుంది. ఆ సంఖ్యలను ఏ ఆకారంలో నిల్వ చేస్తున్నామో తెలిస్తేనే NumPy, PyTorch code అర్థమవుతుంది.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>Scalar</b> = ఒకే ఒక సంఖ్య (ఉదా: వయసు 25). <b>Vector</b> = సంఖ్యల ఒక వరుస (ఉదా: ఒక user యొక్క [వయసు, జీతం, అనుభవం]); MySQL లో ఒక row లోని numeric columns లాగా. <b>Matrix</b> = rows × columns పట్టిక; ఒక MySQL table లోని numeric data మొత్తం ఒక matrix. <b>Tensor</b> = 3 లేదా అంతకన్నా ఎక్కువ dimensions ఉన్న పట్టిక; ఉదా: ఒక color ఫోటో = (ఎత్తు, వెడల్పు, 3 colors). అంటే scalar, vector, matrix అన్నీ tensor యొక్క ప్రత్యేక రూపాలే (0-D, 1-D, 2-D).</p>
+<h4>ఉదాహరణ</h4>
+<pre>import numpy as np
+
+scalar = np.array(25)                      # 0-D
+vector = np.array([25, 50000, 3])          # 1-D: ఒక user
+matrix = np.array([[25, 50000, 3],
+                   [30, 70000, 6]])        # 2-D: 2 users x 3 features
+tensor = np.zeros((2, 4, 4, 3))            # 4-D: 2 చిన్న ఫోటోలు (4x4 pixels, 3 colors)
+
+for x in (scalar, vector, matrix, tensor):
+    print(x.ndim, x.shape)                 # 0 (), 1 (3,), 2 (2, 3), 4 (2, 4, 4, 3)</pre>
 </div></details>
+
+<details class="t"><summary>2. Vector addition and multiplication<small>Vectors కూడటం మరియు గుణించడం</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Model లో weights ని update చేయడం, features ని scale చేయడం, embeddings ని కలపడం (ఉదా: king - man + woman) అన్నీ vector operations తోనే జరుగుతాయి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>రెండు vectors ని కూడాలంటే వాటి సంబంధిత (same position) సంఖ్యలను కలుపుతాం; రెండింటి length సమానంగా ఉండాలి. ఒక vector ని scalar తో గుణిస్తే ప్రతి సంఖ్యా ఆ scalar తో గుణింపబడుతుంది. రెండు vectors ని <code>*</code> తో గుణిస్తే NumPy లో <b>element-wise</b> (position by position) గుణకారం జరుగుతుంది. PHP లో దీనికి <code>array_map</code> రాయాల్సి వచ్చేది; NumPy లో ఒక్క operator చాలు.</p>
+<h4>ఉదాహరణ</h4>
+<pre>import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([10, 20, 30])
+
+print(a + b)      # [11 22 33]  కూడిక
+print(a * 2)      # [2 4 6]     scalar తో గుణకారం
+print(a * b)      # [10 40 90]  element-wise గుణకారం (dot product కాదు!)</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> <code>a * b</code> ని dot product లేదా matrix multiplication అనుకోవడం. అది కేవలం element-wise.</div>
+</div></details>
+
+
 
 <details class="t"><summary>3. Matrix multiplication<small>Matrix గుణకారం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -197,7 +659,7 @@ except ValueError as e:
 
 <details class="t"><summary>7. Eigenvalues and eigenvectors<small>Eigenvalues మరియు eigenvectors (ప్రత్యేక దిశలు, వాటి కొలతలు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>Data లో ఏ దిశలో ఎక్కువ variation ఉందో కనుక్కోవడానికి (PCA, dimensionality reduction) ఇవి వాడతారు. ప్రత్యక్షంగా మీరు తరచూ రాయరు, కానీ PCA ఎలా పనిచేస్తుందో అర్థం చేసుకోవడానికి అవసరం.</p>
+<p>Data లో ఏ దిశలో ఎక్కువ variation ఉందో కనుక్కోవడానికి (PCA (Principal Component Analysis), dimensionality reduction) ఇవి వాడతారు. ప్రత్యక్షంగా మీరు తరచూ రాయరు, కానీ PCA (Principal Component Analysis) ఎలా పనిచేస్తుందో అర్థం చేసుకోవడానికి అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>ఒక matrix A ఒక vector ని గుణిస్తే సాధారణంగా ఆ vector దిశ మారిపోతుంది. కానీ కొన్ని ప్రత్యేక vectors కి దిశ మారదు, కేవలం పొడవు మాత్రమే మారుతుంది. వాటిని <b>eigenvectors</b> అంటారు, పొడవు ఎన్ని రెట్లు మారిందో చెప్పే సంఖ్య <b>eigenvalue</b>. అంటే <code>A v = λ v</code>. Covariance matrix (డేటా వ్యాప్తిని చెప్పే matrix) యొక్క పెద్ద eigenvalue ఉన్న eigenvector, data ఎక్కువగా వ్యాపించిన దిశను చూపిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -846,7 +1308,7 @@ print(clf.predict([[7]]))               # [1]</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Labels ఇవ్వడం ఖరీదైన పని. Labels లేని data లో customers ని సమూహాలుగా విభజించడం, అసాధారణ transactions కనుగొనడం, data ని సరళీకరించడం కోసం ఇది వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇక్కడ data కి సరైన సమాధానాలు ఉండవు; model తానే data లో దాగి ఉన్న నిర్మాణాన్ని కనుగొంటుంది. ప్రధాన రకాలు: <b>Clustering</b> (సారూప్య items ని గుంపులుగా చేయడం, ఉదా: KMeans), <b>Dimensionality reduction</b> (features సంఖ్య తగ్గించడం, ఉదా: PCA), <b>Anomaly detection</b> (వింత data కనుగొనడం). SQL <code>GROUP BY</code> లో మనమే group column చెప్తాం; ఇక్కడ groups ఏమిటో algorithm కనిపెడుతుంది.</p>
+<p>ఇక్కడ data కి సరైన సమాధానాలు ఉండవు; model తానే data లో దాగి ఉన్న నిర్మాణాన్ని కనుగొంటుంది. ప్రధాన రకాలు: <b>Clustering</b> (సారూప్య items ని గుంపులుగా చేయడం, ఉదా: KMeans), <b>Dimensionality reduction</b> (features సంఖ్య తగ్గించడం, ఉదా: PCA (Principal Component Analysis)), <b>Anomaly detection</b> (వింత data కనుగొనడం). SQL <code>GROUP BY</code> లో మనమే group column చెప్తాం; ఇక్కడ groups ఏమిటో algorithm కనిపెడుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 from sklearn.cluster import KMeans
@@ -1371,7 +1833,7 @@ print("poly   R2:", round(poly.score(x, y), 2))      # ~0.98</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రెండు features దాదాపు ఒకే సమాచారం ఇస్తుంటే (ఉదా: సెంటీమీటర్లలో ఎత్తు మరియు అంగుళాలలో ఎత్తు), linear regression యొక్క weights అస్థిరంగా మారి, వాటి అర్థం కోల్పోతాయి. దీన్ని గుర్తించి నివారించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Multicollinearity</b> అంటే input features ఒకదానితో ఒకటి బలమైన correlation కలిగి ఉండటం. అప్పుడు model కి ఏ feature కి ఎంత క్రెడిట్ ఇవ్వాలో తెలియదు; weights పెద్ద పెద్దవిగా, వ్యతిరేక గుర్తులతో, data కొద్దిగా మారితే విపరీతంగా మారిపోతాయి. అంచనా శక్తి (prediction) తరచూ బాగానే ఉంటుంది, కానీ weights ఆధారంగా వివరణ నమ్మలేం. గుర్తించడం: correlation matrix (<code>df.corr()</code>) లేదా <b>VIF (Variance Inflation Factor)</b>; VIF 5 లేదా 10 కంటే ఎక్కువైతే సమస్య అనే సాధారణ నియమం. పరిష్కారం: ఒక feature ని తొలగించడం, features ని కలపడం, లేదా Ridge/PCA వాడటం.</p>
+<p><b>Multicollinearity</b> అంటే input features ఒకదానితో ఒకటి బలమైన correlation కలిగి ఉండటం. అప్పుడు model కి ఏ feature కి ఎంత క్రెడిట్ ఇవ్వాలో తెలియదు; weights పెద్ద పెద్దవిగా, వ్యతిరేక గుర్తులతో, data కొద్దిగా మారితే విపరీతంగా మారిపోతాయి. అంచనా శక్తి (prediction) తరచూ బాగానే ఉంటుంది, కానీ weights ఆధారంగా వివరణ నమ్మలేం. గుర్తించడం: correlation matrix (<code>df.corr()</code>) లేదా <b>VIF (Variance Inflation Factor)</b>; VIF 5 లేదా 10 కంటే ఎక్కువైతే సమస్య అనే సాధారణ నియమం. పరిష్కారం: ఒక feature ని తొలగించడం, features ని కలపడం, లేదా Ridge/PCA (Principal Component Analysis) వాడటం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 import pandas as pd
@@ -1954,7 +2416,7 @@ print(set(KMeans(n_clusters=2, n_init=10, random_state=0).fit_predict(X)))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వందల/వేల features ఉన్న డేటాను visualize చేయలేం, models నెమ్మదిస్తాయి, మరియు ఎక్కువ features వల్ల distance-based algorithms పనితీరు పడిపోతుంది (<b>curse of dimensionality</b>). అవసరమైన సమాచారాన్ని ఉంచి dimensions తగ్గించడం దీనికి పరిష్కారం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు విధానాలు: <b>feature selection</b> (ఉన్న columns లో కొన్నింటిని ఎంచుకోవడం, DB table నుండి కొన్ని columns మాత్రమే SELECT చేసినట్టు) మరియు <b>feature extraction</b> (కొత్త, తక్కువ columns ని పాత వాటి కలయికతో తయారు చేయడం: PCA, t-SNE, UMAP). 3D వస్తువు నీడను 2D గోడపై వేసినట్టు: కొంత సమాచారం పోతుంది, కానీ ఆకారం అర్థమవుతుంది. ఉపయోగాలు: visualization (2D/3D కి), noise తొలగింపు, speed-up, storage.</p>
+<p>రెండు విధానాలు: <b>feature selection</b> (ఉన్న columns లో కొన్నింటిని ఎంచుకోవడం, DB table నుండి కొన్ని columns మాత్రమే SELECT చేసినట్టు) మరియు <b>feature extraction</b> (కొత్త, తక్కువ columns ని పాత వాటి కలయికతో తయారు చేయడం: PCA (Principal Component Analysis), t-SNE, UMAP). 3D వస్తువు నీడను 2D గోడపై వేసినట్టు: కొంత సమాచారం పోతుంది, కానీ ఆకారం అర్థమవుతుంది. ఉపయోగాలు: visualization (2D/3D కి), noise తొలగింపు, speed-up, storage.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
@@ -1967,11 +2429,11 @@ print(X2.shape)                         # (1797, 2): ఇప్పుడు plot 
 <div class="mistake"><b>సాధారణ తప్పు:</b> తగ్గించిన dimensions కి అసలు feature అర్థం ఉందనుకోవడం. కొత్త components పాత features కలయికలు; వాటిని నేరుగా "age" లా చదవలేం.</div>
 </div></details>
 
-<details class="t"><summary>9. PCA<small>PCA (Principal Component Analysis): ప్రధాన దిశలను కనుగొనడం</small></summary><div class="body">
+<details class="t"><summary>9. PCA (Principal Component Analysis)<small>PCA (Principal Component Analysis): ప్రధాన దిశలను కనుగొనడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>అత్యంత విస్తృతంగా వాడే, వేగవంతమైన, వివరించగలిగే dimensionality reduction. Features ఒకదానితో ఒకటి సంబంధం కలిగి (correlated) ఉన్నప్పుడు చాలా ప్రభావవంతం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>PCA</b> డేటా ఎక్కువగా "విస్తరించి" (variance ఎక్కువ) ఉన్న దిశలను కనుగొంటుంది; వాటిని <b>principal components</b> అంటారు (ఒకదానికొకటి లంబంగా). మొదటి component ఎక్కువ variance ని, రెండోది మిగిలినదానిలో ఎక్కువను పట్టుకుంటుంది. మొదటి కొన్ని components ఉంచి మిగతావి వదిలేస్తే చిన్న డేటా వస్తుంది. <code>explained_variance_ratio_</code> ప్రతి component ఎంత సమాచారం ఉంచిందో చెబుతుంది. PCA సరళ (linear) పద్ధతి; variance ఆధారం కాబట్టి <b>scaling తప్పనిసరి</b>. <code>PCA(n_components=0.95)</code> అంటే 95% variance ఉండే కనీస components.</p>
+<p><b>PCA (Principal Component Analysis)</b> డేటా ఎక్కువగా "విస్తరించి" (variance ఎక్కువ) ఉన్న దిశలను కనుగొంటుంది; వాటిని <b>principal components</b> అంటారు (ఒకదానికొకటి లంబంగా). మొదటి component ఎక్కువ variance ని, రెండోది మిగిలినదానిలో ఎక్కువను పట్టుకుంటుంది. మొదటి కొన్ని components ఉంచి మిగతావి వదిలేస్తే చిన్న డేటా వస్తుంది. <code>explained_variance_ratio_</code> ప్రతి component ఎంత సమాచారం ఉంచిందో చెబుతుంది. PCA (Principal Component Analysis) సరళ (linear) పద్ధతి; variance ఆధారం కాబట్టి <b>scaling తప్పనిసరి</b>. <code>PCA (Principal Component Analysis)(n_components=0.95)</code> అంటే 95% variance ఉండే కనీస components.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import load_digits
 from sklearn.preprocessing import StandardScaler
@@ -1990,7 +2452,7 @@ print(pca.explained_variance_ratio_[:3])   # మొదటి 3 components వా
 <h4>ఎందుకు అవసరం?</h4>
 <p>అధిక-dimension డేటా (ఉదా: embeddings) లో సమూహాలు ఉన్నాయో లేదో కళ్లతో చూడటానికి అత్యంత ప్రసిద్ధ పద్ధతి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>t-SNE</b> దగ్గరి points ని 2D లో కూడా దగ్గరగా ఉంచడానికి ప్రయత్నిస్తుంది (స్థానిక పొరుగు సంబంధాలు కాపాడుతుంది). ఫలితంగా అందమైన cluster చిత్రాలు వస్తాయి. కానీ హెచ్చరికలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ఇది <b>visualization కోసమే</b>, features గా వాడకూడదు</span></div><div class="step-row"><span class="step-badge">2</span><span>clusters మధ్య దూరాలు, clusters పరిమాణాలకు అర్థం లేదు</span></div><div class="step-row"><span class="step-badge">3</span><span><code>perplexity</code> parameter మార్చితే చిత్రం మారుతుంది</span></div><div class="step-row"><span class="step-badge">4</span><span><code>fit_transform</code> మాత్రమే ఉంది: కొత్త data ని తర్వాత transform చేయలేం</span></div><div class="step-row"><span class="step-badge">5</span><span>పెద్ద డేటాకు నెమ్మది (ముందు PCA తో 30-50 dims కి తగ్గించడం సాధారణం).</p></span></div></div>
+<p><b>t-SNE</b> దగ్గరి points ని 2D లో కూడా దగ్గరగా ఉంచడానికి ప్రయత్నిస్తుంది (స్థానిక పొరుగు సంబంధాలు కాపాడుతుంది). ఫలితంగా అందమైన cluster చిత్రాలు వస్తాయి. కానీ హెచ్చరికలు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ఇది <b>visualization కోసమే</b>, features గా వాడకూడదు</span></div><div class="step-row"><span class="step-badge">2</span><span>clusters మధ్య దూరాలు, clusters పరిమాణాలకు అర్థం లేదు</span></div><div class="step-row"><span class="step-badge">3</span><span><code>perplexity</code> parameter మార్చితే చిత్రం మారుతుంది</span></div><div class="step-row"><span class="step-badge">4</span><span><code>fit_transform</code> మాత్రమే ఉంది: కొత్త data ని తర్వాత transform చేయలేం</span></div><div class="step-row"><span class="step-badge">5</span><span>పెద్ద డేటాకు నెమ్మది (ముందు PCA (Principal Component Analysis) తో 30-50 dims కి తగ్గించడం సాధారణం).</p></span></div></div>
 <h4>ఉదాహరణ</h4>
 <pre>from sklearn.datasets import load_digits
 from sklearn.manifold import TSNE
@@ -3317,7 +3779,7 @@ LLM    : తర్వాతి tokens ని ఊహిస్తూ -> " అమ�
 <pre># ఊహాత్మక scenario (illustrative)
 input  = [ image: invoice.png,  text: "ఈ invoice లోని total amount, date చెప్పు" ]
 output = "Total: ₹12,450, Date: 14-03-2025"</pre>
-<p>ఇలాంటి వాటికి ముందు OCR + regex పైప్‌లైన్ రాయాల్సి వచ్చేది; multimodal model ఒకే call లో చేస్తుంది. ఖచ్చితత్వం కోసం ఫలితాన్ని ఇప్పటికీ validate చేయాలి.</p>
+<p>ఇలాంటి వాటికి ముందు OCR (Optical Character Recognition) + regex పైప్‌లైన్ రాయాల్సి వచ్చేది; multimodal model ఒకే call లో చేస్తుంది. ఖచ్చితత్వం కోసం ఫలితాన్ని ఇప్పటికీ validate చేయాలి.</p>
 </div></details>
 
 <details class="t"><summary>6. Model parameters<small>Model parameters (model నేర్చుకునే numbers, weights)</small></summary><div class="body">
@@ -3373,7 +3835,7 @@ print(round(loss, 3))              # 0.416
 <h4>ఎందుకు అవసరం?</h4>
 <p>General model మీ కంపెనీ భాష, format, domain (ఉదా. వైద్య, న్యాయ) లో సరిగా పని చేయకపోవచ్చు. Prompt తో సాధ్యం కానప్పుడు, మీ data పై కొద్దిగా train చేయడం ఒక ఎంపిక.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Fine-tuning</b> అంటే ఇప్పటికే trained model ని మీ చిన్న dataset పై కొనసాగించి training చేసి, parameters ని మీ పనికి అనుగుణంగా మార్చడం. <b>Full fine-tuning</b> లో అన్ని parameters మారతాయి (ఖరీదైనది). <b>PEFT / LoRA (Low-Rank Adaptation)</b> లో అసలు weights ని స్థిరంగా ఉంచి చిన్న అదనపు matrices మాత్రమే train చేస్తారు, కాబట్టి చాలా తక్కువ memory సరిపోతుంది. ఎప్పుడు ఏది: <b>ప్రాంప్టింగ్</b> ముందు ప్రయత్నించండి (చవక, వేగం), <b>RAG</b> కొత్త/మారే జ్ఞానం కోసం (documents నుండి తెచ్చి ఇవ్వడం), <b>fine-tuning</b> style, format, ప్రవర్తన మార్చడానికి. ఇది Laravel లో vendor code ని మార్చకుండా మీ సొంత service provider జోడించినట్టే LoRA (Low-Rank Adaptation) ఆలోచన.</p>
+<p><b>Fine-tuning</b> అంటే ఇప్పటికే trained model ని మీ చిన్న dataset పై కొనసాగించి training చేసి, parameters ని మీ పనికి అనుగుణంగా మార్చడం. <b>Full fine-tuning</b> లో అన్ని parameters మారతాయి (ఖరీదైనది). <b>PEFT (Parameter-Efficient Fine-Tuning) / LoRA (Low-Rank Adaptation)</b> లో అసలు weights ని స్థిరంగా ఉంచి చిన్న అదనపు matrices మాత్రమే train చేస్తారు, కాబట్టి చాలా తక్కువ memory సరిపోతుంది. ఎప్పుడు ఏది: <b>ప్రాంప్టింగ్</b> ముందు ప్రయత్నించండి (చవక, వేగం), <b>RAG</b> కొత్త/మారే జ్ఞానం కోసం (documents నుండి తెచ్చి ఇవ్వడం), <b>fine-tuning</b> style, format, ప్రవర్తన మార్చడానికి. ఇది Laravel లో vendor code ని మార్చకుండా మీ సొంత service provider జోడించినట్టే LoRA (Low-Rank Adaptation) ఆలోచన.</p>
 <h4>ఉదాహరణ</h4>
 <pre>d, r = 4096, 8
 print(d * d)       # 16777216  (ఒక full weight matrix లో parameters)
@@ -3701,6 +4163,40 @@ print(tok.decode(model.generate(**ids, max_new_tokens=20)[0]))</pre>
       });
     });
   }
+
+  
+  // Modal Open / Close Logic
+  var modalEl = document.getElementById('header-modal');
+  var openPopupBtn = document.getElementById('open-popup-btn');
+  var closeModalBtn = document.getElementById('close-modal-btn');
+  var doneModalBtn = document.getElementById('done-modal-btn');
+
+  function openModal() {
+    if (modalEl) modalEl.classList.remove('hide');
+  }
+  function closeModal() {
+    if (modalEl) modalEl.classList.add('hide');
+  }
+
+  if (openPopupBtn) openPopupBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (doneModalBtn) doneModalBtn.addEventListener('click', closeModal);
+
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === modalEl) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalEl && !modalEl.classList.contains('hide')) {
+      closeModal();
+    }
+    if (e.key === '/' && document.activeElement !== q && q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
 
   updateCountsAndFilter();
 })();

@@ -85,35 +85,477 @@ pre { position: relative; padding-top: 36px; }
 .font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
 .font-ctrls button:hover { border-color: var(--accent); }
 
+
+/* === Super Compact Header & Popup Modal === */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.top-nav-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav-back-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.nav-phase-badge {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--accent);
+  background: var(--soft);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.nav-days-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .nav-days-text { display: none; }
+}
+
+.nav-center {
+  flex: 1;
+  max-width: 360px;
+}
+.nav-search-box {
+  position: relative;
+  width: 100%;
+}
+.nav-search-box input {
+  width: 100%;
+  padding: 6px 12px 6px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: 13.5px/1.4 inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.nav-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-popup-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.pill-arrow {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  margin: 6px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.page-title-bar h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+.page-title-bar .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.modal-overlay.hide {
+  display: none;
+}
+.modal-card {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.2s ease-out;
+}
+@keyframes modalPop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-phase-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: block;
+}
+.modal-close-btn {
+  background: var(--soft);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--accent);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-section-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.progress-card {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.progress-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prog-card-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.prog-card-pct {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ok);
+}
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-action-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.modal-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.font-ctrl-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-ctrl-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-index-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.modal-index-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.modal-done-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.modal-done-btn:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
+
+<header class="top-nav">
+  <div class="top-nav-wrap">
+    <div class="nav-left">
+      <a href="telugu-index.html" class="nav-back-link" title="అన్ని phases ఇండెక్స్">←</a>
+      <span class="nav-phase-badge">Phase 7</span>
+      <span class="nav-days-text">Day 76–90</span>
+    </div>
+    
+    <div class="nav-center">
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+        <input id="q" type="search" placeholder="Search / వెతకండి… (/)" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
+        <span class="pill-dot"></span>
+        <span id="nav-pill-status">0% · 📋 All</span>
+        <span class="pill-arrow">▾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Phase 7 (Day 76–90)</h1>
-<p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
-<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
-<div class="tools">
-  <div class="tools-row">
-    <input id="q" type="search" placeholder="Search / వెతకండి…">
-    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
-    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
-    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
-    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
-    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
-  </div>
-  <div class="progress-container">
-    <div class="progress-wrap">
-      <div id="prog-bar" class="progress-bar"></div>
+
+<div class="page-title-bar">
+  <h1>135-Day AI Engineering Roadmap<br>Phase 7: Enterprise AI Architecture, System Design & Interview Prep</h1>
+  <p class="sub">Day 76–90 · 1025 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
+</div>
+
+<!-- Header Popup Modal -->
+<div id="header-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Phase 7: Enterprise AI Architecture, System Design & Interview Prep</h3>
+        <span class="modal-phase-meta">Day 76–90 · మొత్తం 1025 టాపిక్స్</span>
+      </div>
+      <button id="close-modal-btn" class="modal-close-btn" title="మూసివేయి (Esc)">✕</button>
     </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+    
+    <div class="modal-body">
+      <!-- 1. Progress Overview Card -->
+      <div class="modal-section progress-card">
+        <div class="progress-card-top">
+          <span class="prog-card-title">అభ్యసన పురోగతి (Progress)</span>
+          <span id="prog-pct" class="prog-card-pct">0% పూర్తయింది</span>
+        </div>
+        <div class="progress-wrap">
+          <div id="prog-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="prog-ratio">0 / 1025 టాపిక్స్ పూర్తయ్యాయి</span>
+          <span id="prog-breakdown">⏳ 0 చదువుతున్నారు · 📦 0 ఆర్కైవ్</span>
+        </div>
+      </div>
+
+      <!-- 2. Filter Tabs -->
+      <div class="modal-section">
+        <div class="modal-section-head">టాపిక్స్ ఫిల్టర్ చేయండి (Filter by Status):</div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="all">
+            అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span>
+          </button>
+          <button class="tab-btn" data-tab="start">
+            ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span>
+          </button>
+          <button class="tab-btn" data-tab="progress">
+            చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span>
+          </button>
+          <button class="tab-btn" data-tab="done">
+            పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span>
+          </button>
+          <button class="tab-btn" data-tab="archive">
+            ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Page Controls -->
+      <div class="modal-section">
+        <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
+        <div class="modal-actions-row">
+          <button id="all" class="modal-action-btn">
+            <span>📂</span> అన్నీ తెరువు / మూసివేయి
+          </button>
+          
+          <div class="font-ctrl-wrap">
+            <span class="font-ctrl-label">ఫాంట్ సైజ్:</span>
+            <div class="font-ctrls">
+              <button id="font-dec" title="చిన్న ఫాంట్">A-</button>
+              <button id="font-reset" title="సాధారణ ఫాంట్">A</button>
+              <button id="font-inc" title="పెద్ద ఫాంట్">A+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="telugu-index.html" class="modal-index-link">← అన్ని phases ఇండెక్స్ డాష్‌బోర్డ్</a>
+      <button id="done-modal-btn" class="modal-done-btn">పూర్తయింది (Done)</button>
     </div>
   </div>
+</div>
+
+<h2 class="day">Day 76: Enterprise AI architecture and solution design</h2>
+
+<details class="t"><summary>1. What is enterprise AI architecture?<small>ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అంటే ఏమిటి?</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>సాధారణ AI డెమో కేవలం ఒక API కాల్‌తో పూర్తవుతుంది. కానీ వేలాదిమంది ఉద్యోగులు, లక్షలాది కస్టమర్లు ఉన్న సంస్థల్లో సెక్యూరిటీ, డేటా గవర్నెన్స్, స్కేలబిలిటీ మరియు బడ్జెట్ కంట్రోల్‌తో AI సిస్టమ్స్ నడపడానికి ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అవసరం.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>Laravel లో ఒక పెద్ద ERP లేదా ఈ-కామర్స్ పోర్టల్ కట్టేటప్పుడు కేవలం కంట్రోలర్ లో కోడ్ రాయడం కాకుండా, Microservices, Caching Layer (Redis), Message Queue (RabbitMQ/Kafka), IAM (OAuth2/SSO), Database Sharding వంటివి ఎలా ప్లాన్ చేస్తామో, AI కి కూడా అదే విధంగా డిజైన్ చేయడమే ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్. ఇందులో LLM Gateway, Vector Database, Prompt Store, Model Governance, Audit Logging అన్నీ కలిసి ఒక వ్యవస్థలా పనిచేస్తాయి.</p>
+<h4>ఉదాహరణ</h4>
+<pre># Enterprise AI Architecture Layers overview:
+# Client Layer (Web/Mobile/Slack)
+#   -&gt; API Gateway (Kong/Apigee - Auth, Rate Limiting)
+#   -&gt; Orchestrator (LangGraph / FastAPI)
+#   -&gt; LLM Gateway (LiteLLM / Portkey - Load Balancing, Fallbacks)
+#   -&gt; Knowledge Layer (Pinecone / Qdrant + MySQL/Postgres)
+#   -&gt; Observability (OpenTelemetry + Prometheus + Langfuse)</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ స్క్రిప్ట్ లాగా డైరెక్ట్ గా OpenAI API కి క్లయింట్ నుంచి కాల్స్ చేయడం, ఎంటర్‌ప్రైజ్ లెవెల్ గేట్‌వేలు లేకపోవడం.</div>
 </div></details>
+
 
 <details class="t"><summary>2. AI solution architecture vs application architecture.<small>AI సొల్యూషన్ ఆర్కిటెక్చర్ వర్సెస్ అప్లికేషన్ ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -175,7 +617,7 @@ pre { position: relative; padding-top: 36px; }
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంస్థలో ఏ వ్యాపార విభాగాలకు (సేల్స్, సపోర్ట్, ఫైనాన్స్) AI సామర్థ్యాలు అవసరమో, వాటి ప్రాధాన్యత ఏమిటో ప్లాన్ చేయడానికి ఇది ఉపకరిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక పెద్ద ఎంటర్‌ప్రైజ్ ని డొమైన్‌లుగా విభజిస్తాం (ఉదా: Laravel లో Billing Module, Inventory Module, Support Module). అలాగే AI లో: కస్టమర్ సర్వీస్ కోసం "Conversational Agent", ఫైనాన్స్ కోసం "Document OCR Extraction", లీగల్ కోసం "Contract Clause Verification" అని కెపాబిలిటీలను మ్యాప్ చేసి, కామన్ AI ప్లాట్‌ఫామ్‌ను షేర్ చేసుకుంటాం.</p>
+<p>ఒక పెద్ద ఎంటర్‌ప్రైజ్ ని డొమైన్‌లుగా విభజిస్తాం (ఉదా: Laravel లో Billing Module, Inventory Module, Support Module). అలాగే AI లో: కస్టమర్ సర్వీస్ కోసం "Conversational Agent", ఫైనాన్స్ కోసం "Document OCR (Optical Character Recognition) Extraction", లీగల్ కోసం "Contract Clause Verification" అని కెపాబిలిటీలను మ్యాప్ చేసి, కామన్ AI ప్లాట్‌ఫామ్‌ను షేర్ చేసుకుంటాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Business Capability to AI Tech Mapping:
 # Capability: కస్టమర్ సర్వీస్
@@ -462,14 +904,14 @@ def inspect_and_mask_pii(text: str) -&gt; str:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రతి మైక్రోసర్వీస్ సొంతంగా డాక్యుమెంట్ పార్సింగ్ లేదా ట్రాన్స్‌లేషన్ కోడ్ రాయకుండా, ఉమ్మడి సర్వీసులను పిలుచుకుంటే అభివృద్ధి వేగవంతమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో Shared Package లేదా Microservice (ఉదా: Common Notification Service) ఎలా ఉంటుందో, AI లో డాక్యుమెంట్స్ నుండి టెక్స్ట్ తీసే "OCR Service", భాషను అనువదించే "Translation Service", లేదా ఆడియోను టెక్స్ట్‌గా మార్చే "Speech-to-Text Service" ని షేర్డ్ సర్వీసులుగా పెడతాం.</p>
+<p>Laravel లో Shared Package లేదా Microservice (ఉదా: Common Notification Service) ఎలా ఉంటుందో, AI లో డాక్యుమెంట్స్ నుండి టెక్స్ట్ తీసే "OCR (Optical Character Recognition) Service", భాషను అనువదించే "Translation Service", లేదా ఆడియోను టెక్స్ట్‌గా మార్చే "Speech-to-Text Service" ని షేర్డ్ సర్వీసులుగా పెడతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Microservice calling Shared AI Service via gRPC / REST:
 response = requests.post(
     "http://shared-ai.corp.internal/v1/extract-tables",
     files={"file": open("balance_sheet.pdf", "rb")}
 )</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే విధమైన OCR లేదా ఎంబెడ్డింగ్ పైప్‌లైన్‌లను కంపెనీలోని వివిధ ప్రాజెక్టుల్లో పదే పదే రాయడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే విధమైన OCR (Optical Character Recognition) లేదా ఎంబెడ్డింగ్ పైప్‌లైన్‌లను కంపెనీలోని వివిధ ప్రాజెక్టుల్లో పదే పదే రాయడం.</div>
 </div></details>
 
 <details class="t"><summary>25. Model access service.<small>మోడల్ యాక్సెస్ సర్వీస్ (మోడల్ వినియోగ నియంత్రణ)</small></summary><div class="body">
@@ -541,7 +983,12 @@ def process_uploaded_document(file_path: str, department: str):
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ అడిగే ప్రశ్నల ఆధారంగా అత్యంత కచ్చితమైన మరియు విశ్వసనీయమైన పేరాగ్రాఫ్‌లను ఎంటర్‌ప్రైజ్ రిపోజిటరీల నుండి వెతికి తీయడానికి సెంట్రల్ రిట్రీవల్ సర్వీస్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో Elasticsearch క్వెరీలు రన్ చేసే Search Service లాంటిదే ఇది. అయితే ఇందులో మూడు దశలు ఉంటాయి: 1. క్వెరీ రీరైటింగ్ (Query Expansion), 2. హైబ్రిడ్ సెర్చ్ (Dense vector + Sparse BM25), 3. క్రాస్-ఎన్‌కోడర్ రీర్యాంకింగ్ (Cohere Rerank) చేసి టాప్ 3 అత్యుత్తమ ఫలితాలను రిటర్న్ చేస్తుంది.</p>
+<p>Laravel లో Elasticsearch క్వెరీలు రన్ చేసే Search Service లాంటిదే ఇది. అయితే ఇందులో మూడు దశలు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>క్వెరీ రీరైటింగ్ (Query Expansion)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>హైబ్రిడ్ సెర్చ్ (Dense vector + Sparse BM25)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>క్రాస్-ఎన్‌కోడర్ రీర్యాంకింగ్ (Cohere Rerank) చేసి టాప్ 3 అత్యుత్తమ ఫలితాలను రిటర్న్ చేస్తుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Retrieval Service Architecture:
 # Query: "గ్రాట్యుటీ అర్హత నియమాలు ఏమిటి?"
@@ -1081,7 +1528,13 @@ graph TD
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్లు సిస్టమ్ తో ఎలా ఇంటరాక్ట్ అవుతారు, సిస్టమ్ ఏయే ఆపరేషన్లు చేయాలో ముందే ఖరారు చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో క్లయింట్ తో కూర్చుని యూజర్ స్టోరీస్ రాసుకున్నట్లే: 1. కస్టమర్ క్లెయిమ్ ఫారమ్ మరియు బిల్లుల PDF అప్‌లోడ్ చేయగలగాలి. 2. సిస్టమ్ హాస్పిటల్ పేరు, తేదీలు, ఖర్చుల టేబుల్‌ను ఎక్స్‌ట్రాక్ట్ చేయాలి. 3. పాలసీ నిబంధనల ప్రకారం క్లెయిమ్ మొత్తం సరైనదో కాదో చెక్ చేయాలి. 4. తుది ఆమోదం కోసం ఆఫీసర్‌కు సమ్మరీ నోట్ అందించాలి.</p>
+<p>Laravel లో క్లయింట్ తో కూర్చుని యూజర్ స్టోరీస్ రాసుకున్నట్లే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>కస్టమర్ క్లెయిమ్ ఫారమ్ మరియు బిల్లుల PDF అప్‌లోడ్ చేయగలగాలి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>సిస్టమ్ హాస్పిటల్ పేరు, తేదీలు, ఖర్చుల టేబుల్‌ను ఎక్స్‌ట్రాక్ట్ చేయాలి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>పాలసీ నిబంధనల ప్రకారం క్లెయిమ్ మొత్తం సరైనదో కాదో చెక్ చేయాలి</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>తుది ఆమోదం కోసం ఆఫీసర్‌కు సమ్మరీ నోట్ అందించాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># User Story format:
 # As a: క్లెయిమ్ ఆడిటర్
@@ -1094,7 +1547,13 @@ graph TD
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ పనితీరు, భద్రత, స్కేలబిలిటీ మరియు చట్టబద్ధమైన నిబంధనలను ముందే నిర్ణయించుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PHP/MySQL లో కాంకరెంట్ యూజర్లు మరియు బ్యాకప్ ప్లాన్ ఎలాగో, ఇక్కడ: 1. లేటెన్సీ: 10 పేజీల డాక్యుమెంట్ ప్రాసెసింగ్ 15 సెకన్లలోపు పూర్తికావాలి. 2. కాంప్లయన్స్: రోగుల హెల్త్ డేటా (PHI) HIPAA మరియు DPDP నిబంధనలకు అనుగుణంగా ఎన్‌క్రిప్ట్ కావాలి. 3. లభ్యత: 99.9% అప్‌టైమ్. 4. కచ్చితత్వం: ఫైనాన్షియల్ నంబర్లలో 99% ఎక్స్‌ట్రాక్షన్ అక్యురసీ ఉండాలి.</p>
+<p>PHP/MySQL లో కాంకరెంట్ యూజర్లు మరియు బ్యాకప్ ప్లాన్ ఎలాగో, ఇక్కడ:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>లేటెన్సీ: 10 పేజీల డాక్యుమెంట్ ప్రాసెసింగ్ 15 సెకన్లలోపు పూర్తికావాలి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>కాంప్లయన్స్: రోగుల హెల్త్ డేటా (PHI) HIPAA మరియు DPDP నిబంధనలకు అనుగుణంగా ఎన్‌క్రిప్ట్ కావాలి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>లభ్యత: 99.9% అప్‌టైమ్</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>కచ్చితత్వం: ఫైనాన్షియల్ నంబర్లలో 99% ఎక్స్‌ట్రాక్షన్ అక్యురసీ ఉండాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># NFR Matrix for Insurance Claim AI:
 # - Latency: P95 &lt; 20 seconds for multi-page OCR + LLM analysis
@@ -1255,7 +1714,16 @@ all_documents = merge_and_tag_sources(sources)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రా డాక్యుమెంట్లు గజిబిజిగా ఉంటాయి; వాటిని శుభ్రపరిచి, చంక్స్ గా విభజించి, వెక్టరైజ్ చేయడానికి ఒక అసెంబ్లీ లైన్ పైప్‌లైన్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో Job Pipeline ప్యాటర్న్ లాంటిది (`app(Pipeline::class)->send($doc)->through([...])`). ఒక డాక్యుమెంట్ రాగానే: 1. Parse -&gt; 2. Clean HTML/Special Chars -&gt; 3. Detect Language -&gt; 4. Semantic Chunker -&gt; 5. Enrich with Metadata -&gt; 6. Generate Embeddings -&gt; 7. Save to Vector Store.</p>
+<p>Laravel లో Job Pipeline ప్యాటర్న్ లాంటిది (`app(Pipeline::class)->send($doc)->through([...])`). ఒక డాక్యుమెంట్ రాగానే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Parse -&gt</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Clean HTML/Special Chars -&gt</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Detect Language -&gt</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Semantic Chunker -&gt</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>Enrich with Metadata -&gt</span></div>
+  <div class="step-row"><span class="step-badge">6</span><span>Generate Embeddings -&gt</span></div>
+  <div class="step-row"><span class="step-badge">7</span><span>Save to Vector Store</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Document Processing Pipeline
 def process_document_pipeline(file_path: str):
@@ -1283,7 +1751,7 @@ def normalize_text(text: str) -&gt; str:
     text = re.sub(r'\n{3,}', '\n\n', text)
     text = re.sub(r'[ \t]+', ' ', text)
     return text.strip()</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> స్క్రాప్ చేసిన లేదా OCR చేసిన టెక్స్ట్‌ను నార్మలైజ్ చేయకుండా యథాతథంగా ఎంబెడ్ చేయడం వల్ల సెర్చ్ ఫెయిల్ అవ్వడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> స్క్రాప్ చేసిన లేదా OCR (Optical Character Recognition) చేసిన టెక్స్ట్‌ను నార్మలైజ్ చేయకుండా యథాతథంగా ఎంబెడ్ చేయడం వల్ల సెర్చ్ ఫెయిల్ అవ్వడం.</div>
 </div></details>
 
 <details class="t"><summary>6. Metadata architecture.<small>మెటాడేటా ఆర్కిటెక్చర్</small></summary><div class="body">
@@ -1328,7 +1796,12 @@ client.create_collection(
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ అడిగే ప్రశ్నల ఆధారంగా అత్యంత సంబంధిత డాక్యుమెంట్ భాగాలను వేగంగా, కచ్చితంగా బయటకు తీసే ప్రక్రియను నిర్వహించడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇది సెర్చ్ ఆర్కెస్ట్రేటర్. ఒక ప్రశ్న వచ్చినప్పుడు కేవలం సింగిల్ సెర్చ్ చేయకుండా: 1. యూజర్ క్వెరీ నుండి కీవర్డ్స్ మరియు అర్థాన్ని గ్రహించడం, 2. వెక్టర్ సెర్చ్ మరియు టెక్స్ట్ సెర్చ్ రెండింటినీ సమాంతరంగా (Parallel) రన్ చేయడం, 3. ఫలితాలను కలపడం.</p>
+<p>ఇది సెర్చ్ ఆర్కెస్ట్రేటర్. ఒక ప్రశ్న వచ్చినప్పుడు కేవలం సింగిల్ సెర్చ్ చేయకుండా:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>యూజర్ క్వెరీ నుండి కీవర్డ్స్ మరియు అర్థాన్ని గ్రహించడం</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>వెక్టర్ సెర్చ్ మరియు టెక్స్ట్ సెర్చ్ రెండింటినీ సమాంతరంగా (Parallel) రన్ చేయడం</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>ఫలితాలను కలపడం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Async Parallel Retrieval Architecture
 async def retrieve_pipeline(query: str, user_id: str):
@@ -1482,11 +1955,11 @@ body = msg.get_body(preferencelist=('plain', 'html')).get_content()</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే మెయిల్ చైన్‌లో 10 రిప్లైలు ఉన్నప్పుడు ప్రతి రిప్లైలో పాత ఈమెయిల్ థ్రెడ్ మొత్తాన్ని మళ్లీ మళ్లీ ఇండెక్స్ చేసి అనవసర కాపీలు సృష్టించడం.</div>
 </div></details>
 
-<details class="t"><summary>17. OCR.<small>ఆప్టికల్ క్యారెక్టర్ రికగ్నిషన్ (OCR - స్కాన్ చేసిన పత్రాల గుర్తింపు)</small></summary><div class="body">
+<details class="t"><summary>17. OCR (Optical Character Recognition).<small>ఆప్టికల్ క్యారెక్టర్ రికగ్నిషన్ (OCR (Optical Character Recognition) - స్కాన్ చేసిన పత్రాల గుర్తింపు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>పాత కాగితాలు, సంతకం చేసిన అగ్రిమెంట్లు, రసీదులు కేవలం ఇమేజ్ రూపంలో ఉన్న స్కాన్డ్ PDFలుగా ఉంటాయి; వాటి నుండి టెక్స్ట్ చదవడానికి OCR తప్పనిసరి.</p>
+<p>పాత కాగితాలు, సంతకం చేసిన అగ్రిమెంట్లు, రసీదులు కేవలం ఇమేజ్ రూపంలో ఉన్న స్కాన్డ్ PDFలుగా ఉంటాయి; వాటి నుండి టెక్స్ట్ చదవడానికి OCR (Optical Character Recognition) తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Tesseract OCR, AWS Textract లేదా Azure Document Intelligence ఉపయోగించి ఇమేజ్‌లలోని అక్షరాలను గుర్తించి డిజిటల్ టెక్స్ట్‌గా మారుస్తాం. ముఖ్యంగా తెలుగు లేదా భారతీయ భాషల పత్రాలకు బహుభాషా మద్దతు ఉన్న OCR ఇంజిన్లను ఎంచుకుంటాం.</p>
+<p>Tesseract OCR (Optical Character Recognition), AWS Textract లేదా Azure Document Intelligence ఉపయోగించి ఇమేజ్‌లలోని అక్షరాలను గుర్తించి డిజిటల్ టెక్స్ట్‌గా మారుస్తాం. ముఖ్యంగా తెలుగు లేదా భారతీయ భాషల పత్రాలకు బహుభాషా మద్దతు ఉన్న OCR (Optical Character Recognition) ఇంజిన్లను ఎంచుకుంటాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Azure Document Intelligence OCR call:
 from azure.ai.documentintelligence import DocumentIntelligenceClient
@@ -1496,7 +1969,7 @@ with open("scanned_receipt.pdf", "rb") as f:
     poller = client.begin_analyze_document("prebuilt-read", body=f)
     result = poller.result()
     extracted_text = result.content</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> పేలవమైన రిజల్యూషన్ ఉన్న ఇమేజ్‌లను ప్రీ-ప్రాసెసింగ్ (Denoising/Contrast) చేయకుండా నేరుగా OCR కి పంపి తప్పు అక్షరాలు రావడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> పేలవమైన రిజల్యూషన్ ఉన్న ఇమేజ్‌లను ప్రీ-ప్రాసెసింగ్ (Denoising/Contrast) చేయకుండా నేరుగా OCR (Optical Character Recognition) కి పంపి తప్పు అక్షరాలు రావడం.</div>
 </div></details>
 
 <details class="t"><summary>18. Table extraction.<small>టేబుల్ ఎక్స్‌ట్రాక్షన్ (పట్టికల సంగ్రహణ)</small></summary><div class="body">
@@ -1869,7 +2342,11 @@ for doc in all_ranked_docs:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రశ్నకు సరిపోలడం (Relevance) మరియు మునుపటి ఫలితాలతో సమానంగా ఉండకపోవడం (Diversity) మధ్య సమతుల్యత సాధించడానికి MMR ప్రపంచ ప్రసిద్ధ అల్గోరిథం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MMR ఫార్ములా రెండు విషయాలు చూస్తుంది: 1. ప్రశ్నకు ఈ డాక్యుమెంట్ ఎంత దగ్గరగా ఉంది? 2. ఇప్పటికే ఎంపిక చేసిన డాక్యుమెంట్లతో ఇది ఎంత భిన్నంగా ఉంది? `lambda` పారామీటర్ ద్వారా (ఉదా: 0.7) కచ్చితత్వానికి 70%, వైవిధ్యానికి 30% ప్రాధాన్యత ఇస్తాం.</p>
+<p>MMR ఫార్ములా రెండు విషయాలు చూస్తుంది:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ప్రశ్నకు ఈ డాక్యుమెంట్ ఎంత దగ్గరగా ఉంది?</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ఇప్పటికే ఎంపిక చేసిన డాక్యుమెంట్లతో ఇది ఎంత భిన్నంగా ఉంది? `lambda` పారామీటర్ ద్వారా (ఉదా: 0.7) కచ్చితత్వానికి 70%, వైవిధ్యానికి 30% ప్రాధాన్యత ఇస్తాం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># LangChain VectorStore MMR search:
 diverse_docs = vector_db.max_marginal_relevance_search(
@@ -2403,7 +2880,12 @@ qa_dataset.save_json("qa_test_suite.json")</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కేవలం వెక్టర్ సెర్చ్ సరిపోతుందా, లేదా హైబ్రిడ్ సెర్చ్ + రీర్యాంకింగ్ అవసరమా అని ఖర్చు, వేగం మరియు కచ్చితత్వాన్ని పోల్చి చూడాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మూడు వ్యూహాలను టెస్ట్ డేటాసెట్ పై సమాంతరంగా రన్ చేస్తాం: 1. Dense Only, 2. Hybrid (Dense+BM25), 3. Hybrid + Rerank. ప్రతి వ్యూహానికి Recall@5 మరియు సగటు లేటెన్సీని కొలిచి కంపారిజన్ టేబుల్ తయారుచేస్తాం.</p>
+<p>మూడు వ్యూహాలను టెస్ట్ డేటాసెట్ పై సమాంతరంగా రన్ చేస్తాం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Dense Only</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Hybrid (Dense+BM25)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Hybrid + Rerank. ప్రతి వ్యూహానికి Recall@5 మరియు సగటు లేటెన్సీని కొలిచి కంపారిజన్ టేబుల్ తయారుచేస్తాం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Strategy Comparison Benchmark:
 # Strategy 1 (Dense Only): Recall@5 = 72%, Latency = 45ms, Cost = Low
@@ -2452,7 +2934,13 @@ response = client.chat.completions.create(
 <h4>ఎందుకు అవసరం?</h4>
 <p>రేట్ లిమిట్స్, నెట్‌వర్క్ అంతరాయాలు, విపరీతమైన బిల్లులు మరియు సెక్యూరిటీ లీకేజీల నుండి సంస్థను రక్షించడానికి గేట్‌వే ఒక రక్షణ కవచంలా పనిచేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో API Gateway (Kong/Tyk) వాడకం లాంటిదే. గేట్‌వే ఉంటే: 1. ఒకే చోట అన్ని కాల్స్ మానిటరింగ్ జరుగుతుంది, 2. OpenAI డౌన్ అయితే వెంటనే Claude కి ఫాల్‌బ్యాక్ అవుతుంది, 3. టీమ్‌లకు టోకెన్ బడ్జెట్ పరిమితులు విధించవచ్చు, 4. ఖరీదైన క్వెరీలను క్యాష్ చేసి బిల్లు ఆదా చేయవచ్చు.</p>
+<p>Laravel లో API Gateway (Kong/Tyk) వాడకం లాంటిదే. గేట్‌వే ఉంటే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ఒకే చోట అన్ని కాల్స్ మానిటరింగ్ జరుగుతుంది</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>OpenAI డౌన్ అయితే వెంటనే Claude కి ఫాల్‌బ్యాక్ అవుతుంది</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>టీమ్‌లకు టోకెన్ బడ్జెట్ పరిమితులు విధించవచ్చు</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>ఖరీదైన క్వెరీలను క్యాష్ చేసి బిల్లు ఆదా చేయవచ్చు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Gateway Benefits Architecture:
 # App Code -&gt; [ LLM Gateway ]
@@ -2859,7 +3347,11 @@ router = Router(
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ డెవలపర్ ఏ మోడల్స్ వాడాలి, ఏ డేటా ఏ మోడల్ కి వెళ్ళవచ్చు అనే కంపెనీ పాలసీలను కోడ్ రూల్స్ రూపంలో అమలు చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>కార్పొరేట్ పాలసీ ఇంజిన్ (OPA - Open Policy Agent) లాంటిది. ఉదాహరణకు: 1. "ఫైనాన్స్ టీమ్ డాక్యుమెంట్లు EU సరిహద్దులు దాటకూడదు", 2. "ఇంటర్న్స్ కేవలం ఓపెన్ సోర్స్ లోకల్ మోడల్స్ మాత్రమే వాడాలి". గేట్‌వే ప్రతి రిక్వెస్ట్ వద్ద ఈ పాలసీలను చెక్ చేస్తుంది.</p>
+<p>కార్పొరేట్ పాలసీ ఇంజిన్ (OPA - Open Policy Agent) లాంటిది. ఉదాహరణకు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>"ఫైనాన్స్ టీమ్ డాక్యుమెంట్లు EU సరిహద్దులు దాటకూడదు"</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>"ఇంటర్న్స్ కేవలం ఓపెన్ సోర్స్ లోకల్ మోడల్స్ మాత్రమే వాడాలి". గేట్‌వే ప్రతి రిక్వెస్ట్ వద్ద ఈ పాలసీలను చెక్ చేస్తుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>def enforce_model_policy(user: User, requested_model: str, is_pii_present: bool):
     if is_pii_present and not requested_model.startswith("local-vllm"):
@@ -3466,7 +3958,13 @@ async def chat_endpoint(req: dict, background_tasks: BackgroundTasks):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ ప్రొవైడర్ ఎక్కువ ఎర్రర్స్ ఇస్తోంది, ఏ ప్రొవైడర్ వేగంగా సమాధానాలు ఇస్తుందో గ్రాఫానా డాష్‌బోర్డ్‌లో ప్రత్యక్షంగా చూడాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Prometheus మెట్రిక్స్ ఎక్స్‌పోజ్ చేసి Grafana లో డాష్‌బోర్డ్ తయారుచేస్తాం: 1. P95 Latency by Provider (Azure vs Bedrock), 2. Error Rate Percentage (5xx errors), 3. Hourly Cost by Model, 4. Cache Hit Ratio.</p>
+<p>Prometheus మెట్రిక్స్ ఎక్స్‌పోజ్ చేసి Grafana లో డాష్‌బోర్డ్ తయారుచేస్తాం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>P95 Latency by Provider (Azure vs Bedrock)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Error Rate Percentage (5xx errors)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Hourly Cost by Model</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Cache Hit Ratio</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Prometheus Gauge &amp; Histogram:
 LATENCY_HISTOGRAM = Histogram('llm_call_latency_seconds', 'Call latency by provider', ['provider'])
@@ -3605,7 +4103,12 @@ spec:
 <h4>ఎందుకు అవసరం?</h4>
 <p>డిస్ట్రిబ్యూటెడ్ సిస్టమ్స్ డిజైన్ చేసేటప్పుడు మనం ఎంచుకోగలిగే టెక్నాలజీల ప్రాథమిక పరిమితులను CAP సిద్ధాంతం నిర్దేశిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సిద్ధాంతం ప్రకారం ఒక డిస్ట్రిబ్యూటెడ్ సిస్టమ్ లో: 1. Consistency (C), 2. Availability (A), 3. Partition Tolerance (P) లలో ఏకకాలంలో మూడింటినీ సాధించలేము. నెట్‌వర్క్ విభజన (P) ఎప్పుడైనా జరగవచ్చు కాబట్టి, మనం CP (Consistent &amp; Partition Tolerant - ఉదా: MySQL, Postgres) లేదా AP (Available &amp; Partition Tolerant - ఉదా: Cassandra, DynamoDB) లలో ఒకదాన్ని ఎంచుకోవాలి.</p>
+<p>సిద్ధాంతం ప్రకారం ఒక డిస్ట్రిబ్యూటెడ్ సిస్టమ్ లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Consistency (C)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Availability (A)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Partition Tolerance (P) లలో ఏకకాలంలో మూడింటినీ సాధించలేము. నెట్‌వర్క్ విభజన (P) ఎప్పుడైనా జరగవచ్చు కాబట్టి, మనం CP (Consistent &amp; Partition Tolerant - ఉదా: MySQL, Postgres) లేదా AP (Available &amp; Partition Tolerant - ఉదా: Cassandra, DynamoDB) లలో ఒకదాన్ని ఎంచుకోవాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># CAP Trade-off in AI Systems:
 # - Knowledge Index (Vector DB): AP ప్రాధాన్యత (కొత్త డాక్యుమెంట్ 5 సెకన్లు ఆలస్యంగా సింక్ అయినా పర్లేదు, కానీ సెర్చ్ ఎప్పుడూ లభించాలి)
@@ -3835,7 +4338,7 @@ return {"status": "accepted", "job_id": job.id}</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సర్వీసుల మధ్య పరోక్ష అనుసంధానం (Decoupling) సాధించడానికి; ఒక పని జరిగినప్పుడు సంబంధిత సర్వీసులన్నీ స్వతంత్రంగా స్పందించడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `event(new UserRegistered($user))` ఫైర్ అయినప్పుడు SendWelcomeEmail, CreateStripeCustomer, NotifySlack లిజనర్లు ఎలా స్పందిస్తాయో, సిస్టమ్‌లో `DocumentUploaded` ఈవెంట్ రాగానే OCR Service, Embedding Service, Notification Service స్వతంత్రంగా తమ పనులను ప్రారంభిస్తాయి.</p>
+<p>Laravel లో `event(new UserRegistered($user))` ఫైర్ అయినప్పుడు SendWelcomeEmail, CreateStripeCustomer, NotifySlack లిజనర్లు ఎలా స్పందిస్తాయో, సిస్టమ్‌లో `DocumentUploaded` ఈవెంట్ రాగానే OCR (Optical Character Recognition) Service, Embedding Service, Notification Service స్వతంత్రంగా తమ పనులను ప్రారంభిస్తాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Event-Driven Flow:
 # [Document Ingestion Service]
@@ -3923,7 +4426,12 @@ sqs.send_message(
 <h4>ఎందుకు అవసరం?</h4>
 <p>నెట్‌వర్క్ అంతరాయాలు ఉన్నప్పుడు మెసేజ్ ఎన్నిసార్లు చేరాలి అనే నిబంధన లేకపోతే డేటా కోల్పోవడం లేదా డూప్లికేషన్ జరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మూడు హామీలు ఉంటాయి: 1. At-most-once (గరిష్టంగా ఒకసారి - మెసేజ్ మిస్ అయినా పర్లేదు, కానీ డూప్లికేట్ రాదు), 2. At-least-once (కనీసం ఒకసారి - చాలా సిస్టమ్స్ డిఫాల్ట్ ఇది; మెసేజ్ మిస్ అవ్వదు కానీ డూప్లికేట్స్ రావచ్చు), 3. Exactly-once (ఖచ్చితంగా ఒక్కసారే - సంక్లిష్టమైనది, కాఫ్కా ట్రాన్సాక్షన్స్ లేదా ఇడెంపోటెన్సీ ద్వారా సాధిస్తాం).</p>
+<p>మూడు హామీలు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>At-most-once (గరిష్టంగా ఒకసారి - మెసేజ్ మిస్ అయినా పర్లేదు, కానీ డూప్లికేట్ రాదు)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>At-least-once (కనీసం ఒకసారి - చాలా సిస్టమ్స్ డిఫాల్ట్ ఇది; మెసేజ్ మిస్ అవ్వదు కానీ డూప్లికేట్స్ రావచ్చు)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Exactly-once (ఖచ్చితంగా ఒక్కసారే - సంక్లిష్టమైనది, కాఫ్కా ట్రాన్సాక్షన్స్ లేదా ఇడెంపోటెన్సీ ద్వారా సాధిస్తాం)</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># At-least-once + Consumer Idempotency = Practically Exactly-once
 def process_message(msg):
@@ -4170,7 +4678,7 @@ if circuit_breaker.state == "OPEN":
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఓడలో ఒక గదిలోకి నీరు చేరితే మొత్తం ఓడ మునిగిపోకుండా అడ్డుకట్టలు (Bulkheads) ఉన్నట్లే, ఒక ఫీచర్ లోడ్ వల్ల మొత్తం సర్వర్ వనరులు ఖాళీ కాకూడదు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>థ్రెడ్ పూల్స్ లేదా కనెక్షన్ పూల్స్ ని వేరు చేయడం. ఉదాహరణకు: "ఫాస్ట్ చాట్ సర్వీస్" కోసం 50 థ్రెడ్లు, "భారీ PDF OCR సర్వీస్" కోసం 10 థ్రెడ్లు కేటాయిస్తాం. 100 మంది ఒకేసారి PDFలు అప్‌లోడ్ చేసినా కేవలం 10 థ్రెడ్లే బిజీ అవుతాయి; చాట్ సర్వీస్ తన 50 థ్రెడ్లతో ఎప్పటిలాగే సూపర్ ఫాస్ట్ గా నడుస్తుంది.</p>
+<p>థ్రెడ్ పూల్స్ లేదా కనెక్షన్ పూల్స్ ని వేరు చేయడం. ఉదాహరణకు: "ఫాస్ట్ చాట్ సర్వీస్" కోసం 50 థ్రెడ్లు, "భారీ PDF OCR (Optical Character Recognition) సర్వీస్" కోసం 10 థ్రెడ్లు కేటాయిస్తాం. 100 మంది ఒకేసారి PDFలు అప్‌లోడ్ చేసినా కేవలం 10 థ్రెడ్లే బిజీ అవుతాయి; చాట్ సర్వీస్ తన 50 థ్రెడ్లతో ఎప్పటిలాగే సూపర్ ఫాస్ట్ గా నడుస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Separate ThreadPoolExecutors for isolation:
 chat_pool = concurrent.futures.ThreadPoolExecutor(max_workers=50)
@@ -4423,7 +4931,13 @@ spec:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎంటర్‌ప్రైజ్ అవసరాలను తీర్చేందుకు సమగ్రమైన, స్కేలబుల్ మైక్రోసర్వీసెస్ బ్లూప్రింట్ ను రూపొందించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఆర్కిటెక్చర్ లో 4 ప్రధాన సర్వీసులు ఉంటాయి: 1. Ingestion Service (PDFs to Chunks), 2. Vector Search Service (Retrieval), 3. LLM Gateway Service (Routing &amp; Resilience), 4. Orchestration Service (Agent workflows). ఇవన్నీ gRPC మరియు Kafka ద్వారా అనుసంధానమవుతాయి.</p>
+<p>ఆర్కిటెక్చర్ లో 4 ప్రధాన సర్వీసులు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Ingestion Service (PDFs to Chunks)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Vector Search Service (Retrieval)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>LLM Gateway Service (Routing &amp; Resilience)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Orchestration Service (Agent workflows). ఇవన్నీ gRPC మరియు Kafka ద్వారా అనుసంధానమవుతాయి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Microservices Blueprint:
 # [Ingestion] --Kafka--&gt; [Embedding Worker] --&gt; [Qdrant]
@@ -4655,7 +5169,11 @@ upstream ai_backends {
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ ఒక సెకనులో ఎన్ని వందల లేదా వేల రిక్వెస్ట్‌లను సజావుగా ప్రాసెస్ చేయగలదో లెక్కించడానికి త్రూపుట్ అత్యంత కీలకమైన కొలమానం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `ab -n 1000 -c 50` రన్ చేసినప్పుడు వచ్చే "Requests per second (RPS)". AI లో రెండు రకాల త్రూపుట్స్ ఉంటాయి: 1. API Requests Per Second (RPS), 2. LLM Tokens Per Second (TPS (Tokens Per Second)). సిస్టమ్ త్రూపుట్ పెరిగితే ఎక్కువమంది వినియోగదారులకు ఒకేసారి సేవలందించవచ్చు.</p>
+<p>Laravel లో `ab -n 1000 -c 50` రన్ చేసినప్పుడు వచ్చే "Requests per second (RPS)". AI లో రెండు రకాల త్రూపుట్స్ ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>API Requests Per Second (RPS)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>LLM Tokens Per Second (TPS (Tokens Per Second)). సిస్టమ్ త్రూపుట్ పెరిగితే ఎక్కువమంది వినియోగదారులకు ఒకేసారి సేవలందించవచ్చు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Throughput Calculation:
 # Total completed requests in 1 minute = 6,000
@@ -4831,7 +5349,14 @@ tpm_required = req_per_sec * tokens_per_req * 60 # 1,500,000 TPM
 <h4>ఎందుకు అవసరం?</h4>
 <p>RAG సిస్టమ్స్ లో ఖర్చులో 70% ఇన్‌పుట్ టోకెన్ల వల్లే వస్తుంది; ఒక్కో కాల్ లో ఎన్ని టోకెన్లు వెళ్తున్నాయో ఖచ్చితంగా లెక్కించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇన్‌పుట్ టోకెన్ల విభజన: 1. సిస్టమ్ ప్రాంప్ట్ (గైడ్‌లైన్స్) = 300 టోకెన్లు. 2. గత 3 చాట్ మెసేజ్‌లు = 400 టోకెన్లు. 3. వెక్టర్ స్టోర్ నుండి తెచ్చిన 4 డాక్యుమెంట్ చంక్స్ (4 * 350) = 1,400 టోకెన్లు. 4. యూజర్ కరెంట్ ప్రశ్న = 50 టోకెన్లు. మొత్తం ఇన్‌పుట్ = 2,150 టోకెన్లు.</p>
+<p>ఇన్‌పుట్ టోకెన్ల విభజన:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>సిస్టమ్ ప్రాంప్ట్ (గైడ్‌లైన్స్) = 300 టోకెన్లు</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>గత 3 చాట్ మెసేజ్‌లు = 400 టోకెన్లు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>వెక్టర్ స్టోర్ నుండి తెచ్చిన 4 డాక్యుమెంట్ చంక్స్ (4 *</span></div>
+  <div class="step-row"><span class="step-badge">350</span><span>= 1,400 టోకెన్లు</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>యూజర్ కరెంట్ ప్రశ్న = 50 టోకెన్లు. మొత్తం ఇన్‌పుట్ = 2,150 టోకెన్లు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Input Token Composition:
 system_prompt_tokens = 300
@@ -4961,7 +5486,7 @@ if token_count &gt; 120000:
 <h4>ఎందుకు అవసరం?</h4>
 <p>సొంతంగా ఓపెన్ సోర్స్ మోడల్స్ ని హోస్ట్ చేయడానికి ఎన్ని GPUలు, ఎంత VRAM (Video RAM / GPU Memory) అవసరమో గణితాత్మకంగా లెక్కించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సూత్రం: `VRAM (Video RAM / GPU Memory) = (Parameters * Bytes_per_param) + KV_Cache + Activations`. 8-బిలియన్ (8B) మోడల్ 16-బిట్ (FP16) లో రన్ అవ్వాలంటే: `8B * 2 bytes = 16 GB` (కేవలం మోడల్ వెయిట్స్ కి). ఇంకా 50 మంది యూజర్ల కాంటెక్స్ట్ ని దాచడానికి KV (Key-Value) cache కి మరో 8 GB కావాలి. అంటే మొత్తం కనీసం 24 GB VRAM (Video RAM / GPU Memory) (ఉదా: 1x RTX 4090 లేదా A10G) అవసరం.</p>
+<p>సూత్రం: `VRAM (Video RAM / GPU Memory) = (Parameters * Bytes_per_param) + KV_Cache + Activations`. 8-బిలియన్ (8B) మోడల్ 16-బిట్ (FP16 (16-bit Floating Point)) లో రన్ అవ్వాలంటే: `8B * 2 bytes = 16 GB` (కేవలం మోడల్ వెయిట్స్ కి). ఇంకా 50 మంది యూజర్ల కాంటెక్స్ట్ ని దాచడానికి KV (Key-Value) cache కి మరో 8 GB కావాలి. అంటే మొత్తం కనీసం 24 GB VRAM (Video RAM / GPU Memory) (ఉదా: 1x RTX 4090 లేదా A10G) అవసరం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># 70B Model VRAM Sizing (FP16):
 # Weights: 70 * 2 = 140 GB
@@ -5047,7 +5572,7 @@ print(f"Total Vector Points: {total_chunks:,}") # ~166,666</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షల వెక్టర్లను భద్రపరచడానికి Qdrant లేదా pgvector డేటాబేస్ కు ఎంత హార్డ్‌డిస్క్ స్పేస్ కేటాయించాలో లెక్కించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సూత్రం: `Raw Vector Size = Points * Dimensions * 4 bytes (FP32)`. 1.6 లక్షల వెక్టర్లు * 1536 * 4 bytes = ~1 GB. దాంతో పాటు అసలైన టెక్స్ట్ పేలోడ్ మెటాడేటా (1.6 లక్షలు * 1 KB = 160 MB). మరియు సేఫ్టీ ఓవర్‌హెడ్ (2x). మొత్తం కావలసిన డిస్క్ స్పేస్: సుమారు 2.5 నుండి 3 GB.</p>
+<p>సూత్రం: `Raw Vector Size = Points * Dimensions * 4 bytes (FP32 (32-bit Floating Point))`. 1.6 లక్షల వెక్టర్లు * 1536 * 4 bytes = ~1 GB. దాంతో పాటు అసలైన టెక్స్ట్ పేలోడ్ మెటాడేటా (1.6 లక్షలు * 1 KB = 160 MB). మరియు సేఫ్టీ ఓవర్‌హెడ్ (2x). మొత్తం కావలసిన డిస్క్ స్పేస్: సుమారు 2.5 నుండి 3 GB.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Storage Calculation:
 num_vectors = 166_666
@@ -5502,7 +6027,13 @@ total_ram_needed_mb = raw_vector_size_mb + metadata_size_mb + hnsw_overhead_mb #
 <h4>ఎందుకు అవసరం?</h4>
 <p>ట్రాఫిక్ పెరిగినప్పుడు సిస్టమ్‌లో ఏ కాంపోనెంట్ మొదట ఫెయిల్ అయ్యే అవకాశం ఉందో ముందుగానే గుర్తించి నివారించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>విశ్లేషణ: 1. FastAPI మరియు Nginx: తేలికగా స్కేల్ అవుతాయి (బాటిల్‌నెక్ కాదు). 2. MySQL: కనెక్షన్ పూలర్ ఉంది (బాటిల్‌నెక్ కాదు). 3. Qdrant: 80,000 వెక్టర్లకు 30 RPS చాలా సులభం (బాటిల్‌నెక్ కాదు). 4. అసలైన బాటిల్‌నెక్: "Azure OpenAI TPM Rate Limits". పీక్ సమయంలో నిమిషానికి 1.5M టోకెన్లు దాటితే ప్రొవైడర్ వద్ద రిక్వెస్ట్‌లు ఆగిపోతాయి.</p>
+<p>విశ్లేషణ:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>FastAPI మరియు Nginx: తేలికగా స్కేల్ అవుతాయి (బాటిల్‌నెక్ కాదు)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>MySQL: కనెక్షన్ పూలర్ ఉంది (బాటిల్‌నెక్ కాదు)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Qdrant: 80,000 వెక్టర్లకు 30 RPS చాలా సులభం (బాటిల్‌నెక్ కాదు)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>అసలైన బాటిల్‌నెక్: "Azure OpenAI TPM Rate Limits". పీక్ సమయంలో నిమిషానికి 1.5M టోకెన్లు దాటితే ప్రొవైడర్ వద్ద రిక్వెస్ట్‌లు ఆగిపోతాయి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Bottleneck Assessment:
 # Primary Risk: OpenAI API Rate Limits (TPM / RPM)
@@ -5527,7 +6058,14 @@ total_ram_needed_mb = raw_vector_size_mb + metadata_size_mb + hnsw_overhead_mb #
 <h4>ఎందుకు అవసరం?</h4>
 <p>మేనేజ్‌మెంట్ కు టెక్నికల్ వివరాల కంటే ప్రాజెక్ట్ నడపడానికి నెలకు మొత్తం ఎంత డాలర్లు ఖర్చవుతుందో (Total Cost of Ownership) స్పష్టమైన సంఖ్యలు కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>నెలవారీ బడ్జెట్ బ్రేకప్ (10,000 యూజర్లకు): 1. Compute (AWS EKS 3x t3.xlarge nodes) = $300. 2. Managed Database (Aurora MySQL) = $120. 3. Vector DB (Self-hosted Qdrant on EKS) = $0 (ఉమ్మడి క్లస్టర్ లోనే). 4. LLM API Tokens (Azure OpenAI GPT-4o-mini) = $160. 5. Observability &amp; Miscellaneous (Langfuse Cloud + S3) = $70. మొత్తం నెలవారీ ఖర్చు = ~$650 / నెల (సుమారు ₹55,000 / నెల). ఒక్కో యూజర్‌కు నెలకు కేవలం ₹5.50 మాత్రమే!</p>
+<p>నెలవారీ బడ్జెట్ బ్రేకప్ (10,000 యూజర్లకు):</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Compute (AWS EKS 3x t3.xlarge nodes) = $300</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Managed Database (Aurora MySQL) = $120</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Vector DB (Self-hosted Qdrant on EKS) = $0 (ఉమ్మడి క్లస్టర్ లోనే)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>LLM API Tokens (Azure OpenAI GPT-4o-mini) = $160</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>Observability &amp; Miscellaneous (Langfuse Cloud + S3) = $70. మొత్తం నెలవారీ ఖర్చు = ~$650 / నెల (సుమారు ₹55,000 / నెల). ఒక్కో యూజర్‌కు నెలకు కేవలం ₹5.50 మాత్రమే!</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Monthly Total Cost of Ownership (TCO) Summary:
 # Component                        Cost / Month
@@ -9217,7 +9755,12 @@ def compare_vector_search(pg_vector_client, qdrant_client, query_vec):
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ అందించాల్సిన ప్రధాన వినియోగ ఫీచర్లు (Use Cases) మరియు యూజర్ యాక్షన్లను ఖచ్చితంగా లిస్ట్ చేయడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel ప్రాజెక్ట్ స్పెసిఫికేషన్‌లో "యూజర్ రిజిస్టర్ అవ్వగలగాలి, ఇన్వాయిస్ డౌన్‌లోడ్ చేసుకోగలగాలి" అని రాసినట్లు. AI లో: 1. యూజర్లు PDF/Word ఫైళ్లు అప్‌లోడ్ చేయగలగాలి, 2. డాక్యుమెంట్లపై ప్రశ్నలు అడగగలగాలి, 3. సమాధానాలతో పాటు పేజీ నంబర్ ఆధారాలు (Citations) రావాలి.</p>
+<p>Laravel ప్రాజెక్ట్ స్పెసిఫికేషన్‌లో "యూజర్ రిజిస్టర్ అవ్వగలగాలి, ఇన్వాయిస్ డౌన్‌లోడ్ చేసుకోగలగాలి" అని రాసినట్లు. AI లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>యూజర్లు PDF/Word ఫైళ్లు అప్‌లోడ్ చేయగలగాలి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>డాక్యుమెంట్లపై ప్రశ్నలు అడగగలగాలి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>సమాధానాలతో పాటు పేజీ నంబర్ ఆధారాలు (Citations) రావాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>FUNCTIONAL_SPEC = [
     "FR-1: మల్టీ-ఫార్మాట్ డాక్యుమెంట్ ఇన్‌జెషన్ (PDF, DOCX, CSV)",
@@ -10106,9 +10649,9 @@ def validate_ingested_file(file_bytes: bytes) -&gt; bool:
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం ఫైల్ ఎక్స్‌టెన్షన్ (.pdf) మాత్రమే చూసి లోపల ఉండే అసలైన MIME రకాన్ని ధృవీకరించకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>53. OCR.<small>ఆప్టికల్ క్యారెక్టర్ రికగ్నిషన్ (OCR) లేయర్</small></summary><div class="body">
+<details class="t"><summary>53. OCR (Optical Character Recognition).<small>ఆప్టికల్ క్యారెక్టర్ రికగ్నిషన్ (OCR (Optical Character Recognition)) లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>స్కాన్ చేసిన పత్రాలు, చేతిరాత మరియు ఫోటోలలోని టెక్స్ట్‌ను మెషీన్-రీడబుల్ డిజిటల్ టెక్స్ట్‌గా మార్చడానికి అధునాతన OCR టెక్నాలజీ (Tesseract, AWS Textract, Google Document AI) అవసరం.</p>
+<p>స్కాన్ చేసిన పత్రాలు, చేతిరాత మరియు ఫోటోలలోని టెక్స్ట్‌ను మెషీన్-రీడబుల్ డిజిటల్ టెక్స్ట్‌గా మార్చడానికి అధునాతన OCR (Optical Character Recognition) టెక్నాలజీ (Tesseract, AWS Textract, Google Document AI) అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>ఇమేజ్ నుండి అక్షరాలను వేరు చేయడం. క్లౌడ్ ఆధారిత AWS Textract లేదా ఓపెన్ సోర్స్ Tesseract ద్వారా ఇమేజ్ పాస్ చేసి పేరాగ్రాఫ్‌లు మరియు టేబుల్ సెల్స్‌ను ఖచ్చితమైన లేఅవుట్‌తో బయటకు తీయడం.</p>
 <h4>ఉదాహరణ</h4>
@@ -10121,7 +10664,7 @@ def extract_text_via_ocr(image_path: str) -&gt; str:
     extracted_text = pytesseract.image_to_string(image, lang="eng+tel")
     return extracted_text.strip()
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> తక్కువ రిజల్యూషన్ లేదా వంకరగా ఉన్న ఇమేజ్‌లపై ప్రీ-ప్రాసెసింగ్ (Deskew, Denoise) చేయకుండా OCR రన్ చేసి గార్బేజ్ అక్షరాలు పొందడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> తక్కువ రిజల్యూషన్ లేదా వంకరగా ఉన్న ఇమేజ్‌లపై ప్రీ-ప్రాసెసింగ్ (Deskew, Denoise) చేయకుండా OCR (Optical Character Recognition) రన్ చేసి గార్బేజ్ అక్షరాలు పొందడం.</div>
 </div></details>
 
 <details class="t"><summary>54. Document classification.<small>ఆటోమేటెడ్ డాక్యుమెంట్ వర్గీకరణ</small></summary><div class="body">
@@ -10462,7 +11005,12 @@ spec:
 <h4>ఎందుకు అవసరం?</h4>
 <p>వ్యాపార సమస్యను పరిష్కరించడానికి అతి తక్కువ ఖర్చుతో వేగవంతమైన పద్ధతిని ఎంచుకోవాలి. తప్పుడు పద్ధతిని ఎంచుకుంటే లక్షలాది రూపాయలు వృథా అవ్వడంతో పాటు ప్రాజెక్ట్ విఫలమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పోలిక: 1. Prompt Engineering: విద్యార్థికి పరీక్షకు ముందు ప్రశ్నను క్లియర్‌గా వివరించడం (సున్నా ఖర్చు, కొన్ని నిమిషాలు). 2. RAG: ఓపెన్ బుక్ ఎగ్జామ్ - సమాధానాల పుస్తకం చేతికి ఇవ్వడం (డైనమిక్ కంపెనీ డేటా, మీడియం ఖర్చు). 3. Fine-Tuning: విద్యార్థికి ప్రత్యేక కోర్సు నేర్పించి సర్టిఫైడ్ ఎక్స్‌పర్ట్‌గా మార్చడం (నిర్దిష్ట ఫార్మాట్/స్టైల్, ఎక్కువ సమయం మరియు ఖర్చు).</p>
+<p>పోలిక:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Prompt Engineering: విద్యార్థికి పరీక్షకు ముందు ప్రశ్నను క్లియర్‌గా వివరించడం (సున్నా ఖర్చు, కొన్ని నిమిషాలు)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>RAG: ఓపెన్ బుక్ ఎగ్జామ్ - సమాధానాల పుస్తకం చేతికి ఇవ్వడం (డైనమిక్ కంపెనీ డేటా, మీడియం ఖర్చు)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Fine-Tuning: విద్యార్థికి ప్రత్యేక కోర్సు నేర్పించి సర్టిఫైడ్ ఎక్స్‌పర్ట్‌గా మార్చడం (నిర్దిష్ట ఫార్మాట్/స్టైల్, ఎక్కువ సమయం మరియు ఖర్చు)</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>METHOD_DECISION_TREE = {
     "Need_New_Facts_Or_Live_Data": "Use RAG",
@@ -10617,7 +11165,13 @@ def split_dataset(all_records: list, train_ratio: float = 0.85):
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఫైన్-ట్యూనింగ్ అన్ని సమస్యలకూ సర్వరోగ నివారిణి కాదు. దాని పరిమితులు తెలుసుకోకపోతే సమయం, డబ్బు వృథా అవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పరిమితులు: 1. నిన్నటి వార్తలు లేదా తాజా డాక్యుమెంట్లను మోడల్ గుర్తుపెట్టుకోలేదు (RAG కావాలి). 2. సైటేషన్లు/ఆధారాలు చూపించలేదు. 3. హాలూసినేషన్లను పూర్తిగా తగ్గించలేదు. 4. మోడల్ తన అసలు రీజనింగ్ సామర్థ్యాన్ని కోల్పోయే ప్రమాదం ఉంది (Catastrophic Forgetting).</p>
+<p>పరిమితులు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>నిన్నటి వార్తలు లేదా తాజా డాక్యుమెంట్లను మోడల్ గుర్తుపెట్టుకోలేదు (RAG కావాలి)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>సైటేషన్లు/ఆధారాలు చూపించలేదు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>హాలూసినేషన్లను పూర్తిగా తగ్గించలేదు</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>మోడల్ తన అసలు రీజనింగ్ సామర్థ్యాన్ని కోల్పోయే ప్రమాదం ఉంది (Catastrophic Forgetting)</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>LIMITATIONS_MAP = {
     "dynamic_facts": "NO - ఫైన్-ట్యూనింగ్ ఫ్యాక్ట్స్ అప్‌డేట్‌కు పనికిరాదు",
@@ -10641,9 +11195,9 @@ def split_dataset(all_records: list, train_ratio: float = 0.85):
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒక చిన్న టాస్క్ కోసం పూర్తి మోడల్ వెయిట్స్‌ను రీ-ట్రైన్ చేయాలనుకుని భారీ క్లౌడ్ బిల్లులతో ప్రాజెక్ట్‌ను నిలిపివేయడం.</div>
 </div></details>
 
-<details class="t"><summary>12. Parameter-efficient fine-tuning.<small>పారామీటర్-ఎఫీషియంట్ ఫైన్-ట్యూనింగ్ (PEFT)</small></summary><div class="body">
+<details class="t"><summary>12. Parameter-efficient fine-tuning.<small>పారామీటర్-ఎఫీషియంట్ ఫైన్-ట్యూనింగ్ (PEFT (Parameter-Efficient Fine-Tuning))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మొత్తం మోడల్‌లోని 100% వెయిట్స్‌ను మార్చకుండా, కేవలం 1% కంటే తక్కువ పారామీటర్లను మాత్రమే అప్‌డేట్ చేస్తూ 99% ఫలితాలను రాబట్టే అద్భుతమైన పద్ధతి PEFT. ఇది ఖర్చును 90% తగ్గిస్తుంది.</p>
+<p>మొత్తం మోడల్‌లోని 100% వెయిట్స్‌ను మార్చకుండా, కేవలం 1% కంటే తక్కువ పారామీటర్లను మాత్రమే అప్‌డేట్ చేస్తూ 99% ఫలితాలను రాబట్టే అద్భుతమైన పద్ధతి PEFT (Parameter-Efficient Fine-Tuning). ఇది ఖర్చును 90% తగ్గిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Laravel లో అసలైన వెండర్ కోడ్‌ను మార్చకుండా ఒక చిన్న మిడిల్‌వేర్ లేదా ఈవెంట్ లిజనర్ రాసినట్లు. మోడల్ యొక్క అసలైన వెయిట్స్‌ను ఫ్రీజ్ (Freeze) చేసి, పక్కన ఒక చిన్న అడాప్టర్ లేయర్‌ను మాత్రమే ట్రైన్ చేస్తాం.</p>
 <h4>ఉదాహరణ</h4>
@@ -10659,7 +11213,7 @@ lora_config = LoraConfig(
 )
 # కేవలం 0.2% పారామీటర్లు మాత్రమే ట్రైన్ అవుతాయి!
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ఆధునిక PEFT పద్ధతులు అందుబాటులో ఉన్నప్పటికీ ఇంకా ఖరీదైన ఫుల్ ఫైన్-ట్యూనింగ్ వెనుక పరిగెత్తడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ఆధునిక PEFT (Parameter-Efficient Fine-Tuning) పద్ధతులు అందుబాటులో ఉన్నప్పటికీ ఇంకా ఖరీదైన ఫుల్ ఫైన్-ట్యూనింగ్ వెనుక పరిగెత్తడం.</div>
 </div></details>
 
 <details class="t"><summary>13. LoRA (Low-Rank Adaptation).<small>లో-ర్యాంక్ అడాప్టేషన్ (LoRA (Low-Rank Adaptation): Low-Rank Adaptation)</small></summary><div class="body">
@@ -10679,7 +11233,7 @@ lora_config = LoraConfig(
 <h4>ఎందుకు అవసరం?</h4>
 <p>బేస్ మోడల్‌ను 4-బిట్ నార్మల్‌ఫ్లోట్ (NF4) లోకి కంప్రెస్ చేసి, దానిపై LoRA (Low-Rank Adaptation) అడాప్టర్లను ట్రైన్ చేయడం ద్వారా ఒకే ఒక్క సాధారణ కన్స్యూమర్ GPU (ఉదా: 24GB RTX 3090/4090) లో భారీ 70B మోడల్‌ను ఫైన్-ట్యూన్ చేయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక పెద్ద ఫైల్‌ను జిప్ (Zip) చేసి చూస్తూ పక్కన నోట్స్ రాసుకున్నట్లు. అసలైన బేస్ మోడల్ మెమరీని 4-బిట్‌తో కనిష్ట స్థాయికి తగ్గించి, ట్రైనింగ్ బ్యాక్‌ప్రొపగేషన్ మాత్రం 16-బిట్ బ్రెయిన్‌ఫ్లోట్ (BF16) లో జరగడం.</p>
+<p>ఒక పెద్ద ఫైల్‌ను జిప్ (Zip) చేసి చూస్తూ పక్కన నోట్స్ రాసుకున్నట్లు. అసలైన బేస్ మోడల్ మెమరీని 4-బిట్‌తో కనిష్ట స్థాయికి తగ్గించి, ట్రైనింగ్ బ్యాక్‌ప్రొపగేషన్ మాత్రం 16-బిట్ బ్రెయిన్‌ఫ్లోట్ (BF16 (Brain Floating Point 16)) లో జరగడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from transformers import BitsAndBytesConfig
 
@@ -10711,9 +11265,9 @@ legal_model = PeftModel.from_pretrained(base_model, "/adapters/legal_v1")
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి చిన్న మార్పుకు పూర్తి మోడల్‌ను మళ్లీ మళ్లీ సర్వర్‌లో లోడ్ చేస్తూ మెమరీ అయిపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>16. Quantization.<small>క్వాంటైజేషన్ సూత్రాలు (FP16 నుండి INT8, INT4, NF4)</small></summary><div class="body">
+<details class="t"><summary>16. Quantization.<small>క్వాంటైజేషన్ సూత్రాలు (FP16 (16-bit Floating Point) నుండి INT8 (8-bit Integer), INT4 (4-bit Integer), NF4)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మోడల్ వెయిట్స్‌ను 16-బిట్ ఫ్లోట్ (FP16) నుండి 8-బిట్ (INT8) లేదా 4-బిట్ (INT4) పూర్ణాంకాలుగా కుదించడం వల్ల మోడల్ సైజు 75% తగ్గుతుంది మరియు ఇన్ఫరెన్స్ వేగం విపరీతంగా పెరుగుతుంది.</p>
+<p>మోడల్ వెయిట్స్‌ను 16-బిట్ ఫ్లోట్ (FP16 (16-bit Floating Point)) నుండి 8-బిట్ (INT8 (8-bit Integer)) లేదా 4-బిట్ (INT4 (4-bit Integer)) పూర్ణాంకాలుగా కుదించడం వల్ల మోడల్ సైజు 75% తగ్గుతుంది మరియు ఇన్ఫరెన్స్ వేగం విపరీతంగా పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>హై-రిజల్యూషన్ ఇమేజ్‌ను వెబ్ కోసం కంప్రెస్ చేసినట్లే. నాణ్యతలో 1% కంటే తక్కువ తేడాతో, 16GB మోడల్ 4GB కి కుదించబడుతుంది. దీనివల్ల చవకైన సర్వర్లలో లేదా మొబైల్ ఫోన్లలో కూడా AI మోడల్ రన్ అవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -10794,7 +11348,7 @@ early_stop = EarlyStoppingCallback(
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్‌కు కొత్త టాస్క్ (ఉదా: SQL కోడింగ్) నేర్పించేటప్పుడు, అది గతంలో నేర్చుకున్న సాధారణ ఇంగ్లీష్ మాట్లాడటం లేదా లాజిక్‌ను పూర్తిగా మర్చిపోయే ప్రమాదం ఉంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక డ్రైవర్‌కు పైలట్ శిక్షణ ఇస్తున్నప్పుడు అతను కారు నడపడమే మర్చిపోవడం లాంటిది. దీన్ని నివారించడానికి PEFT/LoRA (Low-Rank Adaptation) వాడాలి (అసలు మోడల్ ఫ్రోజెన్‌గా ఉంటుంది) లేదా ట్రైనింగ్ డేటాలో 10% సాధారణ ఇంగ్లీష్/రీజనింగ్ ప్రశ్నలను కలపాలి (Rehearsal Data).</p>
+<p>ఒక డ్రైవర్‌కు పైలట్ శిక్షణ ఇస్తున్నప్పుడు అతను కారు నడపడమే మర్చిపోవడం లాంటిది. దీన్ని నివారించడానికి PEFT (Parameter-Efficient Fine-Tuning)/LoRA (Low-Rank Adaptation) వాడాలి (అసలు మోడల్ ఫ్రోజెన్‌గా ఉంటుంది) లేదా ట్రైనింగ్ డేటాలో 10% సాధారణ ఇంగ్లీష్/రీజనింగ్ ప్రశ్నలను కలపాలి (Rehearsal Data).</p>
 <h4>ఉదాహరణ</h4>
 <pre>def mix_rehearsal_dataset(specialized_dataset: list, general_qa_dataset: list) -&gt; list:
     # 90% స్పెషలైజ్డ్ + 10% జనరల్ డేటా మిక్సింగ్ ద్వారా పాత తెలివితేటలను కాపాడటం
@@ -10842,7 +11396,7 @@ model = AutoModelForCausalLM.from_pretrained(
 <h4>ఎందుకు అవసరం?</h4>
 <p>GPU VRAM (Video RAM / GPU Memory) చాలా పరిమితం (16GB, 24GB, 80GB). మోడల్ వెయిట్స్‌తో పాటు KV (Key-Value) cache మరియు యాక్టివేషన్స్ కూడా VRAM (Video RAM / GPU Memory) లోనే ఉంటాయి. మెమరీ ఎలా పంచుకోవాలో తెలియకపోతే OOM (Out Of Memory) క్రాష్ అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గణన: 8B మోడల్ BF16 లో = 16GB VRAM (Video RAM / GPU Memory) (కేవలం వెయిట్స్). ఇన్ఫరెన్స్ రన్ అయ్యేటప్పుడు 4,000 టోకెన్ల కాంటెక్స్ట్‌కు KV (Key-Value) cache కి మరో 2-4GB కావాలి. కాబట్టి 8B మోడల్‌కు కనీసం 24GB GPU (A10G లేదా RTX 3090/4090) ఉండాలి.</p>
+<p>గణన: 8B మోడల్ BF16 (Brain Floating Point 16) లో = 16GB VRAM (Video RAM / GPU Memory) (కేవలం వెయిట్స్). ఇన్ఫరెన్స్ రన్ అయ్యేటప్పుడు 4,000 టోకెన్ల కాంటెక్స్ట్‌కు KV (Key-Value) cache కి మరో 2-4GB కావాలి. కాబట్టి 8B మోడల్‌కు కనీసం 24GB GPU (A10G లేదా RTX 3090/4090) ఉండాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>def calculate_vram_needs(param_billions: float, bytes_per_param: int = 2, max_context_tokens: int = 4096) -&gt; float:
     weights_gb = param_billions * bytes_per_param
@@ -10855,9 +11409,9 @@ model = AutoModelForCausalLM.from_pretrained(
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం మోడల్ వెయిట్స్ సైజు మాత్రమే చూసి, భారీ కాంటెక్స్ట్ విండో వాడినప్పుడు KV (Key-Value) cache వల్ల వచ్చే మెమరీ ఓవర్‌ఫ్లోను విస్మరించడం.</div>
 </div></details>
 
-<details class="t"><summary>24. Model quantization.<small>ఇన్ఫరెన్స్ క్వాంటైజేషన్ ఫార్మాట్లు (AWQ (Activation-aware Weight Quantization) vs GPTQ vs GGUF (GPT-Generated Unified Format))</small></summary><div class="body">
+<details class="t"><summary>24. Model quantization.<small>ఇన్ఫరెన్స్ క్వాంటైజేషన్ ఫార్మాట్లు (AWQ (Activation-aware Weight Quantization) vs GPTQ (Post-Training Quantization for Transformers) vs GGUF (GPT-Generated Unified Format))</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ప్రొడక్షన్ ఇన్ఫరెన్స్‌లో మోడల్ నాణ్యత తగ్గకుండా వేగాన్ని 3 రెట్లు పెంచడానికి AWQ (Activation-aware Weight Quantization) లేదా GPTQ టెక్నాలజీలు ఉపయోగపడతాయి.</p>
+<p>ప్రొడక్షన్ ఇన్ఫరెన్స్‌లో మోడల్ నాణ్యత తగ్గకుండా వేగాన్ని 3 రెట్లు పెంచడానికి AWQ (Activation-aware Weight Quantization) లేదా GPTQ (Post-Training Quantization for Transformers) టెక్నాలజీలు ఉపయోగపడతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>AWQ (Activation-aware Weight Quantization) అనేది అధునాతన 4-బిట్ క్వాంటైజేషన్. అన్ని వెయిట్స్‌ను గుడ్డిగా కుదించకుండా, మోడల్ యాక్టివేషన్స్‌లో ముఖ్యమైన 1% వెయిట్స్‌ను భద్రపరిచి మిగిలిన వాటిని 4-బిట్‌గా మారుస్తుంది. ఫలితంగా నాణ్యత నష్టం దాదాపు శూన్యం.</p>
 <h4>ఉదాహరణ</h4>
@@ -10867,7 +11421,7 @@ model = AutoModelForCausalLM.from_pretrained(
 <div class="mistake"><b>సాధారణ తప్పు:</b> CPU ఇన్ఫరెన్స్ కోసం రూపొందించిన GGUF (GPT-Generated Unified Format) ఫార్మాట్‌ను హై-ఎండ్ డేటాసెంటర్ GPU సర్వర్లలో వాడటం; GPU లకు AWQ (Activation-aware Weight Quantization) అత్యుత్తమం.</div>
 </div></details>
 
-<details class="t"><summary>25. KV (Key-Value) cache.<small>కీ-వాల్యూ (KV) క్యాష్ మెకానిజం</small></summary><div class="body">
+<details class="t"><summary>25. KV (Key-Value) cache.<small>కీ-వాల్యూ (KV (Key-Value)) క్యాష్ మెకానిజం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ప్రతి టోకెన్‌ను ఒక్కొక్కటిగా జనరేట్ చేస్తుంది. మునుపటి టోకెన్ల అటెన్షన్ కీలు మరియు వాల్యూలను ప్రతిసారీ రీ-కాలిక్యులేట్ చేయకుండా VRAM (Video RAM / GPU Memory) లో కాష్ చేయడం ద్వారా ఇన్ఫరెన్స్ వేగం విపరీతంగా పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10940,7 +11494,7 @@ input_batch = ["హలో", "భారత రాజ్యాంగం గుర�
 <h4>ఎందుకు అవసరం?</h4>
 <p>హార్డ్‌వేర్ ఖర్చు పెంచకుండా, సరికొత్త అల్గారిథమ్‌ల ద్వారా ఇన్ఫరెన్స్ లేటెన్సీని 50% తగ్గించడానికి మరియు త్రూపుట్‌ను రెట్టింపు చేయడానికి ఆప్టిమైజేషన్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>1. FlashAttention-2: GPU SRAM మరియు HBM మెమరీల మధ్య డేటా బదిలీని తగ్గించి అటెన్షన్ లెక్కింపును వేగవంతం చేస్తుంది. 2. Speculative Decoding: ఒక చిన్న వేగవంతమైన డ్రాఫ్ట్ మోడల్ (1B) టోకెన్లను అంచనా వేస్తుంది, పెద్ద మోడల్ (70B) వాటిని ఒకే స్టెప్‌లో ధృవీకరిస్తుంది.</p>
+<p>1. FlashAttention-2: GPUలోని SRAM (Static Random-Access Memory; చిప్‌పైనే ఉండే చిన్న, వేగమైన మెమరీ) మరియు HBM (High Bandwidth Memory; ఎక్కువ డేటా నిల్వ చేసే GPU ప్రధాన మెమరీ) మధ్య డేటా బదిలీని తగ్గించి అటెన్షన్ లెక్కింపును వేగవంతం చేస్తుంది. 2. Speculative Decoding: ఒక చిన్న వేగవంతమైన డ్రాఫ్ట్ మోడల్ (1B) టోకెన్లను అంచనా వేస్తుంది, పెద్ద మోడల్ (70B) వాటిని ఒకే స్టెప్‌లో ధృవీకరిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Speculative Decoding Command in vLLM
 # vllm serve meta-llama/Meta-Llama-3-70B-Instruct \
@@ -10979,11 +11533,11 @@ model = AutoModelForCausalLM.from_pretrained("google/gemma-2-9b-it")
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒక మోడల్ వెయిట్స్‌కు వేరొక మోడల్ టోకనైజర్‌ను జతచేసి అర్థం లేని జంక్ అవుట్‌పుట్ పొందడం.</div>
 </div></details>
 
-<details class="t"><summary>33. Tokenizers.<small>టోకనైజర్లు (BPE, WordPiece, SentencePiece)</small></summary><div class="body">
+<details class="t"><summary>33. Tokenizers.<small>టోకనైజర్లు (BPE (Byte-Pair Encoding), WordPiece, SentencePiece)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంప్యూటర్‌కు మానవ భాష అర్థం కాదు; అక్షరాలు మరియు పదాలను సంఖ్యలుగా (Token IDs) మార్చే ప్రక్రియ టోకనైజేషన్. ఇది సరిగ్గా లేకపోతే తెలుగు లేదా భారతీయ భాషలలో టోకెన్ ఖర్చు విపరీతంగా పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Byte-Pair Encoding (BPE) పద్ధతి. ఇంగ్లీష్ పదానికి 1 టోకెన్ పడితే, పాత టోకనైజర్లలో ఒకే తెలుగు అక్షరానికి 3-5 టోకెన్లు పడేవి. Llama-3 మరియు Gemma-2 లో పెద్ద వొకాబులరీ (128K నుండి 256K టోకెన్లు) ఉండటం వల్ల తెలుగు టెక్స్ట్ కూడా చాలా తక్కువ టోకెన్లలో సమర్థవంతంగా ఎన్‌కోడ్ అవుతుంది.</p>
+<p>Byte-Pair Encoding (BPE (Byte-Pair Encoding)) పద్ధతి. ఇంగ్లీష్ పదానికి 1 టోకెన్ పడితే, పాత టోకనైజర్లలో ఒకే తెలుగు అక్షరానికి 3-5 టోకెన్లు పడేవి. Llama-3 మరియు Gemma-2 లో పెద్ద వొకాబులరీ (128K నుండి 256K టోకెన్లు) ఉండటం వల్ల తెలుగు టెక్స్ట్ కూడా చాలా తక్కువ టోకెన్లలో సమర్థవంతంగా ఎన్‌కోడ్ అవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from transformers import AutoTokenizer
 
@@ -11108,7 +11662,13 @@ print(response["message"]["content"])
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్‌ను ప్రొడక్షన్‌లోకి తీసుకొచ్చేటప్పుడు హార్డ్‌వేర్ ఖర్చులు, గ్యారెంటీడ్ లేటెన్సీ SLAs, డేటా ప్రైవసీ నిబంధనలు మరియు ఫెయిల్యూర్ రికవరీలను సమగ్రంగా సమీక్షించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>డిప్లాయ్‌మెంట్ చెక్‌లిస్ట్: 1. కోల్డ్ స్టార్ట్ సమయం ఎంత? 2. పీక్ లోడ్‌లో ఎన్ని GPUలు కావాలి? 3. సర్వర్ డౌన్ అయితే ఫాల్‌బ్యాక్ క్లౌడ్ ఉందా? 4. డేటా ప్రైవేట్ సబ్‌నెట్ లోనే ప్రాసెస్ అవుతుందా?</p>
+<p>డిప్లాయ్‌మెంట్ చెక్‌లిస్ట్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>కోల్డ్ స్టార్ట్ సమయం ఎంత?</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>పీక్ లోడ్‌లో ఎన్ని GPUలు కావాలి?</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>సర్వర్ డౌన్ అయితే ఫాల్‌బ్యాక్ క్లౌడ్ ఉందా?</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>డేటా ప్రైవేట్ సబ్‌నెట్ లోనే ప్రాసెస్ అవుతుందా?</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>DEPLOYMENT_CHECKLIST = {
     "compute_target": "AWS EC2 g5.2xlarge (24GB A10G)",
@@ -11167,9 +11727,9 @@ response = vision_model.invoke([message])
 <div class="mistake"><b>సాధారణ తప్పు:</b> తీవ్రమైన మెడికల్ ఇమేజ్ డయాగ్నోసిస్‌ను వైద్యుడి ప్రమేయం లేకుండా కేవలం AI నిర్ణయానికే వదిలేయడం.</div>
 </div></details>
 
-<details class="t"><summary>45. OCR.<small>మల్టీమోడల్ VLM ఆధారిత అధునాతన OCR</small></summary><div class="body">
+<details class="t"><summary>45. OCR (Optical Character Recognition).<small>మల్టీమోడల్ VLM ఆధారిత అధునాతన OCR (Optical Character Recognition)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>సాంప్రదాయ Tesseract OCR క్లిష్టమైన టేబుల్స్, బహుళ కాలమ్‌లు మరియు చేతిరాతలను సరిగ్గా చదవలేదు. ఆధునిక విజన్-లాంగ్వేజ్ మోడల్స్ లేఅవుట్ అవగాహనతో అద్భుతమైన ఖచ్చితత్వాన్ని ఇస్తాయి.</p>
+<p>సాంప్రదాయ Tesseract OCR (Optical Character Recognition) క్లిష్టమైన టేబుల్స్, బహుళ కాలమ్‌లు మరియు చేతిరాతలను సరిగ్గా చదవలేదు. ఆధునిక విజన్-లాంగ్వేజ్ మోడల్స్ లేఅవుట్ అవగాహనతో అద్భుతమైన ఖచ్చితత్వాన్ని ఇస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>VLM డాక్యుమెంట్ చిత్రాన్ని చూసి నేరుగా మార్క్‌డౌన్ టేబుల్ రూపంలోకి టెక్స్ట్‌ను మార్చగలదు. ఏ కాలమ్ ఎక్కడుంది, హెడ్డింగ్ ఏది అనేది సహజంగా గ్రహిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -11178,7 +11738,7 @@ response = vision_model.invoke([message])
 టేబుల్స్‌ను Markdown Tables గా ఫార్మాట్ చేయండి. ఎటువంటి అదనపు వ్యాఖ్యానం రాయవద్దు.
 """
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> సరళమైన ప్లెయిన్ టెక్స్ట్ పేజీలకు కూడా ఖరీదైన VLM OCR ని వాడి అనవసరంగా 10 రెట్లు ఎక్కువ టోకెన్ ఖర్చు చేయడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> సరళమైన ప్లెయిన్ టెక్స్ట్ పేజీలకు కూడా ఖరీదైన VLM OCR (Optical Character Recognition) ని వాడి అనవసరంగా 10 రెట్లు ఎక్కువ టోకెన్ ఖర్చు చేయడం.</div>
 </div></details>
 
 <details class="t"><summary>46. Audio transcription.<small>ఆడియో ట్రాన్స్‌క్రిప్షన్ (Whisper / Deepgram)</small></summary><div class="body">
@@ -11203,11 +11763,11 @@ async def transcribe_call_recording(audio_file_path: str) -&gt; str:
 <div class="mistake"><b>సాధారణ తప్పు:</b> బ్యాక్‌గ్రౌండ్ నాయిస్ ఎక్కువగా ఉన్న ఆడియోను ఎలాంటి నాయిస్ క్యాన్సిలేషన్ లేకుండా ట్రాన్స్‌క్రైబ్ చేసి తప్పుడు టెక్స్ట్ పొందడం.</div>
 </div></details>
 
-<details class="t"><summary>47. Speech generation.<small>స్పీచ్ జనరేషన్ (TTS: Text-to-Speech / ElevenLabs)</small></summary><div class="body">
+<details class="t"><summary>47. Speech generation.<small>స్పీచ్ జనరేషన్ (TTS (Text-to-Speech): Text-to-Speech / ElevenLabs)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>AI సమాధానాలను మనుషుల లాంటి సహజమైన భావోద్వేగాలతో కూడిన వాయిస్‌గా మార్చి ఫోన్ IVR లేదా వాయిస్ అసిస్టెంట్‌లలో వినిపించడానికి TTS అవసరం.</p>
+<p>AI సమాధానాలను మనుషుల లాంటి సహజమైన భావోద్వేగాలతో కూడిన వాయిస్‌గా మార్చి ఫోన్ IVR లేదా వాయిస్ అసిస్టెంట్‌లలో వినిపించడానికి TTS (Text-to-Speech) అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ElevenLabs లేదా OpenAI TTS API వాడటం. మోడల్ జనరేట్ చేసిన టెక్స్ట్‌ను పంపితే సహజమైన తెలుగు లేదా ఇంగ్లీష్ ఆడియో MP3 స్ట్రీమ్‌గా తిరిగి వస్తుంది. రెస్పాన్స్‌ను వెంటనే స్పీకర్‌లో ప్లే చేయవచ్చు.</p>
+<p>ElevenLabs లేదా OpenAI TTS (Text-to-Speech) API వాడటం. మోడల్ జనరేట్ చేసిన టెక్స్ట్‌ను పంపితే సహజమైన తెలుగు లేదా ఇంగ్లీష్ ఆడియో MP3 స్ట్రీమ్‌గా తిరిగి వస్తుంది. రెస్పాన్స్‌ను వెంటనే స్పీకర్‌లో ప్లే చేయవచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>async def generate_speech_stream(text: str):
     response = await client.audio.speech.create(
@@ -11217,7 +11777,7 @@ async def transcribe_call_recording(audio_file_path: str) -&gt; str:
     )
     return response.content # Audio bytes
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> లైవ్ వాయిస్ కాల్స్‌లో భారీ టెక్స్ట్ వచ్చే వరకు వేచి చూసి మాట్లాడించడం; వాక్యం వారీగా లేదా చంక్స్ వారీగా స్ట్రీమింగ్ TTS వాడాలి.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> లైవ్ వాయిస్ కాల్స్‌లో భారీ టెక్స్ట్ వచ్చే వరకు వేచి చూసి మాట్లాడించడం; వాక్యం వారీగా లేదా చంక్స్ వారీగా స్ట్రీమింగ్ TTS (Text-to-Speech) వాడాలి.</div>
 </div></details>
 
 <details class="t"><summary>48. Audio understanding.<small>నేటివ్ ఆడియో అవగాహన (GPT-4o Audio / Gemini Live)</small></summary><div class="body">
@@ -13246,7 +13806,7 @@ y_train = [60000, 75000, 90000]     # అసలైన ధరలు ($)
 <h4>ఎందుకు అవసరం?</h4>
 <p>కస్టమర్ సెగ్మెంటేషన్, అనోమలీ డిటెక్షన్, మరియు టెక్స్ట్ క్లస్టరింగ్‌లో లేబుల్స్ లేకుండా డేటాలోని దాగి ఉన్న ప్యాటర్న్స్ కనిపెట్టడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>డేటాకు ఎటువంటి టార్గెట్ లేబుల్స్ ($Y$) ఉండవు; కేవలం ఇన్‌పుట్స్ ($X$) మాత్రమే ఉంటాయి. ఉదాహరణకు K-Means క్లస్టరింగ్ ద్వారా కస్టమర్ల కొనుగోలు అలవాట్లను గ్రూపులుగా విభజించడం లేదా PCA ద్వారా డైమెన్షన్స్ తగ్గించడం.</p>
+<p>డేటాకు ఎటువంటి టార్గెట్ లేబుల్స్ ($Y$) ఉండవు; కేవలం ఇన్‌పుట్స్ ($X$) మాత్రమే ఉంటాయి. ఉదాహరణకు K-Means క్లస్టరింగ్ ద్వారా కస్టమర్ల కొనుగోలు అలవాట్లను గ్రూపులుగా విభజించడం లేదా PCA (Principal Component Analysis) ద్వారా డైమెన్షన్స్ తగ్గించడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Unsupervised Clustering Concept
 from sklearn.cluster import KMeans
@@ -13452,11 +14012,11 @@ for arch, use_case in MODEL_TAXONOMY.items():
 <div class="mistake"><b>సాధారణ తప్పు:</b> టెక్స్ట్ జనరేషన్ కోసం ఎన్‌కోడర్-ఓన్లీ మోడల్స్ వాడాలనుకోవడం.</div>
 </div></details>
 
-<details class="t"><summary>37. Tokenization.<small>టోకనైజేషన్ (BPE, WordPiece, Tiktoken)</small></summary><div class="body">
+<details class="t"><summary>37. Tokenization.<small>టోకనైజేషన్ (BPE (Byte-Pair Encoding), WordPiece, Tiktoken)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్స్ నేరుగా అక్షరాలను లేదా పదాలను ప్రాసెస్ చేయవు; అవి టోకెన్ల సంఖ్య ఆధారంగా బిల్లింగ్ మరియు కాంటెక్స్ట్ విండోను లెక్కిస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Byte Pair Encoding (BPE) ద్వారా ఇంగ్లీష్ పదాలు సుమారు 0.75 పదానికి ఒక టోకెన్‌గా మారుతాయి. తెలుగు లేదా ఇతర భారతీయ భాషలకు మోడల్ వొకాబులరీ సరిపోక ఎక్కువ టోకెన్లు ఖర్చవుతాయి (Token bloat). పైథాన్‌లో ఓపెన్‌ఏఐ మోడల్స్ కోసం `tiktoken` లైబ్రరీ వాడతాం.</p>
+<p>Byte Pair Encoding (BPE (Byte-Pair Encoding)) ద్వారా ఇంగ్లీష్ పదాలు సుమారు 0.75 పదానికి ఒక టోకెన్‌గా మారుతాయి. తెలుగు లేదా ఇతర భారతీయ భాషలకు మోడల్ వొకాబులరీ సరిపోక ఎక్కువ టోకెన్లు ఖర్చవుతాయి (Token bloat). పైథాన్‌లో ఓపెన్‌ఏఐ మోడల్స్ కోసం `tiktoken` లైబ్రరీ వాడతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Counting Tokens with Tiktoken
 import tiktoken
@@ -13785,7 +14345,13 @@ def rewrite_query_with_history(chat_history: list, latest_question: str, llm) -&
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్ తెలియని విషయాలను నిజం లాగా నమ్మకంగా చెప్పడం (Hallucination) ఎంటర్‌ప్రైజ్ అప్లికేషన్లకు అతిపెద్ద ముప్పు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>నివారణ పద్ధతులు: 1. Strict System Prompt ("సమాధానం కాంటెక్స్ట్‌లో లేకపోతే తెలియదు అని మాత్రమే చెప్పండి"), 2. Temperature = 0.0, 3. Citation Mandate (ప్రతి వాక్యానికి సోర్స్ లింక్ జోడించడం), 4. Guardrails (NeMo) తో అవుట్‌పుట్ వెరిఫికేషన్.</p>
+<p>నివారణ పద్ధతులు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Strict System Prompt ("సమాధానం కాంటెక్స్ట్‌లో లేకపోతే తెలియదు అని మాత్రమే చెప్పండి")</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Temperature = 0.0</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Citation Mandate (ప్రతి వాక్యానికి సోర్స్ లింక్ జోడించడం)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Guardrails (NeMo) తో అవుట్‌పుట్ వెరిఫికేషన్</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Anti-Hallucination Prompt Template
 SYSTEM_GUARD = """
@@ -14090,7 +14656,15 @@ AWS_STACK = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>కోడ్ మార్పులు జరిగిన ప్రతిసారీ టెస్టులు, లింటింగ్, సెక్యూరిటీ స్కాన్స్, మరియు ఎవాల్యుయేషన్స్ ఆటోమేటిక్‌గా రన్ అయ్యి ప్రొడక్షన్‌కి సేఫ్‌గా డిప్లాయ్ అవ్వాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>GitHub Actions వర్క్‌ఫ్లో లో: 1. `ruff check` (లింటింగ్), 2. `mypy` (టైప్ చెక్), 3. `pytest` (యూనిట్ టెస్టులు), 4. `ragas eval` (హాలూసినేషన్ చెక్), 5. ECR కి డాకర్ పుష్, 6. K8s కి రోల్‌అవుట్.</p>
+<p>GitHub Actions వర్క్‌ఫ్లో లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`ruff check` (లింటింగ్)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>`mypy` (టైప్ చెక్)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>`pytest` (యూనిట్ టెస్టులు)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>`ragas eval` (హాలూసినేషన్ చెక్)</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>ECR కి డాకర్ పుష్</span></div>
+  <div class="step-row"><span class="step-badge">6</span><span>K8s కి రోల్‌అవుట్</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># GitHub Actions Workflow Outline
 # name: AI Service CI/CD
@@ -14262,7 +14836,13 @@ class TokenBucketRateLimiter:
 <h4>ఎందుకు అవసరం?</h4>
 <p>లైవ్ ఇంటర్వ్యూలలో తరచుగా బ్రేక్ అయిన కోడ్ ఇచ్చి బగ్ కనిపెట్టమని అడుగుతారు. పద్ధతి ప్రకారం సమస్యను ఇన్వెస్టిగేట్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>స్టెప్స్: 1. లాగ్స్ మరియు స్టాక్‌ట్రేస్ చదవడం, 2. రీప్రొడ్యూస్ చేయడం, 3. అసలు రూట్ కాజ్ (ఉదా: ಅನ್-హ్యాండిల్డ్ టైమ్‌అవుట్ లేదా కరెన్సీ/నల్ ఫీల్డ్) కనిపెట్టడం, 4. ఫిక్స్ చేయడం మరియు టెస్ట్ రాయడం.</p>
+<p>స్టెప్స్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>లాగ్స్ మరియు స్టాక్‌ట్రేస్ చదవడం</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>రీప్రొడ్యూస్ చేయడం</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>అసలు రూట్ కాజ్ (ఉదా: ಅನ್-హ్యాండిల్డ్ టైమ్‌అవుట్ లేదా కరెన్సీ/నల్ ఫీల్డ్) కనిపెట్టడం</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>ఫిక్స్ చేయడం మరియు టెస్ట్ రాయడం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Broken API Debugging Scenario
 # Bug: async def endpoint లోపల సింక్రోనస్ requests.get() ఉండటం వల్ల ఈవెంట్ లూప్ ఫ్రీజ్ అవుతోంది!
@@ -14280,7 +14860,12 @@ async def fixed_fetch(url: str):
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ డిజైన్ రౌండ్‌లో అత్యంత సాధారణ ప్రశ్న "Design an Enterprise Document Search System with RAG".</p>
 <h4>సరళమైన వివరణ</h4>
-<p>వైట్‌బోర్డ్ పై 3 లేయర్స్ గీయాలి: 1. Ingestion Pipeline (Kafka -&gt; Unstructured parser -&gt; Semantic Chunker -&gt; BGE Embedder -&gt; pgvector), 2. Query Pipeline (Query Rewrite -&gt; Hybrid Search Dense+Sparse -&gt; Cohere Rerank), 3. Generation (Prompt Engine -&gt; LiteLLM -&gt; Streaming Response).</p>
+<p>వైట్‌బోర్డ్ పై 3 లేయర్స్ గీయాలి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Ingestion Pipeline (Kafka -&gt; Unstructured parser -&gt; Semantic Chunker -&gt; BGE Embedder -&gt; pgvector)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Query Pipeline (Query Rewrite -&gt; Hybrid Search Dense+Sparse -&gt; Cohere Rerank)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Generation (Prompt Engine -&gt; LiteLLM -&gt; Streaming Response)</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Enterprise RAG Architectural Pipeline Blueprint
 # [Client] -&gt; [FastAPI Gateway]
@@ -14405,7 +14990,12 @@ for q in CLARIFYING_QUESTIONS:
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ యూజర్ కోసం ప్రత్యక్షంగా ఏమి చేయాలి (Features &amp; Capabilities) అనే విషయాన్ని బుల్లెట్ పాయింట్లుగా వైట్‌బోర్డ్ పై రాసి ఇంటర్వ్యూయర్‌తో ఏకీభవించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>లారావెల్ యాప్‌లో "యూజర్ రిజిస్టర్ అవ్వాలి, కార్ట్‌కి ఐటెమ్స్ చేర్చాలి, పేమెంట్ చేయాలి" అని ఫంక్షనల్ రిక్వైర్మెంట్స్ రాసినట్లే, AI సిస్టమ్‌లో: 1. యూజర్ డాక్యుమెంట్స్ అప్‌లోడ్ చేయగలగాలి, 2. ప్రశ్నలు అడిగి సైటేషన్లతో కూడిన సమాధానాలు పొందాలి, 3. సంభాషణ ఆధారంగా ఫాలో-అప్ ప్రశ్నలు అడగగలగాలి.</p>
+<p>లారావెల్ యాప్‌లో "యూజర్ రిజిస్టర్ అవ్వాలి, కార్ట్‌కి ఐటెమ్స్ చేర్చాలి, పేమెంట్ చేయాలి" అని ఫంక్షనల్ రిక్వైర్మెంట్స్ రాసినట్లే, AI సిస్టమ్‌లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>యూజర్ డాక్యుమెంట్స్ అప్‌లోడ్ చేయగలగాలి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ప్రశ్నలు అడిగి సైటేషన్లతో కూడిన సమాధానాలు పొందాలి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>సంభాషణ ఆధారంగా ఫాలో-అప్ ప్రశ్నలు అడగగలగాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Functional Requirements (FR) Whiteboard Board
 FUNCTIONAL_REQUIREMENTS = [
@@ -14523,7 +15113,7 @@ CREATE TABLE document_chunks (
 <h4>ఎందుకు అవసరం?</h4>
 <p>హై-లెవెల్ బాక్స్‌లు గీసిన తర్వాత ఇంటర్వ్యూయర్ "హైబ్రిడ్ రిట్రీవల్ ఎలా పనిచేస్తుంది?" లేదా "చంకింగ్ పైప్‌లైన్ ఎలా డిజైన్ చేశారు?" అని లోతుగా అడుగుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఆ నిర్దిష్ట కాంపోనెంట్‌ను జూమ్ చేసి వివరించాలి: చంకింగ్ సమయంలో టేబుల్స్ మరియు ఇమేజెస్‌ను OCR తో ఎలా తీస్తున్నారు, డెన్స్ వెక్టర్స్ మరియు స్పార్స్ BM25 స్కోర్లను ఎలా నార్మలైజ్ చేసి కంబైన్ చేస్తున్నారు, మరియు రీర్యాంకర్ లేటెన్సీని ఎలా కంట్రోల్ చేస్తున్నారు అని వివరించాలి.</p>
+<p>ఆ నిర్దిష్ట కాంపోనెంట్‌ను జూమ్ చేసి వివరించాలి: చంకింగ్ సమయంలో టేబుల్స్ మరియు ఇమేజెస్‌ను OCR (Optical Character Recognition) తో ఎలా తీస్తున్నారు, డెన్స్ వెక్టర్స్ మరియు స్పార్స్ BM25 స్కోర్లను ఎలా నార్మలైజ్ చేసి కంబైన్ చేస్తున్నారు, మరియు రీర్యాంకర్ లేటెన్సీని ఎలా కంట్రోల్ చేస్తున్నారు అని వివరించాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Deep-Dive: Hybrid Retrieval &amp; Fusion Algorithm
 # 1. Query Q ని Dense Embedder &amp; BM25 Tokenizer కి పంపడం.
@@ -14538,7 +15128,12 @@ CREATE TABLE document_chunks (
 <h4>ఎందుకు అవసరం?</h4>
 <p>ట్రాఫిక్ పెరిగినప్పుడు సిస్టమ్‌లో ఏ కాంపోనెంట్ ముందుగా ఫెయిల్ అయ్యే ప్రమాదం ఉందో ముందే గుర్తించి పరిష్కారం చెప్పాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రధాన బాటిల్‌నెక్స్: 1. వెక్టర్ ఇండెక్స్ మెమరీ పరిమితులు (RAM సరిపోకపోవడం), 2. LLM ప్రొవైడర్ రేట్ లిమిట్స్ (429 ఎర్రర్స్), 3. పిడిఎఫ్ పార్సింగ్ CPU బాటిల్‌నెక్. వీటికి పరిష్కారాలు: Redis సెమాంటిక్ కాష్, మల్టీ-రీజియన్ ఫాల్‌బ్యాక్, మరియు కాఫ్కా ఆధారిత అసింక్ వర్కర్ స్కేలింగ్.</p>
+<p>ప్రధాన బాటిల్‌నెక్స్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>వెక్టర్ ఇండెక్స్ మెమరీ పరిమితులు (RAM సరిపోకపోవడం)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>LLM ప్రొవైడర్ రేట్ లిమిట్స్ (429 ఎర్రర్స్)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>పిడిఎఫ్ పార్సింగ్ CPU బాటిల్‌నెక్. వీటికి పరిష్కారాలు: Redis సెమాంటిక్ కాష్, మల్టీ-రీజియన్ ఫాల్‌బ్యాక్, మరియు కాఫ్కా ఆధారిత అసింక్ వర్కర్ స్కేలింగ్</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Bottleneck Mitigation Matrix
 BOTTLENECKS = {
@@ -14649,7 +15244,7 @@ def summarize_interview_tradeoffs():
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్‌లో రా డేటా ఎక్కడ ప్రారంభమై, ఎక్కడ రూపాంతరం చెంది, ఎక్కడ నిల్వ చేయబడి చివరకు యూజర్‌కి ఎలా చేరుతుందో ట్రేస్ చేయడానికి DFD అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PDF Upload -&gt; Text Extraction (OCR) -&gt; PII Scrubbing -&gt; Chunking Engine -&gt; Embedding Generation -&gt; Vector DB Indexing. ప్రతి దశలో డేటా స్వరూపం ఎలా మారుతుందో చూపించాలి.</p>
+<p>PDF Upload -&gt; Text Extraction (OCR (Optical Character Recognition)) -&gt; PII Scrubbing -&gt; Chunking Engine -&gt; Embedding Generation -&gt; Vector DB Indexing. ప్రతి దశలో డేటా స్వరూపం ఎలా మారుతుందో చూపించాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Ingestion DFD Steps
 # [Raw File: PDF] 
@@ -14692,7 +15287,13 @@ def summarize_interview_tradeoffs():
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంపెనీ అంతర్గత విజ్ఞానాన్ని (Confluence, Google Drive, PDFs, Jira) సెర్చ్ చేసి ఉద్యోగులకు సరైన సమాధానాలు ఇవ్వడం అత్యంత పాపులర్ ఇంటర్వ్యూ ప్రశ్న.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఆర్కిటెక్చర్ భాగాలు: 1. కనెక్టర్లు (Google Drive &amp; Confluence APIs), 2. చంకింగ్ &amp; హైబ్రిడ్ ఇండెక్సింగ్, 3. పర్మిషన్-అవేర్ వెక్టర్ రిట్రీవల్, 4. సైటేషన్లతో కూడిన స్ట్రీమింగ్ LLM జనరేషన్.</p>
+<p>ఆర్కిటెక్చర్ భాగాలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>కనెక్టర్లు (Google Drive &amp; Confluence APIs)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>చంకింగ్ &amp; హైబ్రిడ్ ఇండెక్సింగ్</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>పర్మిషన్-అవేర్ వెక్టర్ రిట్రీవల్</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>సైటేషన్లతో కూడిన స్ట్రీమింగ్ LLM జనరేషన్</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Enterprise Search Request Lifecycle
 # User asks: "What is the WFH equipment reimbursement policy?"
@@ -14706,7 +15307,12 @@ def summarize_interview_tradeoffs():
 <h4>ఎందుకు అవసరం?</h4>
 <p>వందలాది కార్పొరేట్ క్లయింట్లకు (B2B SaaS) ఒకే ప్లాట్‌ఫామ్ ద్వారా డేటా లీకేజ్ లేకుండా వేరువేరుగా RAG అందించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>డేటా ఐసోలేషన్ స్ట్రాటజీలు: 1. Row-Level Security (RLS) in PostgreSQL, 2. టెనంట్ ఆధారిత వెక్టర్ నేమ్‌స్పేస్‌లు, 3. టెనంట్ లెవల్ ఎన్‌క్రిప్షన్ కీస్ (KMS). ప్రతి క్వెరీ టెనంట్ కాంటెక్స్ట్‌తో లాక్ చేయబడుతుంది.</p>
+<p>డేటా ఐసోలేషన్ స్ట్రాటజీలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Row-Level Security (RLS) in PostgreSQL</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>టెనంట్ ఆధారిత వెక్టర్ నేమ్‌స్పేస్‌లు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>టెనంట్ లెవల్ ఎన్‌క్రిప్షన్ కీస్ (KMS). ప్రతి క్వెరీ టెనంట్ కాంటెక్స్ట్‌తో లాక్ చేయబడుతుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>-- PostgreSQL Row-Level Security for Multi-Tenant Chunks
 ALTER TABLE document_chunks ENABLE ROW LEVEL SECURITY;
@@ -14720,7 +15326,7 @@ CREATE POLICY tenant_isolation_policy ON document_chunks
 <h4>ఎందుకు అవసరం?</h4>
 <p>రోజూ వేలాది డాక్యుమెంట్లు అప్‌లోడ్ అయ్యేటప్పుడు సిస్టమ్ హ్యాంగ్ అవ్వకుండా, ఫెయిల్ అయిన ఫైల్స్ రీట్రై అయ్యేలా బ్యాక్‌గ్రౌండ్ పైప్‌లైన్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>S3 Event Notification -&gt; SQS / Kafka -&gt; Celery Auto-scaling Workers -&gt; OCR / Parser (Unstructured / LlamaParse) -&gt; Chunker -&gt; Async Batch Embedder -&gt; Postgres Upsert. ఎర్రర్ వస్తే Dead Letter Queue (DLQ) కి పంపుతాం.</p>
+<p>S3 Event Notification -&gt; SQS / Kafka -&gt; Celery Auto-scaling Workers -&gt; OCR (Optical Character Recognition) / Parser (Unstructured / LlamaParse) -&gt; Chunker -&gt; Async Batch Embedder -&gt; Postgres Upsert. ఎర్రర్ వస్తే Dead Letter Queue (DLQ) కి పంపుతాం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Ingestion State Machine
 # [S3 ObjectCreated] -&gt; [SQS Queue] -&gt; [Worker Pool]
@@ -14806,7 +15412,13 @@ ORDER BY embedding &lt;=&gt; :user_query_vec LIMIT 5;</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక సంక్లిష్టమైన అంశంపై వెబ్‌లో మరియు ఇంటర్నల్ డేటాబేస్‌లలో శోధించి, సారాంశాన్ని విశ్లేషించి సమగ్ర నివేదిక తయారుచేసే ఏజెంట్ నిర్మాణం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Planner-Worker ఆర్కిటెక్చర్: 1. Planner Agent యూజర్ టాపిక్‌ను 4 ఉప-ప్రశ్నలుగా విభజిస్తుంది, 2. Worker Agents ప్యారలల్‌గా గూగుల్/బింగ్ మరియు ఆర్కైవ్ డాక్యుమెంట్స్ సెర్చ్ చేస్తాయి, 3. Synthesizer Agent రిపోర్ట్ డ్రాఫ్ట్ చేస్తుంది, 4. Fact-Checker ఫ్యాక్ట్స్ వెరిఫై చేస్తుంది.</p>
+<p>Planner-Worker ఆర్కిటెక్చర్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Planner Agent యూజర్ టాపిక్‌ను 4 ఉప-ప్రశ్నలుగా విభజిస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Worker Agents ప్యారలల్‌గా గూగుల్/బింగ్ మరియు ఆర్కైవ్ డాక్యుమెంట్స్ సెర్చ్ చేస్తాయి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Synthesizer Agent రిపోర్ట్ డ్రాఫ్ట్ చేస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Fact-Checker ఫ్యాక్ట్స్ వెరిఫై చేస్తుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Research Assistant LangGraph Flow
 # [User Query] -&gt; [Planner: Break into sub-queries]
@@ -14961,7 +15573,7 @@ def route_request(query: str) -&gt; str:
 <h4>ఎందుకు అవసరం?</h4>
 <p>పెద్ద ఓపెన్-సోర్స్ మోడల్స్ (Llama-3-70B) ఒకే GPU మెమరీలో సరిపోవు. బహుళ GPU లపై డిస్ట్రిబ్యూట్ చేసి తక్కువ లేటెన్సీతో రన్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Tensor Parallelism (ఒకే లేయర్ వెయిట్స్‌ను 4 లేదా 8 GPU లపై విభజించడం) మరియు PagedAttention (vLLM లో KV-కాష్ మెమరీ వేస్టేజ్ తగ్గించడం) ద్వారా ఇన్ఫరెన్స్ త్రూపుట్‌ను 5x పెంచడం.</p>
+<p>Tensor Parallelism (ఒకే లేయర్ వెయిట్స్‌ను 4 లేదా 8 GPU లపై విభజించడం) మరియు PagedAttention (vLLM లో KV (Key-Value)-కాష్ మెమరీ వేస్టేజ్ తగ్గించడం) ద్వారా ఇన్ఫరెన్స్ త్రూపుట్‌ను 5x పెంచడం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Launching vLLM with Tensor Parallelism on 4 GPUs
 # python3 -m vllm.entrypoints.openai.api_server \
@@ -15382,7 +15994,12 @@ print(TECH_JUSTIFICATION.strip())</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎవరూ మీ కోడ్‌ని లోకల్‌లో క్లోన్ చేసి సెటప్ చేయడానికి 30 నిమిషాలు కేటాయించరు; ఒకే క్లిక్‌తో పనిచేసే డెమో లేదా 2 నిమిషాల వీడియో ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Loom లేదా YouTube లో 2 నిమిషాల ప్రొఫెషనల్ వీడియో: 1. సమస్యను చెప్పడం, 2. లైవ్ యాప్‌లో ప్రశ్న అడిగి ఆన్సర్ మరియు సైటేషన్స్ చూపించడం, 3. ఆర్కిటెక్చర్ మరియు అబ్జర్వబిలిటీ ట్రేసెస్ (Langfuse) చూపించడం.</p>
+<p>Loom లేదా YouTube లో 2 నిమిషాల ప్రొఫెషనల్ వీడియో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>సమస్యను చెప్పడం</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>లైవ్ యాప్‌లో ప్రశ్న అడిగి ఆన్సర్ మరియు సైటేషన్స్ చూపించడం</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>ఆర్కిటెక్చర్ మరియు అబ్జర్వబిలిటీ ట్రేసెస్ (Langfuse) చూపించడం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># 2-Minute Demo Video Script Outline
 DEMO_SCRIPT = [
@@ -16229,7 +16846,12 @@ print(f"క్యారెక్టర్ల సంఖ్య: {len(HEADLINE)} (�
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ ప్రయాణం, మీ ప్రత్యేక సాంకేతిక బలం, మరియు మీరు సంస్థలకు అందించగల విలువను మొదటి వ్యక్తి కథనంలో (first-person narrative) ఆకట్టుకునేలా చెప్పాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>3 పేరాగ్రాఫ్‌ల స్ట్రక్చర్: 1. మీ బ్యాకెండ్ అనుభవం మరియు మిషన్, 2. ఆధునిక AI రంగంలో మీ నైపుణ్యాలు (RAG, ఏజెంట్లు, ఇన్‌ఫ్రా), 3. మీరు సాధించిన కొలవదగిన విజయాలు మరియు కాంటాక్ట్ సమాచారం.</p>
+<p>3 పేరాగ్రాఫ్‌ల స్ట్రక్చర్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>మీ బ్యాకెండ్ అనుభవం మరియు మిషన్</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ఆధునిక AI రంగంలో మీ నైపుణ్యాలు (RAG, ఏజెంట్లు, ఇన్‌ఫ్రా)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>మీరు సాధించిన కొలవదగిన విజయాలు మరియు కాంటాక్ట్ సమాచారం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># LinkedIn About Section Blueprint
 ABOUT_SECTION = """
@@ -16250,7 +16872,12 @@ print(ABOUT_SECTION.strip())</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ ప్రొఫైల్ చూసే రిక్రూటర్‌కి విజువల్ గా మీ ప్రాజెక్ట్ డెమోలు, ఆర్కిటెక్చర్ డయాగ్రమ్స్ మరియు ఆర్టికల్స్ నేరుగా కంటికి కనిపించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Featured సెక్షన్‌లో మీ టాప్ 3 అంశాలను పిన్ చేయాలి: 1. Enterprise RAG లైవ్ డెమో లింక్, 2. మీ గిట్‌హబ్ ఆర్కిటెక్చర్ README పోస్ట్, 3. మీరు రాసిన టెక్నికల్ ఆర్టికల్.</p>
+<p>Featured సెక్షన్‌లో మీ టాప్ 3 అంశాలను పిన్ చేయాలి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Enterprise RAG లైవ్ డెమో లింక్</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>మీ గిట్‌హబ్ ఆర్కిటెక్చర్ README పోస్ట్</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>మీరు రాసిన టెక్నికల్ ఆర్టికల్</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Featured Section Configuration
 FEATURED_ITEMS = [
@@ -16594,7 +17221,13 @@ AWS_DEPLOY_CONFIG = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>గిట్‌హబ్‌కి కోడ్ పుష్ చేసిన వెంటనే ఆటోమేటెడ్ టెస్టులు మరియు లైవ్ డిప్లాయ్‌మెంట్ జరగాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>GitHub Actions: 1. `pytest` &amp; `ruff`, 2. Ragas Evaluation Benchmarks, 3. AWS ECR కి డాకర్ ఇమేజ్ పుష్, 4. ECS సర్వీస్ అప్‌డేట్.</p>
+<p>GitHub Actions:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`pytest` &amp; `ruff`</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Ragas Evaluation Benchmarks</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>AWS ECR కి డాకర్ ఇమేజ్ పుష్</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>ECS సర్వీస్ అప్‌డేట్</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># GitHub Actions Deploy Step
 # - name: Deploy to Amazon ECS
@@ -16795,7 +17428,12 @@ def get_prompt_template(prompt_name: str, version: int = 1) -&gt; str:
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్యాప్‌స్టోన్ ప్రాజెక్ట్‌లో మోడల్ సొంతంగా కల్పిత సమాధానాలు ఇవ్వకుండా కఠినమైన గార్డ్‌రైల్స్ ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>కంట్రాక్ట్ రూల్స్: 1. Strict Grounding System Prompt, 2. Temperature = 0.0, 3. Post-generation Faithfulness check (Ragas) — స్కోర్ 0.85 కంటే తగ్గితే సమాధానాన్ని బ్లాక్ చేసి హెచ్చరిక ఇవ్వడం.</p>
+<p>కంట్రాక్ట్ రూల్స్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Strict Grounding System Prompt</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Temperature = 0.0</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Post-generation Faithfulness check (Ragas) — స్కోర్ 0.85 కంటే తగ్గితే సమాధానాన్ని బ్లాక్ చేసి హెచ్చరిక ఇవ్వడం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Hallucination Guard Filter
 def filter_hallucinations(answer: str, retrieved_context: str, faithfulness_score: float):
@@ -17146,7 +17784,12 @@ print(f"క్యాష్ హిట్ క్వెరీ కాస్ట్: $
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొడక్షన్ సర్వర్లు, డేటాబేస్‌లు లేదా మోడల్ ఏపీఐలు అకస్మాత్తుగా ఫెయిల్ అయినప్పుడు మీ సిస్టమ్ ఎలా స్పందిస్తుందో ప్రాక్టికల్ గా టెస్ట్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>టెస్టింగ్ దృశ్యాలు: 1. Redis సర్వర్‌ను కిల్‌ చేయడం, 2. OpenAI API కి రాంగ్ కీ ఇచ్చి 401/500 ఎర్రర్ సృష్టించడం, 3. నెట్‌వర్క్ డ్రాప్ చేయడం. సిస్టమ్ క్రాష్ అవ్వకుండా ఫాల్‌బ్యాక్ రూట్‌లోకి వెళ్లి రికవర్ అవ్వాలి.</p>
+<p>టెస్టింగ్ దృశ్యాలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Redis సర్వర్‌ను కిల్‌ చేయడం</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>OpenAI API కి రాంగ్ కీ ఇచ్చి 401/500 ఎర్రర్ సృష్టించడం</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>నెట్‌వర్క్ డ్రాప్ చేయడం. సిస్టమ్ క్రాష్ అవ్వకుండా ఫాల్‌బ్యాక్ రూట్‌లోకి వెళ్లి రికవర్ అవ్వాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Chaos Test: Simulating Primary Provider Failure
 def test_resilience_under_primary_failure():
@@ -17248,7 +17891,13 @@ SCALE_MILESTONES = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీరు గీసిన ఆర్కిటెక్చర్ బాక్స్‌ల వెనుక ఉన్న సాంకేతిక లోతును ఇంటర్వ్యూయర్‌కు కళ్లకు కట్టినట్లు వివరించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>"మా ప్లాట్‌ఫామ్ 4 ప్రధాన లేయర్లపై ఆధారపడింది: 1. API &amp; Auth Gateway, 2. Hybrid Retrieval Subsystem, 3. Stateful Multi-Agent Core, 4. Telemetry &amp; Resilience Layer..." అని స్పష్టమైన ప్రవాహంతో వివరించడం.</p>
+<p>"మా ప్లాట్‌ఫామ్ 4 ప్రధాన లేయర్లపై ఆధారపడింది:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>API &amp; Auth Gateway</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Hybrid Retrieval Subsystem</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Stateful Multi-Agent Core</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Telemetry &amp; Resilience Layer..." అని స్పష్టమైన ప్రవాహంతో వివరించడం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Architectural Walkthrough Outline
 ARCH_EXPLANATION = """
@@ -17468,7 +18117,12 @@ ARCH_SCENARIOS = [
 <h4>ఎందుకు అవసరం?</h4>
 <p>డైరెక్టర్లు మరియు వైస్ ప్రెసిడెంట్లు మీ కమ్యూనికేషన్, వివాద పరిష్కారం (Conflict Resolution), మరియు నాయకత్వ శైలిని పరీక్షిస్తారు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>STAR విధానంలో 5 బలమైన నిజ జీవిత కథలు సిద్ధం చేసుకోవడం: 1. టీమ్‌లో సాంకేతిక విభేదం వచ్చినప్పుడు ఎలా పరిష్కరించారు, 2. ప్రొడక్షన్ ఇన్సిడెంట్ సమయంలో ఎలా నాయకత్వం వహించారు, 3. డెడ్‌లైన్ ఒత్తిడిని ఎలా అధిగమించారు.</p>
+<p>STAR విధానంలో 5 బలమైన నిజ జీవిత కథలు సిద్ధం చేసుకోవడం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>టీమ్‌లో సాంకేతిక విభేదం వచ్చినప్పుడు ఎలా పరిష్కరించారు</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ప్రొడక్షన్ ఇన్సిడెంట్ సమయంలో ఎలా నాయకత్వం వహించారు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>డెడ్‌లైన్ ఒత్తిడిని ఎలా అధిగమించారు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Leadership Behavioral Story Structure (STAR)
 # Situation: Product team wanted to launch AI agent without security guardrails.
@@ -17736,6 +18390,40 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
       });
     });
   }
+
+  
+  // Modal Open / Close Logic
+  var modalEl = document.getElementById('header-modal');
+  var openPopupBtn = document.getElementById('open-popup-btn');
+  var closeModalBtn = document.getElementById('close-modal-btn');
+  var doneModalBtn = document.getElementById('done-modal-btn');
+
+  function openModal() {
+    if (modalEl) modalEl.classList.remove('hide');
+  }
+  function closeModal() {
+    if (modalEl) modalEl.classList.add('hide');
+  }
+
+  if (openPopupBtn) openPopupBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (doneModalBtn) doneModalBtn.addEventListener('click', closeModal);
+
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === modalEl) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalEl && !modalEl.classList.contains('hide')) {
+      closeModal();
+    }
+    if (e.key === '/' && document.activeElement !== q && q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
 
   updateCountsAndFilter();
 })();

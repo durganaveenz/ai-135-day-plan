@@ -85,35 +85,493 @@ pre { position: relative; padding-top: 36px; }
 .font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
 .font-ctrls button:hover { border-color: var(--accent); }
 
+
+/* === Super Compact Header & Popup Modal === */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.top-nav-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav-back-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.nav-phase-badge {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--accent);
+  background: var(--soft);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.nav-days-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .nav-days-text { display: none; }
+}
+
+.nav-center {
+  flex: 1;
+  max-width: 360px;
+}
+.nav-search-box {
+  position: relative;
+  width: 100%;
+}
+.nav-search-box input {
+  width: 100%;
+  padding: 6px 12px 6px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: 13.5px/1.4 inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.nav-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-popup-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.pill-arrow {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  margin: 6px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.page-title-bar h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+.page-title-bar .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.modal-overlay.hide {
+  display: none;
+}
+.modal-card {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.2s ease-out;
+}
+@keyframes modalPop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-phase-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: block;
+}
+.modal-close-btn {
+  background: var(--soft);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--accent);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-section-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.progress-card {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.progress-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prog-card-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.prog-card-pct {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ok);
+}
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-action-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.modal-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.font-ctrl-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-ctrl-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-index-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.modal-index-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.modal-done-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.modal-done-btn:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
+
+<header class="top-nav">
+  <div class="top-nav-wrap">
+    <div class="nav-left">
+      <a href="telugu-index.html" class="nav-back-link" title="అన్ని phases ఇండెక్స్">←</a>
+      <span class="nav-phase-badge">Phase 6</span>
+      <span class="nav-days-text">Day 61–75</span>
+    </div>
+    
+    <div class="nav-center">
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+        <input id="q" type="search" placeholder="Search / వెతకండి… (/)" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
+        <span class="pill-dot"></span>
+        <span id="nav-pill-status">0% · 📋 All</span>
+        <span class="pill-arrow">▾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Phase 6 (Day 61–75)</h1>
-<p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
-<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
-<div class="tools">
-  <div class="tools-row">
-    <input id="q" type="search" placeholder="Search / వెతకండి…">
-    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
-    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
-    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
-    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
-    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
-  </div>
-  <div class="progress-container">
-    <div class="progress-wrap">
-      <div id="prog-bar" class="progress-bar"></div>
+
+<div class="page-title-bar">
+  <h1>135-Day AI Engineering Roadmap<br>Phase 6: Production AI Engineering, Cloud & DevOps</h1>
+  <p class="sub">Day 61–75 · 1031 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
+</div>
+
+<!-- Header Popup Modal -->
+<div id="header-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Phase 6: Production AI Engineering, Cloud & DevOps</h3>
+        <span class="modal-phase-meta">Day 61–75 · మొత్తం 1031 టాపిక్స్</span>
+      </div>
+      <button id="close-modal-btn" class="modal-close-btn" title="మూసివేయి (Esc)">✕</button>
     </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+    
+    <div class="modal-body">
+      <!-- 1. Progress Overview Card -->
+      <div class="modal-section progress-card">
+        <div class="progress-card-top">
+          <span class="prog-card-title">అభ్యసన పురోగతి (Progress)</span>
+          <span id="prog-pct" class="prog-card-pct">0% పూర్తయింది</span>
+        </div>
+        <div class="progress-wrap">
+          <div id="prog-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="prog-ratio">0 / 1031 టాపిక్స్ పూర్తయ్యాయి</span>
+          <span id="prog-breakdown">⏳ 0 చదువుతున్నారు · 📦 0 ఆర్కైవ్</span>
+        </div>
+      </div>
+
+      <!-- 2. Filter Tabs -->
+      <div class="modal-section">
+        <div class="modal-section-head">టాపిక్స్ ఫిల్టర్ చేయండి (Filter by Status):</div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="all">
+            అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span>
+          </button>
+          <button class="tab-btn" data-tab="start">
+            ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span>
+          </button>
+          <button class="tab-btn" data-tab="progress">
+            చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span>
+          </button>
+          <button class="tab-btn" data-tab="done">
+            పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span>
+          </button>
+          <button class="tab-btn" data-tab="archive">
+            ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Page Controls -->
+      <div class="modal-section">
+        <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
+        <div class="modal-actions-row">
+          <button id="all" class="modal-action-btn">
+            <span>📂</span> అన్నీ తెరువు / మూసివేయి
+          </button>
+          
+          <div class="font-ctrl-wrap">
+            <span class="font-ctrl-label">ఫాంట్ సైజ్:</span>
+            <div class="font-ctrls">
+              <button id="font-dec" title="చిన్న ఫాంట్">A-</button>
+              <button id="font-reset" title="సాధారణ ఫాంట్">A</button>
+              <button id="font-inc" title="పెద్ద ఫాంట్">A+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="telugu-index.html" class="modal-index-link">← అన్ని phases ఇండెక్స్ డాష్‌బోర్డ్</a>
+      <button id="done-modal-btn" class="modal-done-btn">పూర్తయింది (Done)</button>
     </div>
   </div>
+</div>
+
+<h2 class="day">Day 61: Production AI application architecture</h2>
+
+<details class="t"><summary>1. Prototype vs production application.<small>ప్రోటోటైప్ మరియు ప్రొడక్షన్ అప్లికేషన్ మధ్య తేడాలు</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Jupyter Notebook లేదా ఒక సింగిల్ Python స్క్రిప్ట్‌లో AI మోడల్ పనిచేయడం చాలా సులభం. కానీ వేలాదిమంది యూజర్లు ఒకేసారి వాడినప్పుడు సర్వర్ క్రాష్ అవ్వకుండా, తక్కువ లేటెన్సీ, ఎర్రర్ హ్యాండ్లింగ్ మరియు సెక్యూరిటీతో రన్ అవ్వడానికి ప్రొడక్షన్ ఆర్కిటెక్చర్ తప్పనిసరి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>Laravel లో మనం మొదట `routes/web.php` లో ఒక క్లోజర్ ఫంక్షన్ రాసి డైరెక్ట్ గా టెస్ట్ చేస్తాం (ప్రోటోటైప్). కానీ అసలైన ప్రొడక్షన్ కోసం Controllers, Form Requests, Queues, Services, Redis Caching, Sentry లాగింగ్ వాడతాం కదా. AI లో కూడా అంతే: ప్రోటోటైప్ కేవలం `openai.ChatCompletion.create()` తో ఆగిపోతే, ప్రొడక్షన్ లో రేట్ లిమిటింగ్, ఫాల్‌బ్యాక్ మోడల్స్, టోకెన్ బడ్జెటింగ్, అసిన్రోనస్ క్యూలు మరియు మోనిటరింగ్ ఉంటాయి.</p>
+<h4>ఉదాహరణ</h4>
+<pre># Prototype: హార్డ్‌కోడెడ్ మరియు ఎర్రర్ హ్యాండ్లింగ్ ఉండదు
+# response = openai.ChatCompletion.create(model="gpt-4", messages=[...])
+
+# Production: టైమ్‌అవుట్, రీట్రైలు మరియు ఎర్రర్ హ్యాండ్లింగ్‌తో కూడిన ఆర్కిటెక్చర్
+import httpx
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+class ProductionLLMClient:
+    def __init__(self, api_key: str):
+        self.client = httpx.AsyncClient(timeout=30.0)
+        self.api_key = api_key
+
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
+    async def generate_reply(self, prompt: str) -&gt; str:
+        # 3 సార్లు exponential backoff తో retry చేస్తుంది
+        response = await self.client.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={"Authorization": f"Bearer {self.api_key}"},
+            json={"model": "gpt-4o-mini", "messages": [{"role": "user", "content": prompt}]}
+        )
+        response.raise_for_status()
+        return response.json()["choices"][0]["message"]["content"]
+</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> నోట్‌బుక్‌లో రాసిన కోడ్‌ను ఎర్రర్ హ్యాండ్లింగ్, రీట్రై లాజిక్ లేకుండా నేరుగా ప్రొడక్షన్ FastAPI లో పెట్టేయడం.</div>
 </div></details>
+
 
 <details class="t"><summary>2. Monolithic vs microservices architecture.<small>మోనోలిథిక్ వర్సెస్ మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -289,7 +747,7 @@ class EmbeddingService:
     def embed_chunks(self, chunks: list[str]) -&gt; list[list[float]]:
         return [[0.1, 0.2] for _ in chunks]
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> "DocumentManager" అనే ఒకే క్లాస్‌లో PDF డౌన్‌లోడ్, OCR, Chunking, Embedding, Pinecone అప్‌లోడ్ అన్నీ రాయడం.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> "DocumentManager" అనే ఒకే క్లాస్‌లో PDF డౌన్‌లోడ్, OCR (Optical Character Recognition), Chunking, Embedding, Pinecone అప్‌లోడ్ అన్నీ రాయడం.</div>
 </div></details>
 
 <details class="t"><summary>9. Dependency inversion.<small>డిపెండెన్సీ ఇన్వర్షన్ (Dependency Inversion Principle)</small></summary><div class="body">
@@ -2394,7 +2852,12 @@ def save_job_result(job_id: str, result_data: dict, ttl_seconds: int = 86400):
 
 <details class="t"><summary>35. Streaming progress.<small>స్ట్రీమింగ్ ప్రోగ్రెస్ (Step-by-step Progress Updates)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఒక మల్టీ-స్టెప్ ఏజెంట్ పనిచేస్తున్నప్పుడు (ఉదా: 1. వెబ్ సెర్చ్, 2. డాక్యుమెంట్ రీడింగ్, 3. కోడ్ ఎగ్జిక్యూషన్), యూజర్ కు స్క్రీన్ పై ఏ స్టెప్ జరుగుతోందో రియల్-టైమ్ లో చూపిస్తే యూజర్ సంతృప్తి పెరుగుతుంది.</p>
+<p>ఒక మల్టీ-స్టెప్ ఏజెంట్ పనిచేస్తున్నప్పుడు (ఉదా:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>వెబ్ సెర్చ్</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>డాక్యుమెంట్ రీడింగ్</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>కోడ్ ఎగ్జిక్యూషన్), యూజర్ కు స్క్రీన్ పై ఏ స్టెప్ జరుగుతోందో రియల్-టైమ్ లో చూపిస్తే యూజర్ సంతృప్తి పెరుగుతుంది</span></div>
+</div>
 <h4>సరళమైన వివరణ</h4>
 <p>SSE లేదా WebSocket ద్వారా ప్రతి మైలురాయి చేరినప్పుడు ఒక ఈవెంట్ పంపుతాం. ఉదాహరణకు: `{"step": "Searching web", "progress": 25}`.</p>
 <h4>ఉదాహరణ</h4>
@@ -4406,7 +4869,12 @@ docker version
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంటైనర్లను బిల్డ్ చేయడం, షిప్ చేయడం మరియు రన్ చేయడానికి అవసరమైన కోర్ రన్‌టైమ్ సిస్టమ్ డాకర్ ఇంజిన్.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Docker Engine లో మూడు ముఖ్య భాగాలుంటాయి: 1. `dockerd` (సర్వర్ డెమన్), 2. Engine REST API, 3. `docker` CLI. కంటైనర్లను వాస్తవంగా రన్ చేయడానికి ఇది OCI (Open Container Initiative) ప్రమాణాలను పాటించే `containerd` మరియు `runc` లను వాడుతుంది.</p>
+<p>Docker Engine లో మూడు ముఖ్య భాగాలుంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`dockerd` (సర్వర్ డెమన్)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Engine REST API</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>`docker` CLI. కంటైనర్లను వాస్తవంగా రన్ చేయడానికి ఇది OCI (Open Container Initiative) ప్రమాణాలను పాటించే `containerd` మరియు `runc` లను వాడుతుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Docker Engine సర్వీస్ స్టేటస్ (Linux లో)
 # sudo systemctl status docker
@@ -5489,7 +5957,11 @@ kubectl get nodes -o wide
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లస్టర్ లో నిర్ణయాలు తీసుకునే బ్రెయిన్ ఏది, అసలైన పనులు చేసే వర్కర్లు ఎవరో తెలిస్తే క్లస్టర్ సమస్యలను సమర్థవంతంగా డీబగ్ చేయగలుగుతాం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>K8s క్లస్టర్ లో రెండు భాగాలుంటాయి: 1. **Control Plane (Master Nodes)**: క్లస్టర్ స్థితిని పర్యవేక్షించే కేంద్ర నియంత్రణ విభాగం. 2. **Worker Nodes**: మీ అసలైన అప్లికేషన్ కంటైనర్లు (Pods) రన్ అయ్యే ఫిజికల్ లేదా క్లౌడ్ వర్చువల్ సర్వర్లు.</p>
+<p>K8s క్లస్టర్ లో రెండు భాగాలుంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Control Plane (Master Nodes)**: క్లస్టర్ స్థితిని పర్యవేక్షించే కేంద్ర నియంత్రణ విభాగం</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Worker Nodes**: మీ అసలైన అప్లికేషన్ కంటైనర్లు (Pods) రన్ అయ్యే ఫిజికల్ లేదా క్లౌడ్ వర్చువల్ సర్వర్లు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># క్లస్టర్ లోని కంట్రోల్ ప్లేన్ మరియు వర్కర్ నోడ్లను చూడటం
 kubectl get nodes
@@ -5516,7 +5988,12 @@ kubectl get componentstatuses
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ అసలైన FastAPI యాప్, Qdrant డేటాబేస్, Celery వర్కర్లు వాస్తవంగా రన్ అయ్యే సర్వర్లు ఇవే.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రతి వర్కర్ నోడ్ లో మూడు ముఖ్యమైన కాంపోనెంట్స్ ఉంటాయి: 1. `kubelet` (నోడ్ కెప్టెన్), 2. `kube-proxy` (నోడ్ నెట్‌వర్క్ ట్రాఫిక్ రూటర్), 3. `Container Runtime` (containerd / CRI-O).</p>
+<p>ప్రతి వర్కర్ నోడ్ లో మూడు ముఖ్యమైన కాంపోనెంట్స్ ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`kubelet` (నోడ్ కెప్టెన్)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>`kube-proxy` (నోడ్ నెట్‌వర్క్ ట్రాఫిక్ రూటర్)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>`Container Runtime` (containerd / CRI-O)</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># నిర్దిష్ట వర్కర్ నోడ్ వివరాలను లోతుగా పరిశీలించడం
 kubectl describe node worker-1
@@ -5540,7 +6017,11 @@ kubectl get --raw /api/v1/namespaces
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొత్త పాడ్ సృష్టించబడినప్పుడు, దానికి కావలసిన CPU, RAM, మరియు GPU రిసోర్స్‌లు ఏ వర్కర్ నోడ్‌లో ఖాళీగా ఉన్నాయో లెక్కించి ఆ నోడ్‌కు కేటాయించే మేధావి షెడ్యూలర్.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>షెడ్యూలర్ రెండు దశల్లో పనిచేస్తుంది: 1. Filtering (ఏయే నోడ్లలో సరిపడా RAM ఉంది?), 2. Scoring (ఫిల్టర్ అయిన వాటిలో ఏ నోడ్ అత్యుత్తమమైనది?). ఆ తర్వాత పాడ్‌ను ఆ నోడ్‌కు బైండ్ చేస్తుంది.</p>
+<p>షెడ్యూలర్ రెండు దశల్లో పనిచేస్తుంది:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Filtering (ఏయే నోడ్లలో సరిపడా RAM ఉంది?)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Scoring (ఫిల్టర్ అయిన వాటిలో ఏ నోడ్ అత్యుత్తమమైనది?). ఆ తర్వాత పాడ్‌ను ఆ నోడ్‌కు బైండ్ చేస్తుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># షెడ్యూలింగ్ ఈవెంట్స్ చూడటం
 kubectl get events --field-selector reason=Scheduled
@@ -6845,7 +7326,12 @@ for vpn in connections['VpnConnections']:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రపంచవ్యాప్తంగా ఉన్న యూజర్లకు తక్కువ లేటెన్సీ (low latency) తో సర్వీసులు అందించడానికి మరియు విపత్తులు (disasters) సంభవించినప్పుడు హై-అవైలబిలిటీ ఉండేలా ప్లాన్ చేయడానికి AWS గ్లోబల్ ఇన్‌ఫ్రాస్ట్రక్చర్ అర్థం చేసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గతంలో మనం USA లోని డల్లాస్ లో ఒకే ఒక VPS కొంటే, ఇండియాలో ఉన్న యూజర్లకు వెబ్‌సైట్ స్లోగా ఓపెన్ అయ్యేది. AWS ప్రపంచమంతటా విస్తరించిన నెట్‌వర్క్‌ను నిర్మించింది. దీనిలో ప్రధానంగా మూడు భాగాలుంటాయి: 1. Regions (భౌగోళిక ప్రాంతాలు), 2. Availability Zones (ఒక్కో రీజియన్‌లోని స్వతంత్ర డేటా సెంటర్లు), 3. Edge Locations (కంటెంట్ కాషింగ్ పాయింట్లు).</p>
+<p>గతంలో మనం USA లోని డల్లాస్ లో ఒకే ఒక VPS కొంటే, ఇండియాలో ఉన్న యూజర్లకు వెబ్‌సైట్ స్లోగా ఓపెన్ అయ్యేది. AWS ప్రపంచమంతటా విస్తరించిన నెట్‌వర్క్‌ను నిర్మించింది. దీనిలో ప్రధానంగా మూడు భాగాలుంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Regions (భౌగోళిక ప్రాంతాలు)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Availability Zones (ఒక్కో రీజియన్‌లోని స్వతంత్ర డేటా సెంటర్లు)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Edge Locations (కంటెంట్ కాషింగ్ పాయింట్లు)</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># AWS గ్లోబల్ ఇన్‌ఫ్రాస్ట్రక్చర్‌లో ఉన్న అందుబాటులోని అన్ని రీజియన్లను లిస్ట్ చేయడం
 import boto3
@@ -8279,7 +8765,12 @@ print("Kinesis స్ట్రీమ్‌లోకి రికార్డ్ 
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లౌడ్ ప్రాజెక్ట్‌ను ప్రారంభించే ముందు సెక్యూర్ ఫౌండేషన్, బడ్జెట్ అలర్ట్స్ మరియు రూట్ అకౌంట్ ప్రొటెక్షన్ సెట్ చేయడం తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>AWS అకౌంట్ క్రియేట్ చేయగానే మొదటి పని: 1. Root యూజర్‌కి వెంటనే **MFA (Google Authenticator/YubiKey)** ఎనేబుల్ చేయాలి. 2. **AWS Budgets** లో నెలకు $20 లేదా $50 అలర్ట్ సెట్ చేయాలి (బిల్లు పరిమితి దాటితే ఈమెయిల్ అలర్ట్ వస్తుంది). 3. రోజూ వాడటానికి అడ్మిన్ అధికారాలు గల కొత్త IAM యూజర్‌ను సృష్టించి రూట్ యూజర్‌ను లాగౌట్ చేయాలి.</p>
+<p>AWS అకౌంట్ క్రియేట్ చేయగానే మొదటి పని:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Root యూజర్‌కి వెంటనే **MFA (Google Authenticator/YubiKey)** ఎనేబుల్ చేయాలి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**AWS Budgets** లో నెలకు $20 లేదా $50 అలర్ట్ సెట్ చేయాలి (బిల్లు పరిమితి దాటితే ఈమెయిల్ అలర్ట్ వస్తుంది)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>రోజూ వాడటానికి అడ్మిన్ అధికారాలు గల కొత్త IAM యూజర్‌ను సృష్టించి రూట్ యూజర్‌ను లాగౌట్ చేయాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># AWS Budgets ద్వారా నెలవారీ ఖర్చు అలర్ట్ సెటప్ కాన్ఫిగరేషన్
 import boto3
@@ -8302,7 +8793,12 @@ print("బడ్జెట్ అలర్ట్ కాన్ఫిగరేష�
 <h4>ఎందుకు అవసరం?</h4>
 <p>మన FastAPI మరియు AI సర్వీసులు AWS క్లౌడ్ వనరులతో సంభాషించడానికి అవసరమైన లీస్ట్-ప్రివిలేజ్ రోల్స్‌ను కాన్ఫిగర్ చేయడం ముఖ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక సర్వర్ లేదా లాంబ్డా కోసం రోల్ తయారుచేసే ప్రాసెస్: 1. ట్రస్ట్ పాలసీని రూపొందించడం (ఏ సర్వీస్ ఈ రోల్ ధరించవచ్చు), 2. పర్మిషన్ పాలసీని అటాచ్ చేయడం (ఆ రోల్ ఏ S3 లేదా CloudWatch రిసోర్సులను తాకవచ్చు), 3. EC2 అయితే Instance Profile తయారుచేసి సర్వర్‌కు లింక్ చేయడం.</p>
+<p>ఒక సర్వర్ లేదా లాంబ్డా కోసం రోల్ తయారుచేసే ప్రాసెస్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ట్రస్ట్ పాలసీని రూపొందించడం (ఏ సర్వీస్ ఈ రోల్ ధరించవచ్చు)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>పర్మిషన్ పాలసీని అటాచ్ చేయడం (ఆ రోల్ ఏ S3 లేదా CloudWatch రిసోర్సులను తాకవచ్చు)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>EC2 అయితే Instance Profile తయారుచేసి సర్వర్‌కు లింక్ చేయడం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># FastAPI సర్వర్ కోసం IAM Role మరియు Instance Profile ను స్వయంచాలకంగా సృష్టించడం
 import boto3, json
@@ -8329,7 +8825,13 @@ print("FastAPICloudRole విజయవంతంగా కాన్ఫిగర�
 <h4>ఎందుకు అవసరం?</h4>
 <p>మన అప్లికేషన్ సర్వర్లు మరియు డేటాబేస్‌ల కోసం పూర్తి నెట్‌వర్క్ ఐసోలేషన్ అందించే సురక్షితమైన VPC ని నిర్మించడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక ప్రామాణిక VPC సెటప్‌లో: 1. `10.0.0.0/16` CIDR తో VPC, 2. బయటి ప్రపంచం కోసం Internet Gateway, 3. రెండు అవైలబిలిటీ జోన్లలో 2 పబ్లిక్ సబ్‌నెట్లు (`10.0.1.0/24`, `10.0.2.0/24`), 4. రెండు అవైలబిలిటీ జోన్లలో 2 ప్రైవేట్ సబ్‌నెట్లు (`10.0.10.0/24`, `10.0.20.0/24`) ఉంటాయి.</p>
+<p>ఒక ప్రామాణిక VPC సెటప్‌లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`10.0.0.0/16` CIDR తో VPC</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>బయటి ప్రపంచం కోసం Internet Gateway</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>రెండు అవైలబిలిటీ జోన్లలో 2 పబ్లిక్ సబ్‌నెట్లు (`10.0.1.0/24`, `10.0.2.0/24`)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>రెండు అవైలబిలిటీ జోన్లలో 2 ప్రైవేట్ సబ్‌నెట్లు (`10.0.10.0/24`, `10.0.20.0/24`) ఉంటాయి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Boto3 తో ప్రొడక్షన్ VPC మరియు సబ్‌నెట్ల రూపకల్పన
 import boto3
@@ -8968,7 +9470,14 @@ print("Reserved Concurrency 20 గా సెట్ చేయబడింది")
 <h4>ఎందుకు అవసరం?</h4>
 <p>బహుళ లాంబ్డా ఫంక్షన్లు, AI మోడల్ కాల్స్, మరియు హ్యూమన్ అప్రూవల్స్ కలిపి ఉండే సంక్లిష్టమైన బహుళ-దశల వర్క్‌ఫ్లోలను నిర్వహించడానికి Step Functions అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో మీరు Spatie Laravel-Model-States లేదా వర్క్‌ఫ్లో ఇంజిన్ ఎలా వాడతారో, AWS లో **Step Functions** అనేది విజువల్ స్టేట్ మెషీన్. ఉదాహరణకు AI RAG పైప్‌లైన్: 1. డాక్యుమెంట్ రీడ్ చేయి, 2. టెక్స్ట్ చంకింగ్ చేయి, 3. ఎంబెడ్డింగ్స్ జనరేట్ చేయి, 4. ఏదైనా ఫెయిల్ అయితే రీట్రై చేయి, 5. పూర్తయ్యాక ఈమెయిల్ పంపు. ఈ మొత్తం ఫ్లోను JSON (ASL - Amazon States Language) రూపంలో డిఫైన్ చేస్తారు.</p>
+<p>Laravel లో మీరు Spatie Laravel-Model-States లేదా వర్క్‌ఫ్లో ఇంజిన్ ఎలా వాడతారో, AWS లో **Step Functions** అనేది విజువల్ స్టేట్ మెషీన్. ఉదాహరణకు AI RAG పైప్‌లైన్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>డాక్యుమెంట్ రీడ్ చేయి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>టెక్స్ట్ చంకింగ్ చేయి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>ఎంబెడ్డింగ్స్ జనరేట్ చేయి</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>ఏదైనా ఫెయిల్ అయితే రీట్రై చేయి</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>పూర్తయ్యాక ఈమెయిల్ పంపు. ఈ మొత్తం ఫ్లోను JSON (ASL - Amazon States Language) రూపంలో డిఫైన్ చేస్తారు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Step Function స్టేట్ మెషీన్ ఎగ్జిక్యూషన్‌ను ప్రారంభించడం
 import boto3, json
@@ -9088,7 +9597,16 @@ print("S3 ఈవెంట్ నోటిఫికేషన్ విజయవ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>అప్‌లోడ్ అయిన డాక్యుమెంట్లను ముక్కలు చేసి (chunking), వెక్టర్లుగా మార్చి (embeddings), వెక్టర్ డేటాబేస్‌లో నిల్వ చేసే ఆటోమేటిక్ ప్రక్రియ కోసం ఇంజెషన్ పైప్‌లైన్స్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>RAG అప్లికేషన్‌లో ఇంజెషన్ పైప్‌లైన్ దశలు: 1. S3 లో PDF అప్‌లోడ్ అవుతుంది, 2. SQS కి ఈవెంట్ వెళ్తుంది, 3. Python ECS Worker మెసేజ్ అందుకుంటుంది, 4. PyPDF/Unstructured తో టెక్స్ట్ సంగ్రహిస్తుంది, 5. RecursiveCharacterTextSplitter తో చంక్స్ చేస్తుంది, 6. Bedrock/OpenAI ద్వారా ఎంబెడ్డింగ్స్ తీస్తుంది, 7. RDS PostgreSQL (pgvector) లో సేవ్ చేస్తుంది.</p>
+<p>RAG అప్లికేషన్‌లో ఇంజెషన్ పైప్‌లైన్ దశలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>S3 లో PDF అప్‌లోడ్ అవుతుంది</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>SQS కి ఈవెంట్ వెళ్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Python ECS Worker మెసేజ్ అందుకుంటుంది</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>PyPDF/Unstructured తో టెక్స్ట్ సంగ్రహిస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>RecursiveCharacterTextSplitter తో చంక్స్ చేస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">6</span><span>Bedrock/OpenAI ద్వారా ఎంబెడ్డింగ్స్ తీస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">7</span><span>RDS PostgreSQL (pgvector) లో సేవ్ చేస్తుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># డాక్యుమెంట్ ఇంజెషన్ పైప్‌లైన్ వర్కర్ ఆర్కిటెక్చర్ ఫ్లో
 def process_ingestion_event(s3_bucket, s3_key):
@@ -9149,7 +9667,11 @@ lifecycle_config = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>కస్టమర్ల కాన్ఫిడెన్షియల్ డేటా, మేధో సంపత్తి మరియు మెడికల్/ఫైనాన్షియల్ రికార్డులను సైబర్ దాడుల నుండి రక్షించడానికి ఎన్‌క్రిప్షన్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఎన్‌క్రిప్షన్ రెండు చోట్ల ఉంటుంది: 1. **In-Transit (ప్రయాణంలో):** HTTPS మరియు TLS 1.3 ద్వారా సర్వర్ మరియు డేటాబేస్/S3 మధ్య డేటా ఎన్‌క్రిప్ట్ అవుతుంది. 2. **At-Rest (నిల్వలో):** S3, EBS మరియు RDS లలో డేటా డిస్క్ లో సేవ్ అయ్యేటప్పుడు AWS KMS కీలతో క్రిప్టోగ్రాఫిక్ గా ఎన్‌క్రిప్ట్ అవుతుంది.</p>
+<p>ఎన్‌క్రిప్షన్ రెండు చోట్ల ఉంటుంది:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**In-Transit (ప్రయాణంలో):** HTTPS మరియు TLS 1.3 ద్వారా సర్వర్ మరియు డేటాబేస్/S3 మధ్య డేటా ఎన్‌క్రిప్ట్ అవుతుంది</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**At-Rest (నిల్వలో):** S3, EBS మరియు RDS లలో డేటా డిస్క్ లో సేవ్ అయ్యేటప్పుడు AWS KMS కీలతో క్రిప్టోగ్రాఫిక్ గా ఎన్‌క్రిప్ట్ అవుతుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># S3 కి ఫైల్ అప్‌లోడ్ చేసేటప్పుడు KMS ఎన్‌క్రిప్షన్ హెడర్ జతచేయడం
 import boto3
@@ -9427,7 +9949,7 @@ print(result['content'][0]['text'])</pre>
 
 <details class="t"><summary>47. GPU instance selection.<small>GPU ఇన్‌స్టాన్స్ ఎంపిక (సరైన హార్డ్‌వేర్ సైజింగ్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>మోడల్ పారామీటర్ల పరిమాణం (7B, 13B, 70B) మరియు ప్రెసిషన్ (FP16, INT8, INT4) ఆధారంగా సరిపోయే VRAM (Video RAM / GPU Memory) ఉన్న సరైన GPU సర్వర్‌ను ఎంచుకోవాలి.</p>
+<p>మోడల్ పారామీటర్ల పరిమాణం (7B, 13B, 70B) మరియు ప్రెసిషన్ (FP16 (16-bit Floating Point), INT8 (8-bit Integer), INT4 (4-bit Integer)) ఆధారంగా సరిపోయే VRAM (Video RAM / GPU Memory) ఉన్న సరైన GPU సర్వర్‌ను ఎంచుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>GPU లో అతి ముఖ్యమైనది **VRAM (Video RAM / GPU Memory) (వీడియో రామ్)**. 7B మోడల్‌కు 16GB VRAM (Video RAM / GPU Memory) కావాలి (NVIDIA A10G - `g5.xlarge`). 70B మోడల్‌కు కనీసం 140GB VRAM (Video RAM / GPU Memory) కావాలి (`g5.12xlarge` లేదా 8x A100 ఉన్న `p4d.24xlarge`). తక్కువ VRAM (Video RAM / GPU Memory) ఉన్న సర్వర్‌ను ఎంచుకుంటే 'CUDA Out of Memory' ఎర్రర్ వస్తుంది; అవసరం లేకపోయినా అతిపెద్ద GPU ఎంచుకుంటే డబ్బు వృధా అవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -9533,7 +10055,11 @@ print("SageMaker ఎండ్‌పాయింట్ స్కేలింగ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ప్రాజెక్ట్ లైవ్ లోకి వెళ్లాక కంపెనీని ముంచేసే ఊహించని బిల్లులు రాకుండా ముందే ఖర్చులను సరిగ్గా లెక్కించడానికి ఇది అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఖర్చుల గణన మోడల్: 1. **SaaS/Bedrock:** 1 మిలియన్ టోకెన్లకు ఎంత ఖర్చు (ఉదా: Claude 3.5 Sonnet కు ~$3 ఇన్పుట్, ~$15 అవుట్పుట్). నెలకు ఎన్ని క్వెరీలు వస్తాయి? 2. **Self-hosted GPU:** `g5.xlarge` కు గంటకు ~$1.00 = నెలకు ~$730 ఫిక్స్‌డ్ ఖర్చు. మీ ట్రాఫిక్ నెలకు 50 మిలియన్ల టోకెన్లు దాటితే సెల్ఫ్-హోస్టింగ్ లాభదాయకం; తక్కువ ట్రాఫిక్ ఉంటే API ఆధారిత Bedrock వాడటం అత్యంత చౌక.</p>
+<p>ఖర్చుల గణన మోడల్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**SaaS/Bedrock:** 1 మిలియన్ టోకెన్లకు ఎంత ఖర్చు (ఉదా: Claude 3.5 Sonnet కు ~$3 ఇన్పుట్, ~$15 అవుట్పుట్). నెలకు ఎన్ని క్వెరీలు వస్తాయి?</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Self-hosted GPU:** `g5.xlarge` కు గంటకు ~$1.00 = నెలకు ~$730 ఫిక్స్‌డ్ ఖర్చు. మీ ట్రాఫిక్ నెలకు 50 మిలియన్ల టోకెన్లు దాటితే సెల్ఫ్-హోస్టింగ్ లాభదాయకం; తక్కువ ట్రాఫిక్ ఉంటే API ఆధారిత Bedrock వాడటం అత్యంత చౌక</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># ఇన్‌ఫరెన్స్ కాస్ట్ కాలిక్యులేటర్ ఫంక్షన్
 def estimate_monthly_cost(total_queries, avg_input_tokens=500, avg_output_tokens=200):
@@ -9992,7 +10518,13 @@ print("SemVer నియమాలను కచ్చితంగా పాటి�
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎవరూ అనుకోకుండా `main` బ్రాంచ్‌ను డిలీట్ చేయకుండా లేదా డైరెక్ట్ గా కోడ్ పుష్ చేసి ప్రొడక్షన్‌ను నాశనం చేయకుండా అడ్డుకోవడానికి బ్రాంచ్ ప్రొటెక్షన్ రూల్స్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గతంలో జూనియర్ డెవలపర్ పొరపాటున `git push -f origin main` కొట్టి మొత్తం మెయిన్ బ్రాంచ్ హిస్టరీని చెరిపేసే ప్రమాదం ఉండేది. GitHub **Protected Branch Rules** పెడితే: 1. `main` లోకి డైరెక్ట్ పుష్ పూర్తిగా నిషేధించబడుతుంది. 2. కేవలం PR ద్వారానే కోడ్ రావాలి. 3. కనీసం ఒక సీనియర్ డెవలపర్ రివ్యూ అప్రూవల్ ఉండాలి. 4. అన్ని CI ఆటోమేటెడ్ టెస్టులు పాస్ అయితేనే మెర్జ్ బటన్ ఎనేబుల్ అవుతుంది.</p>
+<p>గతంలో జూనియర్ డెవలపర్ పొరపాటున `git push -f origin main` కొట్టి మొత్తం మెయిన్ బ్రాంచ్ హిస్టరీని చెరిపేసే ప్రమాదం ఉండేది. GitHub **Protected Branch Rules** పెడితే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`main` లోకి డైరెక్ట్ పుష్ పూర్తిగా నిషేధించబడుతుంది</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>కేవలం PR ద్వారానే కోడ్ రావాలి</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>కనీసం ఒక సీనియర్ డెవలపర్ రివ్యూ అప్రూవల్ ఉండాలి</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>అన్ని CI ఆటోమేటెడ్ టెస్టులు పాస్ అయితేనే మెర్జ్ బటన్ ఎనేబుల్ అవుతుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># GitHub బ్రాంచ్ ప్రొటెక్షన్ నియమాలు:
 # - Require a pull request before merging (Approved reviews: 1)
@@ -11148,7 +11680,11 @@ except jwt.ExpiredSignatureError:
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ ప్రతి 15 నిమిషాలకు మళ్లీ మళ్లీ పాస్‌వర్డ్ టైప్ చేయాల్సిన అవసరం లేకుండా బ్యాక్‌గ్రౌండ్‌లో కొత్త Access Token పొందడానికి Refresh Token అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>OAuth2 / JWT ఆర్కిటెక్చర్‌లో జంట టోకెన్లు ఉంటాయి: 1. **Access Token:** స్వల్పకాలికం (15 నిమిషాలు), API కాల్స్‌కు వాడతారు. 2. **Refresh Token:** దీర్ఘకాలికం (7 నుండి 30 రోజులు), అత్యంత సురక్షితమైన ప్రదేశంలో (లేదా డేటాబేస్‌లో రేవోకబుల్ గా) ఉంటుంది. Access Token ఎక్స్‌పైర్ కాగానే, మొబైల్ లేదా వెబ్ యాప్ నిశ్శబ్దంగా `/api/refresh` ని పిలిచి కొత్త Access Token తీసుకుంటుంది. యూజర్‌కు లాగౌట్ అనుభవం రాదు.</p>
+<p>OAuth2 / JWT ఆర్కిటెక్చర్‌లో జంట టోకెన్లు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Access Token:** స్వల్పకాలికం (15 నిమిషాలు), API కాల్స్‌కు వాడతారు</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Refresh Token:** దీర్ఘకాలికం (7 నుండి 30 రోజులు), అత్యంత సురక్షితమైన ప్రదేశంలో (లేదా డేటాబేస్‌లో రేవోకబుల్ గా) ఉంటుంది. Access Token ఎక్స్‌పైర్ కాగానే, మొబైల్ లేదా వెబ్ యాప్ నిశ్శబ్దంగా `/api/refresh` ని పిలిచి కొత్త Access Token తీసుకుంటుంది. యూజర్‌కు లాగౌట్ అనుభవం రాదు</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># FastAPI లో రిఫ్రెష్ టోకెన్ ఎండ్‌పాయింట్ నమూనా
 from fastapi import FastAPI, HTTPException
@@ -11536,7 +12072,11 @@ print(redact_sensitive_output("కస్టమర్ కార్డ్ నం�
 <h4>ఎందుకు అవసరం?</h4>
 <p>కస్టమర్లు AI చాట్‌లో పంపే కాన్ఫిడెన్షియల్ డేటా పబ్లిక్ మోడల్స్ ట్రైనింగ్ లో కలిసిపోయి ప్రపంచానికి బహిర్గతం కాకుండా నిరోధించడానికి ఇది అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>గతంలో శాంసంగ్ ఇంజనీర్లు ChatGPT లో కాన్ఫిడెన్షియల్ కోడ్ పేస్ట్ చేయగా, OpenAI ఆ డేటాను తదుపరి మోడల్ ట్రైనింగ్ కు వాడటం వల్ల వివాదం చెలరేగింది. ఎంటర్‌ప్రైజ్ అప్లికేషన్లలో: 1. కస్టమర్ డేటాతో మోడల్ ట్రైన్ చేయబోమని గ్యారెంటీ ఇచ్చే ప్రొవైడర్లను ఎంచుకోవాలి (ఉదా: **AWS Bedrock**, Azure OpenAI, లేదా OpenAI Enterprise API 'Zero Data Retention'). 2. క్లయింట్ అగ్రిమెంట్‌లో డేటా ప్రైవసీ నిబంధనలు స్పష్టంగా ఉండాలి.</p>
+<p>గతంలో శాంసంగ్ ఇంజనీర్లు ChatGPT లో కాన్ఫిడెన్షియల్ కోడ్ పేస్ట్ చేయగా, OpenAI ఆ డేటాను తదుపరి మోడల్ ట్రైనింగ్ కు వాడటం వల్ల వివాదం చెలరేగింది. ఎంటర్‌ప్రైజ్ అప్లికేషన్లలో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>కస్టమర్ డేటాతో మోడల్ ట్రైన్ చేయబోమని గ్యారెంటీ ఇచ్చే ప్రొవైడర్లను ఎంచుకోవాలి (ఉదా: **AWS Bedrock**, Azure OpenAI, లేదా OpenAI Enterprise API 'Zero Data Retention')</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>క్లయింట్ అగ్రిమెంట్‌లో డేటా ప్రైవసీ నిబంధనలు స్పష్టంగా ఉండాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># AWS Bedrock ఎంటర్‌ప్రైజ్ డేటా పాలసీ సారాంశం:
 # "AWS Bedrock మీ ప్రాంప్ట్‌లను లేదా రెస్పాన్స్‌లను ఫౌండేషన్ మోడల్స్ ట్రైనింగ్ కోసం ఎట్టిపరిస్థితుల్లోనూ ఉపయోగించదు."
@@ -11563,7 +12103,7 @@ print("Safetensors ఫార్మాట్ మోడల్ సప్లై చ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్లు అప్‌లోడ్ చేసే PDFలు, డాక్యుమెంట్లలో దాగి ఉండే బఫర్ ఓవర్‌ఫ్లో బగ్‌లు లేదా హానికరమైన మాక్రోల నుండి పార్సింగ్ ఇంజిన్‌ను రక్షించడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>యూజర్లు పంపే ప్రతి ఫైల్ మంచిదని భావించకూడదు. హ్యాకర్లు క్రాష్ అయ్యేలా రూపొందించిన మాల్‌ఫార్మ్డ్ PDFలను (PDF Bomb) పంపి పార్సర్‌ను క్రాష్ చేయవచ్చు. డాక్యుమెంట్ పార్సింగ్ మరియు OCR పనులను ఎల్లప్పుడూ మెయిన్ API సర్వర్‌లో కాకుండా, పరిమిత మెమరీ మరియు ఐసోలేటెడ్ కంటైనర్లలో (Sandboxed Workers) రన్ చేయాలి.</p>
+<p>యూజర్లు పంపే ప్రతి ఫైల్ మంచిదని భావించకూడదు. హ్యాకర్లు క్రాష్ అయ్యేలా రూపొందించిన మాల్‌ఫార్మ్డ్ PDFలను (PDF Bomb) పంపి పార్సర్‌ను క్రాష్ చేయవచ్చు. డాక్యుమెంట్ పార్సింగ్ మరియు OCR (Optical Character Recognition) పనులను ఎల్లప్పుడూ మెయిన్ API సర్వర్‌లో కాకుండా, పరిమిత మెమరీ మరియు ఐసోలేటెడ్ కంటైనర్లలో (Sandboxed Workers) రన్ చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># శాండ్‌బాక్స్‌డ్ ప్రాసెసింగ్ కాన్సెప్ట్
 def safe_parse_document(s3_path: str):
@@ -11705,7 +12245,12 @@ print("కొత్త సీక్రెట్ సురక్షితంగ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకవేళ రహస్యంగా ఏదైనా పాస్‌వర్డ్ లేదా API కీ లీక్ అయినా, నిర్ణీత వ్యవధిలో అది మారిపోవడం వల్ల నష్టాన్ని నివారించడానికి రొటేషన్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>కంపెనీలలో 90 రోజులకు ఒకసారి డేటాబేస్ పాస్‌వర్డ్ మార్చాలనే నిబంధన ఉంటుంది. AWS Secrets Manager లో **Automatic Rotation** ఆన్ చేస్తే, అది అంతర్గత లాంబ్డా ఫంక్షన్‌ను పిలిచి: 1. PostgreSQL లో కొత్త పాస్‌వర్డ్ సెట్ చేస్తుంది, 2. Secrets Manager లో అప్‌డేట్ చేస్తుంది, 3. కనెక్షన్‌ను ధృవీకరిస్తుంది. ఇదంతా మానవ ప్రమేయం లేకుండా అర్ధరాత్రి ఆటోమేటిక్‌గా జరుగుతుంది.</p>
+<p>కంపెనీలలో 90 రోజులకు ఒకసారి డేటాబేస్ పాస్‌వర్డ్ మార్చాలనే నిబంధన ఉంటుంది. AWS Secrets Manager లో **Automatic Rotation** ఆన్ చేస్తే, అది అంతర్గత లాంబ్డా ఫంక్షన్‌ను పిలిచి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>PostgreSQL లో కొత్త పాస్‌వర్డ్ సెట్ చేస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Secrets Manager లో అప్‌డేట్ చేస్తుంది</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>కనెక్షన్‌ను ధృవీకరిస్తుంది. ఇదంతా మానవ ప్రమేయం లేకుండా అర్ధరాత్రి ఆటోమేటిక్‌గా జరుగుతుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Secrets Manager రొటేషన్ షెడ్యూల్ కాన్ఫిగరేషన్
 # aws secretsmanager rotate-secret #     --secret-id prod/ai/database #     --rotation-lambda-arn arn:aws:lambda:... #     --rotation-rules AutomaticallyAfterDays=30</pre>
@@ -11846,7 +12391,11 @@ CREATE POLICY tenant_isolation_policy ON documents
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక అంతర్గత మైక్రోసర్వీస్ మరొక అంతర్గత సర్వీస్‌ను (ఉదా: Web API -> AI Worker) సంప్రదించేటప్పుడు నకిలీ లేదా హానికరమైన రిక్వెస్ట్‌లను నిరోధించడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సర్వర్ల మధ్య కమ్యూనికేషన్ లో యూజర్ పాస్‌వర్డ్ ఉండదు. ఇక్కడ రెండు పద్ధతులు ప్రాచుర్యం: 1. **mTLS (Mutual TLS):** రెండు సర్వర్లూ తమ సొంత SSL సర్టిఫికెట్లను పరస్పరం చూపించుకుని ధృవీకరించుకుంటాయి. 2. **OAuth 2.0 Client Credentials Grant:** సర్వీస్ తన Client ID మరియు Client Secret ఉపయోగించి మెషిన్-టు-మెషిన్ టోకెన్ తెచ్చుకుంటుంది.</p>
+<p>సర్వర్ల మధ్య కమ్యూనికేషన్ లో యూజర్ పాస్‌వర్డ్ ఉండదు. ఇక్కడ రెండు పద్ధతులు ప్రాచుర్యం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**mTLS (Mutual TLS):** రెండు సర్వర్లూ తమ సొంత SSL సర్టిఫికెట్లను పరస్పరం చూపించుకుని ధృవీకరించుకుంటాయి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**OAuth 2.0 Client Credentials Grant:** సర్వీస్ తన Client ID మరియు Client Secret ఉపయోగించి మెషిన్-టు-మెషిన్ టోకెన్ తెచ్చుకుంటుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># OAuth2 Client Credentials ద్వారా మెషిన్ టోకెన్ పొందడం
 import requests
@@ -12093,7 +12642,16 @@ VULNERABILITY_SLA_DAYS = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రాజెక్ట్ పూర్తయిన తర్వాత కాకుండా సాఫ్ట్‌వేర్ ఆర్కిటెక్చర్ ప్రారంభ దశ నుండే యూజర్ల గోప్యతను ప్రాథమిక సూత్రంగా పొందుపరచడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రైవసీ-బై-డిజైన్ 7 సూత్రాలు: 1. ప్రోయాక్టివ్ గా ఉండటం (ముందే రక్షణ), 2. ప్రైవసీని డిఫాల్ట్ సెట్టింగ్ గా ఉంచడం (Privacy by Default), 3. ఆర్కిటెక్చర్ లోనే అంతర్భాగం చేయడం, 4. పూర్తి కార్యాచరణ మరియు రక్షణ (Zero-sum కాకుండా Win-Win), 5. ఎండ్-టు-ఎండ్ సెక్యూరిటీ, 6. పారదర్శకత, 7. యూజర్ కేంద్రీకృతం.</p>
+<p>ప్రైవసీ-బై-డిజైన్ 7 సూత్రాలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ప్రోయాక్టివ్ గా ఉండటం (ముందే రక్షణ)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ప్రైవసీని డిఫాల్ట్ సెట్టింగ్ గా ఉంచడం (Privacy by Default)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>ఆర్కిటెక్చర్ లోనే అంతర్భాగం చేయడం</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>పూర్తి కార్యాచరణ మరియు రక్షణ (Zero-sum కాకుండా Win-Win)</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>ఎండ్-టు-ఎండ్ సెక్యూరిటీ</span></div>
+  <div class="step-row"><span class="step-badge">6</span><span>పారదర్శకత</span></div>
+  <div class="step-row"><span class="step-badge">7</span><span>యూజర్ కేంద్రీకృతం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Privacy by Default ఉదాహరణ:
 # యూజర్ ప్రొఫైల్ క్రియేట్ అయినప్పుడు డిఫాల్ట్‌గా అన్ని డేటా షేరింగ్ ఫీచర్లు 'False' లో ఉండాలి:
@@ -12399,7 +12957,11 @@ print("APM ఆటోమేటిక్‌గా అన్ని ఫంక్ష�
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజమైన సమస్యలు వచ్చినప్పుడు ఇంజనీర్లను తక్షణమే నిద్రలేపి పరిష్కరించేలా చేయడం మరియు అనవసరపు తప్పుడు అలర్ట్‌లను (Alert Fatigue) నివారించడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మంచి అలర్టింగ్ సూత్రాలు: 1. **సింప్టమ్ ఆధారిత అలర్ట్స్ (Symptom-based):** CPU 80% తాకినప్పుడు అలర్ట్ ఇవ్వడం కంటే, యూజర్లకు 5XX ఎర్రర్లు వస్తున్నప్పుడు లేదా లేటెన్సీ 2 సెకన్లు దాటినప్పుడు అలర్ట్ ఇవ్వడం ముఖ్యం. 2. **యాక్షనబుల్ (Actionable):** అలర్ట్ వచ్చినప్పుడు ఇంజనీర్ ఏం చేయాలో రన్‌బుక్ లింక్ (Runbook) అందులో ఉండాలి.</p>
+<p>మంచి అలర్టింగ్ సూత్రాలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**సింప్టమ్ ఆధారిత అలర్ట్స్ (Symptom-based):** CPU 80% తాకినప్పుడు అలర్ట్ ఇవ్వడం కంటే, యూజర్లకు 5XX ఎర్రర్లు వస్తున్నప్పుడు లేదా లేటెన్సీ 2 సెకన్లు దాటినప్పుడు అలర్ట్ ఇవ్వడం ముఖ్యం</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**యాక్షనబుల్ (Actionable):** అలర్ట్ వచ్చినప్పుడు ఇంజనీర్ ఏం చేయాలో రన్‌బుక్ లింక్ (Runbook) అందులో ఉండాలి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Prometheus Alert Rule నమూనా (YAML):
 # alert: HighAIErrorRate
@@ -12810,7 +13372,12 @@ with tracer.start_as_current_span("generate_embeddings") as span:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక పెద్ద ఆపరేషన్ లోపల ఏయే చిన్న సబ్-ఆపరేషన్లు జరిగాయో స్పష్టమైన పేరెంట్-చైల్డ్ క్రమంలో విజువలైజ్ చేయడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రూట్ స్పాన్ (Root Span) అనేది `POST /api/chat` (Parent). దీని లోపల 3 చైల్డ్ స్పాన్‌లు ఉంటాయి: 1. `search_vector_db` (Child 1 - 45ms), 2. `format_prompt` (Child 2 - 2ms), 3. `call_claude_llm` (Child 3 - 1200ms). Child 3 లోపల మళ్లీ `dns_lookup`, `tls_handshake` అనే సబ్-చైల్డ్స్ ఉండవచ్చు. ప్రతి చైల్డ్ స్పాన్ తన పేరెంట్ యొక్క `parent_span_id` ని గుర్తుపెట్టుకుంటుంది.</p>
+<p>రూట్ స్పాన్ (Root Span) అనేది `POST /api/chat` (Parent). దీని లోపల 3 చైల్డ్ స్పాన్‌లు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`search_vector_db` (Child 1 - 45ms)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>`format_prompt` (Child 2 - 2ms)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>`call_claude_llm` (Child 3 - 1200ms). Child 3 లోపల మళ్లీ `dns_lookup`, `tls_handshake` అనే సబ్-చైల్డ్స్ ఉండవచ్చు. ప్రతి చైల్డ్ స్పాన్ తన పేరెంట్ యొక్క `parent_span_id` ని గుర్తుపెట్టుకుంటుంది</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># పేరెంట్ మరియు చైల్డ్ స్పాన్ల నిర్మాణం:
 with tracer.start_as_current_span("parent_rag_query"):
@@ -13130,7 +13697,12 @@ except Exception as e:
 <h4>ఎందుకు అవసరం?</h4>
 <p>వివిధ అప్లికేషన్ల నుండి వచ్చే టెలిమెట్రీని సేకరించి, ప్రాసెస్ చేసి, బ్యాకెండ్ స్టోరేజ్ లకు సురక్షితంగా పంపే సెంట్రల్ ప్రాక్సీగా OTel Collector పనిచేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>OTel Collector అనేది ఒక తేలికపాటి గోలాంగ్ (Go) బైనరీ. మీ సర్వర్ల పక్కన ఒక సైడ్‌కార్ (Sidecar) లేదా సెంట్రల్ క్లస్టర్ లాగా నడుస్తుంది. దీనిలో 3 విభాగాలుంటాయి: 1. **Receivers:** OTLP ప్రోటోకాల్ ద్వారా డేటాను అందుకుంటాయి, 2. **Processors:** బ్యాచింగ్, మెమరీ లిమిటింగ్, PII డేటాను ఫిల్టర్ చేయడం, 3. **Exporters:** Grafana Tempo, Prometheus, లేదా CloudWatch కి డేటాను పంపుతాయి.</p>
+<p>OTel Collector అనేది ఒక తేలికపాటి గోలాంగ్ (Go) బైనరీ. మీ సర్వర్ల పక్కన ఒక సైడ్‌కార్ (Sidecar) లేదా సెంట్రల్ క్లస్టర్ లాగా నడుస్తుంది. దీనిలో 3 విభాగాలుంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Receivers:** OTLP ప్రోటోకాల్ ద్వారా డేటాను అందుకుంటాయి</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Processors:** బ్యాచింగ్, మెమరీ లిమిటింగ్, PII డేటాను ఫిల్టర్ చేయడం</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>**Exporters:** Grafana Tempo, Prometheus, లేదా CloudWatch కి డేటాను పంపుతాయి</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># otel-collector-config.yaml స్నిప్పెట్:
 # receivers:
@@ -13438,7 +14010,13 @@ print("ఖర్చు రికార్డ్ చేయబడింది")</p
 <h4>ఎందుకు అవసరం?</h4>
 <p>రిక్వెస్ట్ రేట్, p95 లేటెన్సీ, టోకెన్ వినియోగం, ఎర్రర్ రేట్ మరియు ఖర్చులను ఒకే సమగ్ర స్క్రీన్‌పై విజువలైజ్ చేయడం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Grafana లో 4 ప్రధాన ప్యానెల్స్ తయారుచేస్తాము: 1. **Traffic & Errors:** RPS మరియు 5xx Error %, 2. **Latency:** p50/p95/p99 రెస్పాన్స్ సమయాలు, 3. **Token Usage:** ఇన్పుట్/అవుట్‌పుట్ టోకెన్ బర్న్ రేట్, 4. **Cost:** రోజువారీ డాలర్ వ్యయం.</p>
+<p>Grafana లో 4 ప్రధాన ప్యానెల్స్ తయారుచేస్తాము:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Traffic & Errors:** RPS మరియు 5xx Error %</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Latency:** p50/p95/p99 రెస్పాన్స్ సమయాలు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>**Token Usage:** ఇన్పుట్/అవుట్‌పుట్ టోకెన్ బర్న్ రేట్</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>**Cost:** రోజువారీ డాలర్ వ్యయం</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Grafana Dashboard Panel కోసం ఉదాహరణ PromQL క్వెరీలు:
 # 1. Total RPS:
@@ -13541,11 +14119,12 @@ print(f"95th Percentile: {p95_lat:.2f}ms")  # 95% యూజర్ల గరి�
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ పనితీరును వేర్వేరు లోడ్ స్థాయులలో కచ్చితంగా విశ్లేషించడానికి P50, P90, P95, P99 అనే పర్సంటైల్స్ ప్రామాణిక మెట్రిక్స్. టెయిల్ లేటెన్సీ (Tail Latency) ని పసిగట్టడానికి ఇవి తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL లో 1000 క్వెరీలు రన్ చేసినప్పుడు: 
-- <b>P50 (Median):</b> 50% రిక్వెస్ట్‌లు ఈ సమయం కంటే వేగంగా పూర్తవుతాయి (సాధారణ యూజర్ అనుభవం).
-- <b>P90 / P95:</b> 90% లేదా 95% యూజర్లకు వచ్చే గరిష్ట రెస్పాన్స్ టైమ్.
-- <b>P99:</b> 99% యూజర్లకు వచ్చే సమయం; కేవలం 1% రిక్వెస్ట్‌లు మాత్రమే దీని కంటే నెమ్మదిగా ఉంటాయి.
-AI అప్లికేషన్లలో P99 ఎక్కువగా ఉండటానికి కారణం: పెద్ద డాక్యుమెంట్స్ రీట్రీవల్ కావడం, లేదా LLM పెద్ద కంటెంట్‌ను జనరేట్ చేయడం.</p>
+<p>MySQL లో 1000 క్వెరీలు రన్ చేసినప్పుడు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span><b>P50 (Median):</b> 50% రిక్వెస్ట్‌లు ఈ సమయం కంటే వేగంగా పూర్తవుతాయి (సాధారణ యూజర్ అనుభవం).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>P90 / P95:</b> 90% లేదా 95% యూజర్లకు వచ్చే గరిష్ట రెస్పాన్స్ టైమ్.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>P99:</b> 99% యూజర్లకు వచ్చే సమయం; కేవలం 1% రిక్వెస్ట్‌లు మాత్రమే దీని కంటే నెమ్మదిగా ఉంటాయి. AI అప్లికేషన్లలో P99 ఎక్కువగా ఉండటానికి కారణం: పెద్ద డాక్యుమెంట్స్ రీట్రీవల్ కావడం, లేదా LLM పెద్ద కంటెంట్‌ను జనరేట్ చేయడం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 
@@ -13726,9 +14305,10 @@ print(f"Generation Speed: {tps:.1f} tokens/sec")
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ఇన్ఫరెన్స్ రెండు వేర్వేరు దశల్లో జరుగుతుంది: ప్రాంప్ట్‌ను అర్థం చేసుకోవడం (Prefill) మరియు ఒక్కో పదాన్ని అవుట్‌పుట్‌గా తయారు చేయడం (Decode). వీటి పనితీరు భిన్నంగా ఉంటుంది కాబట్టి వేర్వేరుగా ఆప్టిమైజ్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>1. <b>Prefill దశ:</b> యూజర్ ఇచ్చిన 2000 పదాల ప్రాంప్ట్‌ను ఒకేసారి ప్యారలల్‌గా GPU లో ప్రాసెస్ చేస్తుంది (Compute-bound). ఇది TTFT (Time to First Token) ని నిర్ణయిస్తుంది.
-2. <b>Decode దశ:</b> మునుపటి పదాల ఆధారంగా ఒక్కో టోకెన్‌ను సీరియల్‌గా జనరేట్ చేస్తుంది (Memory-bandwidth bound). ఇది Tokens per second ని నిర్ణయిస్తుంది.
-ఈ రెండు ఫేజెస్‌ను వేరు చేసి అర్థం చేసుకుంటే RAG లో ప్రాంప్ట్ సైజు ఎందుకు తగ్గించాలో సులభంగా అర్థమవుతుంది.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span><b>Prefill దశ:</b> యూజర్ ఇచ్చిన 2000 పదాల ప్రాంప్ట్‌ను ఒకేసారి ప్యారలల్‌గా GPU లో ప్రాసెస్ చేస్తుంది (Compute-bound). ఇది TTFT (Time to First Token) ని నిర్ణయిస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span><b>Decode దశ:</b> మునుపటి పదాల ఆధారంగా ఒక్కో టోకెన్‌ను సీరియల్‌గా జనరేట్ చేస్తుంది (Memory-bandwidth bound). ఇది Tokens per second ని నిర్ణయిస్తుంది. ఈ రెండు ఫేజెస్‌ను వేరు చేసి అర్థం చేసుకుంటే RAG లో ప్రాంప్ట్ సైజు ఎందుకు తగ్గించాలో సులభంగా అర్థమవుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># ఆర్కిటెక్చరల్ కాన్సెప్ట్
 # Prefill: Prompt tokens -&gt; Compute attention in parallel -&gt; Save KV cache
@@ -13736,11 +14316,11 @@ print(f"Generation Speed: {tps:.1f} tokens/sec")
 <div class="mistake"><b>సాధారణ తప్పు:</b> పెద్ద డాక్యుమెంట్లు పంపినప్పుడు Prefill దశ ఎక్కువ సమయం తీసుకుంటుందని గమనించకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>13. KV caching.<small>కీ-వ్యాల్యూ క్యాషింగ్ (KV (Key-Value) cache)</small></summary><div class="body">
+<details class="t"><summary>13. KV (Key-Value) caching.<small>కీ-వ్యాల్యూ క్యాషింగ్ (KV (Key-Value) cache)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ప్రతి కొత్త టోకెన్ జనరేట్ చేసేటప్పుడు మునుపటి టోకెన్ల Attention ను మళ్లీ మళ్లీ రీ-కాలిక్యులేట్ చేయకుండా ఉండటానికి KV (Key-Value) cache ప్రాణాధారం. ఇది లేకపోతే జనరేషన్ విపరీతమైన ఆలస్యమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో ఒక భారీ క్వెరీ రిజల్ట్‌ను Redis లో క్యాష్ చేసి తర్వాతి రిక్వెస్ట్‌లలో రీ-యూజ్ చేసినట్లే, LLM లో Attention లేయర్ల Key మరియు Value వెక్టర్లను GPU మెమరీలో క్యాష్ చేస్తారు. దీనివల్ల 50వ టోకెన్ రాసేటప్పుడు మొదటి 49 టోకెన్లను మళ్లీ కంప్యూట్ చేయక్కర్లేదు. vLLM లోని PagedAttention ఈ KV క్యాష్‌ను వర్చువల్ మెమరీ పేజీల లాగా అత్యంత సమర్థవంతంగా మేనేజ్ చేస్తుంది.</p>
+<p>Laravel లో ఒక భారీ క్వెరీ రిజల్ట్‌ను Redis లో క్యాష్ చేసి తర్వాతి రిక్వెస్ట్‌లలో రీ-యూజ్ చేసినట్లే, LLM లో Attention లేయర్ల Key మరియు Value వెక్టర్లను GPU మెమరీలో క్యాష్ చేస్తారు. దీనివల్ల 50వ టోకెన్ రాసేటప్పుడు మొదటి 49 టోకెన్లను మళ్లీ కంప్యూట్ చేయక్కర్లేదు. vLLM లోని PagedAttention ఈ KV (Key-Value) క్యాష్‌ను వర్చువల్ మెమరీ పేజీల లాగా అత్యంత సమర్థవంతంగా మేనేజ్ చేస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># vLLM లో PagedAttention ద్వారా KV Cache ఆప్టిమైజేషన్
 # vllm సర్వర్ రన్ చేసేటప్పుడు gpu-memory-utilization సెట్ చేయడం:
@@ -13769,11 +14349,11 @@ outputs = llm.generate(prompts, sampling_params) # Iteration-level scheduling</p
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రొడక్షన్‌లో రా HuggingFace `generate()` ని వాడటం (ఇది స్టాటిక్ బ్యాచింగ్ లేదా సింగిల్ రిక్వెస్ట్ మోడ్ లో పనిచేస్తుంది).</div>
 </div></details>
 
-<details class="t"><summary>15. Quantization.<small>మోడల్ క్వాంటైజేషన్ (FP16 నుండి INT8/INT4 కు మార్చడం)</small></summary><div class="body">
+<details class="t"><summary>15. Quantization.<small>మోడల్ క్వాంటైజేషన్ (FP16 (16-bit Floating Point) నుండి INT8 (8-bit Integer)/INT4 (4-bit Integer) కు మార్చడం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>పెద్ద LLM మోడల్స్ 16-bit ఫ్లోటింగ్ పాయింట్స్ (FP16) లో ఉంటాయి, వీటికి భారీ GPU VRAM (Video RAM / GPU Memory) (ఉదా: 70B మోడల్‌కు 140GB+) కావాలి. Quantization ద్వారా మోడల్ సైజును 4-bit లేదా 8-bit కి తగ్గించి సాధారణ GPUలలో నడపవచ్చు.</p>
+<p>పెద్ద LLM మోడల్స్ 16-bit ఫ్లోటింగ్ పాయింట్స్ (FP16 (16-bit Floating Point)) లో ఉంటాయి, వీటికి భారీ GPU VRAM (Video RAM / GPU Memory) (ఉదా: 70B మోడల్‌కు 140GB+) కావాలి. Quantization ద్వారా మోడల్ సైజును 4-bit లేదా 8-bit కి తగ్గించి సాధారణ GPUలలో నడపవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇమేజ్ కంప్రెషన్‌లో 24-bit PNG ని 8-bit WebP కి మార్చినట్లుగా, న్యూరల్ నెట్‌వర్క్ వెయిట్స్‌ను 16-bit (FP16) నుండి 4-bit (AWQ (Activation-aware Weight Quantization) లేదా GPTQ లేదా GGUF (GPT-Generated Unified Format)) కు కుదిస్తారు. 70B మోడల్ సైజు 140GB నుండి కేవలం 40GB కి తగ్గుతుంది! VRAM (Video RAM / GPU Memory) వినియోగం తగ్గడమే కాకుండా మెమరీ ట్రాన్స్‌ఫర్ స్పీడ్ పెరిగి ఇన్ఫరెన్స్ వేగం కూడా పెరుగుతుంది, మోడల్ క్వాలిటీ దాదాపు 98% అలాగే ఉంటుంది.</p>
+<p>ఇమేజ్ కంప్రెషన్‌లో 24-bit PNG ని 8-bit WebP కి మార్చినట్లుగా, న్యూరల్ నెట్‌వర్క్ వెయిట్స్‌ను 16-bit (FP16 (16-bit Floating Point)) నుండి 4-bit (AWQ (Activation-aware Weight Quantization) లేదా GPTQ (Post-Training Quantization for Transformers) లేదా GGUF (GPT-Generated Unified Format)) కు కుదిస్తారు. 70B మోడల్ సైజు 140GB నుండి కేవలం 40GB కి తగ్గుతుంది! VRAM (Video RAM / GPU Memory) వినియోగం తగ్గడమే కాకుండా మెమరీ ట్రాన్స్‌ఫర్ స్పీడ్ పెరిగి ఇన్ఫరెన్స్ వేగం కూడా పెరుగుతుంది, మోడల్ క్వాలిటీ దాదాపు 98% అలాగే ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># AWQ 4-bit Quantized మోడల్‌ను vLLM లో రన్ చేయడం
 # vllm serve casperhansen/llama-3-8b-instruct-awq --quantization awq
@@ -14424,12 +15004,13 @@ export const options = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ప్రాజెక్టులలో అంచనాలు తలకిందులయ్యేది క్లౌడ్ & LLM బిల్లుల వల్లే. ప్రతి సింగిల్ API రిక్వెస్ట్‌కు ఖచ్చితంగా ఎన్ని పైసలు/సెంట్లు ఖర్చవుతున్నాయో తెలుసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఒక యూజర్ సెర్చ్ రిక్వెస్ట్‌లో:
-1. ఎంబెడ్డింగ్ ఖర్చు: $0.00002
-2. వెక్టర్ రీట్రీవల్ (Qdrant Cloud): $0.0001
-3. LLM ఇన్‌పుట్ టోకెన్లు (1000 tokens): $0.00015
-4. LLM అవుట్‌పుట్ టోకెన్లు (200 tokens): $0.00012
-మొత్తం కలిపి ఒక రిక్వెస్ట్‌కు $0.00039 (~3 పైసలు). ఈ మైక్రో-కాలిక్యులేషన్ ఉంటేనే బిజినెస్ లాభాల్లో ఉంటుందా లేదా అని చెప్పగలం.</p>
+<p>ఒక యూజర్ సెర్చ్ రిక్వెస్ట్‌లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ఎంబెడ్డింగ్ ఖర్చు: $0.00002</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>వెక్టర్ రీట్రీవల్ (Qdrant Cloud): $0.0001</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>LLM ఇన్‌పుట్ టోకెన్లు (1000 tokens): $0.00015</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>LLM అవుట్‌పుట్ టోకెన్లు (200 tokens): $0.00012 మొత్తం కలిపి ఒక రిక్వెస్ట్‌కు $0.00039 (~3 పైసలు). ఈ మైక్రో-కాలిక్యులేషన్ ఉంటేనే బిజినెస్ లాభాల్లో ఉంటుందా లేదా అని చెప్పగలం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>def calculate_request_cost(input_tokens: int, output_tokens: int) -&gt; float:
     # GPT-4o-mini రేట్లు ($0.15 / 1M input, $0.60 / 1M output)
@@ -14551,11 +15132,12 @@ batch_job = client.batches.create(
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ AI వర్క్‌లోడ్ స్వభావాన్ని బట్టి సరైన CPU, RAM, GPU కాన్ఫిగరేషన్ ఉన్న క్లౌడ్ మెషీన్‌ను ఎంచుకోకపోతే పనితీరు మందగించడం లేదా ఖర్చు పెరగడం జరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel సైట్‌కు CPU-ఆప్టిమైజ్డ్ సర్వర్ కావాలా లేక RAM-ఆప్టిమైజ్డ్ సర్వర్ కావాలా అని ఆలోచించినట్లే:
-- కేవలం FastAPI గేట్‌వే మరియు బిజినెస్ లాజిక్ అయితే: `c6i.xlarge` (CPU optimized)
-- ఇన్-మెమరీ వెక్టర్ స్టోర్ లేదా క్యాషింగ్ అయితే: `r6i.xlarge` (Memory optimized)
-- సెల్ఫ్-హోస్టెడ్ LLM అయితే: `g5.2xlarge` లేదా `g6.xlarge` (GPU instance)
-సరైన సైజింగ్ వల్ల ఖర్చు 40% తగ్గుతుంది.</p>
+<p>Laravel సైట్‌కు CPU-ఆప్టిమైజ్డ్ సర్వర్ కావాలా లేక RAM-ఆప్టిమైజ్డ్ సర్వర్ కావాలా అని ఆలోచించినట్లే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>కేవలం FastAPI గేట్‌వే మరియు బిజినెస్ లాజిక్ అయితే: `c6i.xlarge` (CPU optimized)</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>ఇన్-మెమరీ వెక్టర్ స్టోర్ లేదా క్యాషింగ్ అయితే: `r6i.xlarge` (Memory optimized)</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>సెల్ఫ్-హోస్టెడ్ LLM అయితే: `g5.2xlarge` లేదా `g6.xlarge` (GPU instance) సరైన సైజింగ్ వల్ల ఖర్చు 40% తగ్గుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># AWS CLI ద్వారా అవసరమైన ఫ్యామిలీని ప్రొవిజన్ చేయడం:
 # aws ec2 run-instances --instance-type c6i.xlarge --image-id ami-xxxx</pre>
@@ -14614,12 +15196,13 @@ DATABASE_HOST="10.0.2.45"     # Private IP (No egress charges, ultra fast)
 <h4>ఎందుకు అవసరం?</h4>
 <p>లోడ్ టెస్ట్ ఫలితాలను విశ్లేషించి మొత్తం లేటెన్సీలో 70-80% సమయాన్ని తింటున్న సింగిల్ కాంపోనెంట్‌ను కనుగొనాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ట్రేసింగ్ డేటా చూసినప్పుడు:
-- FastAPI Routing: 5ms
-- Auth / DB Check: 25ms
-- Vector DB Similarity Search: 450ms (బాటిల్‌నెక్!)
-- LLM Generation: 1800ms (ప్రధాన బాటిల్‌నెక్)
-ఇక్కడ వెక్టర్ సెర్చ్ 450ms తీసుకోవడం అనుమానాస్పదం. ఇండెక్స్ లేదని గుర్తించి దాన్ని ఫిక్స్ చేయాలి.</p>
+<p>ట్రేసింగ్ డేటా చూసినప్పుడు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>FastAPI Routing: 5ms</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Auth / DB Check: 25ms</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Vector DB Similarity Search: 450ms (బాటిల్‌నెక్!)</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>LLM Generation: 1800ms (ప్రధాన బాటిల్‌నెక్) ఇక్కడ వెక్టర్ సెర్చ్ 450ms తీసుకోవడం అనుమానాస్పదం. ఇండెక్స్ లేదని గుర్తించి దాన్ని ఫిక్స్ చేయాలి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>import time
 
@@ -14693,10 +15276,11 @@ class OptimizedLLMGateway:
 <h4>ఎందుకు అవసరం?</h4>
 <p>మనం చేసిన ఆప్టిమైజేషన్లు (ఇండెక్సింగ్, క్యాషింగ్, మోడల్ సెలక్షన్) సిస్టమ్‌ను ఎంతవరకు మెరుగుపరిచాయో డేటా ఆధారంగా ధృవీకరించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>మొదట తీసిన బేస్‌లైన్ టెస్ట్‌ను మళ్లీ అదే పద్ధతిలో రన్ చేస్తాం.
-- Before: P95 = 4200ms, Throughput = 12 RPS, Cost/req = $0.003
-- After: P95 = 850ms, Throughput = 68 RPS, Cost/req = $0.0008
-ఈ పోలిక ద్వారా సిస్టమ్ 5 రెట్లు వేగవంతమైందని మరియు 73% ఖర్చు తగ్గిందని స్పష్టమైన రుజువు లభిస్తుంది.</p>
+<p>మొదట తీసిన బేస్‌లైన్ టెస్ట్‌ను మళ్లీ అదే పద్ధతిలో రన్ చేస్తాం.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>Before: P95 = 4200ms, Throughput = 12 RPS, Cost/req = $0.003</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>After: P95 = 850ms, Throughput = 68 RPS, Cost/req = $0.0008 ఈ పోలిక ద్వారా సిస్టమ్ 5 రెట్లు వేగవంతమైందని మరియు 73% ఖర్చు తగ్గిందని స్పష్టమైన రుజువు లభిస్తుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># పర్ఫార్మెన్స్ కంపారిజన్ రిపోర్ట్
 | Metric           | Baseline (Before) | Optimized (After) | Improvement |
@@ -14711,10 +15295,11 @@ class OptimizedLLMGateway:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇంజనీరింగ్‌లో ఉచితంగా ఏదీ రాదు. వేగం పెరిగితే ఖచ్చితత్వం కొద్దిగా తగ్గిందా? క్యాషింగ్ వల్ల డేటా ఎంతవరకు స్టాల్ (Stale) అయ్యే అవకాశం ఉంది? అనే ట్రేడ్-ఆఫ్స్‌ను రికార్డ్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఆర్కిటెక్చర్ డెసిషన్ రికార్డ్ (ADR) లో ఈ క్రింది అంశాలను స్పష్టంగా రాస్తాం:
-1. సెమాంటిక్ క్యాష్ వాడటం వల్ల సమాధానం 10ms లో వస్తుంది, కానీ డేటా మారితే 1 గంట వరకు పాత సమాధానమే కనిపించే అవకాశం ఉంది.
-2. 4-bit Quantization వల్ల VRAM (Video RAM / GPU Memory) 70% తగ్గింది, కానీ మ్యాథమెటికల్ రీజనింగ్‌లో 2% అక్యూరసీ తగ్గింది.
-ఈ డాక్యుమెంటేషన్ భవిష్యత్తులో టీమ్ సభ్యులకు నిర్ణయాలు తీసుకోవడంలో సహాయపడుతుంది.</p>
+<p>ఆర్కిటెక్చర్ డెసిషన్ రికార్డ్ (ADR) లో ఈ క్రింది అంశాలను స్పష్టంగా రాస్తాం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>సెమాంటిక్ క్యాష్ వాడటం వల్ల సమాధానం 10ms లో వస్తుంది, కానీ డేటా మారితే 1 గంట వరకు పాత సమాధానమే కనిపించే అవకాశం ఉంది.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>4-bit Quantization వల్ల VRAM (Video RAM / GPU Memory) 70% తగ్గింది, కానీ మ్యాథమెటికల్ రీజనింగ్‌లో 2% అక్యూరసీ తగ్గింది. ఈ డాక్యుమెంటేషన్ భవిష్యత్తులో టీమ్ సభ్యులకు నిర్ణయాలు తీసుకోవడంలో సహాయపడుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># ADR-042: AI Performance & Cost Trade-offs
 Decision: Enable 1-hour Redis semantic caching and switch default model to GPT-4o-mini.
@@ -14808,11 +15393,13 @@ while True:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొడ్యూసర్ మరియు కన్స్యూమర్ల మధ్య మెసేజ్‌లను రూటింగ్ చేయడం, క్యూలో భద్రపరచడం, డెలివరీని ధృవీకరించడం వంటి పనులను ఒక నమ్మకమైన సెంట్రల్ బ్రోకర్ నిర్వహిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>పోస్టాఫీస్ లాంటిదే మెసేజ్ బ్రోకర్. మనం లెటర్ బాక్స్‌లో వేస్తే, అది సరైన అడ్రస్‌కు చేరుస్తుంది. ప్రముఖ బ్రోకర్లు:
-- **Redis:** చిన్న మరియు వేగవంతమైన క్యూలకు బెస్ట్ (సింపుల్).
-- **RabbitMQ:** క్లిష్టమైన రూటింగ్, టాపిక్స్, అక్నాలెడ్జ్మెంట్స్ అవసరమైనప్పుడు.
-- **Apache Kafka:** భారీ డేటా స్ట్రీమింగ్, హై త్రూపుట్ ఈవెంట్స్ కోసం.
-- **AWS SQS:** క్లౌడ్ మేనేజ్డ్, సర్వర్ నిర్వహణ బాధ లేని క్యూ.</p>
+<p>పోస్టాఫీస్ లాంటిదే మెసేజ్ బ్రోకర్. మనం లెటర్ బాక్స్‌లో వేస్తే, అది సరైన అడ్రస్‌కు చేరుస్తుంది. ప్రముఖ బ్రోకర్లు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Redis:** చిన్న మరియు వేగవంతమైన క్యూలకు బెస్ట్ (సింపుల్).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**RabbitMQ:** క్లిష్టమైన రూటింగ్, టాపిక్స్, అక్నాలెడ్జ్మెంట్స్ అవసరమైనప్పుడు.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Apache Kafka:** భారీ డేటా స్ట్రీమింగ్, హై త్రూపుట్ ఈవెంట్స్ కోసం.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**AWS SQS:** క్లౌడ్ మేనేజ్డ్, సర్వర్ నిర్వహణ బాధ లేని క్యూ.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># RabbitMQ (pika లైబ్రరీ) తో బ్రోకర్‌కు కనెక్ట్ అవ్వడం
 import pika
@@ -14843,10 +15430,12 @@ channel.queue_declare(queue='ai_tasks', durable=True)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>నెట్‌వర్క్ సమస్యలు, క్రాష్‌లు వచ్చినప్పుడు మెసేజ్ సిస్టమ్ డేటాను ఎలా డెలివరీ చేస్తుందో గ్యారెంటీలను బట్టి మన సిస్టమ్ లాజిక్ రాయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>డిస్ట్రిబ్యూటెడ్ సిస్టమ్స్‌లో 3 రకాల గ్యారెంటీలు ఉంటాయి:
-1. **At-most-once:** మెసేజ్ గరిష్టంగా ఒక్కసారి మాత్రమే వస్తుంది (పోతే పోవచ్చు, డూప్లికేట్ ఉండదు).
-2. **At-least-once:** మెసేజ్ ఖచ్చితంగా వస్తుంది, కానీ కొన్నిసార్లు డూప్లికేట్‌గా రావచ్చు (మోస్ట్ కామన్).
-3. **Exactly-once:** ఖచ్చితంగా ఒకే ఒక్కసారి మాత్రమే ప్రాసెస్ అవుతుంది (కాంప్లెక్స్).</p>
+<p>డిస్ట్రిబ్యూటెడ్ సిస్టమ్స్‌లో 3 రకాల గ్యారెంటీలు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**At-most-once:** మెసేజ్ గరిష్టంగా ఒక్కసారి మాత్రమే వస్తుంది (పోతే పోవచ్చు, డూప్లికేట్ ఉండదు).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**At-least-once:** మెసేజ్ ఖచ్చితంగా వస్తుంది, కానీ కొన్నిసార్లు డూప్లికేట్‌గా రావచ్చు (మోస్ట్ కామన్).</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>**Exactly-once:** ఖచ్చితంగా ఒకే ఒక్కసారి మాత్రమే ప్రాసెస్ అవుతుంది (కాంప్లెక్స్).</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># డెలివరీ గ్యారెంటీ ఎంపిక:
 # AI ఎంబెడ్డింగ్ పైప్‌లైన్లకు "At-least-once" ఉత్తమం,
@@ -15278,9 +15867,11 @@ events = [
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాను రైట్ చేసే వర్క్‌లోడ్స్ (Commands) మరియు చదివే వర్క్‌లోడ్స్ (Queries) పూర్తిగా భిన్నమైన స్కేలింగ్ లక్షణాలు కలిగి ఉంటాయి. వీటిని వేరు చేయడం ద్వారా ఆర్కిటెక్చర్ వేగం పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో Read-Replica DB కాన్ఫిగరేషన్ లాంటి భావన. 
-- **Command (రైట్):** కొత్త డాక్యుమెంట్స్ అప్‌లోడ్, ఎడిట్స్ అన్నీ PostgreSQL కి వెళ్లి ఈవెంట్స్ విడుదల చేస్తాయి.
-- **Query (రీడ్):** యూజర్లు సెర్చ్ చేసినప్పుడు ఆ డేటా నేరుగా Qdrant వెక్టర్ డేటాబేస్ లేదా ElasticSearch రీడ్ మోడల్ నుండి సూపర్ ఫాస్ట్‌గా అందుతుంది. రైట్ లాజిక్ రీడ్ లాజిక్‌ను అస్సలు ఇబ్బంది పెట్టదు.</p>
+<p>Laravel లో Read-Replica DB కాన్ఫిగరేషన్ లాంటి భావన.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Command (రైట్):** కొత్త డాక్యుమెంట్స్ అప్‌లోడ్, ఎడిట్స్ అన్నీ PostgreSQL కి వెళ్లి ఈవెంట్స్ విడుదల చేస్తాయి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Query (రీడ్):** యూజర్లు సెర్చ్ చేసినప్పుడు ఆ డేటా నేరుగా Qdrant వెక్టర్ డేటాబేస్ లేదా ElasticSearch రీడ్ మోడల్ నుండి సూపర్ ఫాస్ట్‌గా అందుతుంది. రైట్ లాజిక్ రీడ్ లాజిక్‌ను అస్సలు ఇబ్బంది పెట్టదు.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Write Side (Command):
 @app.post("/documents")
@@ -15449,11 +16040,13 @@ embedding_job = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>డాక్యుమెంట్ అప్‌లోడ్ నుండి వెక్టర్ డేటాబేస్‌లో నిల్వ అయ్యే వరకు మొత్తం RAG లైఫ్‌సైకిల్‌ను బహుళ మైక్రోసర్వీస్ పైప్‌లైన్‌గా స్వయంప్రతిపత్తితో నడపాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఈవెంట్ చైన్:
-1. `DocumentUploaded` -&gt; Parser Worker టెక్స్ట్ తీస్తుంది.
-2. `ChunksCreated` -&gt; Embedding Worker వెక్టర్స్ తయారు చేస్తుంది.
-3. `VectorsGenerated` -&gt; Indexer Worker Qdrant/Milvus లో సేవ్ చేస్తుంది.
-4. `DocumentIndexed` -&gt; Notification Worker యూజర్‌కు "మీ డాక్యుమెంట్ సెర్చ్ కోసం సిద్ధంగా ఉంది" అని పుష్ నోటిఫికేషన్ పంపుతుంది.</p>
+<p>ఈవెంట్ చైన్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`DocumentUploaded` -&gt; Parser Worker టెక్స్ట్ తీస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>`ChunksCreated` -&gt; Embedding Worker వెక్టర్స్ తయారు చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>`VectorsGenerated` -&gt; Indexer Worker Qdrant/Milvus లో సేవ్ చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>`DocumentIndexed` -&gt; Notification Worker యూజర్‌కు "మీ డాక్యుమెంట్ సెర్చ్ కోసం సిద్ధంగా ఉంది" అని పుష్ నోటిఫికేషన్ పంపుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># పైప్‌లైన్ ఈవెంట్ ఫ్లో
 # Parser -&gt; (ChunksCreated) -&gt; Embedder -&gt; (VectorsReady) -&gt; Indexer -&gt; (Done)</pre>
@@ -15951,12 +16544,13 @@ spec:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక సర్వర్‌లో లేదా ఒక డేటా సెంటర్‌లో ఏదైనా ప్రమాదం (కరెంట్ పోవడం, వరదలు, నెట్‌వర్క్ కట్) జరిగితే ఆ ప్రభావం మిగిలిన సర్వర్లపై పడకుండా సర్వర్లను భౌగోళికంగా వేరు చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>"అన్ని గుడ్లను ఒకే బుట్టలో పెట్టకూడదు" అనే సూత్రం. AWS లో:
-- **Server Level:** వేర్వేరు భౌతిక మెషీన్లు.
-- **Rack Level:** వేర్వేరు పవర్ సప్లైలు.
-- **Availability Zone (AZ):** కొన్ని కిలోమీటర్ల దూరంలో ఉన్న వేర్వేరు డేటా సెంటర్లు.
-- **Region:** వేర్వేరు దేశాలు/నగరాలు (Mumbai vs Singapore).
-మన అప్లికేషన్ పాడ్‌లను కనీసం 2 లేదా 3 వేర్వేరు AZ లలో విస్తరించాలి.</p>
+<p>"అన్ని గుడ్లను ఒకే బుట్టలో పెట్టకూడదు" అనే సూత్రం. AWS లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Server Level:** వేర్వేరు భౌతిక మెషీన్లు.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Rack Level:** వేర్వేరు పవర్ సప్లైలు.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Availability Zone (AZ):** కొన్ని కిలోమీటర్ల దూరంలో ఉన్న వేర్వేరు డేటా సెంటర్లు.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Region:** వేర్వేరు దేశాలు/నగరాలు (Mumbai vs Singapore). మన అప్లికేషన్ పాడ్‌లను కనీసం 2 లేదా 3 వేర్వేరు AZ లలో విస్తరించాలి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Kubernetes Topology Spread Constraints వాడి వేర్వేరు AZ లలో పాడ్స్ వేయడం
 topologySpreadConstraints:
@@ -15985,10 +16579,11 @@ topologySpreadConstraints:
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రమాదం జరిగినప్పుడు ఎంత సమయం లోపు సిస్టమ్ తిరిగి పనిచేయాలి మరియు ఎంత వరకు డేటా నష్టాన్ని వ్యాపారం భరించగలదో ముందే నిర్దేశించుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు కీలకమైన ప్రమాణాలు:
-1. **RTO (Recovery Time Objective):** సర్వర్ క్రాష్ అయిన ఎన్ని నిమిషాల్లో/గంటల్లో సిస్టమ్ మళ్లీ లైవ్ రావాలి? (ఉదా: RTO &lt; 15 నిమిషాలు).
-2. **RPO (Recovery Point Objective):** డేటా నష్టం గరిష్టంగా ఎంత వరకు అనుమతించబడుతుంది? (ఉదా: RPO &lt; 1 గంట అంటే గరిష్టంగా గత 1 గంట డేటా పోవచ్చు, అంతకంటే ఎక్కువ కాదు).
-ఈ లక్ష్యాల ప్రకారమే బ్యాకప్ ఫ్రీక్వెన్సీని నిర్ణయిస్తాం.</p>
+<p>రెండు కీలకమైన ప్రమాణాలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**RTO (Recovery Time Objective):** సర్వర్ క్రాష్ అయిన ఎన్ని నిమిషాల్లో/గంటల్లో సిస్టమ్ మళ్లీ లైవ్ రావాలి? (ఉదా: RTO &lt; 15 నిమిషాలు).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**RPO (Recovery Point Objective):** డేటా నష్టం గరిష్టంగా ఎంత వరకు అనుమతించబడుతుంది? (ఉదా: RPO &lt; 1 గంట అంటే గరిష్టంగా గత 1 గంట డేటా పోవచ్చు, అంతకంటే ఎక్కువ కాదు). ఈ లక్ష్యాల ప్రకారమే బ్యాకప్ ఫ్రీక్వెన్సీని నిర్ణయిస్తాం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># బిజినెస్ రికవరీ పాలసీ:
 # Production Database: RTO = 15 నిమిషాలు, RPO = 5 నిమిషాలు (Point-in-time recovery)
@@ -16102,9 +16697,11 @@ async def chat(request: ChatReq):
 <h4>ఎందుకు అవసరం?</h4>
 <p>లోడ్ బ్యాలెన్సర్ మరియు ఆర్కెస్ట్రేటర్లకు సర్వర్ ఆరోగ్యంగా ఉందా, ట్రాఫిక్ స్వీకరించడానికి సిద్ధంగా ఉందా అని తెలియజేయడానికి హెల్త్‌చెక్ ఎండ్‌పాయింట్లు ప్రాణాధారం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel 11 లో కొత్తగా వచ్చిన `/up` ఎండ్‌పాయింట్ లాంటిదే.
-- **Liveness Probe (`/healthz`):** ప్రాసెస్ బతికే ఉందా లేదా? డెడ్‌లాక్ లో చిక్కుకుంటే కంటైనర్‌ను రీస్టార్ట్ చేస్తుంది.
-- **Readiness Probe (`/ready`):** మోడల్ వెయిట్స్ మెమరీలోకి లోడ్ అయ్యాయా? Postgres, Redis కనెక్షన్లు సిద్ధంగా ఉన్నాయా? సిద్ధంగా ఉంటేనే ట్రాఫిక్ పంపుతుంది.</p>
+<p>Laravel 11 లో కొత్తగా వచ్చిన `/up` ఎండ్‌పాయింట్ లాంటిదే.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Liveness Probe (`/healthz`):** ప్రాసెస్ బతికే ఉందా లేదా? డెడ్‌లాక్ లో చిక్కుకుంటే కంటైనర్‌ను రీస్టార్ట్ చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Readiness Probe (`/ready`):** మోడల్ వెయిట్స్ మెమరీలోకి లోడ్ అయ్యాయా? Postgres, Redis కనెక్షన్లు సిద్ధంగా ఉన్నాయా? సిద్ధంగా ఉంటేనే ట్రాఫిక్ పంపుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>@app.get("/healthz")
 def liveness():
@@ -16228,10 +16825,12 @@ def retry_with_jitter(attempt: int, base_delay: float = 1.0):
 <h4>ఎందుకు అవసరం?</h4>
 <p>డౌన్ అయిన బాహ్య సర్వీస్‌ను పదే పదే పిలుస్తూ మన అప్లికేషన్ రిసోర్సెస్‌ను వృధా చేసుకోకుండా, తాత్కాలికంగా కనెక్షన్‌ను కట్ చేసి ఫాల్‌బ్యాక్ ఇవ్వడానికి సర్క్యూట్ బ్రేకర్ అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ఇంట్లోని విద్యుత్ ఫ్యూజ్ లేదా MCB లాంటిది. షార్ట్ సర్క్యూట్ అయినప్పుడు ఫ్యూజ్ ఎగిరిపోయి ఇంటిని కాపాడుతుంది కదా.
-- **Closed:** అంతా బాగుంది, రిక్వెస్ట్‌లు నార్మల్‌గా వెళ్తాయి.
-- **Open:** వరుసగా 5 ఎర్రర్స్ రాగానే సర్క్యూట్ తెరుచుకుంటుంది. ఇకపై API ని అసలు కాల్ చేయదు, వెంటనే ఫాల్‌బ్యాక్ ఇచ్చేస్తుంది.
-- **Half-Open:** 60 సెకన్ల తర్వాత ఒక టెస్ట్ రిక్వెస్ట్ పంపిస్తుంది. అది సక్సెస్ అయితే మళ్లీ సర్క్యూట్ క్లోజ్ అవుతుంది.</p>
+<p>ఇంట్లోని విద్యుత్ ఫ్యూజ్ లేదా MCB లాంటిది. షార్ట్ సర్క్యూట్ అయినప్పుడు ఫ్యూజ్ ఎగిరిపోయి ఇంటిని కాపాడుతుంది కదా.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Closed:** అంతా బాగుంది, రిక్వెస్ట్‌లు నార్మల్‌గా వెళ్తాయి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Open:** వరుసగా 5 ఎర్రర్స్ రాగానే సర్క్యూట్ తెరుచుకుంటుంది. ఇకపై API ని అసలు కాల్ చేయదు, వెంటనే ఫాల్‌బ్యాక్ ఇచ్చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Half-Open:** 60 సెకన్ల తర్వాత ఒక టెస్ట్ రిక్వెస్ట్ పంపిస్తుంది. అది సక్సెస్ అయితే మళ్లీ సర్క్యూట్ క్లోజ్ అవుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>from pybreaker import CircuitBreaker
 
@@ -16367,9 +16966,11 @@ def get_tenant_queue(tenant_id: str) -&gt; str:
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాను ఎల్లప్పుడూ బహుళ నోడ్లలో లైవ్‌గా కాపీ చేసి ఉంచడం ద్వారా జీరో డేటా లాస్ మరియు హై అవైలబిలిటీ సాధించవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>MySQL Master-Slave రెప్లికేషన్ లాగే:
-- **Synchronous Replication:** మాస్టర్‌లో రాసిన డేటా స్టాండ్‌బై సర్వర్‌లో కూడా రాయబడిన తర్వాతే కమిట్ అవుతుంది (జీరో డేటా లాస్, కానీ కొద్దిగా లేటెన్సీ).
-- **Asynchronous Replication:** మాస్టర్‌లో రాసిన వెంటనే కమిట్ అవుతుంది, వెనుక అసింక్‌గా రీడ్ రెప్లికాలకు కాపీ అవుతుంది (హై స్పీడ్).</p>
+<p>MySQL Master-Slave రెప్లికేషన్ లాగే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Synchronous Replication:** మాస్టర్‌లో రాసిన డేటా స్టాండ్‌బై సర్వర్‌లో కూడా రాయబడిన తర్వాతే కమిట్ అవుతుంది (జీరో డేటా లాస్, కానీ కొద్దిగా లేటెన్సీ).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Asynchronous Replication:** మాస్టర్‌లో రాసిన వెంటనే కమిట్ అవుతుంది, వెనుక అసింక్‌గా రీడ్ రెప్లికాలకు కాపీ అవుతుంది (హై స్పీడ్).</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>-- PostgreSQL లో రెప్లికేషన్ స్టేటస్ చెక్
 SELECT client_addr, state, sync_state, sync_priority 
@@ -16431,10 +17032,11 @@ async def safe_db_operation(session: AsyncSession, user_id: str, tokens: int):
 <h4>ఎందుకు అవసరం?</h4>
 <p>Redis సాధారణంగా ఇన్-మెమరీ డేటాబేస్. సర్వర్ రీస్టార్ట్ అయినా క్యాష్ మరియు సెషన్ డేటా పోకుండా డిస్క్‌లో భద్రపరచాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Redis రెండు రకాల పద్ధతులను అందిస్తుంది:
-1. **RDB (Snapshot):** నిర్ణీత వ్యవధిలో (ఉదా: ప్రతి 15 నిమిషాలకు) మొత్తం మెమరీని ఒక కాంపాక్ట్ ఫైల్‌గా డిస్క్‌లో సేవ్ చేస్తుంది.
-2. **AOF (Append Only File):** ప్రతి రైట్ కమాండ్‌ను లాగ్ ఫైల్‌లో రాస్తుంది (`appendfsync everysec`).
-ప్రొడక్షన్‌లో RDB + AOF రెండింటినీ కలిపి వాడాలి. దీనివల్ల వేగంతో పాటు గరిష్టంగా 1 సెకను కంటే ఎక్కువ డేటా పోదు.</p>
+<p>Redis రెండు రకాల పద్ధతులను అందిస్తుంది:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**RDB (Snapshot):** నిర్ణీత వ్యవధిలో (ఉదా: ప్రతి 15 నిమిషాలకు) మొత్తం మెమరీని ఒక కాంపాక్ట్ ఫైల్‌గా డిస్క్‌లో సేవ్ చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**AOF (Append Only File):** ప్రతి రైట్ కమాండ్‌ను లాగ్ ఫైల్‌లో రాస్తుంది (`appendfsync everysec`). ప్రొడక్షన్‌లో RDB + AOF రెండింటినీ కలిపి వాడాలి. దీనివల్ల వేగంతో పాటు గరిష్టంగా 1 సెకను కంటే ఎక్కువ డేటా పోదు.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># redis.conf ప్రొడక్షన్ కాన్ఫిగరేషన్
 save 900 1              # 15 నిమిషాల్లో 1 మార్పు జరిగితే RDB స్నాప్‌షాట్
@@ -16479,11 +17081,12 @@ print(f"స్నాప్‌షాట్ క్రియేట్ అయిం�
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రమాదం సంభవించినప్పుడు గరిష్టంగా ఎంత సమయం నాటి డేటా నష్టాన్ని కంపెనీ చట్టబద్ధంగా లేదా వ్యాపారపరంగా అంగీకరించగలదో నిర్దేశించే కొలమానమే RPO.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>RPO అనేది 'డేటా నష్టం' కొలమానం.
-- RPO = 24 గంటలు: రోజుకు ఒకసారి రాత్రి బ్యాకప్ తీస్తే సరిపోతుంది.
-- RPO = 1 గంట: ప్రతి గంటకు స్నాప్‌షాట్ తీయాలి.
-- RPO = 0 (జీరో డేటా లాస్): సింక్రోనస్ మల్టీ-రీజియన్ రెప్లికేషన్ ఉండాలి.
-చాట్ అప్లికేషన్లలో సాధారణంగా RPO &lt; 5 నిమిషాలుగా నిర్ణయిస్తారు.</p>
+<p>RPO అనేది 'డేటా నష్టం' కొలమానం.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>RPO = 24 గంటలు: రోజుకు ఒకసారి రాత్రి బ్యాకప్ తీస్తే సరిపోతుంది.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>RPO = 1 గంట: ప్రతి గంటకు స్నాప్‌షాట్ తీయాలి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>RPO = 0 (జీరో డేటా లాస్): సింక్రోనస్ మల్టీ-రీజియన్ రెప్లికేషన్ ఉండాలి. చాట్ అప్లికేషన్లలో సాధారణంగా RPO &lt; 5 నిమిషాలుగా నిర్ణయిస్తారు.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># RPO సమ్మతి చెక్:
 # ప్రస్తుత సమయం: 11:30 AM
@@ -16496,11 +17099,12 @@ print(f"స్నాప్‌షాట్ క్రియేట్ అయిం�
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ క్రాష్ అయిన క్షణం నుండి మళ్లీ యూజర్లకు సేవలు ప్రారంభమయ్యే వరకు ఎంత వ్యవధిలో రికవరీ పూర్తి కావాలో నిర్దేశించే కొలమానమే RTO.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>RTO అనేది 'డౌన్‌టైమ్ సమయం' కొలమానం. సర్వర్ డౌన్ అవ్వగానే:
-1. అలర్ట్ రావడానికి: 2 నిమిషాలు
-2. ఫెయిలోవర్ లేదా స్నాప్‌షాట్ రీస్టోర్‌కు: 8 నిమిషాలు
-3. DNS ప్రొపగేషన్‌కు: 2 నిమిషాలు
-మొత్తం కలిపి 12 నిమిషాల్లో సైట్ లైవ్ అయితే RTO = 12 నిమిషాలు. RTO ఎంత తక్కువగా ఉండాలంటే ఆర్కిటెక్చర్ అంత ఆటోమేటెడ్‌గా ఉండాలి.</p>
+<p>RTO అనేది 'డౌన్‌టైమ్ సమయం' కొలమానం. సర్వర్ డౌన్ అవ్వగానే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>అలర్ట్ రావడానికి: 2 నిమిషాలు</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ఫెయిలోవర్ లేదా స్నాప్‌షాట్ రీస్టోర్‌కు: 8 నిమిషాలు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>DNS ప్రొపగేషన్‌కు: 2 నిమిషాలు మొత్తం కలిపి 12 నిమిషాల్లో సైట్ లైవ్ అయితే RTO = 12 నిమిషాలు. RTO ఎంత తక్కువగా ఉండాలంటే ఆర్కిటెక్చర్ అంత ఆటోమేటెడ్‌గా ఉండాలి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># RTO లక్ష్యం vs వాస్తవం
 | Service Tier | Target RTO | Actual Failover Time | Status |
@@ -16515,10 +17119,12 @@ print(f"స్నాప్‌షాట్ క్రియేట్ అయిం�
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లౌడ్ అకౌంట్ హ్యాక్ అయినా లేదా రీజియన్ మొత్తం ప్రభావితమైనా డేటాను కాపాడేలా అంతర్జాతీయ ప్రమాణమైన 3-2-1 బ్యాకప్ రూల్‌ను పాటించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>3-2-1 నియమం:
-- **3 కాపీలు:** అసలు డేటా + 2 బ్యాకప్ కాపీలు.
-- **2 వేర్వేరు మీడియాలు:** ఉదాహరణకు AWS EBS స్నాప్‌షాట్స్ + AWS S3 ఆబ్జెక్ట్ స్టోరేజ్.
-- **1 ఆఫ్-సైట్ (వేరే లొకేషన్):** వేరే AWS రీజియన్ (Cross-region) లేదా వేరే క్లౌడ్ ప్రొవైడర్ (GCP/Azure) లో భద్రపరచడం.</p>
+<p>3-2-1 నియమం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**3 కాపీలు:** అసలు డేటా + 2 బ్యాకప్ కాపీలు.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**2 వేర్వేరు మీడియాలు:** ఉదాహరణకు AWS EBS స్నాప్‌షాట్స్ + AWS S3 ఆబ్జెక్ట్ స్టోరేజ్.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**1 ఆఫ్-సైట్ (వేరే లొకేషన్):** వేరే AWS రీజియన్ (Cross-region) లేదా వేరే క్లౌడ్ ప్రొవైడర్ (GCP/Azure) లో భద్రపరచడం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># AWS Backup సర్వీస్ ద్వారా ఆటోమేటిక్ క్రాస్-రీజియన్ ప్లాన్
 # Primary: us-east-1 (N. Virginia)
@@ -16552,11 +17158,13 @@ resource "aws_s3_bucket_replication_configuration" "replication" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజమైన విపత్తు సంభవించినప్పుడు కంగారు పడకుండా ఎవరు ఏ పని చేయాలి, ఏ కమాండ్లు రన్ చేయాలి అనే పక్కా డాక్యుమెంటెడ్ ప్లాన్ ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>డిజాస్టర్ రికవరీలో 4 ప్రామాణిక వ్యూహాలు ఉంటాయి:
-1. **Backup and Restore:** బ్యాకప్ నుండి రీస్టోర్ చేయడం (చవకైనది, స్లో).
-2. **Pilot Light:** కోర్ డేటా ఎప్పుడూ వేరే రీజియన్‌లో రెప్లికేట్ అవుతుంటుంది, సర్వర్లు ఆఫ్ లో ఉంటాయి (ప్రమాదం జరిగినప్పుడు ఆన్ చేస్తాం).
-3. **Warm Standby:** చిన్న సైజు సర్వర్లు ఎప్పుడూ రన్ అవుతుంటాయి.
-4. **Multi-Region Active-Active:** రెండు రీజియన్లలో పూర్తి సర్వర్లు ఎల్లప్పుడూ లైవ్ ట్రాఫిక్ తీసుకుంటాయి (అత్యంత ఖరీదైనది, జీరో డౌన్‌టైమ్).</p>
+<p>డిజాస్టర్ రికవరీలో 4 ప్రామాణిక వ్యూహాలు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Backup and Restore:** బ్యాకప్ నుండి రీస్టోర్ చేయడం (చవకైనది, స్లో).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Pilot Light:** కోర్ డేటా ఎప్పుడూ వేరే రీజియన్‌లో రెప్లికేట్ అవుతుంటుంది, సర్వర్లు ఆఫ్ లో ఉంటాయి (ప్రమాదం జరిగినప్పుడు ఆన్ చేస్తాం).</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>**Warm Standby:** చిన్న సైజు సర్వర్లు ఎప్పుడూ రన్ అవుతుంటాయి.</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>**Multi-Region Active-Active:** రెండు రీజియన్లలో పూర్తి సర్వర్లు ఎల్లప్పుడూ లైవ్ ట్రాఫిక్ తీసుకుంటాయి (అత్యంత ఖరీదైనది, జీరో డౌన్‌టైమ్).</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># DR రికవరీ రన్‌బుక్ డాక్యుమెంట్ సారాంశం:
 # 1. డిజాస్టర్ డిక్లరేషన్ (ఇన్సిడెంట్ కమాండర్ నిర్ణయం)
@@ -16655,10 +17263,12 @@ response = completion(
 <h4>ఎందుకు అవసరం?</h4>
 <p>టెక్స్ట్-ఎంబెడ్డింగ్ API డౌన్ అయితే RAG సెర్చ్ మరియు డాక్యుమెంట్ ఇంజెక్షన్ పూర్తిగా ఆగిపోతాయి. దీనికి ప్రత్యామ్నాయాలు సిద్ధంగా ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>OpenAI embeddings డౌన్ అయితే మనం ఆటోమేటిక్‌గా వేరే మోడల్‌కి మారలేము! ఎందుకంటే వేర్వేరు మోడల్స్ వెక్టర్ స్పేస్‌లు వేరుగా ఉంటాయి (1536 vs 384 vs 768 డైమెన్షన్స్). కాబట్టి ఇక్కడ వ్యూహం:
-1. ఆటోమేటిక్ క్యూయింగ్ (రిక్వెస్ట్‌లను క్యూలో హోల్డ్ చేయడం).
-2. టెంపరరీ BM25 కీవర్డ్ సెర్చ్‌కి స్విచ్ అవ్వడం.
-3. స్థానిక FastEmbed / ONNX మోడల్‌ను ప్రైమరీగా ఉంచుకోవడం.</p>
+<p>OpenAI embeddings డౌన్ అయితే మనం ఆటోమేటిక్‌గా వేరే మోడల్‌కి మారలేము! ఎందుకంటే వేర్వేరు మోడల్స్ వెక్టర్ స్పేస్‌లు వేరుగా ఉంటాయి (1536 vs 384 vs 768 డైమెన్షన్స్). కాబట్టి ఇక్కడ వ్యూహం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ఆటోమేటిక్ క్యూయింగ్ (రిక్వెస్ట్‌లను క్యూలో హోల్డ్ చేయడం).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>టెంపరరీ BM25 కీవర్డ్ సెర్చ్‌కి స్విచ్ అవ్వడం.</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>స్థానిక FastEmbed / ONNX మోడల్‌ను ప్రైమరీగా ఉంచుకోవడం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>def hybrid_search_resilient(query: str):
     try:
@@ -16925,9 +17535,11 @@ psql -U postgres -d aidb_test -c "SELECT count(*) FROM chat_sessions;"</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ క్లౌడ్ ప్రొవైడర్ (AWS, GCP, Azure) కైనా ఏకీకృత శైలిలో ఇన్ఫ్రాస్ట్రక్చర్‌ను మేనేజ్ చేయడానికి ప్రపంచవ్యాప్తంగా టెర్రాఫార్మ్ (Terraform) అత్యంత ప్రజాదరణ పొందిన IaC టూల్.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>టెర్రాఫార్మ్‌లో 2 ప్రధాన భాగాలుంటాయి:
-1. **Terraform Core:** మీ కోడ్ (.tf ఫైల్స్) ను చదివి, ప్రస్తుత స్టేట్ ఫైల్ (State File) తో పోల్చి, ఏ రిసోర్స్‌లను క్రియేట్ చేయాలో ప్లాన్ తయారు చేస్తుంది.
-2. **Providers (ప్లగిన్లు):** AWS, Cloudflare, Datadog వంటి సర్వీసుల API లతో మాట్లాడి వాస్తవ రిసోర్సులను ప్రొవిజన్ చేస్తాయి.</p>
+<p>టెర్రాఫార్మ్‌లో 2 ప్రధాన భాగాలుంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Terraform Core:** మీ కోడ్ (.tf ఫైల్స్) ను చదివి, ప్రస్తుత స్టేట్ ఫైల్ (State File) తో పోల్చి, ఏ రిసోర్స్‌లను క్రియేట్ చేయాలో ప్లాన్ తయారు చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Providers (ప్లగిన్లు):** AWS, Cloudflare, Datadog వంటి సర్వీసుల API లతో మాట్లాడి వాస్తవ రిసోర్సులను ప్రొవిజన్ చేస్తాయి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># terraform బ్లాక్ డిక్లరేషన్
 terraform {
@@ -17006,9 +17618,11 @@ resource "aws_instance" "web" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>కోడ్‌ను హార్డ్‌కోడ్ చేయకుండా పునర్వినియోగించదగినదిగా (Reusable) చేయడానికి వేరియబుల్స్, మరియు క్రియేట్ అయిన రిసోర్స్ IP లు, DNS లను తెలుసుకోవడానికి అవుట్‌పుట్‌లు ఉపయోగపడతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>PHP ఫంక్షన్ ఆర్గ్యుమెంట్లు మరియు రిటర్న్ వ్యాల్యూస్ లాంటివి.
-- `variable "instance_type"`: ఇన్‌పుట్ పారామితి.
-- `output "database_endpoint"`: RDS క్రియేట్ అయ్యాక దాని కనెక్షన్ స్ట్రింగ్‌ను స్క్రీన్ మీద ప్రింట్ చేస్తుంది లేదా ఇతర స్క్రిప్ట్‌లకు అందిస్తుంది.</p>
+<p>PHP ఫంక్షన్ ఆర్గ్యుమెంట్లు మరియు రిటర్న్ వ్యాల్యూస్ లాంటివి.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span><b>variable "instance_type"</b>: ఇన్‌పుట్ పారామితి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>output "database_endpoint"</b>: RDS క్రియేట్ అయ్యాక దాని కనెక్షన్ స్ట్రింగ్‌ను స్క్రీన్ మీద ప్రింట్ చేస్తుంది లేదా ఇతర స్క్రిప్ట్‌లకు అందిస్తుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># variables.tf
 variable "environment" {
@@ -17382,13 +17996,14 @@ resource "aws_s3_bucket" "artifacts" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లౌడ్‌లోని ప్రతి రిసోర్స్‌కు ఖచ్చితమైన ట్యాగ్స్ (Tags) లేకపోతే, నెల చివర వచ్చిన $10,000 బిల్లులో AI టీమ్ ఎంత ఖర్చు పెట్టింది, మార్కెటింగ్ టీమ్ ఎంత ఖర్చు పెట్టిందో వేరు చేయడం అసాధ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రతి రిసోర్స్‌పై తప్పనిసరిగా 5 ప్రాథమిక ట్యాగ్‌లు ఉండాలి:
-1. `Environment`: production / staging
-2. `Project`: GenAI-Assistant
-3. `Owner`: naveen@company.com
-4. `CostCenter`: CC-1042
-5. `ManagedBy`: terraform
-AWS ప్రొవైడర్ లోని `default_tags` ద్వారా ఇవి ఆటోమేటిక్‌గా అన్ని రిసోర్సులకూ అప్లై అవుతాయి.</p>
+<p>ప్రతి రిసోర్స్‌పై తప్పనిసరిగా 5 ప్రాథమిక ట్యాగ్‌లు ఉండాలి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span><b>Environment</b>: production / staging</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span><b>Project</b>: GenAI-Assistant</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span><b>Owner</b>: naveen@company.com</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span><b>CostCenter</b>: CC-1042</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span><b>ManagedBy</b>: terraform AWS ప్రొవైడర్ లోని `default_tags` ద్వారా ఇవి ఆటోమేటిక్‌గా అన్ని రిసోర్సులకూ అప్లై అవుతాయి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>provider "aws" {
   default_tags {
@@ -17419,10 +18034,12 @@ AWS ప్రొవైడర్ లోని `default_tags` ద్వారా �
 <h4>ఎందుకు అవసరం?</h4>
 <p>టెర్రాఫార్మ్ స్టేట్ ఫైల్ అనేది మొత్తం ఇన్ఫ్రాస్ట్రక్చర్ హృదయం. అది పోయినా లేదా హ్యాకర్ల చేతికి చిక్కినా మొత్తం క్లౌడ్ ప్రమాదంలో పడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>S3 బకెట్‌లో స్టేట్ ఫైల్ ఉంచినప్పుడు 3 రక్షణలు తప్పనిసరి:
-1. **S3 Versioning:** పొరపాటున ఫైల్ డిలీట్ అయినా మునుపటి వెర్షన్లు ఉంటాయి.
-2. **KMS Encryption:** AWS KMS కీతో డేటా ఎన్‌క్రిప్ట్ అవుతుంది.
-3. **MFA Delete:** రూట్ యూజర్ MFA లేకుండా బకెట్ లేదా స్టేట్ డిలీట్ చేయడం అసాధ్యం.</p>
+<p>S3 బకెట్‌లో స్టేట్ ఫైల్ ఉంచినప్పుడు 3 రక్షణలు తప్పనిసరి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**S3 Versioning:** పొరపాటున ఫైల్ డిలీట్ అయినా మునుపటి వెర్షన్లు ఉంటాయి.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**KMS Encryption:** AWS KMS కీతో డేటా ఎన్‌క్రిప్ట్ అవుతుంది.</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>**MFA Delete:** రూట్ యూజర్ MFA లేకుండా బకెట్ లేదా స్టేట్ డిలీట్ చేయడం అసాధ్యం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>resource "aws_s3_bucket_versioning" "state_versioning" {
   bucket = aws_s3_bucket.tf_state.id
@@ -17488,10 +18105,12 @@ AWS ప్రొవైడర్ లోని `default_tags` ద్వారా �
 <h4>ఎందుకు అవసరం?</h4>
 <p>EC2, Fargate మరియు GPU ఇన్‌స్టాన్స్‌ల ధరల విధానాన్ని అర్థం చేసుకుంటేనే సరైన మోడల్‌ను ఎంచుకుని కంప్యూట్ ఖర్చులను 60% వరకు తగ్గించవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>3 ప్రధాన ధరల నమూనాలు:
-1. **On-Demand:** గంటల లెక్కన సాధారణ ధర (ఫ్లెక్సిబుల్, కానీ అత్యధిక ధర).
-2. **Reserved Instances / Savings Plans:** 1 లేదా 3 సంవత్సరాల కమిట్‌మెంట్ ఇస్తే 40-72% భారీ తగ్గింపు.
-3. **Spot Instances:** AWS లో మిగిలిపోయిన ఖాళీ సర్వర్లు 70-90% డిస్కౌంట్‌తో లభిస్తాయి (ఎప్పుడైనా వెనక్కి తీసుకోవచ్చు).</p>
+<p>3 ప్రధాన ధరల నమూనాలు:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**On-Demand:** గంటల లెక్కన సాధారణ ధర (ఫ్లెక్సిబుల్, కానీ అత్యధిక ధర).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Reserved Instances / Savings Plans:** 1 లేదా 3 సంవత్సరాల కమిట్‌మెంట్ ఇస్తే 40-72% భారీ తగ్గింపు.</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>**Spot Instances:** AWS లో మిగిలిపోయిన ఖాళీ సర్వర్లు 70-90% డిస్కౌంట్‌తో లభిస్తాయి (ఎప్పుడైనా వెనక్కి తీసుకోవచ్చు).</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># కంప్యూట్ ధరల పోలిక (c6i.xlarge):
 # On-Demand: $0.17 / గంటకు ($122/నెల)
@@ -17526,11 +18145,12 @@ AWS ప్రొవైడర్ లోని `default_tags` ద్వారా �
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇంటర్నెట్‌లోకి డేటా పంపేటప్పుడు (Egress) మరియు వేర్వేరు AZ ల మధ్య డేటా బదిలీ అయ్యేటప్పుడు గిగాబైట్‌కు ఛార్జీలు పడతాయి. వీటిని మినిమైజ్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>AWS లో:
-- ఇన్కమింగ్ డేటా: ఉచితం ($0.00).
-- అవుట్‌గోయింగ్ డేటా (ఇంటర్నెట్ కు): ~$0.09 per GB.
-- ఇంటర్-AZ డేటా: $0.01 per GB (రెండు వైపులా).
-S3 లో ఉన్న డాక్యుమెంట్లను నేరుగా పబ్లిక్ ఇంటర్నెట్ ద్వారా కాకుండా, CloudFront CDN ద్వారా అందిస్తే డేటా ట్రాన్స్‌ఫర్ ఖర్చు 30-50% తగ్గుతుంది మరియు యూజర్లకు వేగంగా అందుతుంది.</p>
+<p>AWS లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>ఇన్కమింగ్ డేటా: ఉచితం ($0.00).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>అవుట్‌గోయింగ్ డేటా (ఇంటర్నెట్ కు): ~$0.09 per GB.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>ఇంటర్-AZ డేటా: $0.01 per GB (రెండు వైపులా). S3 లో ఉన్న డాక్యుమెంట్లను నేరుగా పబ్లిక్ ఇంటర్నెట్ ద్వారా కాకుండా, CloudFront CDN ద్వారా అందిస్తే డేటా ట్రాన్స్‌ఫర్ ఖర్చు 30-50% తగ్గుతుంది మరియు యూజర్లకు వేగంగా అందుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># VPC Endpoint (Gateway) వాడి S3 డేటా ట్రాన్స్‌ఫర్ ఉచితంగా మార్చడం:
 resource "aws_vpc_endpoint" "s3" {
@@ -17596,9 +18216,11 @@ resource "aws_spot_instance_request" "ai_batch_worker" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>OpenAI, Anthropic కన్సోల్స్‌లో క్రెడిట్ కార్డ్ పెట్టి వదిలేస్తే, ఏదైనా కోడ్ లూప్ లేదా బాట్ ఎటాక్ వల్ల ఒక్క రాత్రిలోనే $10,000 బిల్లు పడే ప్రమాదం ఉంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రొవైడర్ డాష్‌బోర్డ్‌లో Hard Limit మరియు Soft Limit సెట్ చేయాలి. 
-- Soft Limit ($500): చేరగానే ఈమెయిల్ అలర్ట్ వస్తుంది.
-- Hard Limit ($1,000): చేరగానే ఆటోమేటిక్‌గా అన్ని API కాల్స్ బ్లాక్ అవుతాయి. కార్డ్ నుండి ఒక్క డాలర్ కూడా అదనంగా కట్ అవ్వదు.</p>
+<p>ప్రొవైడర్ డాష్‌బోర్డ్‌లో Hard Limit మరియు Soft Limit సెట్ చేయాలి.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>Soft Limit ($500): చేరగానే ఈమెయిల్ అలర్ట్ వస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Hard Limit ($1,000): చేరగానే ఆటోమేటిక్‌గా అన్ని API కాల్స్ బ్లాక్ అవుతాయి. కార్డ్ నుండి ఒక్క డాలర్ కూడా అదనంగా కట్ అవ్వదు.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># OpenAI Billing Settings:
 # Monthly Soft Limit: $500.00
@@ -17681,11 +18303,12 @@ tenant_report = {
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్చర్‌లో రూటింగ్ రూల్స్ పెట్టడం ద్వారా నాణ్యత తగ్గకుండా అత్యధిక రిక్వెస్ట్‌లను చవకైన మోడల్స్‌కు మళ్లించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>కంపెనీ పాలసీ:
-1. 50 పదాల కంటే తక్కువ ఉన్న సాధారణ విచారణలకు: GPT-4o-mini ($0.15/1M).
-2. డాక్యుమెంట్ ఎక్స్‌ట్రాక్షన్ మరియు సమ్మరీకి: Claude Haiku.
-3. కోడ్ జనరేషన్ లేదా క్లిష్టమైన మల్టీ-స్టెప్ లాజిక్‌కు మాత్రమే: Claude 3.5 Sonnet లేదా GPT-4o.
-ఈ విధానం వల్ల నెలకు అయ్యే ఖర్చులో 65% ఆదా అవుతుంది.</p>
+<p>కంపెనీ పాలసీ:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>50 పదాల కంటే తక్కువ ఉన్న సాధారణ విచారణలకు: GPT-4o-mini ($0.15/1M).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>డాక్యుమెంట్ ఎక్స్‌ట్రాక్షన్ మరియు సమ్మరీకి: Claude Haiku.</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>కోడ్ జనరేషన్ లేదా క్లిష్టమైన మల్టీ-స్టెప్ లాజిక్‌కు మాత్రమే: Claude 3.5 Sonnet లేదా GPT-4o. ఈ విధానం వల్ల నెలకు అయ్యే ఖర్చులో 65% ఆదా అవుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>def enforce_routing_policy(task: str, complexity: str) -&gt; str:
     if complexity == "low":
@@ -17796,9 +18419,10 @@ print(f"గ్రాస్ మార్జిన్: {gross_margin:.1f}% (ఆర
 <h4>ఎందుకు అవసరం?</h4>
 <p>షేర్డ్ ఇన్‌ఫ్రాస్ట్రక్చర్ (ఉదా: Kubernetes Cluster, PostgreSQL DB) ఖర్చులను వివిధ డిపార్ట్‌మెంట్‌లకు న్యాయబద్ధంగా పంపిణీ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>- **Showback:** ఏ డిపార్ట్‌మెంట్ ఎంత ఖర్చు చేసిందో కేవలం నివేదిక రూపంలో చూపించడం (అవగాహన కోసం).
-- **Chargeback:** ఆ డిపార్ట్‌మెంట్ అంతర్గత బడ్జెట్ నుండి ఆ మొత్తాన్ని నిజంగా కట్ చేయడం.
-Kubecost వంటి టూల్స్ వాడి ఒకే కుబెర్నెటిస్ క్లస్టర్‌లోని వివిధ నేమ్‌స్పేస్‌ల ఖర్చులను విడదీసి చూపిస్తాం.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Showback:** ఏ డిపార్ట్‌మెంట్ ఎంత ఖర్చు చేసిందో కేవలం నివేదిక రూపంలో చూపించడం (అవగాహన కోసం).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Chargeback:** ఆ డిపార్ట్‌మెంట్ అంతర్గత బడ్జెట్ నుండి ఆ మొత్తాన్ని నిజంగా కట్ చేయడం. Kubecost వంటి టూల్స్ వాడి ఒకే కుబెర్నెటిస్ క్లస్టర్‌లోని వివిధ నేమ్‌స్పేస్‌ల ఖర్చులను విడదీసి చూపిస్తాం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Kubecost రిపోర్ట్ సారాంశం:
 # Namespace: search-ai    -&gt; $450 / month
@@ -17840,10 +18464,11 @@ print(f"వేరియన్స్: +${variance} (+{variance_pct:.1f}%) - ఓ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>వందలాది ఆప్టిమైజేషన్ ఆలోచనలు ఉన్నప్పుడు, అతి తక్కువ శ్రమతో అత్యధిక డబ్బును ఆదా చేసే పనులకు (High Impact, Low Effort) మొదటి ప్రాధాన్యత ఇవ్వాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>2x2 Impact vs Effort మ్యాట్రిక్స్:
-1. **Quick Wins (High Impact, Low Effort):** అన్‌యూజ్డ్ GPU సర్వర్లను ఆపడం, మోడల్‌ను GPT-4o నుండి GPT-4o-mini కి మార్చడం (1 రోజు పని, 70% ఆదా!).
-2. **Major Projects (High Impact, High Effort):** మొత్తం పైప్‌లైన్‌ను సెల్ఫ్-హోస్టెడ్ vLLM కి మైగ్రేట్ చేయడం (2 నెలల పని).
-ముందుగా Quick Wins పూర్తి చేయాలి.</p>
+<p>2x2 Impact vs Effort మ్యాట్రిక్స్:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Quick Wins (High Impact, Low Effort):** అన్‌యూజ్డ్ GPU సర్వర్లను ఆపడం, మోడల్‌ను GPT-4o నుండి GPT-4o-mini కి మార్చడం (1 రోజు పని, 70% ఆదా!).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Major Projects (High Impact, High Effort):** మొత్తం పైప్‌లైన్‌ను సెల్ఫ్-హోస్టెడ్ vLLM కి మైగ్రేట్ చేయడం (2 నెలల పని). ముందుగా Quick Wins పూర్తి చేయాలి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># ప్రాధాన్యత ర్యాంకింగ్:
 # 1. Enable S3 Lifecycle Rule (Effort: 10 mins, Savings: $200/mo) -&gt; PRIORITY 1
@@ -17987,11 +18612,13 @@ print(f"నిన్నటి మొత్తం AWS క్లౌడ్ ఖర�
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లౌడ్ మరియు LLM ఖర్చులను మొత్తం మేనేజ్‌మెంట్ మరియు ఇంజనీరింగ్ టీమ్ స్పష్టంగా చూడటానికి Grafana లేదా CloudWatch లో విజువల్ డాష్‌బోర్డ్ నిర్మించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Grafana లో 4 ముఖ్యమైన చార్ట్‌లను సెటప్ చేస్తాం:
-1. Daily Spend Trend ($)
-2. Spend by Service (RDS vs ECS vs Bedrock)
-3. Top 10 Costliest Users / Tenants
-4. Monthly Budget Burn Rate</p>
+<p>Grafana లో 4 ముఖ్యమైన చార్ట్‌లను సెటప్ చేస్తాం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Daily Spend Trend ($)</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>Spend by Service (RDS vs ECS vs Bedrock)</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Top 10 Costliest Users / Tenants</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Monthly Budget Burn Rate</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># CloudWatch Dashboard టెర్రాఫార్మ్ రిసోర్స్
 resource "aws_cloudwatch_dashboard" "finops_dashboard" {
@@ -18016,14 +18643,15 @@ resource "aws_cloudwatch_dashboard" "finops_dashboard" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రొడక్షన్‌లోకి వెళ్లేముందు సిస్టమ్ నడపడానికి ప్రతి నెలా ఎంత ఖర్చవుతుందో ఆర్కిటెక్చర్ డాక్యుమెంట్‌లో పక్కా అంచనా నమోదు చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రతి కాంపోనెంట్‌కు నెలవారీ అంచనా ఖర్చులతో కూడిన వివరణాత్మక టేబుల్‌ను సిద్ధం చేస్తాం:
-- Compute (ECS Fargate 3 tasks): $120
-- Database (RDS Multi-AZ Postgres): $180
-- Vector DB (Qdrant): $60
-- Cache (Redis): $35
-- Storage & Egress: $25
-- LLM Tokens (50M tokens @ GPT-4o-mini): $20
-మొత్తం అంచనా: ~$440 / నెల.</p>
+<p>ప్రతి కాంపోనెంట్‌కు నెలవారీ అంచనా ఖర్చులతో కూడిన వివరణాత్మక టేబుల్‌ను సిద్ధం చేస్తాం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>Compute (ECS Fargate 3 tasks): $120</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Database (RDS Multi-AZ Postgres): $180</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Vector DB (Qdrant): $60</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Cache (Redis): $35</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Storage & Egress: $25</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>LLM Tokens (50M tokens @ GPT-4o-mini): $20 మొత్తం అంచనా: ~$440 / నెల.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Production AI Platform Monthly Cost Estimates (Base Load)
 | Infrastructure Component | Sizing / Specs           | Monthly Cost (USD) |
@@ -18209,11 +18837,12 @@ class WorkerSettings:
 <h4>ఎందుకు అవసరం?</h4>
 <p>బయటి ప్రపంచం నుండి వచ్చే అన్ని రిక్వెస్ట్‌లను ముందుగా స్వీకరించి, SSL టెర్మినేషన్, రేట్ లిమిటింగ్, మరియు మైక్రోసర్వీసుల మధ్య రూటింగ్ చేయడానికి గేట్‌వే అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Nginx, Traefik లేదా AWS Application Load Balancer (ALB). 
-- `/api/v1/chat` -&gt; FastAPI కంటైనర్లకు
-- `/docs` -&gt; Swagger డాక్యుమెంటేషన్‌కు
-- `/qdrant` -&gt; అంతర్గత నెట్‌వర్క్‌కే పరిమితం (బయటకు ఎక్స్‌పోజ్ అవ్వదు).
-భద్రతకు మొదటి రక్షణ కవచం.</p>
+<p>Nginx, Traefik లేదా AWS Application Load Balancer (ALB).</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>`/api/v1/chat` -&gt; FastAPI కంటైనర్లకు</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>`/docs` -&gt; Swagger డాక్యుమెంటేషన్‌కు</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>`/qdrant` -&gt; అంతర్గత నెట్‌వర్క్‌కే పరిమితం (బయటకు ఎక్స్‌పోజ్ అవ్వదు). భద్రతకు మొదటి రక్షణ కవచం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Nginx రివర్స్ ప్రాక్సీ రౌటింగ్ రూల్
 location /v1/ {
@@ -18247,10 +18876,11 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>బిల్డ్ టూల్స్ (gcc, g++, python-dev) ను తుది ప్రొడక్షన్ ఇమేజ్ నుండి తొలగించి ఇమేజ్ సైజును 1.5GB నుండి కేవలం 180MB కి తగ్గించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు దశలు ఉంటాయి:
-1. **Builder Stage:** బరువైన కంపైలర్లను వాడి వీల్స్ (.whl) ను బిల్డ్ చేస్తుంది.
-2. **Final Runner Stage:** కేవలం కంపైల్ అయిన వీల్స్ మరియు రన్‌టైమ్ లైబ్రరీలను మాత్రమే కాపీ చేసుకుంటుంది.
-చిన్న ఇమేజ్ వల్ల డిప్లాయ్‌మెంట్ వేగం 5x పెరుగుతుంది మరియు సెక్యూరిటీ వల్నరబిలిటీలు తగ్గుతాయి.</p>
+<p>రెండు దశలు ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Builder Stage:** బరువైన కంపైలర్లను వాడి వీల్స్ (.whl) ను బిల్డ్ చేస్తుంది.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Final Runner Stage:** కేవలం కంపైల్ అయిన వీల్స్ మరియు రన్‌టైమ్ లైబ్రరీలను మాత్రమే కాపీ చేసుకుంటుంది. చిన్న ఇమేజ్ వల్ల డిప్లాయ్‌మెంట్ వేగం 5x పెరుగుతుంది మరియు సెక్యూరిటీ వల్నరబిలిటీలు తగ్గుతాయి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Stage 1: Build
 FROM python:3.11-slim AS builder
@@ -18338,10 +18968,11 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక కంటైనర్‌లో మెమరీ లీక్ వచ్చినప్పుడు అది సర్వర్‌లోని మొత్తం RAM ను తినేసి పక్కనే ఉన్న ఇతర కంటైనర్లను చంపేయకుండా లిమిట్స్ పెట్టాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Linux cgroups ఆధారంగా:
-- **Requests:** కంటైనర్‌కు గ్యారెంటీగా కేటాయించే కనీస రిసోర్సులు (ఉదా: 0.5 CPU, 1GB RAM).
-- **Limits:** కంటైనర్ దాటకూడని గరిష్ట సీలింగ్ (ఉదా: 2 CPU, 4GB RAM).
-4GB దాటగానే కేవలం ఆ ఒక్క కంటైనర్ మాత్రమే OOMKilled అవుతుంది, హోస్ట్ సేఫ్‌గా ఉంటుంది.</p>
+<p>Linux cgroups ఆధారంగా:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**Requests:** కంటైనర్‌కు గ్యారెంటీగా కేటాయించే కనీస రిసోర్సులు (ఉదా: 0.5 CPU, 1GB RAM).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**Limits:** కంటైనర్ దాటకూడని గరిష్ట సీలింగ్ (ఉదా: 2 CPU, 4GB RAM). 4GB దాటగానే కేవలం ఆ ఒక్క కంటైనర్ మాత్రమే OOMKilled అవుతుంది, హోస్ట్ సేఫ్‌గా ఉంటుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Kubernetes / Docker Compose లో రిసోర్స్ లిమిట్స్
 deploy:
@@ -18371,11 +19002,12 @@ docker build -t 123456.dkr.ecr.us-east-1.amazonaws.com/ai-app:$IMAGE_TAG .</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పూర్తి క్యాప్‌స్టోన్ ప్రాజెక్ట్‌కు భద్రతా పునాదిగా Multi-AZ సపోర్ట్ ఉన్న పటిష్టమైన AWS VPC ని డిజైన్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>CIDR `10.0.0.0/16`. రెండు Availability Zones (us-east-1a, us-east-1b) లలో:
-- 2 Public Subnets (ALB మరియు NAT Gateway కోసం)
-- 2 Private App Subnets (ECS కంటైనర్ల కోసం)
-- 2 Isolated DB Subnets (RDS Postgres మరియు Redis కోసం)
-ఇంటర్నెట్ నుండి నేరుగా ప్రైవేట్ డేటా సెగ్మెంట్లకు యాక్సెస్ ఉండదు.</p>
+<p>CIDR `10.0.0.0/16`. రెండు Availability Zones (us-east-1a, us-east-1b) లలో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>2 Public Subnets (ALB మరియు NAT Gateway కోసం)</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>2 Private App Subnets (ECS కంటైనర్ల కోసం)</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>2 Isolated DB Subnets (RDS Postgres మరియు Redis కోసం) ఇంటర్నెట్ నుండి నేరుగా ప్రైవేట్ డేటా సెగ్మెంట్లకు యాక్సెస్ ఉండదు.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># VPC లేఅవుట్ సారాంశం:
 # Public Subnets: 10.0.1.0/24, 10.0.2.0/24 (IGW రూట్)
@@ -18409,9 +19041,11 @@ resource "aws_ecs_service" "capstone_api" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంటైనర్లకు అవసరమైన ఖచ్చితమైన AWS సర్వీస్ పెర్మిషన్లను (S3 రీడ్/రైట్, CloudWatch లాగ్స్) మాత్రమే అందించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు ప్రత్యేక రోల్స్ ఉంటాయి:
-1. **Task Execution Role:** ECR నుండి ఇమేజ్ పుల్ చేయడానికి, CloudWatch లాగ్స్ రాయడానికి ECS ఏజెంట్‌కు అవసరం.
-2. **Task Role:** కంటైనర్ లోపల ఉన్న పైథాన్ కోడ్ S3 బకెట్ నుండి డాక్యుమెంట్లు చదవడానికి, Bedrock మోడల్స్ పిలవడానికి అవసరం.</p>
+<p>రెండు ప్రత్యేక రోల్స్ ఉంటాయి:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>**Task Execution Role:** ECR నుండి ఇమేజ్ పుల్ చేయడానికి, CloudWatch లాగ్స్ రాయడానికి ECS ఏజెంట్‌కు అవసరం.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>**Task Role:** కంటైనర్ లోపల ఉన్న పైథాన్ కోడ్ S3 బకెట్ నుండి డాక్యుమెంట్లు చదవడానికి, Bedrock మోడల్స్ పిలవడానికి అవసరం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>resource "aws_iam_policy" "s3_access" {
   name = "ai-app-s3-read-write"
@@ -18431,9 +19065,10 @@ resource "aws_ecs_service" "capstone_api" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రాజెక్ట్ పరిమాణం, టీమ్ నైపుణ్యం మరియు బడ్జెట్‌ను బట్టి AWS ECS Fargate లేదా EKS (Kubernetes) మధ్య సరైన ఎంపిక చేసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>- **AWS ECS (Fargate):** సరళమైనది, కంట్రోల్ ప్లేన్ ఛార్జీలు లేవు ($0/నెల), కేవలం రన్ అయ్యే CPU/RAM కి మాత్రమే బిల్లు. చిన్న మరియు మధ్యస్థ AI ప్రాజెక్టులకు బెస్ట్.
-- **AWS EKS:** భారీ ఎంటర్‌ప్రైజ్, మల్టీ-క్లౌడ్ లేదా సంక్లిష్టమైన సర్వీస్ మెష్ ఉన్నప్పుడు అవసరం ($73/నెల కంట్రోల్ ప్లేన్ బేస్ కాస్ట్).
-క్యాప్‌స్టోన్ డిప్లాయ్‌మెంట్‌కు ECS Fargate వేగవంతమైన మరియు తక్కువ మెయింటెనెన్స్ పరిష్కారం.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**AWS ECS (Fargate):** సరళమైనది, కంట్రోల్ ప్లేన్ ఛార్జీలు లేవు ($0/నెల), కేవలం రన్ అయ్యే CPU/RAM కి మాత్రమే బిల్లు. చిన్న మరియు మధ్యస్థ AI ప్రాజెక్టులకు బెస్ట్.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>**AWS EKS:** భారీ ఎంటర్‌ప్రైజ్, మల్టీ-క్లౌడ్ లేదా సంక్లిష్టమైన సర్వీస్ మెష్ ఉన్నప్పుడు అవసరం ($73/నెల కంట్రోల్ ప్లేన్ బేస్ కాస్ట్). క్యాప్‌స్టోన్ డిప్లాయ్‌మెంట్‌కు ECS Fargate వేగవంతమైన మరియు తక్కువ మెయింటెనెన్స్ పరిష్కారం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># ECS Fargate క్లస్టర్ టెర్రాఫార్మ్
 resource "aws_ecs_cluster" "capstone" {
@@ -18569,9 +19204,11 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3_encrypt" {
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొత్త మార్పులు చేసినప్పుడు పాత ఫీచర్లు బ్రేక్ కాకుండా (Regression) ఉండేందుకు యూనిట్ టెస్టులు మరియు ఇంటిగ్రేషన్ టెస్టులు ఆటోమేటిక్‌గా రన్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `php artisan test` ఎలా రన్ చేస్తామో, పైథాన్‌లో `pytest` వాడతాం. 
-- Unit Tests: ప్రాంప్ట్ టెంప్లేట్ ఫార్మాటింగ్, టోకెన్ కాలిక్యులేషన్, బిజినెస్ లాజిక్ టెస్ట్ చేస్తాయి.
-- Integration Tests: టెస్ట్ డేటాబేస్ (Testcontainers) తో API ఎండ్‌పాయింట్లను టెస్ట్ చేస్తాయి.</p>
+<p>Laravel లో `php artisan test` ఎలా రన్ చేస్తామో, పైథాన్‌లో `pytest` వాడతాం.</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>Unit Tests: ప్రాంప్ట్ టెంప్లేట్ ఫార్మాటింగ్, టోకెన్ కాలిక్యులేషన్, బిజినెస్ లాజిక్ టెస్ట్ చేస్తాయి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Integration Tests: టెస్ట్ డేటాబేస్ (Testcontainers) తో API ఎండ్‌పాయింట్లను టెస్ట్ చేస్తాయి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>from fastapi.testclient import TestClient
 from main import app
@@ -18740,9 +19377,11 @@ def upload_knowledge_base():
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక కంపెనీ డేటా వేరొక కంపెనీకి పొరపాటున కూడా కనిపించకుండా డేటాబేస్ మరియు వెక్టర్ స్టోరేజ్ స్థాయిలో కఠినమైన ఐసోలేషన్ నిర్ధారించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel Multi-tenancy ప్యాకేజీల లాగే:
-- PostgreSQL లో Row-Level Security (RLS) ఎనేబుల్ చేస్తాం. ప్రతి క్వెరీకి `WHERE tenant_id = current_setting('app.current_tenant')` ఆటోమేటిక్‌గా అప్లై అవుతుంది.
-- Qdrant లో ప్రతి వెక్టర్ సెర్చ్‌లో `Filter(must=[FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id))])` తప్పనిసరి చేస్తాం.</p>
+<p>Laravel Multi-tenancy ప్యాకేజీల లాగే:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>PostgreSQL లో Row-Level Security (RLS) ఎనేబుల్ చేస్తాం. ప్రతి క్వెరీకి `WHERE tenant_id = current_setting('app.current_tenant')` ఆటోమేటిక్‌గా అప్లై అవుతుంది.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>Qdrant లో ప్రతి వెక్టర్ సెర్చ్‌లో `Filter(must=[FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id))])` తప్పనిసరి చేస్తాం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>-- PostgreSQL Row Level Security (RLS)
 ALTER TABLE documents ENABLE ROW LEVEL SECURITY;
@@ -18914,11 +19553,13 @@ Instrumentator().instrument(app).expose(app)
 <h4>ఎందుకు అవసరం?</h4>
 <p>Prometheus మెట్రిక్స్ మరియు OpenTelemetry ట్రేస్‌లను అందమైన రియల్-టైమ్ చార్ట్‌లుగా మార్చి ఒకే స్క్రీన్ పై మొత్తం సిస్టమ్ ఆరోగ్యాన్ని చూపించడానికి Grafana అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>క్యాప్‌స్టోన్ లో మనం ఒక "AI Executive Dashboard" తయారు చేస్తాం:
-1. Live RPS & Active Users
-2. P50 / P95 / P99 Latency చార్ట్‌లు
-3. 5XX Error Rate గేజ్ (ఎరుపు రంగు వార్నింగ్‌తో)
-4. Hourly Token Consumption & Cost Tracker</p>
+<p>క్యాప్‌స్టోన్ లో మనం ఒక "AI Executive Dashboard" తయారు చేస్తాం:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>Live RPS & Active Users</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>P50 / P95 / P99 Latency చార్ట్‌లు</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>5XX Error Rate గేజ్ (ఎరుపు రంగు వార్నింగ్‌తో)</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>Hourly Token Consumption & Cost Tracker</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Grafana Dashboard JSON ప్రొవిజనింగ్
 # Prometheus డేటాసోర్స్ కనెక్ట్ చేసి ఆటోమేటిక్ అలర్ట్ రూల్స్ సెట్ చేయడం</pre>
@@ -19012,12 +19653,13 @@ groups:
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్యాప్‌స్టోన్ సిస్టమ్‌లోని ప్రతి అంతర్గత సర్వీస్ (DB, Redis, Qdrant, LLM API) జీవించి ఉందో లేదో డీప్ హెల్త్‌చెక్ ద్వారా నిరంతరం ధృవీకరించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>`/health/ready` ఎండ్‌పాయింట్ పిలిచినప్పుడు, అది సమాంతరంగా:
-1. `SELECT 1` on PostgreSQL
-2. `PING` on Redis
-3. Qdrant cluster telemetry
-4. OpenAI connection check
-చేస్తుంది. అన్నీ గ్రీన్ అయితేనే HTTP 200 ఇస్తుంది; ఏ ఒక్కటి ఫెయిల్ అయినా HTTP 503 తో వివరాలు ఇస్తుంది.</p>
+<p>`/health/ready` ఎండ్‌పాయింట్ పిలిచినప్పుడు, అది సమాంతరంగా:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>`SELECT 1` on PostgreSQL</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>`PING` on Redis</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>Qdrant cluster telemetry</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>OpenAI connection check చేస్తుంది. అన్నీ గ్రీన్ అయితేనే HTTP 200 ఇస్తుంది; ఏ ఒక్కటి ఫెయిల్ అయినా HTTP 503 తో వివరాలు ఇస్తుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>@app.get("/health/ready")
 async def deep_health_check():
@@ -19062,10 +19704,12 @@ copy_tags_to_snapshot   = true</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ట్రాఫిక్ పెరిగినప్పుడు సర్వర్లు సకాలంలో పెరిగి, ట్రాఫిక్ తగ్గినప్పుడు తగ్గి డబ్బులు ఆదా చేసే స్కేలింగ్ నియమాలు అమల్లో ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ECS Target Tracking Scaling:
-- సగటు CPU 70% దాటితే: టాస్క్‌ల సంఖ్య క్రమంగా పెరుగుతుంది (Scale Out).
-- ALB రిక్వెస్ట్ కౌంట్ పర్ టార్గెట్ 1000 దాటితే: కొత్త టాస్క్‌లు యాడ్ అవుతాయి.
-- కూల్‌డౌన్ పీరియడ్: 60 సెకన్లు (అతివేగంగా పెరిగి తగ్గి ఫ్లాపింగ్ రాకుండా).</p>
+<p>ECS Target Tracking Scaling:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>సగటు CPU 70% దాటితే: టాస్క్‌ల సంఖ్య క్రమంగా పెరుగుతుంది (Scale Out).</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>ALB రిక్వెస్ట్ కౌంట్ పర్ టార్గెట్ 1000 దాటితే: కొత్త టాస్క్‌లు యాడ్ అవుతాయి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>కూల్‌డౌన్ పీరియడ్: 60 సెకన్లు (అతివేగంగా పెరిగి తగ్గి ఫ్లాపింగ్ రాకుండా).</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre>resource "aws_appautoscaling_policy" "ecs_policy_cpu" {
   name               = "cpu-scaling"
@@ -19104,12 +19748,14 @@ copy_tags_to_snapshot   = true</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొత్త టీమ్ సభ్యులు లేదా డెవాప్స్ ఇంజనీర్లు సిస్టమ్‌ను మొదటి నుండి ఎలా డిప్లాయ్ చేయాలో స్పష్టమైన గైడ్ ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>README.md లో:
-1. అవసరమైన టూల్స్ (Terraform, Docker, AWS CLI).
-2. ఎన్విరాన్‌మెంట్ వేరియబుల్స్ లిస్ట్.
-3. టెర్రాఫార్మ్ ఇన్‌ఫ్రా ప్రొవిజనింగ్ కమాండ్లు.
-4. CI/CD పైప్‌లైన్ వివరణ.
-5. లోకల్ డెవలప్‌మెంట్ సెటప్ స్టెప్స్ స్పష్టంగా నమోదు చేస్తాం.</p>
+<p>README.md లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>అవసరమైన టూల్స్ (Terraform, Docker, AWS CLI).</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>ఎన్విరాన్‌మెంట్ వేరియబుల్స్ లిస్ట్.</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>టెర్రాఫార్మ్ ఇన్‌ఫ్రా ప్రొవిజనింగ్ కమాండ్లు.</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>CI/CD పైప్‌లైన్ వివరణ.</span></div>
+  <div class="step-row"><span class="step-badge">5</span><span>లోకల్ డెవలప్‌మెంట్ సెటప్ స్టెప్స్ స్పష్టంగా నమోదు చేస్తాం.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Deployment Quickstart Guide
 1. clone repo: git clone https://github.com/company/ai-capstone.git
@@ -19144,11 +19790,13 @@ FastAPI -&gt; LLM Gateway -&gt; [OpenAI Primary / Anthropic Fallback]
 <h4>ఎందుకు అవసరం?</h4>
 <p>రాత్రిపూట లేదా సెలవు రోజుల్లో సైట్ డౌన్ అయినప్పుడు డ్యూటీలో ఉన్న ఆన్-కాల్ ఇంజనీర్ అనుసరించాల్సిన నిర్దిష్టమైన పరిష్కార మార్గదర్శిని రన్‌బుక్.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రతి అలర్ట్‌కు ఒక రన్‌బుక్ పేజీ ఉంటుంది:
-- **సమస్య: High 5XX Error Rate**
-  - తనిఖీ 1: `aws logs tail /ecs/capstone-ai-api --filter-pattern "500"`
-  - తనిఖీ 2: RDS కనెక్షన్ పూల్ నిండిపోయిందా? `SELECT count(*) FROM pg_stat_activity;`
-  - చర్య: ఒకవేళ పూల్ నిండితే ECS టాస్క్‌లను రీస్టార్ట్ చేయండి లేదా DB పూల్ సైజు పెంచండి.</p>
+<p>ప్రతి అలర్ట్‌కు ఒక రన్‌బుక్ పేజీ ఉంటుంది:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span>**సమస్య: High 5XX Error Rate**</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>తనిఖీ 1: `aws logs tail /ecs/capstone-ai-api --filter-pattern "500"`</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>తనిఖీ 2: RDS కనెక్షన్ పూల్ నిండిపోయిందా? `SELECT count(*) FROM pg_stat_activity;`</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span>చర్య: ఒకవేళ పూల్ నిండితే ECS టాస్క్‌లను రీస్టార్ట్ చేయండి లేదా DB పూల్ సైజు పెంచండి.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Runbook: RUN-012: Resolving Vector DB Timeout
 Symptom: Qdrant query latency &gt; 5000ms
@@ -19164,12 +19812,13 @@ Action:
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్యాప్‌స్టోన్ అభివృద్ధి ముగిసిన తర్వాత, దాన్ని 24/7 సైట్ రిలయబిలిటీ ఇంజనీరింగ్ (SRE) మరియు సపోర్ట్ టీమ్‌లకు బాధ్యతాయుతంగా అప్పగించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>హ్యాండోవర్ మీటింగ్‌లో:
-1. ఆర్కిటెక్చర్ మరియు డేటా ఫ్లో ప్రదర్శన.
-2. అలారమ్స్ మరియు ఎస్కలేషన్ మ్యాట్రిక్స్ (ఎవరికి ఏ క్రమంలో కాల్ వెళ్లాలి).
-3. బడ్జెట్ మరియు కాస్ట్ డాష్‌బోర్డ్ యాక్సెస్.
-4. రన్‌బుక్స్ మరియు రికవరీ విధానాల ప్రదర్శన.
-సైన్-ఆఫ్ (Sign-off) తీసుకోవడంతో క్యాప్‌స్టోన్ ప్రాజెక్ట్ అధికారికంగా లైవ్ ప్రొడక్షన్‌గా మారుతుంది.</p>
+<p>హ్యాండోవర్ మీటింగ్‌లో:</p>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">1</span><span>ఆర్కిటెక్చర్ మరియు డేటా ఫ్లో ప్రదర్శన.</span></div>
+  <div class="step-row"><span class="step-badge">2</span><span>అలారమ్స్ మరియు ఎస్కలేషన్ మ్యాట్రిక్స్ (ఎవరికి ఏ క్రమంలో కాల్ వెళ్లాలి).</span></div>
+  <div class="step-row"><span class="step-badge">3</span><span>బడ్జెట్ మరియు కాస్ట్ డాష్‌బోర్డ్ యాక్సెస్.</span></div>
+  <div class="step-row"><span class="step-badge">4</span><span>రన్‌బుక్స్ మరియు రికవరీ విధానాల ప్రదర్శన. సైన్-ఆఫ్ (Sign-off) తీసుకోవడంతో క్యాప్‌స్టోన్ ప్రాజెక్ట్ అధికారికంగా లైవ్ ప్రొడక్షన్‌గా మారుతుంది.</span></div>
+</div>
 <h4>ఉదాహరణ</h4>
 <pre># Production Handover Checklist:
 [x] CI/CD Pipeline fully automated & passing
@@ -19397,6 +20046,40 @@ Action:
       });
     });
   }
+
+  
+  // Modal Open / Close Logic
+  var modalEl = document.getElementById('header-modal');
+  var openPopupBtn = document.getElementById('open-popup-btn');
+  var closeModalBtn = document.getElementById('close-modal-btn');
+  var doneModalBtn = document.getElementById('done-modal-btn');
+
+  function openModal() {
+    if (modalEl) modalEl.classList.remove('hide');
+  }
+  function closeModal() {
+    if (modalEl) modalEl.classList.add('hide');
+  }
+
+  if (openPopupBtn) openPopupBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (doneModalBtn) doneModalBtn.addEventListener('click', closeModal);
+
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === modalEl) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalEl && !modalEl.classList.contains('hide')) {
+      closeModal();
+    }
+    if (e.key === '/' && document.activeElement !== q && q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
 
   updateCountsAndFilter();
 })();

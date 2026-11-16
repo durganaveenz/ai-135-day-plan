@@ -85,35 +85,491 @@ pre { position: relative; padding-top: 36px; }
 .font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
 .font-ctrls button:hover { border-color: var(--accent); }
 
+
+/* === Super Compact Header & Popup Modal === */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.top-nav-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav-back-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.nav-phase-badge {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--accent);
+  background: var(--soft);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.nav-days-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .nav-days-text { display: none; }
+}
+
+.nav-center {
+  flex: 1;
+  max-width: 360px;
+}
+.nav-search-box {
+  position: relative;
+  width: 100%;
+}
+.nav-search-box input {
+  width: 100%;
+  padding: 6px 12px 6px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: 13.5px/1.4 inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.nav-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-popup-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.pill-arrow {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  margin: 6px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.page-title-bar h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+.page-title-bar .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.modal-overlay.hide {
+  display: none;
+}
+.modal-card {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.2s ease-out;
+}
+@keyframes modalPop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-phase-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: block;
+}
+.modal-close-btn {
+  background: var(--soft);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--accent);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-section-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.progress-card {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.progress-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prog-card-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.prog-card-pct {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ok);
+}
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-action-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.modal-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.font-ctrl-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-ctrl-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-index-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.modal-index-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.modal-done-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.modal-done-btn:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
+
+<header class="top-nav">
+  <div class="top-nav-wrap">
+    <div class="nav-left">
+      <a href="telugu-index.html" class="nav-back-link" title="అన్ని phases ఇండెక్స్">←</a>
+      <span class="nav-phase-badge">Phase 4</span>
+      <span class="nav-days-text">Day 31–45</span>
+    </div>
+    
+    <div class="nav-center">
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+        <input id="q" type="search" placeholder="Search / వెతకండి… (/)" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
+        <span class="pill-dot"></span>
+        <span id="nav-pill-status">0% · 📋 All</span>
+        <span class="pill-arrow">▾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Phase 4 (Day 31–45)</h1>
-<p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
-<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
-<div class="tools">
-  <div class="tools-row">
-    <input id="q" type="search" placeholder="Search / వెతకండి…">
-    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
-    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
-    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
-    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
-    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
-  </div>
-  <div class="progress-container">
-    <div class="progress-wrap">
-      <div id="prog-bar" class="progress-bar"></div>
+
+<div class="page-title-bar">
+  <h1>135-Day AI Engineering Roadmap<br>Phase 4: Retrieval Engineering: Embeddings & RAG</h1>
+  <p class="sub">Day 31–45 · 243 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
+</div>
+
+<!-- Header Popup Modal -->
+<div id="header-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Phase 4: Retrieval Engineering: Embeddings & RAG</h3>
+        <span class="modal-phase-meta">Day 31–45 · మొత్తం 243 టాపిక్స్</span>
+      </div>
+      <button id="close-modal-btn" class="modal-close-btn" title="మూసివేయి (Esc)">✕</button>
     </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+    
+    <div class="modal-body">
+      <!-- 1. Progress Overview Card -->
+      <div class="modal-section progress-card">
+        <div class="progress-card-top">
+          <span class="prog-card-title">అభ్యసన పురోగతి (Progress)</span>
+          <span id="prog-pct" class="prog-card-pct">0% పూర్తయింది</span>
+        </div>
+        <div class="progress-wrap">
+          <div id="prog-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="prog-ratio">0 / 243 టాపిక్స్ పూర్తయ్యాయి</span>
+          <span id="prog-breakdown">⏳ 0 చదువుతున్నారు · 📦 0 ఆర్కైవ్</span>
+        </div>
+      </div>
+
+      <!-- 2. Filter Tabs -->
+      <div class="modal-section">
+        <div class="modal-section-head">టాపిక్స్ ఫిల్టర్ చేయండి (Filter by Status):</div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="all">
+            అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span>
+          </button>
+          <button class="tab-btn" data-tab="start">
+            ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span>
+          </button>
+          <button class="tab-btn" data-tab="progress">
+            చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span>
+          </button>
+          <button class="tab-btn" data-tab="done">
+            పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span>
+          </button>
+          <button class="tab-btn" data-tab="archive">
+            ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Page Controls -->
+      <div class="modal-section">
+        <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
+        <div class="modal-actions-row">
+          <button id="all" class="modal-action-btn">
+            <span>📂</span> అన్నీ తెరువు / మూసివేయి
+          </button>
+          
+          <div class="font-ctrl-wrap">
+            <span class="font-ctrl-label">ఫాంట్ సైజ్:</span>
+            <div class="font-ctrls">
+              <button id="font-dec" title="చిన్న ఫాంట్">A-</button>
+              <button id="font-reset" title="సాధారణ ఫాంట్">A</button>
+              <button id="font-inc" title="పెద్ద ఫాంట్">A+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="telugu-index.html" class="modal-index-link">← అన్ని phases ఇండెక్స్ డాష్‌బోర్డ్</a>
+      <button id="done-modal-btn" class="modal-done-btn">పూర్తయింది (Done)</button>
     </div>
   </div>
+</div>
+
+<h2 class="day">Day 31: RAG fundamentals and architecture</h2>
+
+<details class="t"><summary>1. What is Retrieval-Augmented Generation?<small>Retrieval-Augmented Generation (RAG) అంటే ఏమిటి</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>LLM కి మీ కంపెనీ documents, మీ database లోని డేటా తెలియదు. "మా refund policy ఏమిటి?" అని అడిగితే అది ఊహించి చెప్తుంది. RAG తో ముందు సరైన documents ని వెతికి, వాటిని LLM కి చూపించి, వాటి ఆధారంగా సమాధానం చెప్పిస్తాం.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>RAG</b> = Retrieval (వెతకడం) + Augmented (జోడించడం) + Generation (రాయడం). అంటే: (1) user ప్రశ్నకు సంబంధించిన text ముక్కలను మీ knowledge base నుండి <b>retrieve</b> చేయడం, (2) ఆ ముక్కలను prompt లో ప్రశ్నతో పాటు <b>add</b> చేయడం, (3) LLM ఆ prompt చదివి సమాధానం <b>generate</b> చేయడం. Laravel లో మీరు controller లో DB query చేసి ఆ డేటాని Blade view కి పంపి page render చేసినట్టే: ఇక్కడ DB search = retrieval, view = LLM prompt.</p>
+<h4>ఉదాహరణ</h4>
+<pre># RAG యొక్క అతి చిన్న రూపం (LLM call ఇక్కడ నకిలీ, prompt తయారీ మాత్రమే చూపిస్తున్నాం)
+docs = [
+    "Refund policy: purchase చేసిన 7 రోజుల్లో పూర్తి refund ఇస్తాం.",
+    "Shipping: ఆర్డర్ 3-5 రోజుల్లో చేరుతుంది.",
+]
+question = "refund ఎన్ని రోజుల్లో తీసుకోవచ్చు?"
+
+# 1) Retrieve: ఇక్కడ చాలా సింపుల్ గా keyword match (నిజంగా embeddings వాడతాం)
+hits = [d for d in docs if "refund" in d.lower()]
+
+# 2) Augment: context ని prompt లో కలపడం
+prompt = "కింది context ఆధారంగా మాత్రమే జవాబివ్వు.
+
+Context:
+" + "
+".join(hits) + f"
+
+ప్రశ్న: {question}"
+
+# 3) Generate: ఈ prompt ని LLM API కి పంపుతాం
+print(prompt)</pre>
+<div class="mistake"><b>సాధారణ తప్పు:</b> RAG అంటే LLM ని "train" చేయడం అనుకోవడం. RAG లో model weights మారవు, ప్రతి ప్రశ్నకు context మాత్రమే prompt లో జోడిస్తాం.</div>
 </div></details>
+
 
 <details class="t"><summary>2. Why LLMs need external knowledge<small>LLM లకు బయటి knowledge ఎందుకు అవసరం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -330,7 +786,7 @@ for i, page in enumerate(reader.pages, start=1):
 
 for p in pages:
     print(p["page"], repr(p["text"][:60]))</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> <code>extract_text()</code> ఫలితం ఖాళీగా ఉన్నా గమనించకుండా index చేయడం. అది scanned PDF కావచ్చు (OCR కావాలి).</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> <code>extract_text()</code> ఫలితం ఖాళీగా ఉన్నా గమనించకుండా index చేయడం. అది scanned PDF కావచ్చు (OCR (Optical Character Recognition) కావాలి).</div>
 </div></details>
 
 <details class="t"><summary>2. DOCX parsing<small>Word (DOCX) files parse చేయడం</small></summary><div class="body">
@@ -425,11 +881,11 @@ for r in rows[1:]:
 <div class="mistake"><b>సాధారణ తప్పు:</b> Excel లో formulas ఉన్నప్పుడు <code>data_only=True</code> ఇవ్వకపోతే values బదులు formula text వస్తుంది. అలాగే hidden sheets/rows ని గమనించకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>6. OCR fundamentals<small>OCR (చిత్రం నుండి text గుర్తించడం) ప్రాథమికాలు</small></summary><div class="body">
+<details class="t"><summary>6. OCR (Optical Character Recognition) fundamentals<small>OCR (Optical Character Recognition) (చిత్రం నుండి text గుర్తించడం) ప్రాథమికాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>స్కాన్ చేసిన కాగితాలు, photos, పాత documents లో text "చిత్రం" గానే ఉంటుంది; copy చేయలేం. RAG కి వాటిని text గా మార్చాలంటే OCR కావాలి.</p>
+<p>స్కాన్ చేసిన కాగితాలు, photos, పాత documents లో text "చిత్రం" గానే ఉంటుంది; copy చేయలేం. RAG కి వాటిని text గా మార్చాలంటే OCR (Optical Character Recognition) కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>OCR (Optical Character Recognition)</b> అంటే చిత్రంలోని అక్షరాలను గుర్తించి text గా మార్చే ప్రక్రియ. ప్రముఖ open-source engine: <b>Tesseract</b> (Python wrapper: <code>pytesseract</code>; Tesseract binary విడిగా install చేయాలి). Cloud services (AWS Textract, Google Document AI, Azure) కూడా ఉన్నాయి. నాణ్యత చిత్రం స్పష్టత (కనీసం ~300 DPI), వంపు, భాష మీద ఆధారపడుతుంది. తెలుగు కి Tesseract లో <code>tel</code> language data ఉంది, కానీ ఖచ్చితత్వం ఇంగ్లీష్ కంటే తక్కువ ఉండొచ్చు: మీ డేటాతో పరీక్షించి చూడండి. OCR లో తప్పులు (0 ↔ O, l ↔ 1) రావడం సాధారణం.</p>
+<p><b>OCR (Optical Character Recognition)</b> అంటే చిత్రంలోని అక్షరాలను గుర్తించి text గా మార్చే ప్రక్రియ. ప్రముఖ open-source engine: <b>Tesseract</b> (Python wrapper: <code>pytesseract</code>; Tesseract binary విడిగా install చేయాలి). Cloud services (AWS Textract, Google Document AI, Azure) కూడా ఉన్నాయి. నాణ్యత చిత్రం స్పష్టత (కనీసం ~300 DPI), వంపు, భాష మీద ఆధారపడుతుంది. తెలుగు కి Tesseract లో <code>tel</code> language data ఉంది, కానీ ఖచ్చితత్వం ఇంగ్లీష్ కంటే తక్కువ ఉండొచ్చు: మీ డేటాతో పరీక్షించి చూడండి. OCR (Optical Character Recognition) లో తప్పులు (0 ↔ O, l ↔ 1) రావడం సాధారణం.</p>
 <h4>ఉదాహరణ</h4>
 <pre># ILLUSTRATIVE: Tesseract ఇన్‌స్టాల్ అయి ఉండాలి (brew install tesseract) మరియు pip install pytesseract pillow
 from PIL import Image
@@ -438,14 +894,14 @@ import pytesseract
 img = Image.open("scan.png")
 text = pytesseract.image_to_string(img, lang="eng")     # తెలుగు: lang="tel" (tel data ఇన్‌స్టాల్ చేయాలి)
 print(text)</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> OCR అవుట్‌పుట్ ని తప్పులు లేనిదిగా నమ్మడం. Low-quality scans కి confidence తక్కువ; ముఖ్యమైన డేటా (ధరలు, తేదీలు) కి verification పెట్టండి.</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> OCR (Optical Character Recognition) అవుట్‌పుట్ ని తప్పులు లేనిదిగా నమ్మడం. Low-quality scans కి confidence తక్కువ; ముఖ్యమైన డేటా (ధరలు, తేదీలు) కి verification పెట్టండి.</div>
 </div></details>
 
 <details class="t"><summary>7. Scanned document processing<small>Scanned documents ని process చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>ఒక PDF లో కొన్ని పేజీలు అసలు text, కొన్ని స్కాన్ చేసిన చిత్రాలు ఉండొచ్చు. ప్రతి PDF కి OCR చేస్తే ఖరీదు, నెమ్మది. కాబట్టి ఏ పేజీ కి OCR అవసరమో గుర్తించాలి.</p>
+<p>ఒక PDF లో కొన్ని పేజీలు అసలు text, కొన్ని స్కాన్ చేసిన చిత్రాలు ఉండొచ్చు. ప్రతి PDF కి OCR (Optical Character Recognition) చేస్తే ఖరీదు, నెమ్మది. కాబట్టి ఏ పేజీ కి OCR (Optical Character Recognition) అవసరమో గుర్తించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>సాధారణ విధానం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ముందు సాధారణ text extraction ప్రయత్నించండి</span></div><div class="step-row"><span class="step-badge">2</span><span>ఒక పేజీలో extract అయిన అక్షరాల సంఖ్య చాలా తక్కువగా (ఉదా: &lt; 20) ఉంటే అది స్కాన్ అని భావించి</span></div><div class="step-row"><span class="step-badge">3</span><span>ఆ పేజీని చిత్రంగా render చేసి (ఉదా: <code>pdf2image</code> / <code>pypdfium2</code>) OCR చేయండి.</span></div></div><p>Pre-processing (deskew, contrast పెంచడం, noise తీయడం) నాణ్యతను పెంచుతుంది. ఫలితాన్ని "source: ocr" అని metadata లో గుర్తించండి, తర్వాత quality సమస్యలు వస్తే ఇది ఉపయోగపడుతుంది.</p>
+<p>సాధారణ విధానం:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>ముందు సాధారణ text extraction ప్రయత్నించండి</span></div><div class="step-row"><span class="step-badge">2</span><span>ఒక పేజీలో extract అయిన అక్షరాల సంఖ్య చాలా తక్కువగా (ఉదా: &lt; 20) ఉంటే అది స్కాన్ అని భావించి</span></div><div class="step-row"><span class="step-badge">3</span><span>ఆ పేజీని చిత్రంగా render చేసి (ఉదా: <code>pdf2image</code> / <code>pypdfium2</code>) OCR (Optical Character Recognition) చేయండి.</span></div></div><p>Pre-processing (deskew, contrast పెంచడం, noise తీయడం) నాణ్యతను పెంచుతుంది. ఫలితాన్ని "source: ocr" అని metadata లో గుర్తించండి, తర్వాత quality సమస్యలు వస్తే ఇది ఉపయోగపడుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from pypdf import PdfReader
 
@@ -2254,7 +2710,7 @@ def load_documents(folder: Path):
 
 docs = load_documents(folder)
 print([(d["source"], len(d["text"])) for d in docs])</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> encoding ఇవ్వకుండా file చదవడం, మరియు load చేసిన తర్వాత ఖాళీ text వచ్చిందా అని చూడకపోవడం (scanned PDF లకు OCR కావాలి).</div>
+<div class="mistake"><b>సాధారణ తప్పు:</b> encoding ఇవ్వకుండా file చదవడం, మరియు load చేసిన తర్వాత ఖాళీ text వచ్చిందా అని చూడకపోవడం (scanned PDF లకు OCR (Optical Character Recognition) కావాలి).</div>
 </div></details>
 
 <details class="t"><summary>2. Document parsing<small>Document parsing (నిర్మాణాన్ని గుర్తించి శుభ్రం చేయడం)</small></summary><div class="body">
@@ -4652,7 +5108,7 @@ print(&quot;manual review:&quot;, [j[&quot;name&quot;] for j in manual])</pre>
 
 <details class="t"><summary>16. Data quality validation<small>Data quality validation (ingest కి ముందు నాణ్యత తనిఖీ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>చెత్త input (ఖాళీ text, garbled OCR, తప్పు encoding) index లోకి వెళ్తే retrieval నాణ్యత పడిపోతుంది, తర్వాత సరిచేయడం కష్టం. 'Garbage in, garbage out'.</p>
+<p>చెత్త input (ఖాళీ text, garbled OCR (Optical Character Recognition), తప్పు encoding) index లోకి వెళ్తే retrieval నాణ్యత పడిపోతుంది, తర్వాత సరిచేయడం కష్టం. 'Garbage in, garbage out'.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Ingestion లో validation rules: text ఖాళీనా/చాలా చిన్నదా, encoding లోపాలు (\ufffd), భాష సరైనదా, తప్పనిసరి metadata (source, owner, version) ఉందా, duplicates, chunk పరిమాణం సరైనదా. Fail అయిన వాటిని quarantine/DLQ కి పంపి reason తో log చేయండి. ఇది Laravel FormRequest validation లాంటిది, కానీ documents కి.</p>
 <h4>ఉదాహరణ</h4>
@@ -5198,7 +5654,7 @@ object storage (original files) | LLM + embedding provider | Docker Compose</pre
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంపెనీ జ్ఞానం వేర్వేరు formats లో ఉంటుంది. ప్రతి format నుంచి శుభ్రమైన text తీయగలిగితేనే RAG పనిచేస్తుంది. Parsing సరిగా లేకపోతే మిగతా pipeline ఎంత మంచిదైనా ఫలితం చెడ్డదే.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>ప్రతి format కి ఒక <b>parser</b> రాసి, అన్నీ ఒకే interface (<code>parse(path) → text + metadata</code>) తో బయటకు ఇవ్వాలి. ఇది Laravel లో వేర్వేరు storage drivers ఒకే Filesystem interface వెనుక ఉన్నట్టే. సాధారణ libraries: PDF కి <code>pypdf</code> (స్కాన్ చేసిన PDF లకు OCR కావాలి, ఇది వేరే విషయం), DOCX కి <code>python-docx</code>, HTML కి <code>BeautifulSoup</code> (ఇక్కడ stdlib <code>html.parser</code> చూపిస్తున్నాను), TXT కి సాధారణ read. PDF కి page number కూడా తీసుకోండి, citations లో అది ఉపయోగపడుతుంది.</p>
+<p>ప్రతి format కి ఒక <b>parser</b> రాసి, అన్నీ ఒకే interface (<code>parse(path) → text + metadata</code>) తో బయటకు ఇవ్వాలి. ఇది Laravel లో వేర్వేరు storage drivers ఒకే Filesystem interface వెనుక ఉన్నట్టే. సాధారణ libraries: PDF కి <code>pypdf</code> (స్కాన్ చేసిన PDF లకు OCR (Optical Character Recognition) కావాలి, ఇది వేరే విషయం), DOCX కి <code>python-docx</code>, HTML కి <code>BeautifulSoup</code> (ఇక్కడ stdlib <code>html.parser</code> చూపిస్తున్నాను), TXT కి సాధారణ read. PDF కి page number కూడా తీసుకోండి, citations లో అది ఉపయోగపడుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from html.parser import HTMLParser
 from pathlib import Path
@@ -5991,6 +6447,40 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
       });
     });
   }
+
+  
+  // Modal Open / Close Logic
+  var modalEl = document.getElementById('header-modal');
+  var openPopupBtn = document.getElementById('open-popup-btn');
+  var closeModalBtn = document.getElementById('close-modal-btn');
+  var doneModalBtn = document.getElementById('done-modal-btn');
+
+  function openModal() {
+    if (modalEl) modalEl.classList.remove('hide');
+  }
+  function closeModal() {
+    if (modalEl) modalEl.classList.add('hide');
+  }
+
+  if (openPopupBtn) openPopupBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (doneModalBtn) doneModalBtn.addEventListener('click', closeModal);
+
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === modalEl) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalEl && !modalEl.classList.contains('hide')) {
+      closeModal();
+    }
+    if (e.key === '/' && document.activeElement !== q && q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
 
   updateCountsAndFilter();
 })();

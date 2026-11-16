@@ -85,35 +85,471 @@ pre { position: relative; padding-top: 36px; }
 .font-ctrls button { padding: 8px 11px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; font-weight: 600; }
 .font-ctrls button:hover { border-color: var(--accent); }
 
+
+/* === Super Compact Header & Popup Modal === */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.top-nav-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav-back-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.nav-phase-badge {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--accent);
+  background: var(--soft);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.nav-days-text {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .nav-days-text { display: none; }
+}
+
+.nav-center {
+  flex: 1;
+  max-width: 360px;
+}
+.nav-search-box {
+  position: relative;
+  width: 100%;
+}
+.nav-search-box input {
+  width: 100%;
+  padding: 6px 12px 6px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: 13.5px/1.4 inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nav-search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.nav-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-popup-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.pill-arrow {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  margin: 6px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.page-title-bar h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+.page-title-bar .sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.modal-overlay.hide {
+  display: none;
+}
+.modal-card {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.2s ease-out;
+}
+@keyframes modalPop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.modal-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-phase-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: block;
+}
+.modal-close-btn {
+  background: var(--soft);
+  border: none;
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--accent);
+}
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-section-head {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.progress-card {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.progress-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prog-card-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.prog-card-pct {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ok);
+}
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.modal-action-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.modal-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.font-ctrl-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-ctrl-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-index-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.modal-index-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.modal-done-btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.modal-done-btn:hover {
+  opacity: 0.9;
+}
+
 </style>
 </head>
 <body>
+
+<header class="top-nav">
+  <div class="top-nav-wrap">
+    <div class="nav-left">
+      <a href="telugu-index.html" class="nav-back-link" title="అన్ని phases ఇండెక్స్">←</a>
+      <span class="nav-phase-badge">Phase 3</span>
+      <span class="nav-days-text">Day 21–30</span>
+    </div>
+    
+    <div class="nav-center">
+      <div class="nav-search-box">
+        <svg class="nav-search-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+        <input id="q" type="search" placeholder="Search / వెతకండి… (/)" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
+        <span class="pill-dot"></span>
+        <span id="nav-pill-status">0% · 📋 All</span>
+        <span class="pill-arrow">▾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Phase 3 (Day 21–30)</h1>
-<p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
-<p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
-<div class="tools">
-  <div class="tools-row">
-    <input id="q" type="search" placeholder="Search / వెతకండి…">
-    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
-    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
-    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
-    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
-    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
-  </div>
-  <div class="progress-container">
-    <div class="progress-wrap">
-      <div id="prog-bar" class="progress-bar"></div>
+
+<div class="page-title-bar">
+  <h1>135-Day AI Engineering Roadmap<br>Phase 3: Generative AI & LLM Engineering</h1>
+  <p class="sub">Day 21–30 · 446 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
+</div>
+
+<!-- Header Popup Modal -->
+<div id="header-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Phase 3: Generative AI & LLM Engineering</h3>
+        <span class="modal-phase-meta">Day 21–30 · మొత్తం 446 టాపిక్స్</span>
+      </div>
+      <button id="close-modal-btn" class="modal-close-btn" title="మూసివేయి (Esc)">✕</button>
     </div>
-    <div class="progress-meta">
-      <span id="prog-pct">0% పూర్తయింది</span>
-      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+    
+    <div class="modal-body">
+      <!-- 1. Progress Overview Card -->
+      <div class="modal-section progress-card">
+        <div class="progress-card-top">
+          <span class="prog-card-title">అభ్యసన పురోగతి (Progress)</span>
+          <span id="prog-pct" class="prog-card-pct">0% పూర్తయింది</span>
+        </div>
+        <div class="progress-wrap">
+          <div id="prog-bar" class="progress-bar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="prog-ratio">0 / 446 టాపిక్స్ పూర్తయ్యాయి</span>
+          <span id="prog-breakdown">⏳ 0 చదువుతున్నారు · 📦 0 ఆర్కైవ్</span>
+        </div>
+      </div>
+
+      <!-- 2. Filter Tabs -->
+      <div class="modal-section">
+        <div class="modal-section-head">టాపిక్స్ ఫిల్టర్ చేయండి (Filter by Status):</div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="all">
+            అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span>
+          </button>
+          <button class="tab-btn" data-tab="start">
+            ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span>
+          </button>
+          <button class="tab-btn" data-tab="progress">
+            చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span>
+          </button>
+          <button class="tab-btn" data-tab="done">
+            పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span>
+          </button>
+          <button class="tab-btn" data-tab="archive">
+            ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Page Controls -->
+      <div class="modal-section">
+        <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
+        <div class="modal-actions-row">
+          <button id="all" class="modal-action-btn">
+            <span>📂</span> అన్నీ తెరువు / మూసివేయి
+          </button>
+          
+          <div class="font-ctrl-wrap">
+            <span class="font-ctrl-label">ఫాంట్ సైజ్:</span>
+            <div class="font-ctrls">
+              <button id="font-dec" title="చిన్న ఫాంట్">A-</button>
+              <button id="font-reset" title="సాధారణ ఫాంట్">A</button>
+              <button id="font-inc" title="పెద్ద ఫాంట్">A+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="telugu-index.html" class="modal-index-link">← అన్ని phases ఇండెక్స్ డాష్‌బోర్డ్</a>
+      <button id="done-modal-btn" class="modal-done-btn">పూర్తయింది (Done)</button>
     </div>
   </div>
+</div>
+
+<h2 class="day">Day 21: LLM architecture and inference</h2>
+
+<details class="t"><summary>1. What is an LLM?<small>LLM (Large Language Model) అంటే ఏమిటి</small></summary><div class="body">
+<h4>ఎందుకు అవసరం?</h4>
+<p>ఇకపై మీరు వాడే ప్రతి AI feature (chatbot, RAG, agents) వెనుక ఉండేది LLM. అది లోపల ఏం చేస్తుందో తెలిస్తేనే cost, latency, తప్పు answers (hallucination) ఎందుకు వస్తాయో అర్థమవుతుంది.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><b>LLM</b> అంటే ఒక పెద్ద neural network. దీనికి అపారమైన text ఇచ్చి "ఇప్పటివరకు ఉన్న words తర్వాత ఏ word వస్తుంది?" అని నేర్పిస్తారు. అంతే దాని ప్రధాన పని. ఈ ఒక్క పనిని బిలియన్ల సార్లు ప్రాక్టీస్ చేయడం వల్ల భాష, facts, code నమూనాలు దానిలో నిక్షిప్తమవుతాయి. ఇది MySQL లాంటి database కాదు: facts ని rows గా store చేయదు, <b>numbers (weights)</b> లో కుదించి ఉంచుతుంది, కాబట్టి "lookup" కాదు "అంచనా" వేస్తుంది. Laravel లో ఒక function input తీసుకుని output ఇచ్చినట్టే, LLM ఒక పెద్ద function: tokens ఇన్ → తర్వాతి token సంభావ్యతలు అవుట్.</p>
+<h4>ఉదాహరణ</h4>
+<p>"హైదరాబాద్ ఒక ..." అని ఇస్తే model "నగరం" అనే token కి ఎక్కువ probability ఇస్తుంది. ఈ ప్రక్రియను పదే పదే చేసి పూర్తి వాక్యాలు, వ్యాసాలు తయారవుతాయి.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> LLM ని search engine లేదా database లా నమ్మడం. అది అంచనా వేసే యంత్రం, కాబట్టి confident గా తప్పు చెప్పగలదు.</div>
 </div></details>
+
 
 <details class="t"><summary>2. Language modeling and next-token prediction<small>భాషా నమూనా మరియు తర్వాతి token అంచనా</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -151,7 +587,7 @@ Masked (BERT):   "నేను [MASK] ఆఫీస్ కి వెళ్తా�
 <h4>ఎందుకు అవసరం?</h4>
 <p>"7B model", "70B model" అంటే ఏమిటో, అది ఎంత memory తింటుందో లెక్కించడానికి parameters భావన కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Parameters</b> అంటే training లో నేర్చుకునే అన్ని సంఖ్యలు. వాటిలో <b>weights</b> ఇన్‌పుట్‌ల ప్రాముఖ్యతను నిర్ణయించే గుణకాలు, <b>bias</b> ఫలితాన్ని కొద్దిగా జరిపే స్థిర సంఖ్య (<code>y = w*x + b</code>). "7B" అంటే సుమారు 700 కోట్ల సంఖ్యలు. ప్రతి సంఖ్య FP16 లో 2 bytes అయితే 7B model ≈ 14 GB. ఇవి model ఫైల్ లో ఉండే "జ్ఞానం". కొన్ని ఆధునిక models bias లను పూర్తిగా వదిలేస్తాయి; ఆ వివరం model ని బట్టి మారుతుంది.</p>
+<p><b>Parameters</b> అంటే training లో నేర్చుకునే అన్ని సంఖ్యలు. వాటిలో <b>weights</b> ఇన్‌పుట్‌ల ప్రాముఖ్యతను నిర్ణయించే గుణకాలు, <b>bias</b> ఫలితాన్ని కొద్దిగా జరిపే స్థిర సంఖ్య (<code>y = w*x + b</code>). "7B" అంటే సుమారు 700 కోట్ల సంఖ్యలు. ప్రతి సంఖ్య FP16 (16-bit Floating Point) లో 2 bytes అయితే 7B model ≈ 14 GB. ఇవి model ఫైల్ లో ఉండే "జ్ఞానం". కొన్ని ఆధునిక models bias లను పూర్తిగా వదిలేస్తాయి; ఆ వివరం model ని బట్టి మారుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 W = np.random.randn(4, 3)   # weights: 12 సంఖ్యలు
@@ -271,7 +707,7 @@ print(scores.shape)                 # (4, 4)</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక్క attention తో ఒకే రకమైన సంబంధాన్ని మాత్రమే పట్టుకోగలం. భాషలో వ్యాకరణం, అర్థం, దూరపు సూచనలు ఇలా అనేక రకాల సంబంధాలు ఉంటాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Multi-head attention</b> లో vector ని కొన్ని చిన్న భాగాలుగా (heads) విభజించి, ప్రతి head స్వతంత్రంగా attention చేస్తుంది, తర్వాత ఫలితాలను కలిపి (concat) మళ్ళీ ఒక linear layer తో కలుపుతారు. ఒక team లో ఒక్కో సభ్యుడు ఒక్కో కోణంలో డాక్యుమెంట్ చదివి, చివరికి అందరూ కలిసి సారాంశం చెప్పినట్టు. కొత్త models లో <b>grouped-query attention (GQA)</b> లాంటి వైవిధ్యాలు ఉన్నాయి (query heads ఎక్కువ, key/value heads తక్కువ) ఇది KV (Key-Value) cache memory ని తగ్గిస్తుంది.</p>
+<p><b>Multi-head attention</b> లో vector ని కొన్ని చిన్న భాగాలుగా (heads) విభజించి, ప్రతి head స్వతంత్రంగా attention చేస్తుంది, తర్వాత ఫలితాలను కలిపి (concat) మళ్ళీ ఒక linear layer తో కలుపుతారు. ఒక team లో ఒక్కో సభ్యుడు ఒక్కో కోణంలో డాక్యుమెంట్ చదివి, చివరికి అందరూ కలిసి సారాంశం చెప్పినట్టు. కొత్త models లో <b>grouped-query attention (GQA (Grouped-Query Attention))</b> లాంటి వైవిధ్యాలు ఉన్నాయి (query heads ఎక్కువ, key/value heads తక్కువ) ఇది KV (Key-Value) cache memory ని తగ్గిస్తుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 T, d, heads = 4, 8, 2
@@ -379,7 +815,7 @@ ids = tokenizer(text, return_tensors="pt")   # ఇప్పుడు model క�
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ధర, context limit అన్నీ tokens లోనే కొలుస్తారు, words లో కాదు. తెలుగు వంటి భాషలకు ఎక్కువ tokens పడతాయి, అంటే ఖర్చు కూడా ఎక్కువ.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Tokenizer</b> text ని చిన్న ముక్కలుగా (tokens) విడగొట్టి ప్రతిదానికి ఒక పూర్ణ సంఖ్య ID ఇస్తుంది. Tokens పూర్తి పదాలు, పదంలో భాగాలు లేదా అక్షరాలు కావచ్చు. సాధారణ పద్ధతి <b>BPE (Byte Pair Encoding)</b> లేదా దానికి దగ్గరి రకాలు: తరచుగా కలిసి వచ్చే అక్షరాల జతలను ఒకే token గా చేస్తారు. ప్రతి model కి తన సొంత tokenizer ఉంటుంది, అందుకే ఒకే text కి వేర్వేరు models లో వేర్వేరు token counts వస్తాయి. ఇది MySQL full-text search లో text ని terms గా విడగొట్టడం లాంటిది.</p>
+<p><b>Tokenizer</b> text ని చిన్న ముక్కలుగా (tokens) విడగొట్టి ప్రతిదానికి ఒక పూర్ణ సంఖ్య ID ఇస్తుంది. Tokens పూర్తి పదాలు, పదంలో భాగాలు లేదా అక్షరాలు కావచ్చు. సాధారణ పద్ధతి <b>BPE (Byte-Pair Encoding) (Byte Pair Encoding)</b> లేదా దానికి దగ్గరి రకాలు: తరచుగా కలిసి వచ్చే అక్షరాల జతలను ఒకే token గా చేస్తారు. ప్రతి model కి తన సొంత tokenizer ఉంటుంది, అందుకే ఒకే text కి వేర్వేరు models లో వేర్వేరు token counts వస్తాయి. ఇది MySQL full-text search లో text ని terms గా విడగొట్టడం లాంటిది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from transformers import AutoTokenizer   # illustrative: tokenizer ఫైల్స్ (చిన్నవి) డౌన్‌లోడ్ అవుతాయి
 tok = AutoTokenizer.from_pretrained("gpt2")
@@ -578,7 +1014,7 @@ if len(ids) + 200 &gt; MAX_LEN:                 # 200 = output కోసం ఉ�
 <h4>ఎందుకు అవసరం?</h4>
 <p>పెద్ద codebase, పొడవైన contracts వంటి వాటిని ఒకేసారి చూడాల్సిన పనులకు పొడవైన context ఉపయోగపడుతుంది. కానీ ఎప్పుడు వాడాలి, ఎప్పుడు RAG మేలు అనేది తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Long-context models</b> అంటే వందల వేల నుండి లక్షల tokens వరకు window ఉన్నవి. దీనికి సాంకేతికతలు: RoPE (Rotary Position Embedding) scaling, పొడవైన sequences తో extra training, సమర్థవంతమైన attention (FlashAttention), KV (Key-Value) cache తగ్గించే GQA. అయినా ఖర్చు, latency, మరియు "మధ్యలో మిస్ అవ్వడం" సమస్యలు ఉంటాయి. ప్రస్తుత models యొక్క window పరిమాణాలు వేగంగా మారుతున్నాయి, docs లో check చేయండి. సలహా: అవసరమైనప్పుడు మాత్రమే పొడవు వాడండి, లేకపోతే retrieval.</p>
+<p><b>Long-context models</b> అంటే వందల వేల నుండి లక్షల tokens వరకు window ఉన్నవి. దీనికి సాంకేతికతలు: RoPE (Rotary Position Embedding) scaling, పొడవైన sequences తో extra training, సమర్థవంతమైన attention (FlashAttention), KV (Key-Value) cache తగ్గించే GQA (Grouped-Query Attention). అయినా ఖర్చు, latency, మరియు "మధ్యలో మిస్ అవ్వడం" సమస్యలు ఉంటాయి. ప్రస్తుత models యొక్క window పరిమాణాలు వేగంగా మారుతున్నాయి, docs లో check చేయండి. సలహా: అవసరమైనప్పుడు మాత్రమే పొడవు వాడండి, లేకపోతే retrieval.</p>
 <h4>ఉదాహరణ</h4>
 <p>ఒక్క 300 పేజీల contract ని సంపూర్ణంగా విశ్లేషించాలంటే long-context. కానీ "FAQ లో రిటర్న్ పాలసీ ఏమిటి?" కి చిన్న retrieval చాలు, long-context వాడితే వృథా ఖర్చు.</p>
 </div></details>
@@ -642,7 +1078,7 @@ for t in range(T):                       # ప్రతి కొత్త token
     out = a @ np.array(Vc)               # cache లోని అన్నిటి మీద attention
     print(t, out.shape)
 # ఇది cache లేకుండా మొత్తం causal attention చేసిన ఫలితంతో సమానం (నేను పరీక్షించాను)</pre>
-<p>Llama-2-7B వంటి నిర్మాణం (32 layers, 32 kv heads, head_dim 128, FP16) కి ఒక్క token కి సుమారు 0.5 MB; 4096 tokens కి సుమారు 2 GB per sequence. ఇది ఉదాహరణ లెక్క మాత్రమే; GQA ఉన్న models లో చాలా తక్కువ.</p>
+<p>Llama-2-7B వంటి నిర్మాణం (32 layers, 32 kv heads, head_dim 128, FP16 (16-bit Floating Point)) కి ఒక్క token కి సుమారు 0.5 MB; 4096 tokens కి సుమారు 2 GB per sequence. ఇది ఉదాహరణ లెక్క మాత్రమే; GQA (Grouped-Query Attention) ఉన్న models లో చాలా తక్కువ.</p>
 </div></details>
 
 <details class="t"><summary>40. Prefill vs decode stages<small>Prefill మరియు decode దశలు</small></summary><div class="body">
@@ -721,7 +1157,7 @@ while active or queue:
 
 <details class="t"><summary>45. Quantization<small>Quantization (precision తగ్గించి model ని చిన్నది చేయడం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>70B model FP16 లో 140 GB; సాధారణ GPU కి అది అసాధ్యం. Quantization తో memory, ఖర్చు తగ్గించి చిన్న hardware లో నడపవచ్చు.</p>
+<p>70B model FP16 (16-bit Floating Point) లో 140 GB; సాధారణ GPU కి అది అసాధ్యం. Quantization తో memory, ఖర్చు తగ్గించి చిన్న hardware లో నడపవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>Quantization</b> అంటే weights ని తక్కువ bits తో (ఉదా. 16-bit నుండి 8-bit లేదా 4-bit) నిల్వ చేయడం. ఇది ఫోటో ని JPEG గా కుదించినట్టు: పరిమాణం బాగా తగ్గుతుంది, నాణ్యత కొద్దిగా తగ్గవచ్చు. సాధారణంగా ప్రతి సమూహ weights కి ఒక scale సంఖ్య ఉంచి, పూర్ణ సంఖ్యల రూపంలో నిల్వ చేస్తారు. Memory చదవడం తగ్గడం వల్ల వేగం కూడా పెరగవచ్చు. నాణ్యత నష్టం model, పద్ధతి, పని మీద ఆధారపడుతుంది: మీ పనిపై పరీక్షించండి.</p>
 <h4>ఉదాహరణ</h4>
@@ -734,22 +1170,28 @@ print(q, np.abs(w - w2).max())               # చిన్న error మాత�
 <div class="mistake"><b>సాధారణ తప్పు:</b> quantized model నాణ్యతను పరీక్షించకుండా వాడటం. కొన్ని పనుల్లో (math, code) నష్టం ఎక్కువగా కనిపించవచ్చు.</div>
 </div></details>
 
-<details class="t"><summary>46. FP32, FP16, BF16 and INT8<small>సంఖ్యా formats: FP32, FP16, BF16, INT8</small></summary><div class="body">
+<details class="t"><summary>46. FP32 (32-bit Floating Point), FP16 (16-bit Floating Point), BF16 (Brain Floating Point 16) and INT8 (8-bit Integer)<small>సంఖ్యా formats: FP32 (32-bit Floating Point), FP16 (16-bit Floating Point), BF16 (Brain Floating Point 16), INT8 (8-bit Integer)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model డౌన్‌లోడ్ లో <code>torch_dtype</code> ఏది ఎంచుకోవాలో, memory ఎంత కావాలో నిర్ణయించడానికి ఈ formats తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>FP32</b>: 32 bits (4 bytes) floating point, ఖచ్చితం కానీ పెద్దది. <b>FP16</b>: 2 bytes, సగం memory, కానీ విలువల పరిధి చిన్నది (overflow ప్రమాదం). <b>BF16</b>: 2 bytes, FP32 అంత పరిధి (exponent) కానీ తక్కువ ఖచ్చితత్వం; ఆధునిక GPUs లో training/inference కి ప్రసిద్ధి (hardware మద్దతు చూడాలి). <b>INT8</b>: 1 byte పూర్ణ సంఖ్య, quantization లో వాడతారు. Memory లెక్క: parameters × bytes. PHP లో int vs float vs decimal ఎంపికలాగ: ఖచ్చితత్వం vs పరిమాణం.</p>
+<p><b>FP32 (32-bit Floating Point)</b>: 32 bits (4 bytes) floating point, ఖచ్చితం కానీ పెద్దది. <b>FP16 (16-bit Floating Point)</b>: 2 bytes, సగం memory, కానీ విలువల పరిధి చిన్నది (overflow ప్రమాదం). <b>BF16 (Brain Floating Point 16)</b>: 2 bytes, FP32 (32-bit Floating Point) అంత పరిధి (exponent) కానీ తక్కువ ఖచ్చితత్వం; ఆధునిక GPUs లో training/inference కి ప్రసిద్ధి (hardware మద్దతు చూడాలి). <b>INT8 (8-bit Integer)</b>: 1 byte పూర్ణ సంఖ్య, quantization లో వాడతారు. Memory లెక్క: parameters × bytes. PHP లో int vs float vs decimal ఎంపికలాగ: ఖచ్చితత్వం vs పరిమాణం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>params_b = 7                                   # 7 బిలియన్ parameters
 for name, nbytes in [("FP32", 4), ("FP16/BF16", 2), ("INT8", 1)]:
     print(name, params_b * nbytes, "GB")       # 28 / 14 / 7 GB (weights మాత్రమే)</pre>
 </div></details>
 
-<details class="t"><summary>47. INT4 quantization<small>INT4 quantization</small></summary><div class="body">
+<details class="t"><summary>47. INT4 (4-bit Integer) quantization<small>INT4 (4-bit Integer) quantization</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Laptop లేదా ఒక్క consumer GPU లో 7B-13B models నడపడానికి 4-bit చాలా ప్రాచుర్యం. Ollama లో డౌన్‌లోడ్ అయ్యే models తరచూ 4-bit.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>INT4</b> లో ప్రతి weight కి కేవలం 4 bits (అర byte); అంటే FP16 కన్నా సుమారు 4 రెట్లు చిన్నది. కేవలం 16 విలువలే సాధ్యం కాబట్టి, weights ని చిన్న సమూహాలుగా (ఉదా. 32-128) విభజించి ప్రతి సమూహానికి scale ఉంచుతారు. వివిధ పద్ధతులు ఉన్నాయి (GPTQ, AWQ (Activation-aware Weight Quantization), GGUF (GPT-Generated Unified Format) format లోని రకాలు); ఏవి ఏ tools తో పనిచేస్తాయో docs లో check చేయండి. చాలా సందర్భాల్లో INT8 కన్నా కొద్దిగా ఎక్కువ నాణ్యత నష్టం ఉంటుంది కానీ memory చాలా తగ్గుతుంది.</p>
+<p><b>INT4 (4-bit Integer)</b> లో ప్రతి weight కి కేవలం 4 bits (అర byte); అంటే FP16 (16-bit Floating Point) కన్నా సుమారు 4 రెట్లు చిన్నది. కేవలం 16 విలువలే సాధ్యం కాబట్టి, weights ని చిన్న సమూహాలుగా (ఉదా. 32-128) విభజించి ప్రతి సమూహానికి scale ఉంచుతారు. <b>వివిధ 4-bit క్వాంటైజేషన్ పద్ధతులు (Key Quantization Formats):</b>
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span><b>GPTQ (Post-Training Quantization for Transformers)</b>: GPU ఆధారిత వేగవంతమైన ఇన్ఫరెన్స్ కోసం వాడే ప్రముఖ 4-bit పద్ధతి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>AWQ (Activation-aware Weight Quantization)</b>: అత్యంత ముఖ్యమైన 1% మోడల్ వెయిట్స్‌ను కాపాడే అత్యాధునిక 4-bit పద్ధతి.</span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>GGUF (GPT-Generated Unified Format)</b>: CPU మరియు లోకల్ ల్యాప్‌టాప్ (Ollama / llama.cpp) రన్నింగ్ కోసం ఉత్తమమైన ఫార్మాట్.</span></div>
+</div>
+<p>ఏవి ఏ tools తో పనిచేస్తాయో docs లో check చేయండి. చాలా సందర్భాల్లో INT8 (8-bit Integer) కన్నా కొద్దిగా ఎక్కువ నాణ్యత నష్టం ఉంటుంది కానీ <b>VRAM (Video RAM / GPU Memory)</b> చాలా ఆదా అవుతుంది.</p></p>
 <h4>ఉదాహరణ</h4>
 <pre>params_b = 7
 fp16 = params_b * 2        # 14 GB
@@ -761,7 +1203,7 @@ print(fp16, int4)          # 7B model 8 GB VRAM లో ఇమిడే అవక
 <h4>ఎందుకు అవసరం?</h4>
 <p>Attention లో n×n score matrix ని GPU memory లో పూర్తిగా రాయడం నెమ్మది, ఎక్కువ memory అవసరం. FlashAttention ఇదే సమస్యను పరిష్కరించి పొడవైన contexts ను సాధ్యం చేసింది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>GPU లో చిన్న, చాలా వేగమైన on-chip memory (SRAM) మరియు పెద్ద, నెమ్మదైన main memory (HBM) ఉంటాయి. <b>FlashAttention</b> attention ని చిన్న tiles గా విభజించి, SRAM లోనే లెక్కించి, పెద్ద n×n matrix ని HBM లో నిల్వ చేయకుండా చేస్తుంది. ఫలితం <i>అదే సరైన ఫలితం</i> (approximation కాదు), కానీ వేగంగా మరియు తక్కువ memory తో. ఇది DB query లో పెద్ద temporary table disk కి రాయకుండా memory లోనే stream చేయడం లాంటిది. చాలా libraries లో ఇది option (ఉదా. transformers లో attention implementation setting; docs లో check చేయండి).</p>
+<p>GPUలోని SRAM (Static Random-Access Memory) అనేది చిప్‌పైనే ఉండే చిన్న, అత్యంత వేగమైన మెమరీ; HBM (High Bandwidth Memory) అనేది ఎక్కువ డేటాను నిల్వ చేయగల GPU ప్రధాన మెమరీ, ఇది SRAM కంటే నెమ్మదిగా ఉంటుంది. <b>FlashAttention</b> attention ని చిన్న tiles గా విభజించి, SRAM లోనే లెక్కించి, పెద్ద n×n matrix ని HBM లో నిల్వ చేయకుండా చేస్తుంది. ఫలితం <i>అదే సరైన ఫలితం</i> (approximation కాదు), కానీ వేగంగా మరియు తక్కువ memory తో. ఇది DB query లో పెద్ద temporary table disk కి రాయకుండా memory లోనే stream చేయడం లాంటిది. చాలా libraries లో ఇది option (ఉదా. transformers లో attention implementation setting; docs లో check చేయండి).</p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: Hugging Face లో (సరైన GPU &amp; flash-attn install ఉంటేనే)
 # model = AutoModelForCausalLM.from_pretrained(
@@ -1233,11 +1675,11 @@ print(mask)    # [[1, 1, 1, 0, 0], [1, 1, 1, 1, 1]]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> padding వేసి attention mask ఇవ్వకపోవడం, దీనివల్ల model padding ని కూడా నిజమైన input అనుకుంటుంది.</div>
 </div></details>
 
-<details class="t"><summary>8. Byte Pair Encoding (BPE)<small>Byte Pair Encoding (BPE) అల్గారిథమ్</small></summary><div class="body">
+<details class="t"><summary>8. Byte Pair Encoding (BPE (Byte-Pair Encoding))<small>Byte Pair Encoding (BPE (Byte-Pair Encoding)) అల్గారిథమ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>GPT-style models చాలావరకు BPE వాడతాయి. ఇది ఎలా పనిచేస్తుందో తెలిస్తే "ఈ పదం ఇన్ని tokens ఎందుకు అయింది" అని అర్థమవుతుంది.</p>
+<p>GPT-style models చాలావరకు BPE (Byte-Pair Encoding) వాడతాయి. ఇది ఎలా పనిచేస్తుందో తెలిస్తే "ఈ పదం ఇన్ని tokens ఎందుకు అయింది" అని అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>BPE training:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>అన్ని పదాలను అక్షరాలుగా విడగొట్టండి.</span></div><div class="step-row"><span class="step-badge">2</span><span>corpus లో ఎక్కువసార్లు పక్కపక్కన వచ్చే జత (pair) ని కనుక్కోండి.</span></div><div class="step-row"><span class="step-badge">3</span><span>ఆ జతని ఒక కొత్త token గా merge చేయండి.</span></div><div class="step-row"><span class="step-badge">4</span><span>కావలసిన vocabulary size వచ్చే వరకు పునరావృతం.</span></div></div><p>ఇది <code>GROUP BY pair ORDER BY COUNT(*) DESC LIMIT 1</code> ని మళ్ళీ మళ్ళీ చేయడం లాంటిది. తరచూ వచ్చే ముక్కలు పెద్ద tokens అవుతాయి.</p>
+<p>BPE (Byte-Pair Encoding) training:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span>అన్ని పదాలను అక్షరాలుగా విడగొట్టండి.</span></div><div class="step-row"><span class="step-badge">2</span><span>corpus లో ఎక్కువసార్లు పక్కపక్కన వచ్చే జత (pair) ని కనుక్కోండి.</span></div><div class="step-row"><span class="step-badge">3</span><span>ఆ జతని ఒక కొత్త token గా merge చేయండి.</span></div><div class="step-row"><span class="step-badge">4</span><span>కావలసిన vocabulary size వచ్చే వరకు పునరావృతం.</span></div></div><p>ఇది <code>GROUP BY pair ORDER BY COUNT(*) DESC LIMIT 1</code> ని మళ్ళీ మళ్ళీ చేయడం లాంటిది. తరచూ వచ్చే ముక్కలు పెద్ద tokens అవుతాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from collections import Counter
 
@@ -1276,7 +1718,7 @@ print(list(words))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>BERT-family models (embeddings, classifiers లో తరచూ కనిపిస్తాయి) WordPiece వాడతాయి. దాని "##" గుర్తులు చూసినప్పుడు అర్థం కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>WordPiece కూడా subword పద్ధతే, కానీ vocabulary నిర్మాణంలో "ఏ merge వల్ల training data likelihood ఎక్కువ పెరుగుతుంది" అనే స్కోర్ వాడుతుంది (BPE లో కేవలం frequency). Tokenize చేసేటప్పుడు పదంలో నుండి <b>అతి పొడవైన match</b> ని ముందు తీసుకుంటుంది (greedy longest-match), పదం మధ్యలో వచ్చే ముక్కలకు <code>##</code> prefix ఉంటుంది.</p>
+<p>WordPiece కూడా subword పద్ధతే, కానీ vocabulary నిర్మాణంలో "ఏ merge వల్ల training data likelihood ఎక్కువ పెరుగుతుంది" అనే స్కోర్ వాడుతుంది (BPE (Byte-Pair Encoding) లో కేవలం frequency). Tokenize చేసేటప్పుడు పదంలో నుండి <b>అతి పొడవైన match</b> ని ముందు తీసుకుంటుంది (greedy longest-match), పదం మధ్యలో వచ్చే ముక్కలకు <code>##</code> prefix ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>vocab = {"un", "##believ", "##able", "##ably", "believ", "play", "##ing"}
 
@@ -1307,7 +1749,7 @@ print(wordpiece("xyz"))            # ['[UNK]']</pre>
 
 <details class="t"><summary>10. Unigram language model tokenization<small>Unigram language model tokenization</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>T5, ALBERT వంటి models (SentencePiece ద్వారా) Unigram వాడతాయి. BPE తో పోలిస్తే దీని ఆలోచన వేరు: ఇది "ఏ విభజన అత్యంత సంభావ్యమైనది" అని ఎంచుకుంటుంది.</p>
+<p>T5, ALBERT వంటి models (SentencePiece ద్వారా) Unigram వాడతాయి. BPE (Byte-Pair Encoding) తో పోలిస్తే దీని ఆలోచన వేరు: ఇది "ఏ విభజన అత్యంత సంభావ్యమైనది" అని ఎంచుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Unigram లో ఒక పెద్ద vocabulary తో మొదలుపెట్టి, ప్రతి token కి ఒక <b>probability</b> ఇస్తారు. తర్వాత training లో అతి తక్కువ ఉపయోగపడే tokens ని తీసేస్తూ vocabulary ని చిన్నది చేస్తారు. Tokenize చేసేటప్పుడు ఒక పదానికి సాధ్యమైన అన్ని విభజనలలో, probabilities గుణిస్తే అత్యధిక విలువ వచ్చేదాన్ని ఎంచుకుంటారు (Viterbi అల్గారిథమ్). ఇది query planner అనేక plans లో చవకైనది ఎంచుకున్నట్టే.</p>
 <h4>ఉదాహరణ</h4>
@@ -1338,7 +1780,7 @@ print(best_split("unbelievable"))   # ['un', 'believ', 'able']</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాలా open models (Llama-family, T5 లాంటివి) SentencePiece-ఆధారిత tokenizers వాడతాయి. ఇది space ని కూడా సాధారణ అక్షరంలా చూడడం వల్ల భాష-తటస్థంగా ఉంటుంది, తెలుగు, జపనీస్ వంటి చోట్ల ఉపయోగకరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>SentencePiece</b> అనేది ఒక library/పద్ధతి: ఇది raw text నుండి నేరుగా train అవుతుంది (ముందే పదాలుగా విడగొట్టాల్సిన అవసరం లేదు). Space ని <code>▁</code> అనే ప్రత్యేక అక్షరంగా మారుస్తుంది, కాబట్టి decode చేసినప్పుడు spaces ఖచ్చితంగా తిరిగి వస్తాయి. లోపల BPE లేదా Unigram algorithm వాడవచ్చు. అంటే SentencePiece ఒక algorithm కాదు, algorithms కి ఒక wrapper.</p>
+<p><b>SentencePiece</b> అనేది ఒక library/పద్ధతి: ఇది raw text నుండి నేరుగా train అవుతుంది (ముందే పదాలుగా విడగొట్టాల్సిన అవసరం లేదు). Space ని <code>▁</code> అనే ప్రత్యేక అక్షరంగా మారుస్తుంది, కాబట్టి decode చేసినప్పుడు spaces ఖచ్చితంగా తిరిగి వస్తాయి. లోపల BPE (Byte-Pair Encoding) లేదా Unigram algorithm వాడవచ్చు. అంటే SentencePiece ఒక algorithm కాదు, algorithms కి ఒక wrapper.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import sentencepiece as spm   # pip install sentencepiece
 
@@ -1361,7 +1803,7 @@ print(sp.decode(sp.encode("the cat sat")))      # the cat sat</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ భాష, emoji, code అయినా "unknown" కాకుండా చదవాలంటే bytes స్థాయికి దిగడమే మార్గం. తెలుగు text కి tokens ఎందుకు ఎక్కువ పడతాయో ఇది వివరిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Computer లో text అంతా UTF-8 <b>bytes</b> రూపంలో ఉంటుంది. ఇంగ్లీష్ అక్షరం 1 byte, కానీ తెలుగు అక్షరం సాధారణంగా 3 bytes. Byte-level BPE లో base vocabulary 256 bytes మాత్రమే, కాబట్టి ఏ text కైనా fallback ఉంది. కానీ తెలుగు ముక్కలు training data లో తక్కువగా ఉంటే merges తక్కువ ఉంటాయి, అప్పుడు అక్షరం bytes ముక్కలుగా విడిపోతుంది. MySQL లో utf8mb4 లో చార్‌కి 1 నుండి 4 bytes ఉన్నట్టే ఇది.</p>
+<p>Computer లో text అంతా UTF-8 <b>bytes</b> రూపంలో ఉంటుంది. ఇంగ్లీష్ అక్షరం 1 byte, కానీ తెలుగు అక్షరం సాధారణంగా 3 bytes. Byte-level BPE (Byte-Pair Encoding) లో base vocabulary 256 bytes మాత్రమే, కాబట్టి ఏ text కైనా fallback ఉంది. కానీ తెలుగు ముక్కలు training data లో తక్కువగా ఉంటే merges తక్కువ ఉంటాయి, అప్పుడు అక్షరం bytes ముక్కలుగా విడిపోతుంది. MySQL లో utf8mb4 లో చార్‌కి 1 నుండి 4 bytes ఉన్నట్టే ఇది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import tiktoken
 
@@ -1380,7 +1822,7 @@ print([enc.decode_single_token_bytes(i) for i in ids][:4])   # ముక్క�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Vocabulary పరిమితంగా ఉంచి కూడా కొత్త పదాలను చదవగలగడానికి subword పద్ధతి అవసరం. ఇదే ఆధునిక LLMs అన్నింటి పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Subword</b> అంటే పదం కంటే చిన్న, అక్షరం కంటే పెద్ద ముక్క (prefix, root, suffix లాంటివి). BPE, WordPiece, Unigram అన్నీ subword పద్ధతులే. సాధారణ పదం = 1 token, అరుదైన పదం = అనేక tokens. అందుకే "tokenization" లాంటి పదాలు 2 ముక్కలు కావచ్చు, ఒక పొడవైన పేరు 6 ముక్కలు కావచ్చు.</p>
+<p><b>Subword</b> అంటే పదం కంటే చిన్న, అక్షరం కంటే పెద్ద ముక్క (prefix, root, suffix లాంటివి). BPE (Byte-Pair Encoding), WordPiece, Unigram అన్నీ subword పద్ధతులే. సాధారణ పదం = 1 token, అరుదైన పదం = అనేక tokens. అందుకే "tokenization" లాంటి పదాలు 2 ముక్కలు కావచ్చు, ఒక పొడవైన పేరు 6 ముక్కలు కావచ్చు.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import tiktoken
 
@@ -1396,7 +1838,7 @@ for w in ["cat", "tokenization", "strawberry", "Antidisestablishmentarianism"]:
 <h4>ఎందుకు అవసరం?</h4>
 <p>Tokenizer ని మీ domain (medical, legal, తెలుగు, code) కోసం సొంతంగా train చేయాల్సి రావచ్చు, లేదా ఒక model కి ఆ domain లో tokens ఎందుకు ఎక్కువ పడుతున్నాయో తెలుసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Vocabulary construction అంటే: corpus (పెద్ద text సేకరణ) తీసుకుని, ఒక algorithm (BPE/WordPiece/Unigram) తో, ముందే నిర్ణయించిన <b>vocab size</b> వరకు tokens జాబితాను తయారు చేయడం. Special tokens ముందే చేర్చుతారు. Vocab size పెద్దది అయితే text కి tokens తక్కువ పడతాయి, కానీ model యొక్క embedding table పెద్దదవుతుంది; ఇది ఒక trade-off. ఇది index బాగా కావాలంటే storage ఎక్కువ అయినట్టే.</p>
+<p>Vocabulary construction అంటే: corpus (పెద్ద text సేకరణ) తీసుకుని, ఒక algorithm (BPE (Byte-Pair Encoding)/WordPiece/Unigram) తో, ముందే నిర్ణయించిన <b>vocab size</b> వరకు tokens జాబితాను తయారు చేయడం. Special tokens ముందే చేర్చుతారు. Vocab size పెద్దది అయితే text కి tokens తక్కువ పడతాయి, కానీ model యొక్క embedding table పెద్దదవుతుంది; ఇది ఒక trade-off. ఇది index బాగా కావాలంటే storage ఎక్కువ అయినట్టే.</p>
 <h4>ఉదాహరణ</h4>
 <pre>from tokenizers import Tokenizer, models, trainers, pre_tokenizers   # pip install tokenizers
 
@@ -1434,7 +1876,7 @@ for name in ["gpt2", "cl100k_base", "o200k_base"]:
 <h4>ఎందుకు అవసరం?</h4>
 <p>Open-source models తో పని చేసేటప్పుడు, మరియు మీ సొంత tokenizer train చేయాలనుకున్నప్పుడు Hugging Face <code>tokenizers</code> library ప్రామాణికం. ఇది Rust లో రాసినది కాబట్టి చాలా వేగంగా ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><code>tokenizers</code> library లో ఒక tokenizer అనేది pipeline: normalizer (lowercase వంటివి) → pre-tokenizer (పదాలుగా విడగొట్టడం) → model (BPE/WordPiece/Unigram) → post-processor (special tokens చేర్చడం). ఇది Laravel middleware pipeline లాంటిది: ప్రతి దశ ఒక పని చేసి తర్వాతిదానికి పంపుతుంది. Hub నుండి ముందే train అయిన tokenizer ని <code>from_pretrained</code> తో తెచ్చుకోవచ్చు (మొదటిసారి internet కావాలి).</p>
+<p><code>tokenizers</code> library లో ఒక tokenizer అనేది pipeline: normalizer (lowercase వంటివి) → pre-tokenizer (పదాలుగా విడగొట్టడం) → model (BPE (Byte-Pair Encoding)/WordPiece/Unigram) → post-processor (special tokens చేర్చడం). ఇది Laravel middleware pipeline లాంటిది: ప్రతి దశ ఒక పని చేసి తర్వాతిదానికి పంపుతుంది. Hub నుండి ముందే train అయిన tokenizer ని <code>from_pretrained</code> తో తెచ్చుకోవచ్చు (మొదటిసారి internet కావాలి).</p>
 <h4>ఉదాహరణ</h4>
 <pre>from tokenizers import Tokenizer
 
@@ -2577,7 +3019,7 @@ examples (3 valid, 2 invalid). Return only the code block.</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Contracts, policies, reports వంటి పొడవైన documents లో నిర్దిష్ట అంశాలను (గడువులు, ప్రమాదాలు, తేడాలు) వెతకడం మానవులకు చాలా సమయం తీసుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Document analysis లో: document ని delimiters లో ఇవ్వండి, ఏ ప్రశ్నలకు సమాధానం కావాలో జాబితా చేయండి, ప్రతి సమాధానానికి document నుండి <b>quote (సాక్ష్యం)</b> అడగండి (hallucination తగ్గుతుంది మరియు మీరు verify చేయవచ్చు), మరియు కనబడకపోతే "not found" అని చెప్పమనండి. చాలా పొడవైన documents కి చాలా models లో నడిమి భాగాన్ని విస్మరించే అవకాశం ఉందని కొన్ని పరిశోధనలు సూచిస్తాయి; ఇది model ని బట్టి మారుతుంది, కాబట్టి మీ documents తో test చేయండి. పెద్ద documents ని sections గా విడగొట్టడం కూడా ఎంపిక. అలాగే scanned PDF లకు ముందు text extraction/OCR అవసరం.</p>
+<p>Document analysis లో: document ని delimiters లో ఇవ్వండి, ఏ ప్రశ్నలకు సమాధానం కావాలో జాబితా చేయండి, ప్రతి సమాధానానికి document నుండి <b>quote (సాక్ష్యం)</b> అడగండి (hallucination తగ్గుతుంది మరియు మీరు verify చేయవచ్చు), మరియు కనబడకపోతే "not found" అని చెప్పమనండి. చాలా పొడవైన documents కి చాలా models లో నడిమి భాగాన్ని విస్మరించే అవకాశం ఉందని కొన్ని పరిశోధనలు సూచిస్తాయి; ఇది model ని బట్టి మారుతుంది, కాబట్టి మీ documents తో test చేయండి. పెద్ద documents ని sections గా విడగొట్టడం కూడా ఎంపిక. అలాగే scanned PDF లకు ముందు text extraction/OCR (Optical Character Recognition) అవసరం.</p>
 <h4>ఉదాహరణ</h4>
 <pre>Analyze the contract inside &lt;contract&gt; tags. For each item return JSON with
 "answer" and "quote" (exact text copied from the contract, or null):
@@ -6251,7 +6693,7 @@ print(round(cosine(refund_policy, pizza_recipe), 2))  # తక్కువ (ద�
 <h4>ఎందుకు అవసరం?</h4>
 <p>Invoice photos, screenshots, charts, ID documents నుండి సమాచారం తీయడానికి text-only model సరిపోదు. Image ని అర్థం చేసుకునే model కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Vision-language model (VLM)</b> అంటే input గా image మరియు text రెండూ తీసుకుని text జవాబు ఇచ్చే model. Image కి కూడా tokens లెక్క ఉంటుంది (image పరిమాణం/రిజల్యూషన్ బట్టి, provider ల మధ్య లెక్క వేరు), కాబట్టి పెద్ద images ఎక్కువ ఖర్చు. పాత పద్ధతి: OCR library తో text తీసి, తర్వాత regex. VLM లో layout (tables, handwriting) కూడా అర్థమవుతుంది. అయినా ఖచ్చితమైన అంకెల కోసం output ని validate చేయాలి.</p>
+<p><b>Vision-language model (VLM)</b> అంటే input గా image మరియు text రెండూ తీసుకుని text జవాబు ఇచ్చే model. Image కి కూడా tokens లెక్క ఉంటుంది (image పరిమాణం/రిజల్యూషన్ బట్టి, provider ల మధ్య లెక్క వేరు), కాబట్టి పెద్ద images ఎక్కువ ఖర్చు. పాత పద్ధతి: OCR (Optical Character Recognition) library తో text తీసి, తర్వాత regex. VLM లో layout (tables, handwriting) కూడా అర్థమవుతుంది. అయినా ఖచ్చితమైన అంకెల కోసం output ని validate చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Router లో image ఉందా లేదా చూసి model ఎంచుకోవడం (placeholder పేర్లు)
 def choose_model(request):
@@ -6268,7 +6710,7 @@ print(choose_model({"text": "hello"}))</pre>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Voice assistants, call transcription, meeting notes, audio replies కి speech models కావాలి. ఇవి సాధారణంగా LLM కాకుండా వేరే endpoints/pricing తో వస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>రెండు రకాలు: <b>Speech-to-Text (STT / ASR)</b>: audio నుండి transcript; <b>Text-to-Speech (TTS)</b>: text నుండి audio. వీటి ధర tokens లో కాకుండా తరచుగా audio నిడివి (నిమిషాలు) లేదా characters లెక్కన ఉంటుంది (provider బట్టి). Voice bot pipeline: STT → LLM → TTS. ప్రతి దశ latency కూడుతుంది. Telugu వంటి భాషల accuracy models మధ్య చాలా తేడా ఉంటుంది, కాబట్టి మీ భాష audio తో సొంతంగా test చేయండి.</p>
+<p>రెండు రకాలు: <b>Speech-to-Text (STT (Speech-to-Text) / ASR (Automatic Speech Recognition))</b>: audio నుండి transcript; <b>Text-to-Speech (TTS (Text-to-Speech))</b>: text నుండి audio. వీటి ధర tokens లో కాకుండా తరచుగా audio నిడివి (నిమిషాలు) లేదా characters లెక్కన ఉంటుంది (provider బట్టి). Voice bot pipeline: STT (Speech-to-Text) → LLM → TTS (Text-to-Speech). ప్రతి దశ latency కూడుతుంది. Telugu వంటి భాషల accuracy models మధ్య చాలా తేడా ఉంటుంది, కాబట్టి మీ భాష audio తో సొంతంగా test చేయండి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Voice bot ఒక్క నిమిషం call ఖర్చు అంచనా (అన్ని ధరలు placeholder, నిజం కాదు)
 STT_PER_MIN = 0.006   # $/నిమిషం (ఊహ)
@@ -7459,7 +7901,11 @@ print(result[0]["generated_text"][-1]["content"])  # చివరి message = a
 <h4>ఎందుకు అవసరం?</h4>
 <p>పెద్ద model ని తక్కువ GPU memory లో పట్టించడానికి quantization (precision తగ్గించడం) వాడతాం. Memory ఆదా అవుతుంది, quality కొంచెం తగ్గవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Quantization</b> అంటే weights ని 16-bit బదులు 8-bit లేదా 4-bit సంఖ్యలుగా నిల్వ చేయడం. ఫోటోని JPEG గా compress చేసినట్టే: చిన్నది, కొంచెం quality loss. Transformers లో <code>BitsAndBytesConfig</code> (bitsandbytes library) తో <code>load_in_4bit=True</code> ఇవ్వవచ్చు (ఇది సాధారణంగా GPU కావాలి; backends మారవచ్చు, docs చూడండి). ముందే quantize చేసిన models (GPTQ, AWQ (Activation-aware Weight Quantization) మొదలైనవి) కూడా Hub లో ఉంటాయి.</p>
+<p><b>Quantization</b> అంటే weights ని 16-bit బదులు 8-bit లేదా 4-bit సంఖ్యలుగా నిల్వ చేయడం. ఫోటోని JPEG గా compress చేసినట్టే: చిన్నది, కొంచెం quality loss. Transformers లో <code>BitsAndBytesConfig</code> (bitsandbytes library) తో <code>load_in_4bit=True</code> ఇవ్వవచ్చు (ఇది సాధారణంగా GPU కావాలి; backends మారవచ్చు, docs చూడండి). ముందే quantize చేసిన ప్రముఖ models Hub లో సిద్ధంగా ఉంటాయి:
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span><b>GPTQ (Post-Training Quantization for Transformers)</b></span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>AWQ (Activation-aware Weight Quantization)</b></span></div>
+</div></p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: GPU మరియు bitsandbytes కావాలి (pip install bitsandbytes)
 from transformers import AutoModelForCausalLM, BitsAndBytesConfig
@@ -7596,7 +8042,13 @@ vllm serve Qwen/Qwen2.5-7B-Instruct \
 <h4>ఎందుకు అవసరం?</h4>
 <p>Quantized model తక్కువ memory తీసుకుంటుంది, కాబట్టి చిన్న GPU లో పెద్ద model పడుతుంది లేదా ఎక్కువ requests పడతాయి. కొన్నిసార్లు వేగం కూడా పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>vLLM లో ముందే quantize చేసిన models (ఉదా AWQ (Activation-aware Weight Quantization), GPTQ, FP8 మొదలైనవి; ఏవి support అనేది version మరియు GPU ను బట్టి మారుతుంది) లోడ్ చేయవచ్చు. <code>--quantization</code> flag ఇవ్వవచ్చు; ఇవ్వకపోతే vLLM model యొక్క <code>quantization_config</code> ను బట్టి స్వయంగా గుర్తిస్తుంది. Ollama లో GGUF (GPT-Generated Unified Format) quantized models సాధారణం (Q4_K_M వంటివి). Trade-off: memory తగ్గుదల vs కొంచెం quality తగ్గుదల.</p>
+<p>vLLM లో ముందే quantize చేసిన models లోడ్ చేయవచ్చు:
+<div class="steps-box">
+  <div class="step-row"><span class="step-badge">•</span><span><b>AWQ (Activation-aware Weight Quantization)</b></span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>GPTQ (Post-Training Quantization for Transformers)</b></span></div>
+  <div class="step-row"><span class="step-badge">•</span><span><b>FP8 (8-bit Floating Point)</b></span></div>
+</div>
+<p>ఏవి support అనేది vLLM version మరియు మీ GPU ఆర్కిటెక్చర్‌ను బట్టి మారుతుంది.</p> <code>--quantization</code> flag ఇవ్వవచ్చు; ఇవ్వకపోతే vLLM model యొక్క <code>quantization_config</code> ను బట్టి స్వయంగా గుర్తిస్తుంది. Ollama లో GGUF (GPT-Generated Unified Format) quantized models సాధారణం (Q4_K_M వంటివి). Trade-off: memory తగ్గుదల vs కొంచెం quality తగ్గుదల.</p>
 <h4>ఉదాహరణ</h4>
 <pre># illustrative: ముందే quantize అయిన repo (పేరు ఉదాహరణ) మరియు GPU కావాలి
 vllm serve TheOrg/Some-Model-AWQ --quantization awq
@@ -9880,6 +10332,40 @@ REDIS_URL=redis://redis:6379/0</pre>
       });
     });
   }
+
+  
+  // Modal Open / Close Logic
+  var modalEl = document.getElementById('header-modal');
+  var openPopupBtn = document.getElementById('open-popup-btn');
+  var closeModalBtn = document.getElementById('close-modal-btn');
+  var doneModalBtn = document.getElementById('done-modal-btn');
+
+  function openModal() {
+    if (modalEl) modalEl.classList.remove('hide');
+  }
+  function closeModal() {
+    if (modalEl) modalEl.classList.add('hide');
+  }
+
+  if (openPopupBtn) openPopupBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (doneModalBtn) doneModalBtn.addEventListener('click', closeModal);
+
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === modalEl) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalEl && !modalEl.classList.contains('hide')) {
+      closeModal();
+    }
+    if (e.key === '/' && document.activeElement !== q && q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
 
   updateCountsAndFilter();
 })();
