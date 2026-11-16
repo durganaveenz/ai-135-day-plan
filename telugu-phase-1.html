@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>135-Day AI Roadmap – తెలుగు వివరణలు – Phase 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
@@ -522,6 +523,277 @@ pre { position: relative; padding-top: 36px; }
   transform: translateX(-50%) translateY(0);
 }
 
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 10px 16px 80px; }
+.day:first-of-type { margin-top: 8px; }
+
+
+/* === Collapsible Day Sections === */
+.day-sec {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 12px 0;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.day-sec[open] {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.day-summary {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background: var(--panel);
+  gap: 12px;
+}
+.day-summary::-webkit-details-marker { display: none; }
+.day-summary::before { display: none !important; }
+.day-sec[open] > .day-summary::before { display: none !important; }
+
+.day-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.day-chevron {
+  font-size: 13px;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.day-sec[open] > .day-summary .day-chevron {
+  transform: rotate(90deg);
+}
+.day-heading-text {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.day-sec[open] > .day-summary .day-heading-text {
+  color: var(--accent);
+}
+
+.day-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.day-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--soft);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.day-progress-badge.all-done {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.day-progress-badge.has-done {
+  background: var(--soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  .day-progress-badge.all-done {
+    background: #052e16;
+    color: #86efac;
+    border-color: #14532d;
+  }
+}
+
+.day-body {
+  padding: 8px 16px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+
+/* Notes Box Styling */
+.topic-notes-box {
+  margin-top: 14px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.notes-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.notes-status-hint {
+  font-size: 11.5px;
+  color: var(--ok);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 600;
+}
+.notes-status-hint.saved {
+  opacity: 1;
+}
+.notes-textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 220px;
+  resize: vertical;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: 13.5px/1.5 inherit;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.notes-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+.note-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* Backup & Sync Modal Section */
+.backup-section {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.backup-btns-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.backup-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.backup-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* Next / Previous Topic Navigation Footer */
+.topic-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  flex-wrap: wrap;
+}
+.topic-nav-left, .topic-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.t-nav-btn {
+  padding: 6px 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.t-nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.t-nav-btn.btn-complete-next {
+  background: var(--ok);
+  color: #fff;
+  border-color: var(--ok);
+}
+.t-nav-btn.btn-complete-next:hover {
+  opacity: 0.9;
+  border-color: var(--ok);
+}
+.t-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Top Bar Resume / Next Button */
+.nav-prev-btn, .nav-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-prev-btn:hover, .nav-resume-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+@media (max-width: 700px) {
+  .nav-prev-btn, .nav-resume-btn { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -542,6 +814,12 @@ pre { position: relative; padding-top: 36px; }
     </div>
 
     <div class="nav-right">
+      <button id="nav-prev-btn" class="nav-prev-btn" title="మునుపటి క్లాస్‌కి వెళ్ళండి (Previous Class)">
+        <span>◀️</span> Prev
+      </button>
+      <button id="nav-resume-btn" class="nav-resume-btn" title="తర్వాతి క్లాస్‌కి వెళ్ళండి (Next Class)">
+        <span>▶️</span> Next
+      </button>
       <button id="prof-switch-btn" class="nav-prof-pill" title="ప్రొఫైల్ మార్చుకోండి (Naveen ⇄ Durga)">
         <span id="nav-active-user-avatar" class="prof-avatar">👨‍💻</span>
         <span id="nav-active-user-name">Naveen</span>
@@ -557,11 +835,6 @@ pre { position: relative; padding-top: 36px; }
 </header>
 
 <div class="wrap">
-
-<div class="page-title-bar">
-  <h1>135-Day AI Engineering Roadmap<br>Phase 1: Python Engineering for AI Development</h1>
-  <p class="sub">Days 1–10 · 197 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
-</div>
 
 <!-- Header Popup Modal -->
 <div id="header-modal" class="modal-overlay hide">
@@ -633,6 +906,20 @@ pre { position: relative; padding-top: 36px; }
         </div>
       </div>
 
+      <!-- Backup & Multi-Browser Sync -->
+      <div class="modal-section backup-section">
+        <div class="modal-section-head">వేరే బ్రౌజర్‌లో వాడుకోవడానికి (Backup & Sync):</div>
+        <div class="backup-btns-row">
+          <button id="export-backup-btn" class="backup-btn" title="మీ మొత్తం నోట్స్ మరియు ప్రోగ్రెస్ ఫైల్ డౌన్‌లోడ్ చేసుకోండి">
+            <span>📥</span> బ్యాకప్ డౌన్‌లోడ్ (Export)
+          </button>
+          <label class="backup-btn" style="margin:0;cursor:pointer" title="డౌన్‌లోడ్ చేసుకున్న బ్యాకప్ ఫైల్ ఇక్కడ అప్‌లోడ్ చేయండి">
+            <span>📤</span> బ్యాకప్ లోడ్ (Import)
+            <input id="import-backup-input" type="file" accept=".json" style="display:none">
+          </label>
+        </div>
+      </div>
+
       <!-- 3. Page Controls -->
       <div class="modal-section">
         <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
@@ -660,9 +947,18 @@ pre { position: relative; padding-top: 36px; }
   </div>
 </div>
 
-<h2 class="day">Day 1: Python language fundamentals</h2>
-
-<details class="t"><summary>1. Python installation and interpreter architecture<small>Python ఇన్‌స్టాలేషన్ మరియు interpreter నిర్మాణం</small></summary><div class="body">
+<details class="day-sec" data-day="1">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 1: Python language fundamentals</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-1">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Python installation and interpreter architecture<small>Python ఇన్‌స్టాలేషన్ మరియు interpreter నిర్మాణం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python code రాయడానికి ముందు మీ కంప్యూటర్‌లో Python సరైన version లో ఉండాలి, మరియు మీ code ఎలా run అవుతుందో తెలిస్తేనే error వచ్చినప్పుడు కారణం అర్థమవుతుంది. PHP లో మీరు PHP binary ఇన్‌స్టాల్ చేసినట్టే ఇది కూడా.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -895,10 +1191,21 @@ with open("notes.txt", encoding="utf-8") as f:
     print(f.read())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>input()</code> ఫలితాన్ని నేరుగా సంఖ్యలా వాడటం, ఇది str కాబట్టి లెక్కలు తప్పు అవుతాయి లేదా error వస్తుంది.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 2: Python data structures</h2>
-
-<details class="t"><summary>1. Lists: creation, indexing, slicing and modification<small>List: తయారు చేయడం, index, slicing, మార్పులు</small></summary><div class="body">
+<details class="day-sec" data-day="2">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 2: Python data structures</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-2">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Lists: creation, indexing, slicing and modification<small>List: తయారు చేయడం, index, slicing, మార్పులు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే రకమైన అనేక items (orders, users, prices) ని వరుసలో ఉంచడానికి list అవసరం. Python code లో అత్యంత ఎక్కువగా వాడే data structure ఇదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1193,10 +1500,21 @@ shallow["name"] = "Sita"
 print(original["name"])    # Ravi (బయటి level స్వతంత్రం)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> nested list/dict ని <code>.copy()</code> చేసి సురక్షితం అనుకోవడం. లోపలి items shared అవుతాయి; <code>deepcopy</code> వాడండి (ఇది కొంచెం నెమ్మది).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 3: Functions and functional programming</h2>
-
-<details class="t"><summary>1. Function declaration and invocation<small>Function తయారు చేయడం మరియు పిలవడం</small></summary><div class="body">
+<details class="day-sec" data-day="3">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 3: Functions and functional programming</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-3">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Function declaration and invocation<small>Function తయారు చేయడం మరియు పిలవడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే logic ని పదిసార్లు కాపీ చేయకుండా ఒక పేరు పెట్టి మళ్లీ మళ్లీ వాడడానికి functions అవసరం. Code చిన్నగా, test చేయడానికి సులభంగా అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1618,10 +1936,21 @@ big_total = sum(o["amt"] for o in orders if o["amt"] &gt; 100)
 print(big_total)                              # 1400</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> "functional" పేరుతో అతి సంక్లిష్టమైన one-liners రాయడం. Python లో చదవడానికి సులభమైనదే మంచిది; అవసరమైతే సాధారణ loop వాడండి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 4: Object-oriented programming</h2>
-
-<details class="t"><summary>1. Classes and objects<small>Class (నమూనా) మరియు object (ఉదాహరణ)</small></summary><div class="body">
+<details class="day-sec" data-day="4">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 4: Object-oriented programming</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-4">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Classes and objects<small>Class (నమూనా) మరియు object (ఉదాహరణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంబంధిత data మరియు దానిపై చేసే పనులను ఒకే చోట కట్టగా ఉంచడానికి classes వాడతాం (ఉదా: Order, User, Invoice). పెద్ద projects ని నిర్వహించడానికి ఇది ప్రాథమిక పద్ధతి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2245,10 +2574,21 @@ assert fake.sent == [("test@x.com", "Welcome!")]
 print("test passed")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>__init__</code> లోపలే <code>self.mailer = SmtpMailer()</code> అని hard-code చేయడం; అప్పుడు test లో మార్చడం కష్టం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 5: Advanced Python programming</h2>
-
-<details class="t"><summary>1. Iterators and iterables<small>Iterators మరియు iterables</small></summary><div class="body">
+<details class="day-sec" data-day="5">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 5: Advanced Python programming</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-5">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Iterators and iterables<small>Iterators మరియు iterables</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python లో <code>for</code> loop, list comprehension, <code>sum()</code>, <code>zip()</code> అన్నీ లోపల iterators మీదే పనిచేస్తాయి. ఇది అర్థమైతే లక్షల rows ఉన్న data ని memory నింపకుండా ఎలా process చేయాలో తెలుస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2735,10 +3075,21 @@ except ValidationError as e:
     print(e.error_count(), "errors")   # 2 errors</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> v1 పద్ధతులు (<code>@validator</code>, <code>.dict()</code>, <code>.json()</code>) వాడటం. v2 లో <code>@field_validator</code>, <code>.model_dump()</code>, <code>.model_dump_json()</code> వాడాలి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 6: Python concurrency and asynchronous programming</h2>
-
-<details class="t"><summary>1. Process vs thread<small>Process మరియు thread మధ్య తేడా</small></summary><div class="body">
+<details class="day-sec" data-day="6">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 6: Python concurrency and asynchronous programming</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-6">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Process vs thread<small>Process మరియు thread మధ్య తేడా</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకేసారి చాలా పనులు చేయాలంటే (వందల API calls, పెద్ద data processing) process లేదా thread ఏది వాడాలో ఎంచుకోవాలి. తప్పు ఎంపిక వల్ల speed పెరగదు, bugs పెరుగుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3193,10 +3544,21 @@ async def main():
 
 asyncio.run(main())</pre>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 7: Virtual environments, packaging and dependency management</h2>
-
-<details class="t"><summary>1. Python installation and version management<small>Python ఇన్‌స్టాలేషన్ మరియు version నిర్వహణ</small></summary><div class="body">
+<details class="day-sec" data-day="7">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 7: Virtual environments, packaging and dependency management</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-7">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Python installation and version management<small>Python ఇన్‌స్టాలేషన్ మరియు version నిర్వహణ</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక project కి Python 3.12, మరొక దానికి 3.10 కావచ్చు. Server లో ఉన్న version తోనే మీ laptop లో కూడా develop చేయకపోతే "నా machine లో పనిచేస్తోంది" సమస్యలు వస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3645,10 +4007,21 @@ async def health():
 # docker build -t myapi . &amp;&amp; docker run -p 8000:8000 myapi</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Docker image లో <code>uvicorn --reload</code> లేదా dev dependencies వాడటం, <code>.venv</code> ను image లోకి copy చేయడం (<code>.dockerignore</code> లో పెట్టండి), మరియు lock file లేకుండా build చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 8: Pytest, debugging and structured logging</h2>
-
-<details class="t"><summary>1. Testing fundamentals<small>Testing మౌలిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="8">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 8: Pytest, debugging and structured logging</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-8">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Testing fundamentals<small>Testing మౌలిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Code మార్చిన ప్రతిసారి పాత features విరగకుండా ఉన్నాయని చేతితో check చేయడం అసాధ్యం. Automated tests ఉంటే deploy చేసే ముందు నిమిషాల్లో confidence వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4273,9 +4646,21 @@ log.info("login by ravi@example.com")        # login by ***@***
 print(mask({"user": "ravi", "password": "secret"}))   # {'user': 'ravi', 'password': '***'}</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> request body లేదా headers పూర్తిగా log చేయడం. <code>Authorization</code> header లో token ఉంటుంది. Regex masking పూర్తిగా నమ్మదగినది కాదు; అసలు log చేయకపోవడమే సురక్షితం.</div>
 </div></details>
-<h2 class="day">Day 9: FastAPI, REST APIs and request validation</h2>
+  </div>
+</details>
 
-<details class="t"><summary>1. HTTP and REST fundamentals<small>HTTP మరియు REST మౌలిక అంశాలు</small></summary><div class="body">
+<details class="day-sec" data-day="9">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 9: FastAPI, REST APIs and request validation</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-9">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. HTTP and REST fundamentals<small>HTTP మరియు REST మౌలిక అంశాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI apps, mobile apps, frontend అన్నీ మీ backend తో HTTP ద్వారానే మాట్లాడతాయి. HTTP/REST నియమాలు స్పష్టంగా తెలిస్తే API design మరియు debugging సులభమవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4915,9 +5300,21 @@ def get_item(item_id: int):
 # production లో docs వద్దనుకుంటే: FastAPI(docs_url=None, redoc_url=None)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> internal APIs ని production లో /docs తో public గా వదిలేయడం. అవసరం లేకపోతే ఆపేయండి లేదా auth వెనుక పెట్టండి.</div>
 </div></details>
-<h2 class="day">Day 10: SQLAlchemy, PostgreSQL and Redis fundamentals</h2>
+  </div>
+</details>
 
-<details class="t"><summary>1. Relational database concepts<small>Relational database మౌలిక అంశాలు</small></summary><div class="body">
+<details class="day-sec" data-day="10">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 10: SQLAlchemy, PostgreSQL and Redis fundamentals</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-10">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Relational database concepts<small>Relational database మౌలిక అంశాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Users, orders, payments వంటి డేటాని నమ్మదగినదిగా, ఒకదానితో ఒకటి సంబంధం ఉండేలా నిల్వ చేయడానికి relational DB అవసరం. AI apps లో కూడా users, chats, documents metadata ఇక్కడే ఉంటాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5480,6 +5877,8 @@ appendfsync everysec             # సెకనుకోసారి disk కి
 #   INFO memory</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Redis ని ఏకైక data store గా (persistence లేకుండా) వాడి, restart లో data కోల్పోవడం; లేదా sessions/queues ఉన్న Redis లో <code>allkeys-lru</code> పెట్టడం, అప్పుడు ముఖ్యమైన keys కూడా తొలగిపోతాయి.</div>
 </div></details>
+  </div>
+</details>
 </div>
 <script>
 (function(){
@@ -5511,6 +5910,24 @@ appendfsync everysec             # సెకనుకోసారి disk కి
     } catch(e) {}
   }
 
+  // Personal Notes Storage
+  function getNotesKey(user) {
+    return 'ai135_' + user + '_phase' + PHASE_NUM + '_notes';
+  }
+  var userNotes = {};
+  function loadUserNotes() {
+    try {
+      userNotes = JSON.parse(localStorage.getItem(getNotesKey(activeUser)) || '{}');
+    } catch(e) { userNotes = {}; }
+  }
+  loadUserNotes();
+
+  function saveUserNotes() {
+    try {
+      localStorage.setItem(getNotesKey(activeUser), JSON.stringify(userNotes));
+    } catch(e) {}
+  }
+
   function showToast(msg) {
     var toast = document.getElementById('profile-toast');
     if (toast) {
@@ -5525,9 +5942,12 @@ appendfsync everysec             # సెకనుకోసారి disk కి
     activeUser = newUser;
     localStorage.setItem(ACTIVE_USER_KEY, activeUser);
     loadStatusData();
+    loadUserNotes();
     applyStatusToDOM();
+    applyNotesToDOM();
     updateCountsAndFilter();
     updateUserUI();
+    resumeUserClass();
     showToast((activeUser === 'naveen' ? '👨‍💻 Naveen' : '👩‍💻 Durga') + ' ప్రొఫైల్‌కి మారారు!');
   }
 
@@ -5589,7 +6009,7 @@ appendfsync everysec             # సెకనుకోసారి disk కి
   var currentTab = 'all';
   var q = document.getElementById('q');
   var ds = [].slice.call(document.querySelectorAll('details.t'));
-  var days = [].slice.call(document.querySelectorAll('h2.day'));
+  var daySecs = [].slice.call(document.querySelectorAll('details.day-sec'));
 
   var labels = {
     start: { pill: '⚪ Start', cls: 'pill-start' },
@@ -5641,6 +6061,88 @@ appendfsync everysec             # సెకనుకోసారి disk కి
         box = document.createElement('div');
         box.className = 'topic-status-box';
         body.insertBefore(box, body.firstChild);
+      }
+
+      // Notes box
+      var notesBox = body.querySelector('.topic-notes-box');
+      if (!notesBox) {
+        notesBox = document.createElement('div');
+        notesBox.className = 'topic-notes-box';
+        notesBox.innerHTML = '<div class="notes-header">' +
+          '<span class="notes-title">📝 నా నోట్స్ (My Personal Notes):</span>' +
+          '<span class="notes-status-hint">సేవ్ అయింది ✓</span>' +
+          '</div>' +
+          '<textarea class="notes-textarea" placeholder="మీ వ్యక్తిగత నోట్స్, ముఖ్యమైన పాయింట్లు ఇక్కడ రాసుకోండి (ఆటో-సేవ్ అవుతుంది)…"></textarea>';
+        body.appendChild(notesBox);
+
+        var textarea = notesBox.querySelector('.notes-textarea');
+        var hint = notesBox.querySelector('.notes-status-hint');
+        textarea.value = userNotes[key] || '';
+
+        textarea.addEventListener('input', function() {
+          userNotes[key] = textarea.value;
+          saveUserNotes();
+          hint.classList.add('saved');
+          setTimeout(function() { hint.classList.remove('saved'); }, 1200);
+          updateNoteBadge(d, textarea.value);
+        });
+      }
+
+      // Topic Navigation Footer (Previous, Next, Complete & Next)
+      var navFooter = body.querySelector('.topic-nav-footer');
+      if (!navFooter) {
+        navFooter = document.createElement('div');
+        navFooter.className = 'topic-nav-footer';
+        var hasPrev = (idx > 0 || PHASE_NUM > 1);
+        var prevLabel = (idx > 0) ? '<span>←</span> Previous Class' : '<span>←</span> Phase ' + (PHASE_NUM - 1);
+        var hasNext = (idx < ds.length - 1 || PHASE_NUM < 8);
+        var nextLabel = (idx < ds.length - 1) ? 'Next Class <span>→</span>' : 'Phase ' + (PHASE_NUM + 1) + ' <span>→</span>';
+
+        navFooter.innerHTML = '<div class="topic-nav-left">' +
+          '<button type="button" class="t-nav-btn btn-prev"' + (!hasPrev ? ' disabled' : '') + '>' + prevLabel + '</button>' +
+          '</div>' +
+          '<div class="topic-nav-right">' +
+          '<button type="button" class="t-nav-btn btn-next"' + (!hasNext ? ' disabled' : '') + '>' + nextLabel + '</button>' +
+          '<button type="button" class="t-nav-btn btn-complete-next"' + (!hasNext ? ' disabled' : '') + '><span>✅</span> Complete & Next <span>→</span></button>' +
+          '</div>';
+        body.appendChild(navFooter);
+
+        var prevBtn = navFooter.querySelector('.btn-prev');
+        if (prevBtn && hasPrev) {
+          prevBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx > 0) {
+              goToTopic(idx - 1, false);
+            } else if (PHASE_NUM > 1) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+            }
+          });
+        }
+
+        var nextBtn = navFooter.querySelector('.btn-next');
+        if (nextBtn && hasNext) {
+          nextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, false);
+            } else if (PHASE_NUM < 8) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
+
+        var compNextBtn = navFooter.querySelector('.btn-complete-next');
+        if (compNextBtn && hasNext) {
+          compNextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, idx);
+            } else if (PHASE_NUM < 8) {
+              setTopicStatus('t_' + idx, 'done');
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
       }
       box.innerHTML = '<label>స్థితి (Status):</label>' +
         '<button type="button" class="st-btn btn-start ' + (st === 'start' ? 'active-start' : '') + '">⚪ Start</button>' +
@@ -5722,17 +6224,31 @@ appendfsync everysec             # సెకనుకోసారి disk కి
       if (searchVal && visible) d.open = true;
     });
 
-    days.forEach(function(h2) {
-      var el = h2.nextElementSibling;
-      var hasVisible = false;
-      while (el && el.tagName !== 'H2') {
-        if (el.tagName === 'DETAILS' && !el.classList.contains('hide')) {
-          hasVisible = true;
-          break;
-        }
-        el = el.nextElementSibling;
+    daySecs.forEach(function(daySec) {
+      var dayTopics = [].slice.call(daySec.querySelectorAll('details.t'));
+      var dayDone = 0;
+      var dayVisible = 0;
+      var dayTotal = 0;
+
+      dayTopics.forEach(function(d) {
+        var st = d.getAttribute('data-status') || 'start';
+        if (st !== 'archive') dayTotal++;
+        if (st === 'done') dayDone++;
+        if (!d.classList.contains('hide')) dayVisible++;
+      });
+
+      var badge = daySec.querySelector('.day-progress-badge');
+      if (badge) {
+        var isAllDone = (dayDone === dayTotal && dayTotal > 0);
+        badge.textContent = dayDone + '/' + dayTotal + (isAllDone ? ' ✅' : '');
+        badge.className = 'day-progress-badge' + (isAllDone ? ' all-done' : (dayDone > 0 ? ' has-done' : ''));
       }
-      h2.classList.toggle('hide', !hasVisible);
+
+      if (searchVal && dayVisible > 0) {
+        daySec.open = true;
+      }
+
+      daySec.classList.toggle('hide', dayVisible === 0);
     });
 
     var emptyMsg = document.getElementById('empty-tab-msg');
@@ -5782,6 +6298,9 @@ appendfsync everysec             # సెకనుకోసారి disk కి
   if (allBtn) {
     allBtn.addEventListener('click', function() {
       openAll = !openAll;
+      daySecs.forEach(function(sec) {
+        if (!sec.classList.contains('hide')) sec.open = openAll;
+      });
       ds.forEach(function(d) {
         if (!d.classList.contains('hide')) d.open = openAll;
       });
@@ -5839,6 +6358,236 @@ appendfsync everysec             # సెకనుకోసారి disk కి
       switchUser(u);
     });
   });
+
+
+  function updateNoteBadge(d, noteText) {
+    var summary = d.querySelector('summary');
+    if (!summary) return;
+    var badge = summary.querySelector('.note-badge');
+    if (noteText && noteText.trim().length > 0) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'note-badge';
+        badge.textContent = '📝';
+        badge.title = 'ఈ టాపిక్‌లో మీ నోట్స్ ఉన్నాయి';
+        var cw = summary.querySelector('.summary-content') || summary;
+        cw.appendChild(badge);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  }
+
+  function applyNotesToDOM() {
+    ds.forEach(function(d, idx) {
+      var key = 't_' + idx;
+      var textarea = d.querySelector('.notes-textarea');
+      if (textarea) textarea.value = userNotes[key] || '';
+      updateNoteBadge(d, userNotes[key] || '');
+    });
+  }
+
+  // === RESUME LAST OPEN CLASS / DAY FEATURE ===
+  var OPEN_DAY_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_day'; };
+  var OPEN_TOPIC_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_topic'; };
+
+  function setupClassTracking() {
+    daySecs.forEach(function(sec) {
+      sec.addEventListener('toggle', function() {
+        if (sec.open) {
+          localStorage.setItem(OPEN_DAY_KEY(), sec.getAttribute('data-day'));
+        }
+      });
+    });
+
+    ds.forEach(function(d) {
+      d.addEventListener('toggle', function() {
+        if (d.open) {
+          localStorage.setItem(OPEN_TOPIC_KEY(), d.getAttribute('data-topic-id'));
+          var parentDay = d.closest('details.day-sec');
+          if (parentDay) {
+            localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+          }
+        }
+      });
+    });
+  }
+
+  function resumeUserClass() {
+    var savedDay = localStorage.getItem(OPEN_DAY_KEY());
+    var savedTopic = localStorage.getItem(OPEN_TOPIC_KEY());
+
+    if (savedDay) {
+      var targetDay = document.querySelector('details.day-sec[data-day="' + savedDay + '"]');
+      if (targetDay) {
+        targetDay.open = true;
+      }
+    }
+    if (savedTopic) {
+      var targetTopic = document.querySelector('details.t[data-topic-id="' + savedTopic + '"]');
+      if (targetTopic) {
+        targetTopic.open = true;
+        var pDay = targetTopic.closest('details.day-sec');
+        if (pDay) pDay.open = true;
+        setTimeout(function() {
+          targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+      }
+    }
+  }
+
+  // === NEXT / PREVIOUS TOPIC NAVIGATION LOGIC ===
+  function getCurrentActiveIndex() {
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].open) return i;
+    }
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].getAttribute('data-status') === 'progress') return i;
+    }
+    var saved = localStorage.getItem(OPEN_TOPIC_KEY());
+    if (saved && saved.indexOf('t_') === 0) {
+      var sIdx = parseInt(saved.replace('t_', ''), 10);
+      if (!isNaN(sIdx) && sIdx >= 0 && sIdx < ds.length) return sIdx;
+    }
+    for (var j = 0; j < ds.length; j++) {
+      var st = ds[j].getAttribute('data-status');
+      if (st !== 'done' && st !== 'archive') return j;
+    }
+    return 0;
+  }
+
+  function goToTopic(idx, markCompleteCurrent) {
+    if (idx < 0 || idx >= ds.length) return;
+    
+    // Close other open topics so user is focused on the target topic
+    ds.forEach(function(d, i) {
+      if (i !== idx && d.open) {
+        d.open = false;
+      }
+    });
+
+    if (markCompleteCurrent !== false && markCompleteCurrent !== undefined) {
+      setTopicStatus('t_' + markCompleteCurrent, 'done');
+    }
+
+    var targetTopic = ds[idx];
+    if (!targetTopic) return;
+
+    var parentDay = targetTopic.closest('details.day-sec');
+    if (parentDay) parentDay.open = true;
+
+    targetTopic.open = true;
+
+    var curSt = targetTopic.getAttribute('data-status') || 'start';
+    if (curSt === 'start') {
+      setTopicStatus('t_' + idx, 'progress');
+    }
+
+    localStorage.setItem(OPEN_TOPIC_KEY(), 't_' + idx);
+    if (parentDay) {
+      localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+    }
+
+    setTimeout(function() {
+      targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+
+    showToast('📖 క్లాస్ ' + (idx + 1) + ' కి మారారు!');
+  }
+
+  // Top bar Previous Class Button
+  var navPrevBtn = document.getElementById('nav-prev-btn');
+  if (navPrevBtn) {
+    navPrevBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (curIdx > 0) {
+        goToTopic(curIdx - 1, false);
+      } else if (PHASE_NUM > 1) {
+        showToast('మునుపటి Phase ' + (PHASE_NUM - 1) + ' కి వెళ్తున్నారు…');
+        setTimeout(function() {
+          window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+        }, 300);
+      } else {
+        showToast('⚠️ ఇది మొదటి క్లాస్! (First Class)');
+      }
+    });
+  }
+
+  // Top bar Next Class Button
+  var navResumeBtn = document.getElementById('nav-resume-btn');
+  if (navResumeBtn) {
+    navResumeBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (ds[curIdx] && ds[curIdx].open) {
+        if (curIdx + 1 < ds.length) {
+          goToTopic(curIdx + 1, false);
+        } else if (PHASE_NUM < 8) {
+          showToast('ఈ Phase పూర్తయింది! తర్వాతి Phase ' + (PHASE_NUM + 1) + ' కి వెళ్తున్నారు…');
+          setTimeout(function() {
+            window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+          }, 350);
+        } else {
+          showToast('🎉 అభినందనలు! పూర్తి 135 రోజుల రోడ్‌మ్యాప్ పూర్తయింది!');
+        }
+      } else {
+        goToTopic(curIdx, false);
+      }
+    });
+  }
+
+  // === EXPORT / IMPORT (BACKUP & RESTORE) ===
+  var expBtn = document.getElementById('export-backup-btn');
+  if (expBtn) {
+    expBtn.addEventListener('click', function() {
+      var backup = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('ai135_') === 0) {
+          backup[k] = localStorage.getItem(k);
+        }
+      }
+      var blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'ai135_roadmap_backup_' + (new Date().toISOString().slice(0, 10)) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 మొత్తం నోట్స్ & ప్రోగ్రెస్ బ్యాకప్ డౌన్‌లోడ్ అయింది!');
+    });
+  }
+
+  var impInput = document.getElementById('import-backup-input');
+  if (impInput) {
+    impInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          var data = JSON.parse(evt.target.result);
+          var count = 0;
+          for (var k in data) {
+            if (k.indexOf('ai135_') === 0) {
+              localStorage.setItem(k, data[k]);
+              count++;
+            }
+          }
+          showToast('✅ ' + count + ' సెట్టింగ్స్ విజయవంతంగా రీస్టోర్ అయ్యాయి! రీలోడ్ అవుతోంది…');
+          setTimeout(function() { window.location.reload(); }, 1200);
+        } catch(err) {
+          alert('చెల్లని బ్యాకప్ ఫైల్! (Invalid backup file)');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  applyNotesToDOM();
+  setupClassTracking();
+  resumeUserClass();
 
   updateUserUI();
 

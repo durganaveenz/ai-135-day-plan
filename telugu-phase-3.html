@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>135-Day AI Roadmap – తెలుగు వివరణలు – Phase 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
@@ -519,6 +520,277 @@ pre { position: relative; padding-top: 36px; }
   transform: translateX(-50%) translateY(0);
 }
 
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 10px 16px 80px; }
+.day:first-of-type { margin-top: 8px; }
+
+
+/* === Collapsible Day Sections === */
+.day-sec {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 12px 0;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.day-sec[open] {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.day-summary {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background: var(--panel);
+  gap: 12px;
+}
+.day-summary::-webkit-details-marker { display: none; }
+.day-summary::before { display: none !important; }
+.day-sec[open] > .day-summary::before { display: none !important; }
+
+.day-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.day-chevron {
+  font-size: 13px;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.day-sec[open] > .day-summary .day-chevron {
+  transform: rotate(90deg);
+}
+.day-heading-text {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.day-sec[open] > .day-summary .day-heading-text {
+  color: var(--accent);
+}
+
+.day-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.day-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--soft);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.day-progress-badge.all-done {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.day-progress-badge.has-done {
+  background: var(--soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  .day-progress-badge.all-done {
+    background: #052e16;
+    color: #86efac;
+    border-color: #14532d;
+  }
+}
+
+.day-body {
+  padding: 8px 16px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+
+/* Notes Box Styling */
+.topic-notes-box {
+  margin-top: 14px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.notes-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.notes-status-hint {
+  font-size: 11.5px;
+  color: var(--ok);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 600;
+}
+.notes-status-hint.saved {
+  opacity: 1;
+}
+.notes-textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 220px;
+  resize: vertical;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: 13.5px/1.5 inherit;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.notes-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+.note-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* Backup & Sync Modal Section */
+.backup-section {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.backup-btns-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.backup-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.backup-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* Next / Previous Topic Navigation Footer */
+.topic-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  flex-wrap: wrap;
+}
+.topic-nav-left, .topic-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.t-nav-btn {
+  padding: 6px 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.t-nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.t-nav-btn.btn-complete-next {
+  background: var(--ok);
+  color: #fff;
+  border-color: var(--ok);
+}
+.t-nav-btn.btn-complete-next:hover {
+  opacity: 0.9;
+  border-color: var(--ok);
+}
+.t-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Top Bar Resume / Next Button */
+.nav-prev-btn, .nav-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-prev-btn:hover, .nav-resume-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+@media (max-width: 700px) {
+  .nav-prev-btn, .nav-resume-btn { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -539,6 +811,12 @@ pre { position: relative; padding-top: 36px; }
     </div>
 
     <div class="nav-right">
+      <button id="nav-prev-btn" class="nav-prev-btn" title="మునుపటి క్లాస్‌కి వెళ్ళండి (Previous Class)">
+        <span>◀️</span> Prev
+      </button>
+      <button id="nav-resume-btn" class="nav-resume-btn" title="తర్వాతి క్లాస్‌కి వెళ్ళండి (Next Class)">
+        <span>▶️</span> Next
+      </button>
       <button id="prof-switch-btn" class="nav-prof-pill" title="ప్రొఫైల్ మార్చుకోండి (Naveen ⇄ Durga)">
         <span id="nav-active-user-avatar" class="prof-avatar">👨‍💻</span>
         <span id="nav-active-user-name">Naveen</span>
@@ -554,11 +832,6 @@ pre { position: relative; padding-top: 36px; }
 </header>
 
 <div class="wrap">
-
-<div class="page-title-bar">
-  <h1>135-Day AI Engineering Roadmap<br>Phase 3: Generative AI & LLM Engineering</h1>
-  <p class="sub">Day 21–30 · 446 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
-</div>
 
 <!-- Header Popup Modal -->
 <div id="header-modal" class="modal-overlay hide">
@@ -630,6 +903,20 @@ pre { position: relative; padding-top: 36px; }
         </div>
       </div>
 
+      <!-- Backup & Multi-Browser Sync -->
+      <div class="modal-section backup-section">
+        <div class="modal-section-head">వేరే బ్రౌజర్‌లో వాడుకోవడానికి (Backup & Sync):</div>
+        <div class="backup-btns-row">
+          <button id="export-backup-btn" class="backup-btn" title="మీ మొత్తం నోట్స్ మరియు ప్రోగ్రెస్ ఫైల్ డౌన్‌లోడ్ చేసుకోండి">
+            <span>📥</span> బ్యాకప్ డౌన్‌లోడ్ (Export)
+          </button>
+          <label class="backup-btn" style="margin:0;cursor:pointer" title="డౌన్‌లోడ్ చేసుకున్న బ్యాకప్ ఫైల్ ఇక్కడ అప్‌లోడ్ చేయండి">
+            <span>📤</span> బ్యాకప్ లోడ్ (Import)
+            <input id="import-backup-input" type="file" accept=".json" style="display:none">
+          </label>
+        </div>
+      </div>
+
       <!-- 3. Page Controls -->
       <div class="modal-section">
         <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
@@ -657,9 +944,18 @@ pre { position: relative; padding-top: 36px; }
   </div>
 </div>
 
-<h2 class="day">Day 21: LLM architecture and inference</h2>
-
-<details class="t"><summary>1. What is an LLM?<small>LLM (Large Language Model) అంటే ఏమిటి</small></summary><div class="body">
+<details class="day-sec" data-day="21">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 21: LLM architecture and inference</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-21">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is an LLM?<small>LLM (Large Language Model) అంటే ఏమిటి</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇకపై మీరు వాడే ప్రతి AI feature (chatbot, RAG, agents) వెనుక ఉండేది LLM. అది లోపల ఏం చేస్తుందో తెలిస్తేనే cost, latency, తప్పు answers (hallucination) ఎందుకు వస్తాయో అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1671,10 +1967,21 @@ def generate(req: GenRequest):                              # సాధారణ
 #      -d '{"prompt":"Hello","max_new_tokens":20}'</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి request కి model ని load చేయడం లేదా <code>async def</code> లో blocking generate పిలవడం. రెండూ service ని నిలిపివేస్తాయి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 22: Tokenization and context-window management</h2>
-
-<details class="t"><summary>1. Characters, words and tokens<small>అక్షరాలు, పదాలు మరియు tokens</small></summary><div class="body">
+<details class="day-sec" data-day="22">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 22: Tokenization and context-window management</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-22">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Characters, words and tokens<small>అక్షరాలు, పదాలు మరియు tokens</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కి మీరు పంపే text ని అది అక్షరాలుగా లేదా పదాలుగా చూడదు, "tokens" గా చూస్తుంది. Cost, speed, context limit అన్నీ tokens లెక్కనే నడుస్తాయి కాబట్టి ఈ తేడా తెలియకపోతే బిల్లు మరియు errors అర్థం కావు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2514,10 +2821,21 @@ except BudgetExceeded as e:
     print("ఆపేశాం:", e)      # రోజువారీ quota అయిపోయింది</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> usage ని log చేయడమే సరిపోతుందనుకోవడం. Log చేయడం వేరు, limit అమలు చేసి call ని ఆపడం వేరు.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 23: Prompt engineering and instruction design</h2>
-
-<details class="t"><summary>1. What is a prompt?<small>Prompt అంటే ఏమిటి?</small></summary><div class="body">
+<details class="day-sec" data-day="23">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 23: Prompt engineering and instruction design</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-23">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is a prompt?<small>Prompt అంటే ఏమిటి?</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కి మనం ఇచ్చే ఏకైక "input" prompt మాత్రమే. Output నాణ్యత చాలావరకు prompt నాణ్యతపై ఆధారపడుతుంది కాబట్టి, production AI features లో prompt రాయడం ఒక core engineering పని.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3549,10 +3867,21 @@ for name, new_score in changes:
 # KEEP   add 2 examples: 0.88 -> 0.91</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం మొత్తం స్కోర్ చూడడం. కొన్ని ముఖ్య విభాగాలు (ఉదా: injection cases, edge cases) తగ్గిపోయినా సగటు పెరగొచ్చు; విభాగాల వారీగా చూడండి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 24: Structured output and Pydantic integration</h2>
-
-<details class="t"><summary>1. Free-form text vs structured data<small>ఇష్టం వచ్చినట్టు రాసిన text vs నిర్దిష్ట రూపంలో ఉన్న data</small></summary><div class="body">
+<details class="day-sec" data-day="24">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 24: Structured output and Pydantic integration</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-24">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Free-form text vs structured data<small>ఇష్టం వచ్చినట్టు రాసిన text vs నిర్దిష్ట రూపంలో ఉన్న data</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM సమాధానం మామూలు వాక్యంగా వస్తే మీ code దాన్ని నేరుగా వాడలేదు. Database లో save చేయాలన్నా, API కి పంపాలన్నా, UI లో చూపాలన్నా నిర్దిష్ట fields ఉన్న data కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4615,10 +4944,21 @@ print(db.execute("SELECT name FROM customers").fetchall())</pre>
 <p><b>గమనిక:</b> ఇది illustrative: LLM call బదులు స్థిరమైన <code>fake_llm</code> output వాడాం; నిజమైన API parameters కోసం provider docs లో check చేయండి.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> మొత్తం list ని ఒకే model తో validate చేసి, ఒక్క row తప్పైతే అన్నీ పారేయడం. Row-by-row చేస్తే మంచి rows ఉంచుకోవచ్చు.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 25: Function calling and tool integration</h2>
-
-<details class="t"><summary>1. What is function calling?<small>Function calling అంటే ఏమిటి</small></summary><div class="body">
+<details class="day-sec" data-day="25">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 25: Function calling and tool integration</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-25">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is function calling?<small>Function calling అంటే ఏమిటి</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కి training data వరకే తెలుసు. మీ database లో ఈ రోజు order status ఏమిటి, లేదా ఇప్పుడు వాతావరణం ఏమిటి అని దానికి తెలియదు. Function calling తో model మీ code లోని functions ని వాడమని "అడుగుతుంది", తద్వారా నిజమైన డేటాతో జవాబు ఇవ్వగలదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5787,10 +6127,21 @@ except ValueError:
 print(dict(METRICS["calls"]), dict(METRICS["errors"]))
 </pre>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 26: LLM APIs, streaming and provider integration</h2>
-
-<details class="t"><summary>1. Hosted LLM APIs<small>Hosted LLM APIs (provider సర్వర్లలో నడిచే models)</small></summary><div class="body">
+<details class="day-sec" data-day="26">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 26: LLM APIs, streaming and provider integration</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-26">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Hosted LLM APIs<small>Hosted LLM APIs (provider సర్వర్లలో నడిచే models)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>పెద్ద LLM ని మీ laptop లో నడపాలంటే ఖరీదైన GPUs కావాలి. OpenAI, Anthropic, Google లాంటి వాళ్లు model ని వాళ్ల servers లో నడిపి, HTTP API గా ఇస్తారు. మీరు కేవలం request పంపి answer తీసుకుంటే చాలు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6726,10 +7077,21 @@ def log_call(req_id, model, usage, latency_ms, prompt, debug=False):
 print(redact("నా email a@b.com, ఫోన్ 9876543210"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి prompt మరియు response ని పూర్తిగా plain text గా database/log files లో నిరవధికంగా ఉంచడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 27: Model selection, routing and cost optimization</h2>
-
-<details class="t"><summary>1. General-purpose models<small>అన్ని రకాల పనులకు వాడే సాధారణ models</small></summary><div class="body">
+<details class="day-sec" data-day="27">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 27: Model selection, routing and cost optimization</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-27">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. General-purpose models<small>అన్ని రకాల పనులకు వాడే సాధారణ models</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాలా AI features (chat, summarize, rewrite, Q&amp;A) కి ఒక "all-rounder" model సరిపోతుంది. ప్రతి పనికి special model వెతకడం కంటే ముందు general-purpose model తో మొదలుపెట్టి, అది సరిపోకపోతేనే ప్రత్యేక model కి వెళ్లడం తెలివైన పద్ధతి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -7695,10 +8057,21 @@ hit_rate = db.execute("SELECT AVG(cache_hit) FROM llm_calls").fetchone()[0]
 print(f"cache hit rate: {hit_rate:.0%}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> provider యొక్క మొత్తం bill మాత్రమే చూడటం. Feature/user వారీ విభజన లేకపోతే ఖర్చు పెరుగుదల కారణం తెలియదు.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 28: Open-source LLMs and local model deployment</h2>
-
-<details class="t"><summary>1. What open weights mean<small>Open weights అంటే ఏమిటి</small></summary><div class="body">
+<details class="day-sec" data-day="28">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 28: Open-source LLMs and local model deployment</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-28">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What open weights mean<small>Open weights అంటే ఏమిటి</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>"Open-source model" అని వినగానే అన్నీ ఉచితం, అన్నీ మార్చుకోవచ్చు అనుకుంటారు. కానీ చాలా models లో weights మాత్రమే ఇస్తారు, training data/code ఇవ్వరు. ఈ తేడా తెలిస్తే ఏ model ని product లో వాడగలరో సరిగ్గా నిర్ణయించగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8351,10 +8724,21 @@ print(f"నెలకు {breakeven_million_tokens:.0f}M tokens కంటే ఎ�
 # గమనిక: self-host లో GPU నిండుగా వాడుకోవాలి, మరియు DevOps సమయం కూడా ఖర్చే</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> GPU అద్దె మాత్రమే లెక్కించి, DevOps సమయం, monitoring, idle GPU ఖర్చు మర్చిపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 29: LLM evaluation and reliability</h2>
-
-<details class="t"><summary>1. Why traditional software tests are insufficient<small>సాంప్రదాయ software tests ఎందుకు సరిపోవు</small></summary><div class="body">
+<details class="day-sec" data-day="29">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 29: LLM evaluation and reliability</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-29">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Why traditional software tests are insufficient<small>సాంప్రదాయ software tests ఎందుకు సరిపోవు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>PHPUnit లో <code>assertEquals("Paid", $order->status())</code> రాస్తే ఫలితం ఎప్పుడూ ఒకేలా వస్తుంది. LLM తో ఒకే ప్రశ్నకు ప్రతిసారి కొంచెం వేరే పదాలతో జవాబు వస్తుంది. అందుకే పాత పద్ధతి tests తో LLM app నాణ్యతను కొలవలేం, కొత్త పద్ధతులు కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9317,10 +9701,21 @@ best = max(runs, key=lambda r: r["scores"]["accuracy"])
 print("best config:", best["config"], best["scores"])</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> dataset version నమోదు చేయకపోవడం. dataset మారితే పాత మరియు కొత్త scores పోల్చలేం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 30: LLM application architecture and capstone</h2>
-
-<details class="t"><summary>1. Client-server architecture<small>Client-server నిర్మాణం</small></summary><div class="body">
+<details class="day-sec" data-day="30">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 30: LLM application architecture and capstone</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-30">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Client-server architecture<small>Client-server నిర్మాణం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI app లో user చూసే భాగం (web/mobile) వేరు, LLM ని పిలిచే భాగం వేరు. ఈ విభజన లేకపోతే API key లాంటి రహస్యాలు browser లోకి వెళ్ళిపోతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10236,6 +10631,8 @@ DATABASE_URL=postgresql://user:pass@db:5432/app
 REDIS_URL=redis://redis:6379/0</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Real secrets ను README/.env.example లో పెట్టడం.</div>
 </div></details>
+  </div>
+</details>
 </div>
 <script>
 (function(){
@@ -10267,6 +10664,24 @@ REDIS_URL=redis://redis:6379/0</pre>
     } catch(e) {}
   }
 
+  // Personal Notes Storage
+  function getNotesKey(user) {
+    return 'ai135_' + user + '_phase' + PHASE_NUM + '_notes';
+  }
+  var userNotes = {};
+  function loadUserNotes() {
+    try {
+      userNotes = JSON.parse(localStorage.getItem(getNotesKey(activeUser)) || '{}');
+    } catch(e) { userNotes = {}; }
+  }
+  loadUserNotes();
+
+  function saveUserNotes() {
+    try {
+      localStorage.setItem(getNotesKey(activeUser), JSON.stringify(userNotes));
+    } catch(e) {}
+  }
+
   function showToast(msg) {
     var toast = document.getElementById('profile-toast');
     if (toast) {
@@ -10281,9 +10696,12 @@ REDIS_URL=redis://redis:6379/0</pre>
     activeUser = newUser;
     localStorage.setItem(ACTIVE_USER_KEY, activeUser);
     loadStatusData();
+    loadUserNotes();
     applyStatusToDOM();
+    applyNotesToDOM();
     updateCountsAndFilter();
     updateUserUI();
+    resumeUserClass();
     showToast((activeUser === 'naveen' ? '👨‍💻 Naveen' : '👩‍💻 Durga') + ' ప్రొఫైల్‌కి మారారు!');
   }
 
@@ -10345,7 +10763,7 @@ REDIS_URL=redis://redis:6379/0</pre>
   var currentTab = 'all';
   var q = document.getElementById('q');
   var ds = [].slice.call(document.querySelectorAll('details.t'));
-  var days = [].slice.call(document.querySelectorAll('h2.day'));
+  var daySecs = [].slice.call(document.querySelectorAll('details.day-sec'));
 
   var labels = {
     start: { pill: '⚪ Start', cls: 'pill-start' },
@@ -10397,6 +10815,88 @@ REDIS_URL=redis://redis:6379/0</pre>
         box = document.createElement('div');
         box.className = 'topic-status-box';
         body.insertBefore(box, body.firstChild);
+      }
+
+      // Notes box
+      var notesBox = body.querySelector('.topic-notes-box');
+      if (!notesBox) {
+        notesBox = document.createElement('div');
+        notesBox.className = 'topic-notes-box';
+        notesBox.innerHTML = '<div class="notes-header">' +
+          '<span class="notes-title">📝 నా నోట్స్ (My Personal Notes):</span>' +
+          '<span class="notes-status-hint">సేవ్ అయింది ✓</span>' +
+          '</div>' +
+          '<textarea class="notes-textarea" placeholder="మీ వ్యక్తిగత నోట్స్, ముఖ్యమైన పాయింట్లు ఇక్కడ రాసుకోండి (ఆటో-సేవ్ అవుతుంది)…"></textarea>';
+        body.appendChild(notesBox);
+
+        var textarea = notesBox.querySelector('.notes-textarea');
+        var hint = notesBox.querySelector('.notes-status-hint');
+        textarea.value = userNotes[key] || '';
+
+        textarea.addEventListener('input', function() {
+          userNotes[key] = textarea.value;
+          saveUserNotes();
+          hint.classList.add('saved');
+          setTimeout(function() { hint.classList.remove('saved'); }, 1200);
+          updateNoteBadge(d, textarea.value);
+        });
+      }
+
+      // Topic Navigation Footer (Previous, Next, Complete & Next)
+      var navFooter = body.querySelector('.topic-nav-footer');
+      if (!navFooter) {
+        navFooter = document.createElement('div');
+        navFooter.className = 'topic-nav-footer';
+        var hasPrev = (idx > 0 || PHASE_NUM > 1);
+        var prevLabel = (idx > 0) ? '<span>←</span> Previous Class' : '<span>←</span> Phase ' + (PHASE_NUM - 1);
+        var hasNext = (idx < ds.length - 1 || PHASE_NUM < 8);
+        var nextLabel = (idx < ds.length - 1) ? 'Next Class <span>→</span>' : 'Phase ' + (PHASE_NUM + 1) + ' <span>→</span>';
+
+        navFooter.innerHTML = '<div class="topic-nav-left">' +
+          '<button type="button" class="t-nav-btn btn-prev"' + (!hasPrev ? ' disabled' : '') + '>' + prevLabel + '</button>' +
+          '</div>' +
+          '<div class="topic-nav-right">' +
+          '<button type="button" class="t-nav-btn btn-next"' + (!hasNext ? ' disabled' : '') + '>' + nextLabel + '</button>' +
+          '<button type="button" class="t-nav-btn btn-complete-next"' + (!hasNext ? ' disabled' : '') + '><span>✅</span> Complete & Next <span>→</span></button>' +
+          '</div>';
+        body.appendChild(navFooter);
+
+        var prevBtn = navFooter.querySelector('.btn-prev');
+        if (prevBtn && hasPrev) {
+          prevBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx > 0) {
+              goToTopic(idx - 1, false);
+            } else if (PHASE_NUM > 1) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+            }
+          });
+        }
+
+        var nextBtn = navFooter.querySelector('.btn-next');
+        if (nextBtn && hasNext) {
+          nextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, false);
+            } else if (PHASE_NUM < 8) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
+
+        var compNextBtn = navFooter.querySelector('.btn-complete-next');
+        if (compNextBtn && hasNext) {
+          compNextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, idx);
+            } else if (PHASE_NUM < 8) {
+              setTopicStatus('t_' + idx, 'done');
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
       }
       box.innerHTML = '<label>స్థితి (Status):</label>' +
         '<button type="button" class="st-btn btn-start ' + (st === 'start' ? 'active-start' : '') + '">⚪ Start</button>' +
@@ -10478,17 +10978,31 @@ REDIS_URL=redis://redis:6379/0</pre>
       if (searchVal && visible) d.open = true;
     });
 
-    days.forEach(function(h2) {
-      var el = h2.nextElementSibling;
-      var hasVisible = false;
-      while (el && el.tagName !== 'H2') {
-        if (el.tagName === 'DETAILS' && !el.classList.contains('hide')) {
-          hasVisible = true;
-          break;
-        }
-        el = el.nextElementSibling;
+    daySecs.forEach(function(daySec) {
+      var dayTopics = [].slice.call(daySec.querySelectorAll('details.t'));
+      var dayDone = 0;
+      var dayVisible = 0;
+      var dayTotal = 0;
+
+      dayTopics.forEach(function(d) {
+        var st = d.getAttribute('data-status') || 'start';
+        if (st !== 'archive') dayTotal++;
+        if (st === 'done') dayDone++;
+        if (!d.classList.contains('hide')) dayVisible++;
+      });
+
+      var badge = daySec.querySelector('.day-progress-badge');
+      if (badge) {
+        var isAllDone = (dayDone === dayTotal && dayTotal > 0);
+        badge.textContent = dayDone + '/' + dayTotal + (isAllDone ? ' ✅' : '');
+        badge.className = 'day-progress-badge' + (isAllDone ? ' all-done' : (dayDone > 0 ? ' has-done' : ''));
       }
-      h2.classList.toggle('hide', !hasVisible);
+
+      if (searchVal && dayVisible > 0) {
+        daySec.open = true;
+      }
+
+      daySec.classList.toggle('hide', dayVisible === 0);
     });
 
     var emptyMsg = document.getElementById('empty-tab-msg');
@@ -10538,6 +11052,9 @@ REDIS_URL=redis://redis:6379/0</pre>
   if (allBtn) {
     allBtn.addEventListener('click', function() {
       openAll = !openAll;
+      daySecs.forEach(function(sec) {
+        if (!sec.classList.contains('hide')) sec.open = openAll;
+      });
       ds.forEach(function(d) {
         if (!d.classList.contains('hide')) d.open = openAll;
       });
@@ -10595,6 +11112,236 @@ REDIS_URL=redis://redis:6379/0</pre>
       switchUser(u);
     });
   });
+
+
+  function updateNoteBadge(d, noteText) {
+    var summary = d.querySelector('summary');
+    if (!summary) return;
+    var badge = summary.querySelector('.note-badge');
+    if (noteText && noteText.trim().length > 0) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'note-badge';
+        badge.textContent = '📝';
+        badge.title = 'ఈ టాపిక్‌లో మీ నోట్స్ ఉన్నాయి';
+        var cw = summary.querySelector('.summary-content') || summary;
+        cw.appendChild(badge);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  }
+
+  function applyNotesToDOM() {
+    ds.forEach(function(d, idx) {
+      var key = 't_' + idx;
+      var textarea = d.querySelector('.notes-textarea');
+      if (textarea) textarea.value = userNotes[key] || '';
+      updateNoteBadge(d, userNotes[key] || '');
+    });
+  }
+
+  // === RESUME LAST OPEN CLASS / DAY FEATURE ===
+  var OPEN_DAY_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_day'; };
+  var OPEN_TOPIC_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_topic'; };
+
+  function setupClassTracking() {
+    daySecs.forEach(function(sec) {
+      sec.addEventListener('toggle', function() {
+        if (sec.open) {
+          localStorage.setItem(OPEN_DAY_KEY(), sec.getAttribute('data-day'));
+        }
+      });
+    });
+
+    ds.forEach(function(d) {
+      d.addEventListener('toggle', function() {
+        if (d.open) {
+          localStorage.setItem(OPEN_TOPIC_KEY(), d.getAttribute('data-topic-id'));
+          var parentDay = d.closest('details.day-sec');
+          if (parentDay) {
+            localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+          }
+        }
+      });
+    });
+  }
+
+  function resumeUserClass() {
+    var savedDay = localStorage.getItem(OPEN_DAY_KEY());
+    var savedTopic = localStorage.getItem(OPEN_TOPIC_KEY());
+
+    if (savedDay) {
+      var targetDay = document.querySelector('details.day-sec[data-day="' + savedDay + '"]');
+      if (targetDay) {
+        targetDay.open = true;
+      }
+    }
+    if (savedTopic) {
+      var targetTopic = document.querySelector('details.t[data-topic-id="' + savedTopic + '"]');
+      if (targetTopic) {
+        targetTopic.open = true;
+        var pDay = targetTopic.closest('details.day-sec');
+        if (pDay) pDay.open = true;
+        setTimeout(function() {
+          targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+      }
+    }
+  }
+
+  // === NEXT / PREVIOUS TOPIC NAVIGATION LOGIC ===
+  function getCurrentActiveIndex() {
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].open) return i;
+    }
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].getAttribute('data-status') === 'progress') return i;
+    }
+    var saved = localStorage.getItem(OPEN_TOPIC_KEY());
+    if (saved && saved.indexOf('t_') === 0) {
+      var sIdx = parseInt(saved.replace('t_', ''), 10);
+      if (!isNaN(sIdx) && sIdx >= 0 && sIdx < ds.length) return sIdx;
+    }
+    for (var j = 0; j < ds.length; j++) {
+      var st = ds[j].getAttribute('data-status');
+      if (st !== 'done' && st !== 'archive') return j;
+    }
+    return 0;
+  }
+
+  function goToTopic(idx, markCompleteCurrent) {
+    if (idx < 0 || idx >= ds.length) return;
+    
+    // Close other open topics so user is focused on the target topic
+    ds.forEach(function(d, i) {
+      if (i !== idx && d.open) {
+        d.open = false;
+      }
+    });
+
+    if (markCompleteCurrent !== false && markCompleteCurrent !== undefined) {
+      setTopicStatus('t_' + markCompleteCurrent, 'done');
+    }
+
+    var targetTopic = ds[idx];
+    if (!targetTopic) return;
+
+    var parentDay = targetTopic.closest('details.day-sec');
+    if (parentDay) parentDay.open = true;
+
+    targetTopic.open = true;
+
+    var curSt = targetTopic.getAttribute('data-status') || 'start';
+    if (curSt === 'start') {
+      setTopicStatus('t_' + idx, 'progress');
+    }
+
+    localStorage.setItem(OPEN_TOPIC_KEY(), 't_' + idx);
+    if (parentDay) {
+      localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+    }
+
+    setTimeout(function() {
+      targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+
+    showToast('📖 క్లాస్ ' + (idx + 1) + ' కి మారారు!');
+  }
+
+  // Top bar Previous Class Button
+  var navPrevBtn = document.getElementById('nav-prev-btn');
+  if (navPrevBtn) {
+    navPrevBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (curIdx > 0) {
+        goToTopic(curIdx - 1, false);
+      } else if (PHASE_NUM > 1) {
+        showToast('మునుపటి Phase ' + (PHASE_NUM - 1) + ' కి వెళ్తున్నారు…');
+        setTimeout(function() {
+          window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+        }, 300);
+      } else {
+        showToast('⚠️ ఇది మొదటి క్లాస్! (First Class)');
+      }
+    });
+  }
+
+  // Top bar Next Class Button
+  var navResumeBtn = document.getElementById('nav-resume-btn');
+  if (navResumeBtn) {
+    navResumeBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (ds[curIdx] && ds[curIdx].open) {
+        if (curIdx + 1 < ds.length) {
+          goToTopic(curIdx + 1, false);
+        } else if (PHASE_NUM < 8) {
+          showToast('ఈ Phase పూర్తయింది! తర్వాతి Phase ' + (PHASE_NUM + 1) + ' కి వెళ్తున్నారు…');
+          setTimeout(function() {
+            window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+          }, 350);
+        } else {
+          showToast('🎉 అభినందనలు! పూర్తి 135 రోజుల రోడ్‌మ్యాప్ పూర్తయింది!');
+        }
+      } else {
+        goToTopic(curIdx, false);
+      }
+    });
+  }
+
+  // === EXPORT / IMPORT (BACKUP & RESTORE) ===
+  var expBtn = document.getElementById('export-backup-btn');
+  if (expBtn) {
+    expBtn.addEventListener('click', function() {
+      var backup = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('ai135_') === 0) {
+          backup[k] = localStorage.getItem(k);
+        }
+      }
+      var blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'ai135_roadmap_backup_' + (new Date().toISOString().slice(0, 10)) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 మొత్తం నోట్స్ & ప్రోగ్రెస్ బ్యాకప్ డౌన్‌లోడ్ అయింది!');
+    });
+  }
+
+  var impInput = document.getElementById('import-backup-input');
+  if (impInput) {
+    impInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          var data = JSON.parse(evt.target.result);
+          var count = 0;
+          for (var k in data) {
+            if (k.indexOf('ai135_') === 0) {
+              localStorage.setItem(k, data[k]);
+              count++;
+            }
+          }
+          showToast('✅ ' + count + ' సెట్టింగ్స్ విజయవంతంగా రీస్టోర్ అయ్యాయి! రీలోడ్ అవుతోంది…');
+          setTimeout(function() { window.location.reload(); }, 1200);
+        } catch(err) {
+          alert('చెల్లని బ్యాకప్ ఫైల్! (Invalid backup file)');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  applyNotesToDOM();
+  setupClassTracking();
+  resumeUserClass();
 
   updateUserUI();
 

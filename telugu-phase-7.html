@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>135-Day AI Roadmap – తెలుగు వివరణలు – Phase 7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
@@ -519,6 +520,277 @@ pre { position: relative; padding-top: 36px; }
   transform: translateX(-50%) translateY(0);
 }
 
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 10px 16px 80px; }
+.day:first-of-type { margin-top: 8px; }
+
+
+/* === Collapsible Day Sections === */
+.day-sec {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 12px 0;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.day-sec[open] {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.day-summary {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background: var(--panel);
+  gap: 12px;
+}
+.day-summary::-webkit-details-marker { display: none; }
+.day-summary::before { display: none !important; }
+.day-sec[open] > .day-summary::before { display: none !important; }
+
+.day-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.day-chevron {
+  font-size: 13px;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.day-sec[open] > .day-summary .day-chevron {
+  transform: rotate(90deg);
+}
+.day-heading-text {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.day-sec[open] > .day-summary .day-heading-text {
+  color: var(--accent);
+}
+
+.day-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.day-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--soft);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.day-progress-badge.all-done {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.day-progress-badge.has-done {
+  background: var(--soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  .day-progress-badge.all-done {
+    background: #052e16;
+    color: #86efac;
+    border-color: #14532d;
+  }
+}
+
+.day-body {
+  padding: 8px 16px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+
+/* Notes Box Styling */
+.topic-notes-box {
+  margin-top: 14px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.notes-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.notes-status-hint {
+  font-size: 11.5px;
+  color: var(--ok);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 600;
+}
+.notes-status-hint.saved {
+  opacity: 1;
+}
+.notes-textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 220px;
+  resize: vertical;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: 13.5px/1.5 inherit;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.notes-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+.note-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* Backup & Sync Modal Section */
+.backup-section {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.backup-btns-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.backup-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.backup-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* Next / Previous Topic Navigation Footer */
+.topic-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  flex-wrap: wrap;
+}
+.topic-nav-left, .topic-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.t-nav-btn {
+  padding: 6px 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.t-nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.t-nav-btn.btn-complete-next {
+  background: var(--ok);
+  color: #fff;
+  border-color: var(--ok);
+}
+.t-nav-btn.btn-complete-next:hover {
+  opacity: 0.9;
+  border-color: var(--ok);
+}
+.t-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Top Bar Resume / Next Button */
+.nav-prev-btn, .nav-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-prev-btn:hover, .nav-resume-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+@media (max-width: 700px) {
+  .nav-prev-btn, .nav-resume-btn { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -539,6 +811,12 @@ pre { position: relative; padding-top: 36px; }
     </div>
 
     <div class="nav-right">
+      <button id="nav-prev-btn" class="nav-prev-btn" title="మునుపటి క్లాస్‌కి వెళ్ళండి (Previous Class)">
+        <span>◀️</span> Prev
+      </button>
+      <button id="nav-resume-btn" class="nav-resume-btn" title="తర్వాతి క్లాస్‌కి వెళ్ళండి (Next Class)">
+        <span>▶️</span> Next
+      </button>
       <button id="prof-switch-btn" class="nav-prof-pill" title="ప్రొఫైల్ మార్చుకోండి (Naveen ⇄ Durga)">
         <span id="nav-active-user-avatar" class="prof-avatar">👨‍💻</span>
         <span id="nav-active-user-name">Naveen</span>
@@ -554,11 +832,6 @@ pre { position: relative; padding-top: 36px; }
 </header>
 
 <div class="wrap">
-
-<div class="page-title-bar">
-  <h1>135-Day AI Engineering Roadmap<br>Phase 7: Enterprise AI Architecture, System Design & Interview Prep</h1>
-  <p class="sub">Day 76–90 · 1025 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
-</div>
 
 <!-- Header Popup Modal -->
 <div id="header-modal" class="modal-overlay hide">
@@ -630,6 +903,20 @@ pre { position: relative; padding-top: 36px; }
         </div>
       </div>
 
+      <!-- Backup & Multi-Browser Sync -->
+      <div class="modal-section backup-section">
+        <div class="modal-section-head">వేరే బ్రౌజర్‌లో వాడుకోవడానికి (Backup & Sync):</div>
+        <div class="backup-btns-row">
+          <button id="export-backup-btn" class="backup-btn" title="మీ మొత్తం నోట్స్ మరియు ప్రోగ్రెస్ ఫైల్ డౌన్‌లోడ్ చేసుకోండి">
+            <span>📥</span> బ్యాకప్ డౌన్‌లోడ్ (Export)
+          </button>
+          <label class="backup-btn" style="margin:0;cursor:pointer" title="డౌన్‌లోడ్ చేసుకున్న బ్యాకప్ ఫైల్ ఇక్కడ అప్‌లోడ్ చేయండి">
+            <span>📤</span> బ్యాకప్ లోడ్ (Import)
+            <input id="import-backup-input" type="file" accept=".json" style="display:none">
+          </label>
+        </div>
+      </div>
+
       <!-- 3. Page Controls -->
       <div class="modal-section">
         <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
@@ -657,9 +944,18 @@ pre { position: relative; padding-top: 36px; }
   </div>
 </div>
 
-<h2 class="day">Day 76: Enterprise AI architecture and solution design</h2>
-
-<details class="t"><summary>1. What is enterprise AI architecture?<small>ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అంటే ఏమిటి?</small></summary><div class="body">
+<details class="day-sec" data-day="76">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 76: Enterprise AI architecture and solution design</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-76">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is enterprise AI architecture?<small>ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అంటే ఏమిటి?</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ AI డెమో కేవలం ఒక API కాల్‌తో పూర్తవుతుంది. కానీ వేలాదిమంది ఉద్యోగులు, లక్షలాది కస్టమర్లు ఉన్న సంస్థల్లో సెక్యూరిటీ, డేటా గవర్నెన్స్, స్కేలబిలిటీ మరియు బడ్జెట్ కంట్రోల్‌తో AI సిస్టమ్స్ నడపడానికి ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1777,10 +2073,21 @@ class NotificationService:
 # - pgvector Disadvantage: Requires internal tuning, limited scaling past 50M vectors</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టెక్నాలజీ ఎంపికలో ఉన్న పరిమితులను మరియు నష్టాలను విస్మరించి కేవలం మార్కెటింగ్ ప్రయోజనాలనే చూడటం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 77: Enterprise RAG architecture and advanced retrieval systems</h2>
-
-<details class="t"><summary>1. Basic RAG vs enterprise RAG.<small>ప్రాథమిక RAG వర్సెస్ ఎంటర్‌ప్రైజ్ RAG</small></summary><div class="body">
+<details class="day-sec" data-day="77">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 77: Enterprise RAG architecture and advanced retrieval systems</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-77">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Basic RAG vs enterprise RAG.<small>ప్రాథమిక RAG వర్సెస్ ఎంటర్‌ప్రైజ్ RAG</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>డెమో లేదా ట్యుటోరియల్ RAG కేవలం ఒక చిన్న PDF ని చదివి ఆన్సర్ ఇస్తుంది; కానీ ఎంటర్‌ప్రైజ్ లో మిలియన్ల కొద్దీ డాక్యుమెంట్లు, కఠినమైన యాక్సెస్ పర్మిషన్లు మరియు రియల్-టైమ్ అప్‌డేట్స్‌తో పని చేయగల RAG సిస్టమ్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3028,10 +3335,21 @@ qa_dataset.save_json("qa_test_suite.json")</pre>
 # Hallucination Rate         &lt; 2.0%       1.1%    (PASS)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> లేటెన్సీని కేవలం సగటు (Average) రూపంలో చూడటం, P95/P99 స్పైక్‌లను విస్మరించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 78: Model gateway, LLM routing and model infrastructure</h2>
-
-<details class="t"><summary>1. What is an LLM gateway?<small>LLM గేట్‌వే అంటే ఏమిటి?</small></summary><div class="body">
+<details class="day-sec" data-day="78">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 78: Model gateway, LLM routing and model infrastructure</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-78">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is an LLM gateway?<small>LLM గేట్‌వే అంటే ఏమిటి?</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>అప్లికేషన్లు నేరుగా వివిధ LLM ప్రొవైడర్లతో మాట్లాడితే ప్రొవైడర్ మారిన ప్రతిసారీ కోడ్ మార్చాల్సి వస్తుంది; అన్ని మోడల్ కాల్స్‌ను నియంత్రించే ఒక సెంట్రల్ ప్రాక్సీ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4093,10 +4411,21 @@ with LATENCY_HISTOGRAM.labels(provider="azure").time():
     response = await call_azure()</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డాష్‌బోర్డ్ మానిటరింగ్ లేకుండా ప్రొవైడర్ సర్వీస్ స్లో అయినప్పుడు వినియోగదారులు కంప్లైంట్ చేసేదాకా కనిపెట్టలేకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 79: Distributed systems and microservices architecture</h2>
-
-<details class="t"><summary>1. What is a distributed system?<small>డిస్ట్రిబ్యూటెడ్ సిస్టమ్ అంటే ఏమిటి?</small></summary><div class="body">
+<details class="day-sec" data-day="79">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 79: Distributed systems and microservices architecture</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-79">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is a distributed system?<small>డిస్ట్రిబ్యూటెడ్ సిస్టమ్ అంటే ఏమిటి?</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే కంప్యూటర్ లేదా సర్వర్ లో మొత్తం పనిని నిర్వహించలేనప్పుడు, బహుళ స్వతంత్ర కంప్యూటర్లను నెట్‌వర్క్ ద్వారా అనుసంధానించి ఒకే ఉమ్మడి వ్యవస్థగా నడపాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5170,10 +5499,21 @@ async def test_resilience_when_vector_db_dies():
     assert "తాత్కాలికంగా శోధన అందుబాటులో లేదు" in res.json()["answer"]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వైఫల్య పరీక్షలు చేయకుండా కేవలం అంతా సజావుగా ఉన్న హ్యాపీ-పాత్ (Happy Path) లో మాత్రమే టెస్టులు చేసి ప్రొడక్షన్ కు వెళ్లడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 80: Scalability, capacity planning and performance architecture</h2>
-
-<details class="t"><summary>1. Vertical scaling.<small>వర్టికల్ స్కేలింగ్ (స్కేల్-అప్: సర్వర్ పరిమాణం పెంచడం)</small></summary><div class="body">
+<details class="day-sec" data-day="80">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 80: Scalability, capacity planning and performance architecture</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-80">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Vertical scaling.<small>వర్టికల్ స్కేలింగ్ (స్కేల్-అప్: సర్వర్ పరిమాణం పెంచడం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్చర్ లో ఎటువంటి మార్పులు చేయకుండా, మరింత పెద్ద RAM, CPU లేదా GPU ఉన్న సర్వర్‌కు మారడం ద్వారా సిస్టమ్ సామర్థ్యాన్ని తక్షణమే పెంచవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6199,10 +6539,21 @@ total_ram_needed_mb = raw_vector_size_mb + metadata_size_mb + hnsw_overhead_mb #
 # Cost per Active User:            $ 0.21 / month</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం LLM API ఖర్చును మాత్రమే చూపించి, క్లౌడ్ సర్వర్లు మరియు డేటాబేస్ నిర్వహణ ఖర్చులను దాచిపెట్టడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 81: Multi-tenant SaaS AI architecture</h2>
-
-<details class="t"><summary>1. What is multi-tenancy?<small>మల్టీ-టెనెన్సీ అంటే ఏమిటి? ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="81">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 81: Multi-tenant SaaS AI architecture</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-81">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is multi-tenancy?<small>మల్టీ-టెనెన్సీ అంటే ఏమిటి? ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే అప్లికేషన్ ఇన్‌స్టాన్స్ మరియు ఇన్‌ఫ్రాస్ట్రక్చర్‌ను బహుళ సంస్థలు (Tenants/కస్టమర్లు) ఉపయోగించుకుంటూనే, ఒకరి డేటా మరొకరికి కనిపించకుండా పటిష్టమైన సెక్యూరిటీని అందించడానికి మల్టీ-టెనెన్సీ అవసరం. క్లౌడ్ ఖర్చులను విపరీతంగా తగ్గించడానికి మరియు సాఫ్ట్‌వేర్ నిర్వహణను సులభతరం చేయడానికి ఇది ఆధునిక SaaS పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -7530,10 +7881,21 @@ async def test_rag_cross_tenant_isolation(vector_search_service):
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం పాజిటివ్ టెస్ట్ కేస్‌లు మాత్రమే రాసి, ఇలాంటి నెగటివ్ సెక్యూరిటీ లీకేజ్ పెనెట్రేషన్ టెస్ట్‌లను CI పైప్‌లైన్‌లో రన్ చేయకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 82: AI governance, compliance and risk management</h2>
-
-<details class="t"><summary>1. What is AI governance?<small>AI గవర్నెన్స్ అంటే ఏమిటి? ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="82">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 82: AI governance, compliance and risk management</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-82">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is AI governance?<small>AI గవర్నెన్స్ అంటే ఏమిటి? ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్టిఫిషియల్ ఇంటెలిజెన్స్ సిస్టమ్స్ చట్టబద్ధంగా, నైతికంగా, మరియు సురక్షితంగా పనిచేసేలా చూడటానికి సంస్థాగత నిబంధనలు, పాలసీలు మరియు పర్యవేక్షణ ప్రక్రియల సమగ్ర రూపమే AI గవర్నెన్స్. చట్టపరమైన జరిమానాలు మరియు కంపెనీ ప్రతిష్ట దెబ్బతినకుండా ఇది కాపాడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8725,10 +9087,21 @@ async def purge_expired_ai_logs(db, max_age_days: int = 90):
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం సాంకేతిక మెట్రిక్స్ మాత్రమే చూపిస్తూ వ్యాపార మరియు లీగల్ రిస్క్ సంబంధిత డేటాను రిపోర్టులో విస్మరించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 83: AI solution architecture patterns and technology selection</h2>
-
-<details class="t"><summary>1. Direct LLM application.<small>డైరెక్ట్ LLM అప్లికేషన్ ఆర్కిటెక్చర్ ప్యాటర్న్</small></summary><div class="body">
+<details class="day-sec" data-day="83">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 83: AI solution architecture patterns and technology selection</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-83">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Direct LLM application.<small>డైరెక్ట్ LLM అప్లికేషన్ ఆర్కిటెక్చర్ ప్యాటర్న్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్‌లు లేదా వెక్టర్ స్టోర్‌లతో సంబంధం లేకుండా కేవలం యూజర్ ప్రాంప్ట్‌ను LLM కి పంపి ఫలితాన్ని పొందడానికి (ఉదా: గ్రామర్ చెకింగ్, అనువాదం, సమ్మరైజేషన్) ఉపయోగించే అత్యంత సరళమైన ప్యాటర్న్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9851,10 +10224,21 @@ def compare_vector_search(pg_vector_client, qdrant_client, query_vec):
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సాంకేతిక పరిభాషతో మాట్లాడి వ్యాపార ప్రయోజనాలను (ROI, సెక్యూరిటీ, కాస్ట్) లీడర్‌షిప్‌కు అర్థమయ్యేలా చెప్పలేకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 84: AI system design — enterprise-level architecture problems</h2>
-
-<details class="t"><summary>1. Requirement clarification.<small>సిస్టమ్ డిజైన్‌లో అవసరాల స్పష్టత (Requirement Clarification)</small></summary><div class="body">
+<details class="day-sec" data-day="84">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 84: AI system design — enterprise-level architecture problems</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-84">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Requirement clarification.<small>సిస్టమ్ డిజైన్‌లో అవసరాల స్పష్టత (Requirement Clarification)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్చర్ డిజైన్ ప్రారంభించే ముందు కస్టమర్ లేదా స్టేక్‌హోల్డర్ ఇచ్చిన అస్పష్టమైన ఆలోచనలను (ఉదా: "మాకు ఒక AI బాట్ కావాలి") ఖచ్చితమైన సాంకేతిక హద్దులుగా మార్చడానికి అవసరాల స్పష్టత తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -11117,10 +11501,21 @@ spec:
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం CPU ఆధారంగా మాత్రమే స్కేల్ చేయడం; AI క్యూలలో CPU నార్మల్‌గా ఉన్నా క్యూ నిండిపోవచ్చు, అందుకే ఈవెంట్-డ్రైవెన్ స్కేలింగ్ (KEDA) వాడాలి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 85: Advanced AI architecture: fine-tuning, inference and multimodal systems</h2>
-
-<details class="t"><summary>1. Prompt engineering vs RAG vs fine-tuning.<small>ప్రాంప్ట్ ఇంజనీరింగ్ vs RAG vs ఫైన్-ట్యూనింగ్ పోలిక</small></summary><div class="body">
+<details class="day-sec" data-day="85">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 85: Advanced AI architecture: fine-tuning, inference and multimodal systems</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-85">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Prompt engineering vs RAG vs fine-tuning.<small>ప్రాంప్ట్ ఇంజనీరింగ్ vs RAG vs ఫైన్-ట్యూనింగ్ పోలిక</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వ్యాపార సమస్యను పరిష్కరించడానికి అతి తక్కువ ఖర్చుతో వేగవంతమైన పద్ధతిని ఎంచుకోవాలి. తప్పుడు పద్ధతిని ఎంచుకుంటే లక్షలాది రూపాయలు వృథా అవ్వడంతో పాటు ప్రాజెక్ట్ విఫలమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -12313,10 +12708,21 @@ def process_pdf_multimodal(pdf_path: str):
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> తీసుకున్న టెక్నికల్ ట్రేడ్-ఆఫ్స్ డాక్యుమెంట్ చేయకపోవడం వల్ల భవిష్యత్తులో వచ్చే మేనేజ్‌మెంట్ ఎందుకు ఖరీదైన మోడల్ వాడలేదని తప్పుగా భావించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 86: AI technical leadership and engineering management</h2>
-
-<details class="t"><summary>1. Technical ownership.<small>సాంకేతిక యాజమాన్యం మరియు బాధ్యత</small></summary><div class="body">
+<details class="day-sec" data-day="86">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 86: AI technical leadership and engineering management</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-86">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Technical ownership.<small>సాంకేతిక యాజమాన్యం మరియు బాధ్యత</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ప్రాజెక్ట్‌లలో కేవలం కోడ్ రాయడమే కాకుండా, సిస్టమ్ ఎండ్-టు-ఎండ్ ఎలా రన్ అవుతోంది, మోడల్ పెర్ఫార్మెన్స్ ఎలా ఉంది, మరియు బగ్‌లు వస్తే ఎవరు రెస్పాన్సిబుల్ అనే క్లారిటీ ఉండాలి. సరైన Technical Ownership లేకపోతే టీమ్‌లో బ్లేమ్ గేమ్ మొదలై ప్రొడక్షన్ సిస్టమ్స్ ఫెయిల్ అవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -13462,10 +13868,21 @@ for k, v in summarize_tradeoff_and_value().items():
     print(f"{k}: {v}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ట్రేడ్-ఆఫ్స్‌ను దాచిపెట్టి ప్రతిదీ ఉత్తమంగా ఉందని చెప్పడం వల్ల విశ్వసనీయత కోల్పోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 87: Senior AI Engineer and AI Solution Architect interview preparation</h2>
-
-<details class="t"><summary>1. Python internals.<small>పైథాన్ అంతర్గత పనితీరు (GIL, Bytecode, CPython)</small></summary><div class="body">
+<details class="day-sec" data-day="87">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 87: Senior AI Engineer and AI Solution Architect interview preparation</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-87">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Python internals.<small>పైథాన్ అంతర్గత పనితీరు (GIL, Bytecode, CPython)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సీనియర్ AI ఇంజనీర్ ఇంటర్వ్యూలలో పైథాన్ కేవలం స్క్రిప్టింగ్ లాంగ్వేజ్ మాత్రమే కాదని, దాని అంతర్గత మెమరీ మేనేజ్‌మెంట్, బైట్‌కోడ్ ఎగ్జిక్యూషన్ మరియు GIL గురించి లోతైన అవగాహన ఉండాలని పరీక్షిస్తారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -15084,10 +15501,21 @@ for k, v in ARCH_TRADEOFFS.items():
     print(f"[{k}]: {v}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి ఆర్కిటెక్చరల్ నిర్ణయానికి ఎటువంటి మైనస్ పాయింట్లు లేవని చెప్పడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 88: AI system design interviews and architecture whiteboarding</h2>
-
-<details class="t"><summary>1. Clarify the problem.<small>సమస్య స్పష్టత మరియు అస్పష్టతను తొలగించడం</small></summary><div class="body">
+<details class="day-sec" data-day="88">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 88: AI system design interviews and architecture whiteboarding</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-88">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Clarify the problem.<small>సమస్య స్పష్టత మరియు అస్పష్టతను తొలగించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ డిజైన్ ఇంటర్వ్యూలు ఉద్దేశపూర్వకంగా అస్పష్టమైన ప్రశ్నలతో మొదలవుతాయి. ప్రశ్న విన్న వెంటనే ఆర్కిటెక్చర్ గీయడం మొదలుపెడితే ఫెయిల్ అవుతారు; ముందుగా సమస్య పరిధిని స్పష్టం చేసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -16004,10 +16432,21 @@ PRACTICE_CHECKLIST = [
 # Senior Architect: "We implemented a two-stage hybrid retrieval architecture combining BM25 full-text search with pgvector HNSW cosine embeddings, fused via Reciprocal Rank Fusion and reranked using a cross-encoder model to maximize Top-3 MRR."</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ సాఫ్ట్‌వేర్ ఇంజనీర్ లాగా సమాధానాలు చెప్పి సొల్యూషన్ ఆర్కిటెక్ట్ స్థాయి సాంకేతిక పరిపక్వతను చూపించలేకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 89: Portfolio, GitHub and professional positioning</h2>
-
-<details class="t"><summary>1. Portfolio structure.<small>పోర్ట్‌ఫోలియో నిర్మాణం మరియు అమరిక</small></summary><div class="body">
+<details class="day-sec" data-day="89">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 89: Portfolio, GitHub and professional positioning</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-89">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Portfolio structure.<small>పోర్ట్‌ఫోలియో నిర్మాణం మరియు అమరిక</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సీనియర్ AI ఇంజనీర్ లేదా సొల్యూషన్ ఆర్కిటెక్ట్ రోల్స్ కోసం పోటీ పడుతున్నప్పుడు సాధారణ రెజ్యూమ్ సరిపోదు. మీ నైపుణ్యాలను ప్రత్యక్షంగా చూపించే స్ట్రక్చర్డ్ పోర్ట్‌ఫోలియో ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -17093,10 +17532,21 @@ Best, Naveen
 print(OUTREACH_MSG.strip())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కనెక్షన్ రిక్వెస్ట్ పంపగానే మొదటి మెసేజ్‌లోనే "నాకు జాబ్ ఇవ్వండి" అని రెజ్యూమ్ అటాచ్ చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 90: Final capstone, mock interviews and career strategy</h2>
-
-<details class="t"><summary>1. Enterprise AI use case.<small>ఎంటర్‌ప్రైజ్ AI యూజ్ కేస్ ఎంపిక</small></summary><div class="body">
+<details class="day-sec" data-day="90">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 90: Final capstone, mock interviews and career strategy</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-90">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Enterprise AI use case.<small>ఎంటర్‌ప్రైజ్ AI యూజ్ కేస్ ఎంపిక</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్యాప్‌స్టోన్ ప్రాజెక్ట్ మీ 135 రోజుల ప్రయాణానికి తుది శిఖరం వంటిది. ఇది వాస్తవ వ్యాపార అవసరాన్ని పరిష్కరించే ఒక సంపూర్ణ ఎంటర్‌ప్రైజ్ యూజ్ కేస్ అయి ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -18293,7 +18743,8 @@ NEGOTIATION_SCRIPT = """
 print(NEGOTIATION_SCRIPT.strip())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఆఫర్ వచ్చిన ఆనందంలో నెగోషియేట్ చేయకుండా వదిలేసి కెరీర్ లాంగ్ సంపాదనను కోల్పోవడం.</div>
 </div></details>
-
+  </div>
+</details>
 </div>
 <script>
 (function(){
@@ -18325,6 +18776,24 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
     } catch(e) {}
   }
 
+  // Personal Notes Storage
+  function getNotesKey(user) {
+    return 'ai135_' + user + '_phase' + PHASE_NUM + '_notes';
+  }
+  var userNotes = {};
+  function loadUserNotes() {
+    try {
+      userNotes = JSON.parse(localStorage.getItem(getNotesKey(activeUser)) || '{}');
+    } catch(e) { userNotes = {}; }
+  }
+  loadUserNotes();
+
+  function saveUserNotes() {
+    try {
+      localStorage.setItem(getNotesKey(activeUser), JSON.stringify(userNotes));
+    } catch(e) {}
+  }
+
   function showToast(msg) {
     var toast = document.getElementById('profile-toast');
     if (toast) {
@@ -18339,9 +18808,12 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
     activeUser = newUser;
     localStorage.setItem(ACTIVE_USER_KEY, activeUser);
     loadStatusData();
+    loadUserNotes();
     applyStatusToDOM();
+    applyNotesToDOM();
     updateCountsAndFilter();
     updateUserUI();
+    resumeUserClass();
     showToast((activeUser === 'naveen' ? '👨‍💻 Naveen' : '👩‍💻 Durga') + ' ప్రొఫైల్‌కి మారారు!');
   }
 
@@ -18403,7 +18875,7 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
   var currentTab = 'all';
   var q = document.getElementById('q');
   var ds = [].slice.call(document.querySelectorAll('details.t'));
-  var days = [].slice.call(document.querySelectorAll('h2.day'));
+  var daySecs = [].slice.call(document.querySelectorAll('details.day-sec'));
 
   var labels = {
     start: { pill: '⚪ Start', cls: 'pill-start' },
@@ -18455,6 +18927,88 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
         box = document.createElement('div');
         box.className = 'topic-status-box';
         body.insertBefore(box, body.firstChild);
+      }
+
+      // Notes box
+      var notesBox = body.querySelector('.topic-notes-box');
+      if (!notesBox) {
+        notesBox = document.createElement('div');
+        notesBox.className = 'topic-notes-box';
+        notesBox.innerHTML = '<div class="notes-header">' +
+          '<span class="notes-title">📝 నా నోట్స్ (My Personal Notes):</span>' +
+          '<span class="notes-status-hint">సేవ్ అయింది ✓</span>' +
+          '</div>' +
+          '<textarea class="notes-textarea" placeholder="మీ వ్యక్తిగత నోట్స్, ముఖ్యమైన పాయింట్లు ఇక్కడ రాసుకోండి (ఆటో-సేవ్ అవుతుంది)…"></textarea>';
+        body.appendChild(notesBox);
+
+        var textarea = notesBox.querySelector('.notes-textarea');
+        var hint = notesBox.querySelector('.notes-status-hint');
+        textarea.value = userNotes[key] || '';
+
+        textarea.addEventListener('input', function() {
+          userNotes[key] = textarea.value;
+          saveUserNotes();
+          hint.classList.add('saved');
+          setTimeout(function() { hint.classList.remove('saved'); }, 1200);
+          updateNoteBadge(d, textarea.value);
+        });
+      }
+
+      // Topic Navigation Footer (Previous, Next, Complete & Next)
+      var navFooter = body.querySelector('.topic-nav-footer');
+      if (!navFooter) {
+        navFooter = document.createElement('div');
+        navFooter.className = 'topic-nav-footer';
+        var hasPrev = (idx > 0 || PHASE_NUM > 1);
+        var prevLabel = (idx > 0) ? '<span>←</span> Previous Class' : '<span>←</span> Phase ' + (PHASE_NUM - 1);
+        var hasNext = (idx < ds.length - 1 || PHASE_NUM < 8);
+        var nextLabel = (idx < ds.length - 1) ? 'Next Class <span>→</span>' : 'Phase ' + (PHASE_NUM + 1) + ' <span>→</span>';
+
+        navFooter.innerHTML = '<div class="topic-nav-left">' +
+          '<button type="button" class="t-nav-btn btn-prev"' + (!hasPrev ? ' disabled' : '') + '>' + prevLabel + '</button>' +
+          '</div>' +
+          '<div class="topic-nav-right">' +
+          '<button type="button" class="t-nav-btn btn-next"' + (!hasNext ? ' disabled' : '') + '>' + nextLabel + '</button>' +
+          '<button type="button" class="t-nav-btn btn-complete-next"' + (!hasNext ? ' disabled' : '') + '><span>✅</span> Complete & Next <span>→</span></button>' +
+          '</div>';
+        body.appendChild(navFooter);
+
+        var prevBtn = navFooter.querySelector('.btn-prev');
+        if (prevBtn && hasPrev) {
+          prevBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx > 0) {
+              goToTopic(idx - 1, false);
+            } else if (PHASE_NUM > 1) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+            }
+          });
+        }
+
+        var nextBtn = navFooter.querySelector('.btn-next');
+        if (nextBtn && hasNext) {
+          nextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, false);
+            } else if (PHASE_NUM < 8) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
+
+        var compNextBtn = navFooter.querySelector('.btn-complete-next');
+        if (compNextBtn && hasNext) {
+          compNextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, idx);
+            } else if (PHASE_NUM < 8) {
+              setTopicStatus('t_' + idx, 'done');
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
       }
       box.innerHTML = '<label>స్థితి (Status):</label>' +
         '<button type="button" class="st-btn btn-start ' + (st === 'start' ? 'active-start' : '') + '">⚪ Start</button>' +
@@ -18536,17 +19090,31 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
       if (searchVal && visible) d.open = true;
     });
 
-    days.forEach(function(h2) {
-      var el = h2.nextElementSibling;
-      var hasVisible = false;
-      while (el && el.tagName !== 'H2') {
-        if (el.tagName === 'DETAILS' && !el.classList.contains('hide')) {
-          hasVisible = true;
-          break;
-        }
-        el = el.nextElementSibling;
+    daySecs.forEach(function(daySec) {
+      var dayTopics = [].slice.call(daySec.querySelectorAll('details.t'));
+      var dayDone = 0;
+      var dayVisible = 0;
+      var dayTotal = 0;
+
+      dayTopics.forEach(function(d) {
+        var st = d.getAttribute('data-status') || 'start';
+        if (st !== 'archive') dayTotal++;
+        if (st === 'done') dayDone++;
+        if (!d.classList.contains('hide')) dayVisible++;
+      });
+
+      var badge = daySec.querySelector('.day-progress-badge');
+      if (badge) {
+        var isAllDone = (dayDone === dayTotal && dayTotal > 0);
+        badge.textContent = dayDone + '/' + dayTotal + (isAllDone ? ' ✅' : '');
+        badge.className = 'day-progress-badge' + (isAllDone ? ' all-done' : (dayDone > 0 ? ' has-done' : ''));
       }
-      h2.classList.toggle('hide', !hasVisible);
+
+      if (searchVal && dayVisible > 0) {
+        daySec.open = true;
+      }
+
+      daySec.classList.toggle('hide', dayVisible === 0);
     });
 
     var emptyMsg = document.getElementById('empty-tab-msg');
@@ -18596,6 +19164,9 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
   if (allBtn) {
     allBtn.addEventListener('click', function() {
       openAll = !openAll;
+      daySecs.forEach(function(sec) {
+        if (!sec.classList.contains('hide')) sec.open = openAll;
+      });
       ds.forEach(function(d) {
         if (!d.classList.contains('hide')) d.open = openAll;
       });
@@ -18653,6 +19224,236 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
       switchUser(u);
     });
   });
+
+
+  function updateNoteBadge(d, noteText) {
+    var summary = d.querySelector('summary');
+    if (!summary) return;
+    var badge = summary.querySelector('.note-badge');
+    if (noteText && noteText.trim().length > 0) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'note-badge';
+        badge.textContent = '📝';
+        badge.title = 'ఈ టాపిక్‌లో మీ నోట్స్ ఉన్నాయి';
+        var cw = summary.querySelector('.summary-content') || summary;
+        cw.appendChild(badge);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  }
+
+  function applyNotesToDOM() {
+    ds.forEach(function(d, idx) {
+      var key = 't_' + idx;
+      var textarea = d.querySelector('.notes-textarea');
+      if (textarea) textarea.value = userNotes[key] || '';
+      updateNoteBadge(d, userNotes[key] || '');
+    });
+  }
+
+  // === RESUME LAST OPEN CLASS / DAY FEATURE ===
+  var OPEN_DAY_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_day'; };
+  var OPEN_TOPIC_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_topic'; };
+
+  function setupClassTracking() {
+    daySecs.forEach(function(sec) {
+      sec.addEventListener('toggle', function() {
+        if (sec.open) {
+          localStorage.setItem(OPEN_DAY_KEY(), sec.getAttribute('data-day'));
+        }
+      });
+    });
+
+    ds.forEach(function(d) {
+      d.addEventListener('toggle', function() {
+        if (d.open) {
+          localStorage.setItem(OPEN_TOPIC_KEY(), d.getAttribute('data-topic-id'));
+          var parentDay = d.closest('details.day-sec');
+          if (parentDay) {
+            localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+          }
+        }
+      });
+    });
+  }
+
+  function resumeUserClass() {
+    var savedDay = localStorage.getItem(OPEN_DAY_KEY());
+    var savedTopic = localStorage.getItem(OPEN_TOPIC_KEY());
+
+    if (savedDay) {
+      var targetDay = document.querySelector('details.day-sec[data-day="' + savedDay + '"]');
+      if (targetDay) {
+        targetDay.open = true;
+      }
+    }
+    if (savedTopic) {
+      var targetTopic = document.querySelector('details.t[data-topic-id="' + savedTopic + '"]');
+      if (targetTopic) {
+        targetTopic.open = true;
+        var pDay = targetTopic.closest('details.day-sec');
+        if (pDay) pDay.open = true;
+        setTimeout(function() {
+          targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+      }
+    }
+  }
+
+  // === NEXT / PREVIOUS TOPIC NAVIGATION LOGIC ===
+  function getCurrentActiveIndex() {
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].open) return i;
+    }
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].getAttribute('data-status') === 'progress') return i;
+    }
+    var saved = localStorage.getItem(OPEN_TOPIC_KEY());
+    if (saved && saved.indexOf('t_') === 0) {
+      var sIdx = parseInt(saved.replace('t_', ''), 10);
+      if (!isNaN(sIdx) && sIdx >= 0 && sIdx < ds.length) return sIdx;
+    }
+    for (var j = 0; j < ds.length; j++) {
+      var st = ds[j].getAttribute('data-status');
+      if (st !== 'done' && st !== 'archive') return j;
+    }
+    return 0;
+  }
+
+  function goToTopic(idx, markCompleteCurrent) {
+    if (idx < 0 || idx >= ds.length) return;
+    
+    // Close other open topics so user is focused on the target topic
+    ds.forEach(function(d, i) {
+      if (i !== idx && d.open) {
+        d.open = false;
+      }
+    });
+
+    if (markCompleteCurrent !== false && markCompleteCurrent !== undefined) {
+      setTopicStatus('t_' + markCompleteCurrent, 'done');
+    }
+
+    var targetTopic = ds[idx];
+    if (!targetTopic) return;
+
+    var parentDay = targetTopic.closest('details.day-sec');
+    if (parentDay) parentDay.open = true;
+
+    targetTopic.open = true;
+
+    var curSt = targetTopic.getAttribute('data-status') || 'start';
+    if (curSt === 'start') {
+      setTopicStatus('t_' + idx, 'progress');
+    }
+
+    localStorage.setItem(OPEN_TOPIC_KEY(), 't_' + idx);
+    if (parentDay) {
+      localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+    }
+
+    setTimeout(function() {
+      targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+
+    showToast('📖 క్లాస్ ' + (idx + 1) + ' కి మారారు!');
+  }
+
+  // Top bar Previous Class Button
+  var navPrevBtn = document.getElementById('nav-prev-btn');
+  if (navPrevBtn) {
+    navPrevBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (curIdx > 0) {
+        goToTopic(curIdx - 1, false);
+      } else if (PHASE_NUM > 1) {
+        showToast('మునుపటి Phase ' + (PHASE_NUM - 1) + ' కి వెళ్తున్నారు…');
+        setTimeout(function() {
+          window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+        }, 300);
+      } else {
+        showToast('⚠️ ఇది మొదటి క్లాస్! (First Class)');
+      }
+    });
+  }
+
+  // Top bar Next Class Button
+  var navResumeBtn = document.getElementById('nav-resume-btn');
+  if (navResumeBtn) {
+    navResumeBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (ds[curIdx] && ds[curIdx].open) {
+        if (curIdx + 1 < ds.length) {
+          goToTopic(curIdx + 1, false);
+        } else if (PHASE_NUM < 8) {
+          showToast('ఈ Phase పూర్తయింది! తర్వాతి Phase ' + (PHASE_NUM + 1) + ' కి వెళ్తున్నారు…');
+          setTimeout(function() {
+            window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+          }, 350);
+        } else {
+          showToast('🎉 అభినందనలు! పూర్తి 135 రోజుల రోడ్‌మ్యాప్ పూర్తయింది!');
+        }
+      } else {
+        goToTopic(curIdx, false);
+      }
+    });
+  }
+
+  // === EXPORT / IMPORT (BACKUP & RESTORE) ===
+  var expBtn = document.getElementById('export-backup-btn');
+  if (expBtn) {
+    expBtn.addEventListener('click', function() {
+      var backup = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('ai135_') === 0) {
+          backup[k] = localStorage.getItem(k);
+        }
+      }
+      var blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'ai135_roadmap_backup_' + (new Date().toISOString().slice(0, 10)) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 మొత్తం నోట్స్ & ప్రోగ్రెస్ బ్యాకప్ డౌన్‌లోడ్ అయింది!');
+    });
+  }
+
+  var impInput = document.getElementById('import-backup-input');
+  if (impInput) {
+    impInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          var data = JSON.parse(evt.target.result);
+          var count = 0;
+          for (var k in data) {
+            if (k.indexOf('ai135_') === 0) {
+              localStorage.setItem(k, data[k]);
+              count++;
+            }
+          }
+          showToast('✅ ' + count + ' సెట్టింగ్స్ విజయవంతంగా రీస్టోర్ అయ్యాయి! రీలోడ్ అవుతోంది…');
+          setTimeout(function() { window.location.reload(); }, 1200);
+        } catch(err) {
+          alert('చెల్లని బ్యాకప్ ఫైల్! (Invalid backup file)');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  applyNotesToDOM();
+  setupClassTracking();
+  resumeUserClass();
 
   updateUserUI();
 

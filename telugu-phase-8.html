@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>135-Day AI Roadmap – తెలుగు వివరణలు – Phase 8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
@@ -519,6 +520,277 @@ pre { position: relative; padding-top: 36px; }
   transform: translateX(-50%) translateY(0);
 }
 
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 10px 16px 80px; }
+.day:first-of-type { margin-top: 8px; }
+
+
+/* === Collapsible Day Sections === */
+.day-sec {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 12px 0;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.day-sec[open] {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.day-summary {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  background: var(--panel);
+  gap: 12px;
+}
+.day-summary::-webkit-details-marker { display: none; }
+.day-summary::before { display: none !important; }
+.day-sec[open] > .day-summary::before { display: none !important; }
+
+.day-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.day-chevron {
+  font-size: 13px;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.day-sec[open] > .day-summary .day-chevron {
+  transform: rotate(90deg);
+}
+.day-heading-text {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.day-sec[open] > .day-summary .day-heading-text {
+  color: var(--accent);
+}
+
+.day-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.day-progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--soft);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.day-progress-badge.all-done {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+.day-progress-badge.has-done {
+  background: var(--soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  .day-progress-badge.all-done {
+    background: #052e16;
+    color: #86efac;
+    border-color: #14532d;
+  }
+}
+
+.day-body {
+  padding: 8px 16px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+
+/* Notes Box Styling */
+.topic-notes-box {
+  margin-top: 14px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.notes-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.notes-status-hint {
+  font-size: 11.5px;
+  color: var(--ok);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 600;
+}
+.notes-status-hint.saved {
+  opacity: 1;
+}
+.notes-textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 220px;
+  resize: vertical;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: 13.5px/1.5 inherit;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.notes-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+.note-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* Backup & Sync Modal Section */
+.backup-section {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.backup-btns-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.backup-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.backup-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* Next / Previous Topic Navigation Footer */
+.topic-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  flex-wrap: wrap;
+}
+.topic-nav-left, .topic-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.t-nav-btn {
+  padding: 6px 13px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.t-nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+.t-nav-btn.btn-complete-next {
+  background: var(--ok);
+  color: #fff;
+  border-color: var(--ok);
+}
+.t-nav-btn.btn-complete-next:hover {
+  opacity: 0.9;
+  border-color: var(--ok);
+}
+.t-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Top Bar Resume / Next Button */
+.nav-prev-btn, .nav-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-prev-btn:hover, .nav-resume-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+@media (max-width: 700px) {
+  .nav-prev-btn, .nav-resume-btn { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -539,6 +811,12 @@ pre { position: relative; padding-top: 36px; }
     </div>
 
     <div class="nav-right">
+      <button id="nav-prev-btn" class="nav-prev-btn" title="మునుపటి క్లాస్‌కి వెళ్ళండి (Previous Class)">
+        <span>◀️</span> Prev
+      </button>
+      <button id="nav-resume-btn" class="nav-resume-btn" title="తర్వాతి క్లాస్‌కి వెళ్ళండి (Next Class)">
+        <span>▶️</span> Next
+      </button>
       <button id="prof-switch-btn" class="nav-prof-pill" title="ప్రొఫైల్ మార్చుకోండి (Naveen ⇄ Durga)">
         <span id="nav-active-user-avatar" class="prof-avatar">👨‍💻</span>
         <span id="nav-active-user-name">Naveen</span>
@@ -554,11 +832,6 @@ pre { position: relative; padding-top: 36px; }
 </header>
 
 <div class="wrap">
-
-<div class="page-title-bar">
-  <h1>135-Day AI Engineering Roadmap<br>Phase 8: Advanced AI Engineering Specialization + Final Specializations</h1>
-  <p class="sub">Day 91–135 · 752 టాపిక్స్ · ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు.</p>
-</div>
 
 <!-- Header Popup Modal -->
 <div id="header-modal" class="modal-overlay hide">
@@ -630,6 +903,20 @@ pre { position: relative; padding-top: 36px; }
         </div>
       </div>
 
+      <!-- Backup & Multi-Browser Sync -->
+      <div class="modal-section backup-section">
+        <div class="modal-section-head">వేరే బ్రౌజర్‌లో వాడుకోవడానికి (Backup & Sync):</div>
+        <div class="backup-btns-row">
+          <button id="export-backup-btn" class="backup-btn" title="మీ మొత్తం నోట్స్ మరియు ప్రోగ్రెస్ ఫైల్ డౌన్‌లోడ్ చేసుకోండి">
+            <span>📥</span> బ్యాకప్ డౌన్‌లోడ్ (Export)
+          </button>
+          <label class="backup-btn" style="margin:0;cursor:pointer" title="డౌన్‌లోడ్ చేసుకున్న బ్యాకప్ ఫైల్ ఇక్కడ అప్‌లోడ్ చేయండి">
+            <span>📤</span> బ్యాకప్ లోడ్ (Import)
+            <input id="import-backup-input" type="file" accept=".json" style="display:none">
+          </label>
+        </div>
+      </div>
+
       <!-- 3. Page Controls -->
       <div class="modal-section">
         <div class="modal-section-head">పేజీ నియంత్రణలు (Page Controls):</div>
@@ -657,9 +944,18 @@ pre { position: relative; padding-top: 36px; }
   </div>
 </div>
 
-<h2 class="day">Day 91: Linear algebra for AI</h2>
-
-<details class="t"><summary>1. Scalars, vectors and matrices.<small>స్కేలార్లు, వెక్టర్లు మరియు మాట్రిసెస్ ప్రాథమిక భావనలు</small></summary><div class="body">
+<details class="day-sec" data-day="91">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 91: Linear algebra for AI</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-91">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Scalars, vectors and matrices.<small>స్కేలార్లు, వెక్టర్లు మరియు మాట్రిసెస్ ప్రాథమిక భావనలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మెషిన్ లెర్నింగ్ మరియు డీప్ లెర్నింగ్ అల్గారిథమ్స్ అన్నీ డేటాను సంఖ్యలుగానే ప్రాసెస్ చేస్తాయి. టెక్స్ట్, ఇమేజ్, ఆడియో ఏదైనా సరే కంప్యూటర్ అర్థం చేసుకోవడానికి స్కేలార్, వెక్టర్, మాట్రిక్స్ రూపంలోకి మార్చాల్సి ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1054,10 +1350,21 @@ for rank, idx in enumerate(ranked_indices, 1):
     print(f"Rank {rank}: Document {idx+1} with Similarity Score: {scores[idx]:.4f}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి డాక్యుమెంట్‌కు లూప్ వేసి సిమిలారిటీ లెక్కించడం; వెక్టోరైజ్డ్ మాట్రిక్స్ మల్టిప్లికేషన్ (@) వాడితే మొత్తం కార్పస్‌ను ఒకేసారి సెర్చ్ చేయవచ్చు.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 92: Calculus and optimization</h2>
-
-<details class="t"><summary>1. Functions and derivatives.<small>ఫంక్షన్స్ మరియు డెరివేటివ్స్ (మార్పు రేటు) ప్రాథమిక భావనలు</small></summary><div class="body">
+<details class="day-sec" data-day="92">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 92: Calculus and optimization</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-92">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Functions and derivatives.<small>ఫంక్షన్స్ మరియు డెరివేటివ్స్ (మార్పు రేటు) ప్రాథమిక భావనలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>న్యూరల్ నెట్‌వర్క్‌లలో ఒక వెయిట్ (బరువు) ని స్వల్పంగా మార్చితే మోడల్ చేసే తప్పు (Loss) ఎంత పెరుగుతుందో లేదా తగ్గుతుందో లెక్కించడానికి డెరివేటివ్స్ పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1441,10 +1748,21 @@ print(f"Clipped Safe Gradient:  {safe_grad}")
 print(f"New Norm:               {np.linalg.norm(safe_grad):.2f}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డీప్ మోడల్స్‌లో గ్రేడియంట్ క్లిప్పింగ్ లేకుండా ట్రైనింగ్ రన్ చేసి loss: nan ఎర్రర్‌తో రన్ ఫెయిల్ అవ్వడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 93: Probability and statistics for AI</h2>
-
-<details class="t"><summary>1. Probability fundamentals.<small>సంభావ్యత (Probability) ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="93">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 93: Probability and statistics for AI</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-93">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Probability fundamentals.<small>సంభావ్యత (Probability) ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI మోడల్స్ ఖచ్చితమైన నిర్ధారణలతో కాకుండా సంభావ్యతలతో పనిచేస్తాయి. లార్జ్ లాంగ్వేజ్ మోడల్ తదుపరి పదాన్ని ప్రిడిక్ట్ చేయడంలో సంభావ్యత గణితమే ప్రాతిపదిక.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1814,10 +2132,21 @@ loss.backward()
 print("Gradients on logits:", logits.grad)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> PyTorch లో `nn.CrossEntropyLoss` స్వయంగా Softmax ను లెక్కలోకి తీసుకుంటుందని తెలియక, దానికి ముందే `F.softmax` అప్లై చేసి డబుల్ సాఫ్ట్‌మ్యాక్స్ బగ్‌ను సృష్టించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 94: Deep learning with PyTorch</h2>
-
-<details class="t"><summary>1. Deep learning framework architecture.<small>డీప్ లెర్నింగ్ ఫ్రేమ్‌వర్క్ ఆర్కిటెక్చర్ (PyTorch నిర్మాణం)</small></summary><div class="body">
+<details class="day-sec" data-day="94">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 94: Deep learning with PyTorch</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-94">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Deep learning framework architecture.<small>డీప్ లెర్నింగ్ ఫ్రేమ్‌వర్క్ ఆర్కిటెక్చర్ (PyTorch నిర్మాణం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI పరిశోధన మరియు ప్రొడక్షన్ ఇంజనీరింగ్‌లో PyTorch ఎందుకు నంబర్ వన్ ఎంపికగా మారిందో అర్థం చేసుకోవడానికి దాని అంతర్గత ఆర్కిటెక్చర్ తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2268,10 +2597,21 @@ with torch.no_grad():
     print("First 5 Predictions:", preds.squeeze().tolist())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఫార్వర్డ్ పాస్ రాసేటప్పుడు లాస్ట్ లేయర్‌లో Sigmoid అప్లై చేసి, మళ్ళీ `BCEWithLogitsLoss` వాడి డబుల్ సిగ్మాయిడ్ సమస్యను సృష్టించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 95: Advanced neural network architectures</h2>
-
-<details class="t"><summary>1. Perceptrons.<small>పర్సెప్ట్రాన్ (న్యూరల్ నెట్‌వర్క్‌ల ఆదిమ రూపం)</small></summary><div class="body">
+<details class="day-sec" data-day="95">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 95: Advanced neural network architectures</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-95">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Perceptrons.<small>పర్సెప్ట్రాన్ (న్యూరల్ నెట్‌వర్క్‌ల ఆదిమ రూపం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>న్యూరల్ నెట్‌వర్క్‌ల చారిత్రక పరిణామం మరియు ఒకే ఒక్క న్యూరాన్ ఎలా నిర్ణయాలు తీసుకుంటుందో అర్థం చేసుకోవడానికి పర్సెప్ట్రాన్ పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2705,10 +3045,21 @@ print("Attention Weights Shape:    ", weights.shape)      # [2, 6, 6]
 print("Sum of weights for token 0: ", weights[0, 0].sum().item())  # 1.0</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ట్రాన్స్‌పోజ్ చేసేటప్పుడు చివరి రెండు డైమెన్షన్లను (`transpose(-2, -1)`) కాకుండా పొరపాటున బ్యాచ్ డైమెన్షన్‌ను ట్రాన్స్‌పోజ్ చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 96: Large language model training lifecycle</h2>
-
-<details class="t"><summary>1. What is pretraining?<small>ప్రీ-ట్రైనింగ్ అంటే ఏమిటి? (పునాది నమూనా శిక్షణ)</small></summary><div class="body">
+<details class="day-sec" data-day="96">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 96: Large language model training lifecycle</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-96">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. What is pretraining?<small>ప్రీ-ట్రైనింగ్ అంటే ఏమిటి? (పునాది నమూనా శిక్షణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ల తయారీలో 99% కంప్యూటింగ్ పవర్ మరియు వనరులు ఖర్చయ్యేది ప్రీ-ట్రైనింగ్ దశలోనే. ఒక మోడల్ ప్రపంచ జ్ఞానాన్ని ఎలా సంపాదించుకుంటుందో ఇక్కడే నిర్ణయించబడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2980,10 +3331,21 @@ print("Aligned response refuses harm while offering constructive security help."
 print("Complete enterprise model release structure ready for deployment.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> మోడల్ వెర్షన్ ను ఖచ్చితంగా లాక్ చేయకుండా ప్రొడక్షన్ లో వాడటం; బ్యాకెండ్‌లో వెయిట్స్ మారితే అప్లికేషన్ బిహేవియర్ అకస్మాత్తుగా మారిపోతుంది.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 97: Fine-tuning and alignment techniques</h2>
-
-<details class="t"><summary>1. Prompt engineering vs RAG vs fine-tuning.<small>ప్రాంప్ట్ ఇంజనీరింగ్ వర్సెస్ RAG వర్సెస్ ఫైన్-ట్యూనింగ్</small></summary><div class="body">
+<details class="day-sec" data-day="97">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 97: Fine-tuning and alignment techniques</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-97">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Prompt engineering vs RAG vs fine-tuning.<small>ప్రాంప్ట్ ఇంజనీరింగ్ వర్సెస్ RAG వర్సెస్ ఫైన్-ట్యూనింగ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక వ్యాపార సమస్యకు ఏ టెక్నిక్ సరైనదో ఎంచుకోకపోతే లక్షలాది రూపాయల బడ్జెట్ మరియు నెలల సమయం వృధా అవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3302,10 +3664,21 @@ print("Mixing general data anchors prevent the model from forgetting core reason
 print("Merged model has zero inference overhead compared to original base model!")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రొడక్షన్ లో సింగిల్ అడాప్టర్ ఉన్నప్పటికీ మెర్జ్ చేయకుండా విడిగా ఉంచి ఇన్‌ఫరెన్స్ సమయంలో అనవసరమైన లేటెన్సీని పెంచడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 98: Advanced LLM inference and optimization</h2>
-
-<details class="t"><summary>1. LLM inference lifecycle.<small>LLM ఇన్‌ఫరెన్స్ లైఫ్‌సైకిల్ (కంప్లీట్ ఎగ్జిక్యూషన్ ఫ్లో)</small></summary><div class="body">
+<details class="day-sec" data-day="98">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 98: Advanced LLM inference and optimization</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-98">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. LLM inference lifecycle.<small>LLM ఇన్‌ఫరెన్స్ లైఫ్‌సైకిల్ (కంప్లీట్ ఎగ్జిక్యూషన్ ఫ్లో)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ ప్రశ్న పంపిన క్షణం నుండి సమాధానం స్క్రీన్‌పై ప్రత్యక్షమయ్యే వరకు సిస్టమ్‌లో జరిగే ప్రతి అడుగును అర్థం చేసుకోవడం పెర్ఫార్మెన్స్ ఆప్టిమైజేషన్‌కు అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3575,10 +3948,21 @@ print("Trivial greeting routed to: ", route_request(0.1))
 print("Complex legal audit routed to:", route_request(0.95))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి చిన్న 'హాయ్', 'థాంక్యూ' మెసేజ్ కి కూడా అత్యంత ఖరీదైన ఫ్లాగ్‌షిప్ మోడల్‌ను పిలిచి బడ్జెట్‌ను తగలేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 99: Advanced RAG architectures</h2>
-
-<details class="t"><summary>1. Naive RAG limitations.<small>ప్రాథమిక RAG పరిమితులు (నైవ్ RAG ఎందుకు ఫెయిల్ అవుతుంది)</small></summary><div class="body">
+<details class="day-sec" data-day="99">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 99: Advanced RAG architectures</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-99">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Naive RAG limitations.<small>ప్రాథమిక RAG పరిమితులు (నైవ్ RAG ఎందుకు ఫెయిల్ అవుతుంది)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కేవలం డాక్యుమెంట్లను ముక్కలు చేసి వెక్టర్ డిబిలో వేయడం ఎంటర్‌ప్రైజ్ ప్రొడక్షన్ లో 40% కన్నా ఎక్కువ ఫెయిల్యూర్లకు దారితీస్తుందని తెలుసుకోవడం అడ్వాన్స్‌డ్ RAG కి నాంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3861,10 +4245,21 @@ def handle_empty_retrieval(user_query):
 print(handle_empty_retrieval("Q4 2026 Profit Forecast"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> రిట్రీవల్ ఫెయిల్ అయినప్పుడు ఎర్రర్ హ్యాండ్లింగ్ లేకుండా LLM ని సొంతంగా సమాధానం చెప్పనివ్వడం (దీనివల్ల విపరీతమైన భ్రమలు/హాలూసినేషన్స్ వస్తాయి).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 100: GraphRAG and knowledge graphs</h2>
-
-<details class="t"><summary>1. Knowledge graph fundamentals.<small>నాలెడ్జ్ గ్రాఫ్ ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="100">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 100: GraphRAG and knowledge graphs</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-100">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Knowledge graph fundamentals.<small>నాలెడ్జ్ గ్రాఫ్ ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వెక్టర్ ఎంబెడ్డింగ్స్ కేవలం పరోక్ష సారూప్యతను మాత్రమే చూపుతాయి; కానీ వాస్తవాల మధ్య గల ఖచ్చితమైన సంబంధాలను (Explicit Relationships) స్పష్టంగా వివరించడానికి నాలెడ్జ్ గ్రాఫ్ అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4126,10 +4521,21 @@ response = {
 print("Graph provenance provides ironclad auditability for enterprise compliance.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> రీజనింగ్ పాత్ లేకుండా సమాధానం ఇచ్చి, క్లయింట్ ఆడిట్ అడిగినప్పుడు మూలాధారాన్ని నిరూపించలేకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 101: Multimodal RAG and document intelligence</h2>
-
-<details class="t"><summary>1. Multimodal AI fundamentals.<small>మల్టీమోడల్ AI ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="101">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 101: Multimodal RAG and document intelligence</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-101">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Multimodal AI fundamentals.<small>మల్టీమోడల్ AI ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వాస్తవ ప్రపంచ వ్యాపార డేటా కేవలం ప్లెయిన్ టెక్స్ట్‌లోనే ఉండదు; ఇన్వాయిస్‌లు, చార్ట్‌లు, ఆడియో కాల్స్, వీడియోల వంటి వివిధ రూపాల్లో ఉండే సమాచారాన్ని గ్రహించడానికి మల్టీమోడల్ AI అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4420,10 +4826,21 @@ true_box = [105, 95, 205, 195]
 print(f"Bounding Box IoU Score: {compute_iou(pred_box, true_box):.3f}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టేబుల్ మూల్యాంకనానికి సాధారణ BLEU స్కోర్ వాడటం; టేబుల్స్ కి TEDS లేదా స్ట్రక్చర్డ్ JSON డిఫ్ మాత్రమే సరైన కొలమానం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 102: Hugging Face ecosystem</h2>
-
-<details class="t"><summary>1. Hugging Face Hub.<small>హగ్గింగ్ ఫేస్ హబ్ (AI ప్రపంచపు గిట్‌హబ్)</small></summary><div class="body">
+<details class="day-sec" data-day="102">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 102: Hugging Face ecosystem</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-102">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Hugging Face Hub.<small>హగ్గింగ్ ఫేస్ హబ్ (AI ప్రపంచపు గిట్‌హబ్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రపంచవ్యాప్తంగా డెవలపర్లు, పరిశోధకులు మరియు సంస్థలు AI మోడల్స్, డేటాసెట్స్ మరియు డెమోలను పంచుకునే అంతర్జాతీయ కేంద్ర బిందువు హగ్గింగ్ ఫేస్ హబ్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4735,10 +5152,21 @@ for model, lic in licenses.items():
     print(f"Model: {model:12s} | License: {lic}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> నాన్-కమర్షియల్ (CC-BY-NC) పరిశోధన లైసెన్స్ ఉన్న మోడల్‌ను సంస్థాగత చెల్లింపు సాఫ్ట్‌వేర్‌లో వాడి భారీ లీగల్ జరిమానాలకు గురికావడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 103: LlamaIndex and DSPy</h2>
-
-<details class="t"><summary>1. LlamaIndex architecture.<small>LlamaIndex ఆర్కిటెక్చర్ (డేటా-కేంద్రీకృత AI ఫ్రేమ్‌వర్క్)</small></summary><div class="body">
+<details class="day-sec" data-day="103">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 103: LlamaIndex and DSPy</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-103">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. LlamaIndex architecture.<small>LlamaIndex ఆర్కిటెక్చర్ (డేటా-కేంద్రీకృత AI ఫ్రేమ్‌వర్క్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎంటర్‌ప్రైజ్ ప్రైవేట్ డేటాను (డాక్యుమెంట్లు, డేటాబేస్‌లు, APIలు) లార్జ్ లాంగ్వేజ్ మోడల్స్‌తో అనుసంధానించడానికి LlamaIndex అత్యంత శక్తివంతమైన డేటా ఫ్రేమ్‌వర్క్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5021,10 +5449,21 @@ print("Deterministic programmatic evaluation metrics guide DSPy optimization alg
 print("The ultimate enterprise AI architecture strategically combines all three.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకదాని బలాలు మరొకదానికి ఆపాదించి గందరగోళానికి గురవ్వడం; సరైన సాధనాన్ని సరైన అవసరానికి వాడాలి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 104: MCP security and A2A architecture</h2>
-
-<details class="t"><summary>1. MCP architecture review.<small>MCP ఆర్కిటెక్చర్ సమీక్ష (Model Context Protocol)</small></summary><div class="body">
+<details class="day-sec" data-day="104">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 104: MCP security and A2A architecture</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-104">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. MCP architecture review.<small>MCP ఆర్కిటెక్చర్ సమీక్ష (Model Context Protocol)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI మోడల్స్ మరియు బయటి ప్రపంచంలోని టూల్స్/డేటా మధ్య సురక్షితమైన, ఓపెన్ ప్రామాణిక వారధిగా ఆంత్రోపిక్ ప్రతిపాదించిన MCP ప్రాముఖ్యత తెలుసుకోవడం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5388,10 +5827,21 @@ class LLMCircuitBreaker:
 print("Enterprise Integration Patterns guarantee mission-critical 99.99% AI availability.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సర్క్యూట్ బ్రేకర్ లేదా ఫాల్‌బ్యాక్స్ లేకుండా కేవలం ఒకే ఒక్క క్లౌడ్ LLM API పై సంస్థ మొత్తం ఆధారపడటం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 105: Production LLM serving with vLLM</h2>
-
-<details class="t"><summary>1. Model serving architecture.<small>మోడల్ సర్వింగ్ ఆర్కిటెక్చర్ (ప్రొడక్షన్ ఇన్‌ఫరెన్స్ స్టాక్)</small></summary><div class="body">
+<details class="day-sec" data-day="105">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 105: Production LLM serving with vLLM</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-105">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Model serving architecture.<small>మోడల్ సర్వింగ్ ఆర్కిటెక్చర్ (ప్రొడక్షన్ ఇన్‌ఫరెన్స్ స్టాక్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>డెవలపర్ లాప్‌టాప్‌లో రన్ అయ్యే పైథాన్ స్క్రిప్ట్‌ను లక్షలాది మంది ఎంటర్‌ప్రైజ్ యూజర్లకు సేవలందించే హై-అవైలబిలిటీ ప్రొడక్షన్ సర్వింగ్ సిస్టమ్‌గా మార్చడానికి పూర్తి ఆర్కిటెక్చర్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5642,10 +6092,21 @@ print("Containerized Kubernetes deployment provides automated healing and health
 print("Event-driven autoscaling expands and shrinks GPU clusters dynamically with demand.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> GPU కోల్డ్ స్టార్ట్ టైమ్ (2 నుండి 5 నిమిషాలు) ను పరిగణనలోకి తీసుకోకుండా చాలా వేగంగా స్కేల్ డౌన్ చేసి యూజర్లకు జాప్యం కలిగించడం (సరైన కూల్‌డౌన్ పీరియడ్ ఉంచాలి).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 106: AI data engineering and pipelines</h2>
-
-<details class="t"><summary>1. Data engineering fundamentals.<small>డేటా ఇంజనీరింగ్ ప్రాథమిక సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="106">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 106: AI data engineering and pipelines</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-106">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Data engineering fundamentals.<small>డేటా ఇంజనీరింగ్ ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI మరియు మెషిన్ లెర్నింగ్ మోడల్స్ అద్భుతంగా పనిచేయాలంటే వాటికి నాణ్యమైన, క్లీన్ డేటా నిరంతరం అందాలి. ముడి డేటాను సేకరించి, శుద్ధి చేసి, మోడల్స్ మరియు అనలిటిక్స్ కోసం నిల్వ చేసే విశ్వసనీయమైన పైప్‌లైన్స్ నిర్మించడమే డేటా ఇంజనీరింగ్ ముఖ్య ఉద్దేశం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6051,10 +6512,21 @@ from datetime import datetime
 print("Airflow DAG: Extract &gt;&gt; Transform &gt;&gt; Index Pipeline Ready")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టాస్క్ డిపెండెన్సీలను మేనేజ్ చేయకుండా క్లౌడ్ లో విడివిడి క్రోన్ జాబ్స్ పై ఆధారపడి పైప్‌లైన్స్ విఫలమైనప్పుడు కారణం తెలుసుకోలేకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 107: MLOps and LLMOps</h2>
-
-<details class="t"><summary>1. MLOps architecture.<small>MLOps ఆర్కిటెక్చర్ మరియు ప్రాథమిక భాగాలు</small></summary><div class="body">
+<details class="day-sec" data-day="107">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 107: MLOps and LLMOps</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-107">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. MLOps architecture.<small>MLOps ఆర్కిటెక్చర్ మరియు ప్రాథమిక భాగాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ల్యాప్‌టాప్‌లో ట్రైన్ చేసిన జూపిటర్ నోట్‌బుక్ కోడ్ నేరుగా ప్రొడక్షన్ లో పనిచేయదు. మెషిన్ లెర్నింగ్ మోడల్స్ నిరంతరం ఆటోమేటెడ్ గా ట్రైనింగ్, టెస్టింగ్, డిప్లాయ్మెంట్ మరియు మానిటరింగ్ కావడానికి MLOps ఆర్కిటెక్చర్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6450,10 +6922,21 @@ def store_feedback(payload: FeedbackPayload):
 store_feedback(FeedbackPayload(interaction_id="chat_882", feedback="thumbs_down", user_correction="The return policy is 30 days, not 15 days."))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> యూజర్ ఇచ్చిన నెగటివ్ ఫీడ్‌బ్యాక్‌ను కేవలం గణాంకంగా ఉంచి, మోడల్ రీట్రైనింగ్ లేదా ప్రాంప్ట్ ఫిక్సింగ్ కోసం ఉపయోగించకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 108: AI testing, red teaming and reliability engineering</h2>
-
-<details class="t"><summary>1. Traditional software testing vs AI testing.<small>సాంప్రదాయ సాఫ్ట్‌వేర్ టెస్టింగ్ వర్సెస్ AI టెస్టింగ్</small></summary><div class="body">
+<details class="day-sec" data-day="108">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 108: AI testing, red teaming and reliability engineering</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-108">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Traditional software testing vs AI testing.<small>సాంప్రదాయ సాఫ్ట్‌వేర్ టెస్టింగ్ వర్సెస్ AI టెస్టింగ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ సాఫ్ట్‌వేర్ లో ఒకే ఇన్‌పుట్ ఇస్తే ఎప్పుడూ ఒకే అవుట్‌పుట్ వస్తుంది (డిటర్మినిస్టిక్). కానీ AI మోడల్స్ ప్రాబబిలిస్టిక్ (సంభావ్యత ఆధారిత) కాబట్టి పాత టెస్టింగ్ పద్ధతులు నేరుగా సరిపోవు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6839,10 +7322,21 @@ else:
     raise SystemExit("Red Light: Build failed quality criteria.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అర్జెంట్ రిలీజ్ పేరుతో క్వాలిటీ గేట్లను బైపాస్ చేసి హానికరమైన లేదా తప్పు సమాచారం ఇచ్చే మోడల్‌ను ప్రొడక్షన్ లోకి అనుమతించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 109: Advanced AI observability and performance engineering</h2>
-
-<details class="t"><summary>1. AI observability architecture.<small>AI అబ్జర్వబిలిటీ ఆర్కిటెక్చర్ మరియు మూలస్తంభాలు</small></summary><div class="body">
+<details class="day-sec" data-day="109">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 109: Advanced AI observability and performance engineering</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-109">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. AI observability architecture.<small>AI అబ్జర్వబిలిటీ ఆర్కిటెక్చర్ మరియు మూలస్తంభాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్లు సంక్లిష్టమైన పైప్‌లైన్లు, వెక్టర్ సెర్చ్, బాహ్య LLM APIలు మరియు ఏజెంట్ లూప్‌లను కలిగి ఉంటాయి. లోపల ఎక్కడ సమయం వృధా అవుతుందో, ఎందుకు విఫలమవుతుందో సమగ్రంగా చూడటానికి అబ్జర్వబిలిటీ ఆర్కిటెక్చర్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -7210,10 +7704,21 @@ def ask_with_cache(question: str):
 print(ask_with_cache("what is laravel"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రొడక్షన్ లో రిపీటెడ్ ప్రశ్నలకు కూడా ఎటువంటి క్యాషింగ్ లేకుండా ప్రతిసారీ అత్యంత ఖరీదైన LLM API ని కాల్ చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 110: Advanced enterprise AI platform</h2>
-
-<details class="t"><summary>1. This is the final integration project for Phase 8.<small>ఫేజ్ 8 తుది ఇంటిగ్రేషన్ ప్రాజెక్ట్ పరిచయం</small></summary><div class="body">
+<details class="day-sec" data-day="110">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 110: Advanced enterprise AI platform</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-110">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. This is the final integration project for Phase 8.<small>ఫేజ్ 8 తుది ఇంటిగ్రేషన్ ప్రాజెక్ట్ పరిచయం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>గత పాఠాలలో నేర్చుకున్న డేటా ఇంజనీరింగ్, MLOps, మోడల్ సర్వింగ్, RAG, మరియు ఏజెంటిక్ సిస్టమ్స్ అన్నింటినీ కలిపి ఒకే పూర్తి స్థాయి ఎంటర్‌ప్రైజ్ AI ప్లాట్‌ఫారమ్‌గా నిర్మించడానికి ఈ క్యాప్‌స్టోన్ ప్రాజెక్ట్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8086,10 +8591,21 @@ adr_doc = """
 print("Architecture Decision Record (ADR) logged into repository.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> నిర్ణయాలను నోటిమాటగా లేదా స్లాక్ చాట్లలో తీసుకొని, డాక్యుమెంట్ చేయకపోవడం వల్ల భవిష్యత్తులో అదే చర్చలను మళ్లీ మళ్లీ చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 111: Computer vision and image AI</h2>
-
-<details class="t"><summary>1. Image processing fundamentals.<small>ఇమేజ్ ప్రాసెసింగ్ ప్రాథమిక భావనలు (పిక్సెల్స్ &amp; టెన్సర్లు)</small></summary><div class="body">
+<details class="day-sec" data-day="111">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 111: Computer vision and image AI</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-111">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Image processing fundamentals.<small>ఇమేజ్ ప్రాసెసింగ్ ప్రాథమిక భావనలు (పిక్సెల్స్ &amp; టెన్సర్లు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంప్యూటర్ కు ఫోటోలు రంగురంగుల బొమ్మలుగా కనిపించవు; అవి సంఖ్యల మాత్రికలు (Pixel Matrices). AI మోడల్స్ అర్థం చేసుకోగలిగేలా ఫోటోలను రీసైజ్ చేయడం, నార్మలైజ్ చేయడం మరియు రంగులను ప్రాసెస్ చేయడం ప్రాథమిక అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8372,10 +8888,21 @@ async def analyze_image(file: UploadFile = File(...)):
 print("AI Image Analysis Service endpoint initialized.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అప్‌లోడ్ అయ్యే ఫైల్ సైజ్ మరియు MIME టైప్ (image/png, image/jpeg) ధ్రువీకరించకుండా ఏ ఫైల్ అయినా యాక్సెప్ట్ చేసి సర్వర్ సెక్యూరిటీని రిస్క్ లో పెట్టడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 112: Speech AI and audio engineering</h2>
-
-<details class="t"><summary>1. Speech recognition.<small>వాయిస్ రికగ్నిషన్ (ధ్వని సంభాషణల గుర్తింపు)</small></summary><div class="body">
+<details class="day-sec" data-day="112">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 112: Speech AI and audio engineering</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-112">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Speech recognition.<small>వాయిస్ రికగ్నిషన్ (ధ్వని సంభాషణల గుర్తింపు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్లు కీబోర్డ్ తో టైప్ చేసే అవసరం లేకుండా నేరుగా మాట్లాడి సిస్టమ్స్ తో ఇంటరాక్ట్ అవ్వడానికి స్పీచ్ రికగ్నిషన్ ప్రాథమిక ద్వారం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8596,10 +9123,21 @@ assistant = VoiceAIAssistant()
 print("Voice AI Assistant ready for real-time audio conversations.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సింక్రోనస్ గా ఒకదాని తర్వాత ఒకటి నడపడం; స్ట్రీమింగ్ ASR (Automatic Speech Recognition) నుండి LLM కి, LLM మొదటి వాక్యం రాగానే TTS (Text-to-Speech) కి స్ట్రీమింగ్ పైప్‌లైనింగ్ చేయకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 113: Recommendation systems and personalization</h2>
-
-<details class="t"><summary>1. Recommendation system fundamentals.<small>సిఫార్సు వ్యవస్థల ప్రాథమిక భావనలు (RecSys)</small></summary><div class="body">
+<details class="day-sec" data-day="113">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 113: Recommendation systems and personalization</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-113">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Recommendation system fundamentals.<small>సిఫార్సు వ్యవస్థల ప్రాథమిక భావనలు (RecSys)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షలాది ఉత్పత్తులు లేదా సినిమాలు ఉన్న ప్లాట్‌ఫారమ్‌లో యూజర్‌కు నచ్చిన వాటిని వెతికే శ్రమ లేకుండా వారి అభిరుచులకు సరిపోయే కంటెంట్‌ను చూపించి అమ్మకాలు మరియు యూజర్ ఎంగేజ్‌మెంట్‌ను పెంచడానికి RecSys కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -8844,10 +9382,21 @@ async def get_user_recommendations(user_id: int):
 print("Product Recommendation API Service ready for deployment.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> API రెస్పాన్స్ లో ప్రోడక్ట్ ఐడీలతో పాటు ఫ్రంటెండ్‌కు అవసరమైన టైటిల్ మరియు ఇమేజ్ లింక్‌లను చేర్చకుండా కేవలం నంబర్లను మాత్రమే పంపి అదనపు DB క్వెరీలు చేయించడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 114: Time-series forecasting and predictive AI</h2>
-
-<details class="t"><summary>1. Time-series fundamentals.<small>టైమ్-సిరీస్ ప్రాథమిక భావనలు (సమయ క్రమ డేటా)</small></summary><div class="body">
+<details class="day-sec" data-day="114">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 114: Time-series forecasting and predictive AI</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-114">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Time-series fundamentals.<small>టైమ్-సిరీస్ ప్రాథమిక భావనలు (సమయ క్రమ డేటా)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వ్యాపారంలో భవిష్యత్తులో సేల్స్ ఎలా ఉంటాయి, సర్వర్ ట్రాఫిక్ ఎంత పెరగొచ్చు, విద్యుత్ డిమాండ్ ఎంత ఉండబోతుందో ముందుగానే ఊహించి సరైన నిర్ణయాలు తీసుకోవడానికి టైమ్-సిరీస్ పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9087,10 +9636,21 @@ system = DemandForecastingSystem("SKU-9942")
 print("Forecasting Report:", system.predict_next_month())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కాన్ఫిడెన్స్ ఇంటర్వల్స్ (Lower &amp; Upper bounds) ఇవ్వకుండా కేవలం ఒకే పాయింట్ ప్రిడిక్షన్ ఇవ్వడం వల్ల అనిశ్చిత సమయాల్లో వ్యాపారం తప్పు నిర్ణయాలు తీసుకోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 115: Advanced data science and experimentation</h2>
-
-<details class="t"><summary>1. Feature engineering.<small>ఫీచర్ ఇంజనీరింగ్ (ఆధునిక డేటా రూపాంతరీకరణ)</small></summary><div class="body">
+<details class="day-sec" data-day="115">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 115: Advanced data science and experimentation</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-115">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Feature engineering.<small>ఫీచర్ ఇంజనీరింగ్ (ఆధునిక డేటా రూపాంతరీకరణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మెషిన్ లెర్నింగ్ లో మోడల్ కంటే ఫీచర్ల నాణ్యతే ఎక్కువ ముఖ్యం. ముడి డేటాను వ్యాపార విజ్ఞానంతో అనుసంధానించి మోడల్ సులభంగా నేర్చుకునే నూతన ఫీచర్లను సృష్టించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9346,10 +9906,21 @@ results = pipeline.compare([0.82, 0.85, 0.81, 0.80], [0.91, 0.93, 0.89, 0.92])
 print("Automated Model Evaluation Result:", results)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వేర్వేరు సమయాల్లో, వేర్వేరు టెస్ట్ ప్రశ్నలతో రెండు మోడల్స్ ను టెస్ట్ చేసి ఆ ఫలితాలను పోల్చడం (ఎల్లప్పుడూ ఒకే ప్రశ్నలు వాడాలి).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 116: GPU programming and accelerated computing</h2>
-
-<details class="t"><summary>1. CPU vs GPU architecture.<small>CPU వర్సెస్ GPU ఆర్కిటెక్చర్ వ్యత్యాసాలు</small></summary><div class="body">
+<details class="day-sec" data-day="116">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 116: GPU programming and accelerated computing</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-116">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. CPU vs GPU architecture.<small>CPU వర్సెస్ GPU ఆర్కిటెక్చర్ వ్యత్యాసాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ వెబ్ సర్వర్లను నడిపే CPU లతో బిలియన్ల పారామీటర్లు ఉన్న డీప్ లెర్నింగ్ మోడల్స్ ను ట్రైన్ చేయడం అసాధ్యం. GPUల సమాంతర ప్రాసెసింగ్ శక్తి ఎందుకు అవసరమో అర్థం చేసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9564,10 +10135,21 @@ latency = benchmark_inference("cpu")
 print(f"Benchmark completed: Average GEMM duration: {latency:.2f}ms")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> GPU బెంచ్‌మార్కింగ్ లో `torch.cuda.synchronize()` కాల్ చేయకుండా పైథాన్ టైమర్లను చూడటం వల్ల అసలైన సమయం నమోదు కాకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 117: Advanced AI security and privacy engineering</h2>
-
-<details class="t"><summary>1. Secure software supply chains.<small>సురక్షిత సాఫ్ట్‌వేర్ సప్లై చైన్ (SBOM &amp; సైనింగ్)</small></summary><div class="body">
+<details class="day-sec" data-day="117">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 117: Advanced AI security and privacy engineering</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-117">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Secure software supply chains.<small>సురక్షిత సాఫ్ట్‌వేర్ సప్లై చైన్ (SBOM &amp; సైనింగ్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>హ్యాకర్లు ఓపెన్ సోర్స్ లైబ్రరీలలోకి లేదా మోడల్ రిపోజిటరీలలోకి హానికరమైన కోడ్‌ను చొప్పించి మొత్తం కంపెనీ సర్వర్లను కంట్రోల్ చేసే ముప్పును నివారించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -9808,10 +10390,21 @@ auditor.test_pii_sanitization("My card is 4111-2222-3333-4444, what is my bill?"
 print("Enterprise Security Assessment Completed.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సెక్యూరిటీ అసెస్‌మెంట్ లో కేవలం అప్లికేషన్ లేయర్ మాత్రమే చూసి వెక్టర్ డేటాబేస్ పోర్ట్స్ (6333, 19530) ఇంటర్నెట్ కు ఓపెన్ గా ఉన్న విషయాన్ని గమనించకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 118: Advanced vector database and search infrastructure</h2>
-
-<details class="t"><summary>1. Vector database internals.<small>వెక్టర్ డేటాబేస్ అంతర్గత నిర్మాణం (ఇంటర్నల్స్)</small></summary><div class="body">
+<details class="day-sec" data-day="118">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 118: Advanced vector database and search infrastructure</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-118">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Vector database internals.<small>వెక్టర్ డేటాబేస్ అంతర్గత నిర్మాణం (ఇంటర్నల్స్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వెక్టర్ డేటాబేస్‌లు సాధారణ SQL డేటాబేస్‌ల కంటే భిన్నంగా పనిచేస్తాయి. బిలియన్ల ఫ్లోటింగ్ పాయింట్ వెక్టర్లను మెమరీలో ఎలా నిల్వ చేస్తాయో, సెర్చ్ ఎలా చేస్తాయో అర్థం చేసుకోవడం సిస్టమ్ ఆర్కిటెక్ట్‌లకు అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10030,10 +10623,21 @@ for res in benchmark_results:
     print(f"Engine: {res['db']:<10} | QPS: {res['qps']:<5} | P95: {res['p95_ms']}ms | Ingest: {res['ingest_sec']}s")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> PostgreSQL pgvector లో `HNSW (Hierarchical Navigable Small World)` ఇండెక్స్ క్రియేట్ చేయడం మరచిపోయి, డీఫాల్ట్ సీక్వెన్షియల్ స్కాన్ తో బెంచ్‌మార్క్ రన్ చేసి pgvector చాలా స్లో అని తప్పుడు నివేదిక ఇవ్వడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 119: AI product engineering and business value</h2>
-
-<details class="t"><summary>1. AI product discovery.<small>AI ప్రోడక్ట్ డిస్కవరీ (సమస్య అన్వేషణ)</small></summary><div class="body">
+<details class="day-sec" data-day="119">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 119: AI product engineering and business value</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-119">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. AI product discovery.<small>AI ప్రోడక్ట్ డిస్కవరీ (సమస్య అన్వేషణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కేవలం AI బజ్‌వర్డ్ కోసం కాకుండా, వినియోగదారులకు నిజంగా ఉన్న సమస్యలను గుర్తించి వాటికి AI సరైన పరిష్కారమా కాదా అని నిర్ధారించుకోవడానికి ప్రాడక్ట్ డిస్కవరీ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10247,10 +10851,21 @@ for phase, goal in product_roadmap.items():
     print(f"[{phase}]: {goal}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పునాది దశలు (డేటా క్లీనింగ్, ప్రాథమిక RAG) పూర్తికాకముందే నేరుగా పూర్తి అటానమస్ ఏజెంట్లను ప్రొడక్షన్ లోకి ప్లాన్ చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 120: Advanced engineering interviews and final portfolio defense</h2>
-
-<details class="t"><summary>1. Data structures and algorithms.<small>డేటా స్ట్రక్చర్స్ మరియు అల్గారిథమ్స్ (DSA ప్రాముఖ్యత)</small></summary><div class="body">
+<details class="day-sec" data-day="120">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 120: Advanced engineering interviews and final portfolio defense</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-120">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Data structures and algorithms.<small>డేటా స్ట్రక్చర్స్ మరియు అల్గారిథమ్స్ (DSA ప్రాముఖ్యత)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Staff మరియు Principal AI ఇంజనీర్ ఇంటర్వ్యూలలో సమస్యను సమర్థవంతమైన సమయ మరియు మెమరీ పరిమితులతో పరిష్కరించే ప్రాథమిక ప్రోగ్రామింగ్ నైపుణ్యాన్ని పరీక్షించడానికి DSA పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10654,10 +11269,21 @@ result = compiled_op(x, y)
 print("Compiled fused kernel executed successfully.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డైనమిక్ షేప్స్ (Dynamic Shapes) విపరీతంగా మారే కోడ్‌పై `torch.compile` వాడి ప్రతి బ్యాచ్ సైజుకు మళ్లీ రీ-కంపైల్ అవుతూ సమయం వృధా అవ్వడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 121: Data structures, algorithms and computer science fundamentals</h2>
-
-<details class="t"><summary>1. These are important for senior engineering interviews and writing efficient AI infrastructure.<small>సీనియర్ ఇంజనీరింగ్ ఇంటర్వ్యూలు మరియు AI ఇన్‌ఫ్రాస్ట్రక్చర్ కోసం DSA ప్రాముఖ్యత</small></summary><div class="body">
+<details class="day-sec" data-day="121">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 121: Data structures, algorithms and computer science fundamentals</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-121">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. These are important for senior engineering interviews and writing efficient AI infrastructure.<small>సీనియర్ ఇంజనీరింగ్ ఇంటర్వ్యూలు మరియు AI ఇన్‌ఫ్రాస్ట్రక్చర్ కోసం DSA ప్రాముఖ్యత</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్లు కేవలం మోడల్ API కాల్స్ మాత్రమే కావు; లక్షలాది వెక్టర్లను సెర్చ్ చేయడం, పెద్ద డాక్యుమెంట్లను టోకనైజ్ చేయడం, బ్యాచ్ ప్రాసెసింగ్ మరియు హై-త్రూపుట్ స్ట్రీమింగ్ పైప్‌లైన్స్ నిర్మించడంలో సరైన డేటా స్ట్రక్చర్స్ మరియు అల్గారిథమ్స్ లేకపోతే లేటెన్సీ విపరీతంగా పెరిగి సర్వర్ ఖర్చులు తడిసిమోపెడవుతాయి. సీనియర్ ఇంజనీరింగ్ రోల్స్‌లో సిస్టమ్ బాటిల్‌నెక్స్ గుర్తించి ఆప్టిమైజ్ చేయగల సామర్థ్యం అత్యంత ముఖ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -11029,10 +11655,21 @@ unreachable = gc.collect()
 print(f"Collected {unreachable} cyclic objects from memory")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> గ్లోబల్ వేరియబుల్స్ లేదా క్లాస్ లెవెల్ లిస్ట్‌లలో లార్జ్ టెన్సర్లు/డాక్యుమెంట్స్ అపెండ్ చేస్తూ పోవడం వల్ల రిఫరెన్స్ కౌంట్ ఎప్పటికీ జీరో కాక మెమరీ లీక్ జరగడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 122: Advanced database engineering</h2>
-
-<details class="t"><summary>1. PostgreSQL internals.<small>PostgreSQL అంతర్గత నిర్మాణం మరియు ఆర్కిటెక్చర్</small></summary><div class="body">
+<details class="day-sec" data-day="122">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 122: Advanced database engineering</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-122">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. PostgreSQL internals.<small>PostgreSQL అంతర్గత నిర్మాణం మరియు ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షలాది AI ఏజెంట్ స్టేట్స్, వెక్టర్ ఎంబెడ్డింగ్స్ మరియు మెసేజ్ హిస్టరీని నిల్వ చేసే డేటాబేస్ లోపల డేటా ఎలా స్టోర్ అవుతుందో, మెమరీ ఎలా నిర్వహించబడుతుందో అర్థం చేసుకోకపోతే హై-లోడ్ సమయాల్లో డేటాబేస్ క్రాష్ అవ్వడాన్ని నివారించలేము.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -11353,10 +11990,21 @@ request_count = r.zcard("rate_limit:usr_99")
 print(f"Past minute requests: {request_count}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Redis లో కీలకు TTL (Expiration Time) పెట్టకపోవడం వల్ల ర్యామ్ అంతా నిండిపోయి కొత్త రైట్స్ ఫెయిల్ అవ్వడం (OOM (Out Of Memory)).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 123: Advanced networking and API infrastructure</h2>
-
-<details class="t"><summary>1. TCP/IP fundamentals.<small>TCP/IP నెట్‌వర్కింగ్ ప్రాథమిక అంశాలు మరియు 3-వే హ్యాండ్‌షేక్</small></summary><div class="body">
+<details class="day-sec" data-day="123">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 123: Advanced networking and API infrastructure</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-123">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. TCP/IP fundamentals.<small>TCP/IP నెట్‌వర్కింగ్ ప్రాథమిక అంశాలు మరియు 3-వే హ్యాండ్‌షేక్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వెబ్ మరియు క్లౌడ్ సర్వర్ల మధ్య డేటా పాకెట్లు ఎలా ప్రయాణిస్తాయో, కనెక్షన్లు ఎలా ఏర్పడతాయో తెలియకపోతే హై-లేటెన్సీ AI స్ట్రీమింగ్ లేదా నెట్‌వర్క్ డ్రాప్ సమస్యలను డీబగ్ చేయడం అసాధ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -11690,10 +12338,21 @@ spec:
       weight: 10</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం 2-3 మైక్రోసర్వీసులు ఉన్న చిన్న ప్రాజెక్టులలో కూడా అనవసరంగా Istio వంటి భారీ సర్వీస్ మెష్‌ను ఇన్‌స్టాల్ చేసి ఇన్‌ఫ్రాస్ట్రక్చర్ కాంప్లెక్సిటీ మరియు CPU ఓవర్‌హెడ్‌ను పెంచడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 124: Advanced Kubernetes and cloud-native AI infrastructure</h2>
-
-<details class="t"><summary>1. Kubernetes networking.<small>కుబెర్‌నెటిస్ నెట్‌వర్కింగ్ మోడల్ మరియు CNI ప్లగిన్లు</small></summary><div class="body">
+<details class="day-sec" data-day="124">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 124: Advanced Kubernetes and cloud-native AI infrastructure</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-124">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Kubernetes networking.<small>కుబెర్‌నెటిస్ నెట్‌వర్కింగ్ మోడల్ మరియు CNI ప్లగిన్లు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లస్టర్‌లోని వేలాది కంటైనర్లు (Pods) వేర్వేరు సర్వర్‌లలో ఉన్నప్పటికీ NAT (Network Address Translation) లేకుండా ఒకదానితో ఒకటి ఎలా కమ్యూనికేట్ చేసుకుంటాయో అర్థం చేసుకోవడం కంటైనర్ ఆర్కెస్ట్రేషన్‌కు ప్రాథమికం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -12082,10 +12741,21 @@ kubectl logs ai-engine-789bf-qwe --previous
 kubectl exec -it ai-engine-789bf-qwe -- curl -I http://database-svc:5432</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> `OOMKilled` వచ్చినప్పుడు కేవలం పాడ్‌ను రీస్టార్ట్ చేయడం; అప్లికేషన్‌లో మెమరీ లీక్ ఉందా లేదా మెమరీ లిమిట్స్ పెంచాలా అని పరిశీలించకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 125: Infrastructure and platform engineering</h2>
-
-<details class="t"><summary>1. Terraform advanced concepts.<small>టెర్రాఫార్మ్ అధునాతన భావనలు (IaC)</small></summary><div class="body">
+<details class="day-sec" data-day="125">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 125: Infrastructure and platform engineering</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-125">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Terraform advanced concepts.<small>టెర్రాఫార్మ్ అధునాతన భావనలు (IaC)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లౌడ్ సర్వర్లు, నెట్‌వర్క్‌లు మరియు డేటాబేస్‌లను క్లౌడ్ కన్సోల్‌లో మాన్యువల్‌గా క్లిక్ చేస్తూ క్రియేట్ చేయకుండా, కోడ్ రూపంలో డిక్లరేటివ్‌గా మేనేజ్ చేసి (Infrastructure as Code) పునరుత్పత్తి చేయడానికి టెర్రాఫార్మ్ అత్యవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -12393,10 +13063,21 @@ resource "aws_route53_record" "api_failover" {
 }</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బ్యాకప్‌లు తీస్తున్నప్పటికీ వాటిని ఎప్పుడూ వేరొక క్లౌడ్ ఎన్విరాన్‌మెంట్‌లో రీస్టోర్ చేసి టెస్ట్ చేయకపోవడం (వైపరీత్యం వచ్చినప్పుడు బ్యాకప్ పనికిరాదని తెలియడం అతిపెద్ద విపత్తు).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 126: Advanced distributed messaging and streaming</h2>
-
-<details class="t"><summary>1. Kafka internals.<small>అపాచీ కాఫ్కా అంతర్గత నిర్మాణం (Commit Log &amp; Zero-Copy)</small></summary><div class="body">
+<details class="day-sec" data-day="126">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 126: Advanced distributed messaging and streaming</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-126">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Kafka internals.<small>అపాచీ కాఫ్కా అంతర్గత నిర్మాణం (Commit Log &amp; Zero-Copy)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సెకనుకు మిలియన్ల ఈవెంట్లను, AI మోడల్ ట్రేస్‌లను మరియు యూజర్ ఇంటరాక్షన్లను అసాధారణమైన వేగంతో హ్యాండిల్ చేయడానికి కాఫ్కా ఎలా పనిచేస్తుందో తెలిస్తేనే హై-త్రూపుట్ స్ట్రీమింగ్ ఆర్కిటెక్చర్‌ను డిజైన్ చేయగలం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -12728,10 +13409,21 @@ t_env.execute_sql("""
 #       +--- Publishes Event: AnalysisCompleted -----------------------&gt; (Kafka)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఈవెంట్-డ్రైవెన్ కొరియోగ్రఫీలో ఎండ్-టు-ఎండ్ డిస్ట్రిబ్యూటెడ్ ట్రేసింగ్ (OpenTelemetry Correlation IDs) అమలు చేయకపోవడం వల్ల ఒక రిక్వెస్ట్ ఎక్కడ ఆగిపోయిందో డీబగ్ చేయడం పీడకలగా మారడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 127: Search engines and information retrieval</h2>
-
-<details class="t"><summary>1. Information retrieval fundamentals.<small>ఇన్ఫర్మేషన్ రిట్రీవల్ (IR) ప్రాథమిక సూత్రాలు (Precision &amp; Recall)</small></summary><div class="body">
+<details class="day-sec" data-day="127">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 127: Search engines and information retrieval</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-127">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Information retrieval fundamentals.<small>ఇన్ఫర్మేషన్ రిట్రీవల్ (IR) ప్రాథమిక సూత్రాలు (Precision &amp; Recall)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షలాది అన్‌స్ట్రక్చర్డ్ డాక్యుమెంట్లలో యూజర్ అడిగిన ప్రశ్నకు అత్యంత సంబంధిత సమాచారాన్ని సమర్థవంతంగా వెలికితీయడానికి (RAG మరియు సెర్చ్ ఇంజిన్స్) ఇన్ఫర్మేషన్ రిట్రీవల్ పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -13083,10 +13775,21 @@ def rrf_merge(bm25_ranks: list, vector_ranks: list, k: int = 60) -&gt; list:
 # report = evaluate(qrels, run, metrics=["mrr@10", "ndcg@10", "map@100"])</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఆఫ్‌లైన్ గోల్డెన్ టెస్ట్ డేటాసెట్ లేకుండా ఇంజనీర్ల వ్యక్తిగత అభిప్రాయాల ఆధారంగా సెర్చ్ ర్యాంకింగ్ మార్పులను ప్రొడక్షన్‌లోకి పంపడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 128: Reinforcement learning fundamentals</h2>
-
-<details class="t"><summary>1. Markov decision processes.<small>మార్కోవ్ డెసిషన్ ప్రాసెస్ (MDP ఫ్రేమ్‌వర్క్)</small></summary><div class="body">
+<details class="day-sec" data-day="128">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 128: Reinforcement learning fundamentals</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-128">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Markov decision processes.<small>మార్కోవ్ డెసిషన్ ప్రాసెస్ (MDP ఫ్రేమ్‌వర్క్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>రీఇన్‌ఫోర్స్‌మెంట్ లెర్నింగ్ (RL) లో నిర్ణయాలు తీసుకునే ఏజెంట్‌ను మరియు అది పరస్పర చర్య జరిపే వాతావరణాన్ని (Environment) గణితశాస్త్ర పరంగా మోడల్ చేయడానికి MDP పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -13347,10 +14050,21 @@ def calculate_reward(tests_passed: int, total_tests: int, code_length: int) -&gt
 # 3. నిర్ణయానికి తక్షణ కారణం స్పష్టంగా తెలిసిన సాధారణ బిజినెస్ రూల్స్ ఉన్నప్పుడు</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ రూల్-బేస్డ్ లేదా క్లాసికల్ ML తో పరిష్కారమయ్యే చిన్న సమస్యలకు కూడా భారీ RL పైప్‌లైన్లను నిర్మించి ప్రాజెక్ట్ బడ్జెట్ మరియు సమయం వృధా చేయడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 129: Advanced multimodal and real-time AI</h2>
-
-<details class="t"><summary>1. Real-time multimodal architecture.<small>రియల్-టైమ్ మల్టీమోడల్ ఆర్కిటెక్చర్ (WebRTC &amp; WebSockets)</small></summary><div class="body">
+<details class="day-sec" data-day="129">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 129: Advanced multimodal and real-time AI</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-129">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Real-time multimodal architecture.<small>రియల్-టైమ్ మల్టీమోడల్ ఆర్కిటెక్చర్ (WebRTC &amp; WebSockets)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>టెక్స్ట్ మాత్రమే కాకుండా వాయిస్, వీడియో మరియు కెమెరా స్ట్రీమ్‌లను మనుషులతో మాట్లాడినంత సహజంగా (కనీస లేటెన్సీ &lt; 300ms తో) పరస్పరం అర్థం చేసుకునే ఇంటరాక్టివ్ ఏఐ అసిస్టెంట్లను నిర్మించడానికి ఈ ఆర్కిటెక్చర్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -13659,10 +14373,21 @@ print(f"Time to First Audio (TTFA): {ttfa_ms:.2f} ms")
 # TTFA_HISTOGRAM.observe(ttfa_ms)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం నెట్‌వర్క్ రెస్పాన్స్ సమయాన్ని మాత్రమే లెక్కించి, బ్రౌజర్ ఆడియో డీకోడింగ్ మరియు స్పీకర్ ప్లేబ్యాక్ బఫర్ లేటెన్సీని కలపకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 130: AI reliability, SRE and incident management</h2>
-
-<details class="t"><summary>1. SRE fundamentals.<small>సైట్ రిలయబిలిటీ ఇంజనీరింగ్ (SRE) సూత్రాలు మరియు సంస్కృతి</small></summary><div class="body">
+<details class="day-sec" data-day="130">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 130: AI reliability, SRE and incident management</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-130">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. SRE fundamentals.<small>సైట్ రిలయబిలిటీ ఇంజనీరింగ్ (SRE) సూత్రాలు మరియు సంస్కృతి</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాఫ్ట్‌వేర్ అభివృద్ధి వేగం మరియు సిస్టమ్ స్థిరత్వం రెండింటినీ బ్యాలెన్స్ చేస్తూ, ఉత్పత్తి లోపాలను శాస్త్రీయంగా తగ్గించడానికి గూగుల్ రూపొందించిన ఇంజనీరింగ్ విభాగమే SRE.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -13982,10 +14707,21 @@ def validate_ai_output(user_prompt: str, ai_response: str) -&gt; bool:
 # 5. Escalate to #team-data-infra on Slack if unresolved after 15 mins.</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఔట్‌డేటెడ్ లేదా సరైన రన్ కమాండ్స్ లేని పాత రన్‌బుక్స్ ఉంచడం (ప్రతి పోస్ట్‌మార్టమ్ తర్వాత రన్‌బుక్‌లను అప్‌డేట్ చేయాలి).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 131: Advanced AI evaluation and benchmarking</h2>
-
-<details class="t"><summary>1. Benchmark methodology.<small>బెంచ్‌మార్క్ మెథడాలజీ మరియు ఎవాల్యుయేషన్ సూత్రాలు</small></summary><div class="body">
+<details class="day-sec" data-day="131">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 131: Advanced AI evaluation and benchmarking</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-131">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Benchmark methodology.<small>బెంచ్‌మార్క్ మెథడాలజీ మరియు ఎవాల్యుయేషన్ సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI మోడల్స్ మరియు ప్రాంప్ట్ మార్పులను గుడ్డిగా లేదా వ్యక్తిగత అభిప్రాయాల ఆధారంగా కాకుండా, శాస్త్రీయమైన మరియు పునరుత్పత్తి చేయగల (Reproducible) ప్రమాణాలతో కొలవడానికి సరైన బెంచ్‌మార్క్ విధానం అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -14273,10 +15009,21 @@ tests:
         threshold: 2000 # 2 సెకన్లలోపు రావాలి</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎవాల్యుయేషన్‌ను కేవలం వన్-టైమ్ రీసెర్చ్ ప్రాజెక్ట్‌లా చూడటం; CI/CD పైప్‌లైన్‌లో ఆటోమేటెడ్ గేట్‌గా చేర్చకపోవడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 132: Advanced AI governance and legal considerations</h2>
-
-<details class="t"><summary>1. AI governance operating models.<small>AI గవర్నెన్స్ ఆపరేటింగ్ మోడల్స్ (Centralized vs Federated)</small></summary><div class="body">
+<details class="day-sec" data-day="132">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 132: Advanced AI governance and legal considerations</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-132">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. AI governance operating models.<small>AI గవర్నెన్స్ ఆపరేటింగ్ మోడల్స్ (Centralized vs Federated)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంస్థలో AI ప్రాజెక్టులు ఇష్టం వచ్చినట్లు పెరిగిపోయి చట్టపరమైన, ఆర్థికపరమైన లేదా భద్రతా సంక్షోభాలకు దారితీయకుండా నియంత్రించడానికి స్పష్టమైన గవర్నెన్స్ మోడల్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -14546,10 +15293,21 @@ audit_entry = {
 # 5. Corrective Actions: భవిష్యత్తులో ఇలా జరగకుండా చేపట్టిన దిద్దుబాటు చర్యలు.</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బ్రాండ్ పరువు పోతుందనే భయంతో AI ఇన్సిడెంట్లను దాచిపెట్టడానికి ప్రయత్నించడం; ఇది బహిర్గతమైతే క్రిమినల్ కేసులు మరియు భారీ జరిమానాలు పడతాయి.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 133: Advanced software architecture patterns</h2>
-
-<details class="t"><summary>1. Clean architecture.<small>క్లీన్ ఆర్కిటెక్చర్ (Uncle Bob: Independence of Frameworks &amp; UI)</small></summary><div class="body">
+<details class="day-sec" data-day="133">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 133: Advanced software architecture patterns</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-133">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Clean architecture.<small>క్లీన్ ఆర్కిటెక్చర్ (Uncle Bob: Independence of Frameworks &amp; UI)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వ్యాపార లాజిక్‌ను (Business Logic) ఫ్రేమ్‌వర్క్‌లు, డేటాబేస్‌లు మరియు బయటి లైబ్రరీల నుండి పూర్తిగా వేరు చేసి, టెక్నాలజీ మారినా కోడ్ దెబ్బతినకుండా దీర్ఘకాలం కాపాడటానికి క్లీన్ ఆర్కిటెక్చర్ పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -14945,10 +15703,21 @@ class WeatherPlugin:
 # [LLM Gateway (LiteLLM)] - Load balancing across OpenAI / Anthropic / Local vLLM</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఆర్కిటెక్చర్‌లో సెమాంటిక్ క్యాషింగ్ లేదా మోడల్ రూటింగ్ లేకపోవడం వల్ల ప్రతి చిన్న ప్రశ్నకు ఖరీదైన లార్జ్ ఫ్లాగ్‌షిప్ మోడల్స్‌ను కాల్ చేసి భారీ బిల్లులు రావడం.</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 134: Technical leadership and architecture governance</h2>
-
-<details class="t"><summary>1. Architecture governance.<small>ఆర్కిటెక్చర్ గవర్నెన్స్ మరియు ఆర్కిటెక్చరల్ డెసిషన్ రికార్డ్స్ (ADR)</small></summary><div class="body">
+<details class="day-sec" data-day="134">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 134: Technical leadership and architecture governance</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-134">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Architecture governance.<small>ఆర్కిటెక్చర్ గవర్నెన్స్ మరియు ఆర్కిటెక్చరల్ డెసిషన్ రికార్డ్స్ (ADR)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంస్థలో తీసుకున్న ముఖ్యమైన సాంకేతిక నిర్ణయాలు ఎందుకు తీసుకున్నారో, వాటి వెనుక ఉన్న కారణాలు మరియు ప్రత్యామ్నాయాలు ఏమిటో రికార్డ్ చేయకపోతే కొన్ని నెలల తర్వాత ఆ నిర్ణయాలు గందరగోళానికి దారితీస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -15227,10 +15996,21 @@ repos:
 # Mean Time to Restore (MTTR)| &gt; 1 వారం         | &lt; 1 గంట</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> రాసిన కోడ్ లైన్ల సంఖ్యను (Lines of Code) కొలమానంగా పెట్టడం; ఇది ఇంజనీర్లు పనికిమాలిన నిరుపయోగ కోడ్ రాసేలా ప్రోత్సహిస్తుంది (గుడ్‌హార్ట్ నియమం).</div>
 </div></details>
+  </div>
+</details>
 
-<h2 class="day">Day 135: Final enterprise architecture defense</h2>
-
-<details class="t"><summary>1. Design one complete enterprise AI platform and defend every major decision.<small>పూర్తి ఎంటర్‌ప్రైజ్ AI ప్లాట్‌ఫారమ్ రూపకల్పన మరియు ఆర్కిటెక్చర్ డిఫెన్స్</small></summary><div class="body">
+<details class="day-sec" data-day="135">
+  <summary class="day-summary">
+    <div class="day-title-wrap">
+      <span class="day-chevron">▸</span>
+      <span class="day-heading-text">Day 135: Final enterprise architecture defense</span>
+    </div>
+    <div class="day-badge-wrap">
+      <span class="day-progress-badge" id="day-badge-135">0/0</span>
+    </div>
+  </summary>
+  <div class="day-body">
+    <details class="t"><summary>1. Design one complete enterprise AI platform and defend every major decision.<small>పూర్తి ఎంటర్‌ప్రైజ్ AI ప్లాట్‌ఫారమ్ రూపకల్పన మరియు ఆర్కిటెక్చర్ డిఫెన్స్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>చీఫ్ ఆర్కిటెక్ట్ లేదా ప్రిన్సిపల్ ఇంజనీరింగ్ స్థాయిలో, మీరు ప్రతిపాదించిన సాంకేతిక నిర్ణయాలను (Trade-offs, Cost, Security, Scale) CTO, బోర్డు సభ్యులు మరియు సెక్యూరిటీ ఆడిటర్ల ముందు సమర్థవంతంగా సమర్థించగలగడం (Defend) మీ కెరీర్‌లో అత్యున్నత మైలురాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -15701,7 +16481,8 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
 # Status: Approved for Enterprise Global Rollout!</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వ్యాపార విలువను డాలర్లలో చూపించకుండా కేవలం "మోడల్ అక్యురసీ 2% పెరిగింది" అని మాత్రమే చెప్పడం; ఎగ్జిక్యూటివ్‌లు డాలర్లు మరియు బిజినెస్ ఇంపాక్ట్‌ను మాత్రమే చూస్తారు.</div>
 </div></details>
-
+  </div>
+</details>
 </div>
 <script>
 (function(){
@@ -15733,6 +16514,24 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
     } catch(e) {}
   }
 
+  // Personal Notes Storage
+  function getNotesKey(user) {
+    return 'ai135_' + user + '_phase' + PHASE_NUM + '_notes';
+  }
+  var userNotes = {};
+  function loadUserNotes() {
+    try {
+      userNotes = JSON.parse(localStorage.getItem(getNotesKey(activeUser)) || '{}');
+    } catch(e) { userNotes = {}; }
+  }
+  loadUserNotes();
+
+  function saveUserNotes() {
+    try {
+      localStorage.setItem(getNotesKey(activeUser), JSON.stringify(userNotes));
+    } catch(e) {}
+  }
+
   function showToast(msg) {
     var toast = document.getElementById('profile-toast');
     if (toast) {
@@ -15747,9 +16546,12 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
     activeUser = newUser;
     localStorage.setItem(ACTIVE_USER_KEY, activeUser);
     loadStatusData();
+    loadUserNotes();
     applyStatusToDOM();
+    applyNotesToDOM();
     updateCountsAndFilter();
     updateUserUI();
+    resumeUserClass();
     showToast((activeUser === 'naveen' ? '👨‍💻 Naveen' : '👩‍💻 Durga') + ' ప్రొఫైల్‌కి మారారు!');
   }
 
@@ -15811,7 +16613,7 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
   var currentTab = 'all';
   var q = document.getElementById('q');
   var ds = [].slice.call(document.querySelectorAll('details.t'));
-  var days = [].slice.call(document.querySelectorAll('h2.day'));
+  var daySecs = [].slice.call(document.querySelectorAll('details.day-sec'));
 
   var labels = {
     start: { pill: '⚪ Start', cls: 'pill-start' },
@@ -15863,6 +16665,88 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
         box = document.createElement('div');
         box.className = 'topic-status-box';
         body.insertBefore(box, body.firstChild);
+      }
+
+      // Notes box
+      var notesBox = body.querySelector('.topic-notes-box');
+      if (!notesBox) {
+        notesBox = document.createElement('div');
+        notesBox.className = 'topic-notes-box';
+        notesBox.innerHTML = '<div class="notes-header">' +
+          '<span class="notes-title">📝 నా నోట్స్ (My Personal Notes):</span>' +
+          '<span class="notes-status-hint">సేవ్ అయింది ✓</span>' +
+          '</div>' +
+          '<textarea class="notes-textarea" placeholder="మీ వ్యక్తిగత నోట్స్, ముఖ్యమైన పాయింట్లు ఇక్కడ రాసుకోండి (ఆటో-సేవ్ అవుతుంది)…"></textarea>';
+        body.appendChild(notesBox);
+
+        var textarea = notesBox.querySelector('.notes-textarea');
+        var hint = notesBox.querySelector('.notes-status-hint');
+        textarea.value = userNotes[key] || '';
+
+        textarea.addEventListener('input', function() {
+          userNotes[key] = textarea.value;
+          saveUserNotes();
+          hint.classList.add('saved');
+          setTimeout(function() { hint.classList.remove('saved'); }, 1200);
+          updateNoteBadge(d, textarea.value);
+        });
+      }
+
+      // Topic Navigation Footer (Previous, Next, Complete & Next)
+      var navFooter = body.querySelector('.topic-nav-footer');
+      if (!navFooter) {
+        navFooter = document.createElement('div');
+        navFooter.className = 'topic-nav-footer';
+        var hasPrev = (idx > 0 || PHASE_NUM > 1);
+        var prevLabel = (idx > 0) ? '<span>←</span> Previous Class' : '<span>←</span> Phase ' + (PHASE_NUM - 1);
+        var hasNext = (idx < ds.length - 1 || PHASE_NUM < 8);
+        var nextLabel = (idx < ds.length - 1) ? 'Next Class <span>→</span>' : 'Phase ' + (PHASE_NUM + 1) + ' <span>→</span>';
+
+        navFooter.innerHTML = '<div class="topic-nav-left">' +
+          '<button type="button" class="t-nav-btn btn-prev"' + (!hasPrev ? ' disabled' : '') + '>' + prevLabel + '</button>' +
+          '</div>' +
+          '<div class="topic-nav-right">' +
+          '<button type="button" class="t-nav-btn btn-next"' + (!hasNext ? ' disabled' : '') + '>' + nextLabel + '</button>' +
+          '<button type="button" class="t-nav-btn btn-complete-next"' + (!hasNext ? ' disabled' : '') + '><span>✅</span> Complete & Next <span>→</span></button>' +
+          '</div>';
+        body.appendChild(navFooter);
+
+        var prevBtn = navFooter.querySelector('.btn-prev');
+        if (prevBtn && hasPrev) {
+          prevBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx > 0) {
+              goToTopic(idx - 1, false);
+            } else if (PHASE_NUM > 1) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+            }
+          });
+        }
+
+        var nextBtn = navFooter.querySelector('.btn-next');
+        if (nextBtn && hasNext) {
+          nextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, false);
+            } else if (PHASE_NUM < 8) {
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
+
+        var compNextBtn = navFooter.querySelector('.btn-complete-next');
+        if (compNextBtn && hasNext) {
+          compNextBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            if (idx < ds.length - 1) {
+              goToTopic(idx + 1, idx);
+            } else if (PHASE_NUM < 8) {
+              setTopicStatus('t_' + idx, 'done');
+              window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+            }
+          });
+        }
       }
       box.innerHTML = '<label>స్థితి (Status):</label>' +
         '<button type="button" class="st-btn btn-start ' + (st === 'start' ? 'active-start' : '') + '">⚪ Start</button>' +
@@ -15944,17 +16828,31 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
       if (searchVal && visible) d.open = true;
     });
 
-    days.forEach(function(h2) {
-      var el = h2.nextElementSibling;
-      var hasVisible = false;
-      while (el && el.tagName !== 'H2') {
-        if (el.tagName === 'DETAILS' && !el.classList.contains('hide')) {
-          hasVisible = true;
-          break;
-        }
-        el = el.nextElementSibling;
+    daySecs.forEach(function(daySec) {
+      var dayTopics = [].slice.call(daySec.querySelectorAll('details.t'));
+      var dayDone = 0;
+      var dayVisible = 0;
+      var dayTotal = 0;
+
+      dayTopics.forEach(function(d) {
+        var st = d.getAttribute('data-status') || 'start';
+        if (st !== 'archive') dayTotal++;
+        if (st === 'done') dayDone++;
+        if (!d.classList.contains('hide')) dayVisible++;
+      });
+
+      var badge = daySec.querySelector('.day-progress-badge');
+      if (badge) {
+        var isAllDone = (dayDone === dayTotal && dayTotal > 0);
+        badge.textContent = dayDone + '/' + dayTotal + (isAllDone ? ' ✅' : '');
+        badge.className = 'day-progress-badge' + (isAllDone ? ' all-done' : (dayDone > 0 ? ' has-done' : ''));
       }
-      h2.classList.toggle('hide', !hasVisible);
+
+      if (searchVal && dayVisible > 0) {
+        daySec.open = true;
+      }
+
+      daySec.classList.toggle('hide', dayVisible === 0);
     });
 
     var emptyMsg = document.getElementById('empty-tab-msg');
@@ -16004,6 +16902,9 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
   if (allBtn) {
     allBtn.addEventListener('click', function() {
       openAll = !openAll;
+      daySecs.forEach(function(sec) {
+        if (!sec.classList.contains('hide')) sec.open = openAll;
+      });
       ds.forEach(function(d) {
         if (!d.classList.contains('hide')) d.open = openAll;
       });
@@ -16061,6 +16962,236 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
       switchUser(u);
     });
   });
+
+
+  function updateNoteBadge(d, noteText) {
+    var summary = d.querySelector('summary');
+    if (!summary) return;
+    var badge = summary.querySelector('.note-badge');
+    if (noteText && noteText.trim().length > 0) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'note-badge';
+        badge.textContent = '📝';
+        badge.title = 'ఈ టాపిక్‌లో మీ నోట్స్ ఉన్నాయి';
+        var cw = summary.querySelector('.summary-content') || summary;
+        cw.appendChild(badge);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  }
+
+  function applyNotesToDOM() {
+    ds.forEach(function(d, idx) {
+      var key = 't_' + idx;
+      var textarea = d.querySelector('.notes-textarea');
+      if (textarea) textarea.value = userNotes[key] || '';
+      updateNoteBadge(d, userNotes[key] || '');
+    });
+  }
+
+  // === RESUME LAST OPEN CLASS / DAY FEATURE ===
+  var OPEN_DAY_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_day'; };
+  var OPEN_TOPIC_KEY = function() { return 'ai135_' + activeUser + '_phase' + PHASE_NUM + '_open_topic'; };
+
+  function setupClassTracking() {
+    daySecs.forEach(function(sec) {
+      sec.addEventListener('toggle', function() {
+        if (sec.open) {
+          localStorage.setItem(OPEN_DAY_KEY(), sec.getAttribute('data-day'));
+        }
+      });
+    });
+
+    ds.forEach(function(d) {
+      d.addEventListener('toggle', function() {
+        if (d.open) {
+          localStorage.setItem(OPEN_TOPIC_KEY(), d.getAttribute('data-topic-id'));
+          var parentDay = d.closest('details.day-sec');
+          if (parentDay) {
+            localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+          }
+        }
+      });
+    });
+  }
+
+  function resumeUserClass() {
+    var savedDay = localStorage.getItem(OPEN_DAY_KEY());
+    var savedTopic = localStorage.getItem(OPEN_TOPIC_KEY());
+
+    if (savedDay) {
+      var targetDay = document.querySelector('details.day-sec[data-day="' + savedDay + '"]');
+      if (targetDay) {
+        targetDay.open = true;
+      }
+    }
+    if (savedTopic) {
+      var targetTopic = document.querySelector('details.t[data-topic-id="' + savedTopic + '"]');
+      if (targetTopic) {
+        targetTopic.open = true;
+        var pDay = targetTopic.closest('details.day-sec');
+        if (pDay) pDay.open = true;
+        setTimeout(function() {
+          targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+      }
+    }
+  }
+
+  // === NEXT / PREVIOUS TOPIC NAVIGATION LOGIC ===
+  function getCurrentActiveIndex() {
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].open) return i;
+    }
+    for (var i = 0; i < ds.length; i++) {
+      if (ds[i].getAttribute('data-status') === 'progress') return i;
+    }
+    var saved = localStorage.getItem(OPEN_TOPIC_KEY());
+    if (saved && saved.indexOf('t_') === 0) {
+      var sIdx = parseInt(saved.replace('t_', ''), 10);
+      if (!isNaN(sIdx) && sIdx >= 0 && sIdx < ds.length) return sIdx;
+    }
+    for (var j = 0; j < ds.length; j++) {
+      var st = ds[j].getAttribute('data-status');
+      if (st !== 'done' && st !== 'archive') return j;
+    }
+    return 0;
+  }
+
+  function goToTopic(idx, markCompleteCurrent) {
+    if (idx < 0 || idx >= ds.length) return;
+    
+    // Close other open topics so user is focused on the target topic
+    ds.forEach(function(d, i) {
+      if (i !== idx && d.open) {
+        d.open = false;
+      }
+    });
+
+    if (markCompleteCurrent !== false && markCompleteCurrent !== undefined) {
+      setTopicStatus('t_' + markCompleteCurrent, 'done');
+    }
+
+    var targetTopic = ds[idx];
+    if (!targetTopic) return;
+
+    var parentDay = targetTopic.closest('details.day-sec');
+    if (parentDay) parentDay.open = true;
+
+    targetTopic.open = true;
+
+    var curSt = targetTopic.getAttribute('data-status') || 'start';
+    if (curSt === 'start') {
+      setTopicStatus('t_' + idx, 'progress');
+    }
+
+    localStorage.setItem(OPEN_TOPIC_KEY(), 't_' + idx);
+    if (parentDay) {
+      localStorage.setItem(OPEN_DAY_KEY(), parentDay.getAttribute('data-day'));
+    }
+
+    setTimeout(function() {
+      targetTopic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+
+    showToast('📖 క్లాస్ ' + (idx + 1) + ' కి మారారు!');
+  }
+
+  // Top bar Previous Class Button
+  var navPrevBtn = document.getElementById('nav-prev-btn');
+  if (navPrevBtn) {
+    navPrevBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (curIdx > 0) {
+        goToTopic(curIdx - 1, false);
+      } else if (PHASE_NUM > 1) {
+        showToast('మునుపటి Phase ' + (PHASE_NUM - 1) + ' కి వెళ్తున్నారు…');
+        setTimeout(function() {
+          window.location.href = 'telugu-phase-' + (PHASE_NUM - 1) + '.html';
+        }, 300);
+      } else {
+        showToast('⚠️ ఇది మొదటి క్లాస్! (First Class)');
+      }
+    });
+  }
+
+  // Top bar Next Class Button
+  var navResumeBtn = document.getElementById('nav-resume-btn');
+  if (navResumeBtn) {
+    navResumeBtn.addEventListener('click', function() {
+      var curIdx = getCurrentActiveIndex();
+      if (ds[curIdx] && ds[curIdx].open) {
+        if (curIdx + 1 < ds.length) {
+          goToTopic(curIdx + 1, false);
+        } else if (PHASE_NUM < 8) {
+          showToast('ఈ Phase పూర్తయింది! తర్వాతి Phase ' + (PHASE_NUM + 1) + ' కి వెళ్తున్నారు…');
+          setTimeout(function() {
+            window.location.href = 'telugu-phase-' + (PHASE_NUM + 1) + '.html';
+          }, 350);
+        } else {
+          showToast('🎉 అభినందనలు! పూర్తి 135 రోజుల రోడ్‌మ్యాప్ పూర్తయింది!');
+        }
+      } else {
+        goToTopic(curIdx, false);
+      }
+    });
+  }
+
+  // === EXPORT / IMPORT (BACKUP & RESTORE) ===
+  var expBtn = document.getElementById('export-backup-btn');
+  if (expBtn) {
+    expBtn.addEventListener('click', function() {
+      var backup = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('ai135_') === 0) {
+          backup[k] = localStorage.getItem(k);
+        }
+      }
+      var blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'ai135_roadmap_backup_' + (new Date().toISOString().slice(0, 10)) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 మొత్తం నోట్స్ & ప్రోగ్రెస్ బ్యాకప్ డౌన్‌లోడ్ అయింది!');
+    });
+  }
+
+  var impInput = document.getElementById('import-backup-input');
+  if (impInput) {
+    impInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          var data = JSON.parse(evt.target.result);
+          var count = 0;
+          for (var k in data) {
+            if (k.indexOf('ai135_') === 0) {
+              localStorage.setItem(k, data[k]);
+              count++;
+            }
+          }
+          showToast('✅ ' + count + ' సెట్టింగ్స్ విజయవంతంగా రీస్టోర్ అయ్యాయి! రీలోడ్ అవుతోంది…');
+          setTimeout(function() { window.location.reload(); }, 1200);
+        } catch(err) {
+          alert('చెల్లని బ్యాకప్ ఫైల్! (Invalid backup file)');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  applyNotesToDOM();
+  setupClassTracking();
+  resumeUserClass();
 
   updateUserUI();
 

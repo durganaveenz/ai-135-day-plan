@@ -3,124 +3,776 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>135-Day AI Roadmap – తెలుగు వివరణలు – Index</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>135-Day AI Engineering Roadmap – తెలుగు వివరణలు</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f8fb;--panel:#fff;--text:#1b2433;--muted:#5d6b82;--line:#e3e8f0;--accent:#4f46e5;--soft:#eceafd;--ok:#16a34a;--warn:#fff4e0;--warnb:#b45309;--code:#0f172a;--codet:#e2e8f0}
-@media (prefers-color-scheme:dark){:root{--bg:#0e1320;--panel:#161d2e;--text:#e6ebf5;--muted:#93a1ba;--line:#26304a;--accent:#8b8cff;--soft:#232a52;--warn:#33270f;--warnb:#f5b04c}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.85 "Noto Sans Telugu",system-ui,sans-serif}
-.wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
-h1{font-size:1.7rem;line-height:1.3;margin:0 0 6px}
-.sub{color:var(--muted);margin:0 0 16px}
-.tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 20px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5}
-.tools input{flex:1;min-width:200px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit}
-.tools button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;font:inherit}
-.day{margin:28px 0 8px;font-size:1.25rem;color:var(--accent);border-bottom:2px solid var(--soft);padding-bottom:6px}
-details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0}
-summary{cursor:pointer;padding:12px 16px;font-weight:700;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::before{content:"▸ ";color:var(--accent)}
-details[open]>summary::before{content:"▾ "}
-summary small{display:block;font-weight:400;color:var(--muted)}
-.body{padding:0 18px 16px;border-top:1px solid var(--line)}
-.body h4{margin:16px 0 4px;color:var(--accent);font-size:1rem}
-.body p{margin:4px 0}
-pre{background:var(--code);color:var(--codet);padding:12px 14px;border-radius:10px;overflow-x:auto;font:13.5px/1.6 ui-monospace,Menlo,Consolas,monospace;margin:8px 0}
-.mistake{background:var(--warn);border-left:4px solid var(--warnb);padding:8px 12px;border-radius:8px;margin-top:12px}
-code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--soft);padding:1px 5px;border-radius:5px}
-.hide{display:none}
-.grid{display:grid;gap:12px;margin-top:18px}a.card{display:block;text-decoration:none;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}a.card:hover{border-color:var(--accent)}a.card b{color:var(--accent)}a.card small{display:block;color:var(--muted)}.soon{opacity:.55;background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:14px 18px}
-.index-user-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 16px 0 18px;
+:root {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --accent: #4f46e5;
+  --accent-light: #eef2ff;
+  --soft: #f1f5f9;
+  --ok: #10b981;
+  --ok-bg: #ecfdf5;
+  --warn: #f59e0b;
+  --warn-bg: #fffbeb;
+  --blue: #3b82f6;
+  --blue-bg: #eff6ff;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 12px 20px -3px rgba(79, 70, 229, 0.12), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
-.index-user-card {
-  display: flex;
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f19;
+    --panel: #131c2e;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --line: #1e293b;
+    --accent: #818cf8;
+    --accent-light: #1e1b4b;
+    --soft: #182235;
+    --ok: #34d399;
+    --ok-bg: #064e3b;
+    --warn: #fbbf24;
+    --warn-bg: #451a03;
+    --blue: #60a5fa;
+    --blue-bg: #172554;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 12px 24px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(129, 140, 248, 0.3);
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.7 "Noto Sans Telugu", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 36px 20px 80px;
+}
+
+/* === Hero Banner === */
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.hero-badge {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
+  gap: 6px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+.hero h1 {
+  font-size: 2.1rem;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 680px;
+  margin: 0 auto 16px;
+}
+.hero-stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hero-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: var(--panel);
-  border: 2px solid var(--line);
-  border-radius: 14px;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s;
-  font: inherit;
+  border: 1px solid var(--line);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.hero-stat-pill b {
   color: var(--text);
 }
-.index-user-card:hover {
-  border-color: var(--accent);
+
+/* === User Switcher Cards === */
+.user-section-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.index-user-card.active {
+.user-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) {
+  .user-grid { grid-template-columns: 1fr; }
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font: inherit;
+  color: var(--text);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.user-card:hover {
   border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+.user-card.active {
+  border-color: var(--accent);
+  background: var(--panel);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2), var(--card-shadow);
+}
+.user-avatar-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--soft);
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
 }
-.idx-user-avatar { font-size: 28px; flex-shrink: 0; }
-.idx-user-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.idx-user-name { font-size: 16px; font-weight: 700; color: var(--text); }
-.index-user-card.active .idx-user-name { color: var(--accent); }
-.idx-user-meta { font-size: 13px; color: var(--muted); margin-top: 2px; }
-.index-user-card.active .idx-user-meta { color: var(--ok); font-weight: 600; }
+.user-card.active .user-avatar-wrap {
+  background: var(--accent-light);
+  transform: scale(1.06);
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.user-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.user-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+.user-badge-active {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--ok-bg);
+  color: var(--ok);
+  display: none;
+}
+.user-card.active .user-badge-active {
+  display: inline-block;
+}
+.user-progress-text {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-weight: 500;
+}
+.user-card.active .user-progress-text {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* === Master Progress Box === */
+.dashboard-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: var(--card-shadow);
+}
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.dash-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash-user-label {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+.dash-pct-large {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ok);
+}
+.main-bar-track {
+  width: 100%;
+  height: 12px;
+  background: var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.main-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  width: 0%;
+  border-radius: 10px;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 4 Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media (max-width: 680px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.metric-box {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.metric-val {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+.metric-lbl {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+/* === Phase Cards Grid === */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+.section-sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 16px;
+}
+@media (max-width: 500px) {
+  .phase-grid { grid-template-columns: 1fr; }
+}
+
+.phase-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--card-shadow);
+  position: relative;
+}
+.phase-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
+}
+.phase-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.phase-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.phase-days-pill {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.phase-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 6px;
+  color: var(--text);
+  transition: color 0.2s;
+}
+.phase-card:hover .phase-title {
+  color: var(--accent);
+}
+.phase-te-desc {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+/* Phase Progress inside card */
+.phase-progress-wrap {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.phase-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  margin-bottom: 6px;
+}
+.phase-prog-counts {
+  color: var(--muted);
+  font-weight: 500;
+}
+.phase-prog-pct {
+  font-weight: 700;
+  color: var(--ok);
+}
+.phase-mini-track {
+  width: 100%;
+  height: 6px;
+  background: var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.phase-mini-bar {
+  height: 100%;
+  background: var(--ok);
+  width: 0%;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+/* Footer Sample Link */
+.index-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.index-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+.index-footer a:hover {
+  text-decoration: underline;
+}
+
+.backup-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.backup-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+.toast-msg {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(50px);
+  background: #0f172a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.toast-msg.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 </style>
 </head>
 <body>
 <div class="wrap">
-<h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Index</h1>
-<p class="sub">ప్రతి phase కి ఒక పేజీ. ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పు. Technical పదాలు English లోనే. (Day 1 sample: <a href="telugu-explanations.html">telugu-explanations.html</a>)</p>
-<div class="index-user-wrap">
-  <button id="card-user-naveen" class="index-user-card active" data-user="naveen" title="Naveen ప్రొఫైల్ ఎంచుకోండి">
-    <span class="idx-user-avatar">👨‍💻</span>
-    <div class="idx-user-info">
-      <b class="idx-user-name">Naveen</b>
-      <span id="idx-user-naveen-meta" class="idx-user-meta">0 పూర్తయ్యాయి (0%)</span>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="hero-badge">🚀 GOOGLE DEEPMIND AI ROADMAP</div>
+    <h1>135-Day AI Engineering Roadmap<br>తెలుగు సమగ్ర వివరణలు</h1>
+    <p>Python ప్రోగ్రామింగ్ & ML బేసిక్స్ నుండి Generative AI, RAG ఆర్కిటెక్చర్, Agentic AI, Cloud & K8s DevOps వరకు సమగ్ర శిక్షణ ప్రణాళిక.</p>
+    <div class="hero-stats-row">
+      <span class="hero-stat-pill">📅 <b>135</b> రోజులు</span>
+      <span class="hero-stat-pill">📚 <b>8</b> విభాగాలు (Phases)</span>
+      <span class="hero-stat-pill">🎯 <b>4,642</b> టాపిక్స్</span>
+      <span class="hero-stat-pill">💡 PHP/Laravel పోలికలు</span>
     </div>
-  </button>
-  <button id="card-user-durga" class="index-user-card" data-user="durga" title="Durga ప్రొఫైల్ ఎంచుకోండి">
-    <span class="idx-user-avatar">👩‍💻</span>
-    <div class="idx-user-info">
-      <b class="idx-user-name">Durga</b>
-      <span id="idx-user-durga-meta" class="idx-user-meta">0 పూర్తయ్యాయి (0%)</span>
+  </header>
+
+  <!-- User Switcher Section -->
+  <div class="user-section-title">
+    <span>👤</span> చదువుతున్న వ్యక్తిని ఎంచుకోండి (Select Active Learner):
+  </div>
+  <div class="user-grid">
+    <button id="card-user-naveen" class="user-card active" data-user="naveen" title="Naveen ప్రొఫైల్ ఎంచుకోండి">
+      <div class="user-avatar-wrap">👨‍💻</div>
+      <div class="user-info">
+        <div class="user-name-row">
+          <span class="user-name">Naveen</span>
+          <span class="user-badge-active">✓ యాక్టివ్</span>
+        </div>
+        <span id="idx-user-naveen-meta" class="user-progress-text">0 / 4,642 టాపిక్స్ (0%)</span>
+      </div>
+    </button>
+
+    <button id="card-user-durga" class="user-card" data-user="durga" title="Durga ప్రొఫైల్ ఎంచుకోండి">
+      <div class="user-avatar-wrap">👩‍💻</div>
+      <div class="user-info">
+        <div class="user-name-row">
+          <span class="user-name">Durga</span>
+          <span class="user-badge-active">✓ యాక్టివ్</span>
+        </div>
+        <span id="idx-user-durga-meta" class="user-progress-text">0 / 4,642 టాపిక్స్ (0%)</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Master Progress Card -->
+  <div class="dashboard-card">
+    <div class="dash-header">
+      <div class="dash-title-group">
+        <span id="dash-avatar" style="font-size:22px">👨‍💻</span>
+        <span id="tot-user-title" class="dash-user-label">Naveen గారి మొత్తం ప్రయాణం</span>
+      </div>
+      <span id="tot-pct" class="dash-pct-large">0%</span>
     </div>
-  </button>
+    <div class="main-bar-track">
+      <div id="tot-bar" class="main-bar-fill"></div>
+    </div>
+    
+    <!-- 4 Metrics Row -->
+    <div class="metrics-grid">
+      <div class="metric-box">
+        <div class="metric-val" id="metric-total">4,642</div>
+        <div class="metric-lbl">మొత్తం టాపిక్స్</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val" id="metric-done" style="color:var(--ok)">0</div>
+        <div class="metric-lbl">పూర్తయినవి ✅</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val" id="metric-prog" style="color:var(--warn)">0</div>
+        <div class="metric-lbl">చదువుతున్నవి ⏳</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val" id="metric-arch" style="color:var(--muted)">0</div>
+        <div class="metric-lbl">ఆర్కైవ్‌లో 📦</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Backup & Restore Card -->
+  <div class="dashboard-card" style="padding: 16px 20px; margin-bottom: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+    <div>
+      <b style="font-size: 14.5px; color: var(--text);">💾 బ్రౌజర్‌ల మధ్య డేటా బదిలీ (Backup & Multi-Browser Sync):</b>
+      <span style="font-size: 13px; color: var(--muted); display: block; margin-top: 2px;">మీ పూర్తి ప్రోగ్రెస్ మరియు నోట్స్ ఫైల్‌ను డౌన్‌లోడ్ చేసి వేరే బ్రౌజర్‌లో లోడ్ చేసుకోవచ్చు.</span>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button id="idx-export-btn" class="backup-btn" title="బ్యాకప్ ఫైల్ డౌన్‌లోడ్ చేసుకోండి">
+        <span>📥</span> బ్యాకప్ డౌన్‌లోడ్ (Export)
+      </button>
+      <label class="backup-btn" style="margin:0;cursor:pointer" title="బ్యాకప్ ఫైల్ అప్‌లోడ్ చేయండి">
+        <span>📤</span> బ్యాకప్ లోడ్ (Import)
+        <input id="idx-import-input" type="file" accept=".json" style="display:none">
+      </label>
+    </div>
+  </div>
+
+  <!-- Phases Section -->
+  <div class="section-head">
+    <h2 class="section-title">రోడ్‌మ్యాప్ విభాగాలు (Phases)</h2>
+    <span class="section-sub">చదవాలనుకుంటున్న ఫేజ్‌ను ఎంచుకోండి</span>
+  </div>
+
+  <div class="phase-grid">
+    <!-- Phase 1 -->
+    <a class="phase-card" href="telugu-phase-1.html" data-phase="1">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 1</span>
+          <span class="phase-days-pill">Days 1–10 · 197 Topics</span>
+        </div>
+        <h3 class="phase-title">Python Engineering for AI Development</h3>
+        <p class="phase-te-desc">AI కోసం పైథాన్ ప్రోగ్రామింగ్, OOP, టైపింగ్, AsyncIO & డేటా స్ట్రక్చర్స్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p1-counts">0 / 197 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p1-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p1-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 2 -->
+    <a class="phase-card" href="telugu-phase-2.html" data-phase="2">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 2</span>
+          <span class="phase-days-pill">Days 11–20 · 160 Topics</span>
+        </div>
+        <h3 class="phase-title">Machine Learning and AI Fundamentals</h3>
+        <p class="phase-te-desc">గణితం, వెక్టర్స్, NumPy, Pandas, Scikit-Learn & క్లాసికల్ ML అల్గారిథమ్స్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p2-counts">0 / 160 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p2-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p2-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 3 -->
+    <a class="phase-card" href="telugu-phase-3.html" data-phase="3">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 3</span>
+          <span class="phase-days-pill">Days 21–30 · 446 Topics</span>
+        </div>
+        <h3 class="phase-title">Generative AI & LLM Engineering</h3>
+        <p class="phase-te-desc">Transformers ఆర్కిటెక్చర్, Attention, Prompting, Quantization & vLLM ఇన్‌ఫరెన్స్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p3-counts">0 / 446 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p3-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p3-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 4 -->
+    <a class="phase-card" href="telugu-phase-4.html" data-phase="4">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 4</span>
+          <span class="phase-days-pill">Days 31–45 · 243 Topics</span>
+        </div>
+        <h3 class="phase-title">Retrieval Engineering: Embeddings & RAG</h3>
+        <p class="phase-te-desc">Embeddings, Vector Databases, Chunking, Hybrid Search & RAG పైప్‌లైన్స్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p4-counts">0 / 243 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p4-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p4-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 5 -->
+    <a class="phase-card" href="telugu-phase-5.html" data-phase="5">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 5</span>
+          <span class="phase-days-pill">Days 46–60 · 788 Topics</span>
+        </div>
+        <h3 class="phase-title">Agentic AI Engineering: LangChain, LangGraph & MCP</h3>
+        <p class="phase-te-desc">Autonomous Agents, LangChain, LangGraph, టూల్ కాలింగ్ & MCP ప్రోటోకాల్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p5-counts">0 / 788 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p5-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p5-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 6 -->
+    <a class="phase-card" href="telugu-phase-6.html" data-phase="6">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 6</span>
+          <span class="phase-days-pill">Days 61–75 · 1,031 Topics</span>
+        </div>
+        <h3 class="phase-title">Production AI Engineering, Cloud & DevOps</h3>
+        <p class="phase-te-desc">Docker, Kubernetes, AWS Cloud, FastAPI మైక్రోసర్వీసెస్, CI/CD & ప్రొడక్షన్ డిప్లాయ్‌మెంట్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p6-counts">0 / 1,031 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p6-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p6-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 7 -->
+    <a class="phase-card" href="telugu-phase-7.html" data-phase="7">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 7</span>
+          <span class="phase-days-pill">Days 76–90 · 1,025 Topics</span>
+        </div>
+        <h3 class="phase-title">Enterprise AI Architecture, System Design & Interview Prep</h3>
+        <p class="phase-te-desc">Enterprise Solution Design, సెక్యూరిటీ, కాస్ట్ ఆప్టిమైజేషన్ & సిస్టమ్ డిజైన్ ఇంటర్వ్యూస్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p7-counts">0 / 1,025 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p7-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p7-bar"></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Phase 8 -->
+    <a class="phase-card" href="telugu-phase-8.html" data-phase="8">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 8</span>
+          <span class="phase-days-pill">Days 91–135 · 752 Topics</span>
+        </div>
+        <h3 class="phase-title">Advanced AI Engineering Specialization</h3>
+        <p class="phase-te-desc">Multimodal AI, Audio, LoRA/QLoRA Fine-Tuning, Guardrails & కాప్‌స్టోన్ ప్రాజెక్ట్స్.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p8-counts">0 / 752 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p8-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p8-bar"></div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <footer class="index-footer">
+    135-Day AI Engineering Roadmap · తెలుగు వివరణలు · Sample reference: <a href="telugu-explanations.html">Day 1 Sample</a>
+  </footer>
+
 </div>
 
-<div class="progress-box" style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:0 0 20px">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-    <b id="tot-user-title" style="color:var(--accent)">మొత్తం ప్రయాణం (Overall Roadmap Progress)</b>
-    <span id="tot-pct" style="font-weight:700;color:var(--ok)">0% పూర్తయింది</span>
-  </div>
-  <div style="background:var(--line);border-radius:8px;height:10px;overflow:hidden">
-    <div id="tot-bar" style="background:var(--ok);height:100%;width:0%;transition:width .4s"></div>
-  </div>
-  <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px;color:var(--muted)">
-    <span id="tot-counts">0 / 4,642 టాపిక్స్ పూర్తయ్యాయి</span>
-    <span id="tot-prog">0 చదువుతున్నారు ⏳ · 0 ఆర్కైవ్ 📦</span>
-  </div>
-</div>
-  <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px;color:var(--muted)">
-    <span id="tot-counts">0 / 4,642 టాపిక్స్ పూర్తయ్యాయి</span>
-    <span id="tot-prog">0 చదువుతున్నారు ⏳ · 0 ఆర్కైవ్ 📦</span>
-  </div>
-</div>
-<div class="grid">
-<a class="card" href="telugu-phase-1.html"><b>Phase 1</b> · Days 1–10 · 197 topics<br>Python Engineering for AI Development<small>Python engineering</small></a>
-<a class="card" href="telugu-phase-2.html"><b>Phase 2</b> · Days 11–20 · 160 topics<br>Machine Learning and AI Fundamentals<small>ML మరియు AI ప్రాథమికాలు</small></a>
-<a class="card" href="telugu-phase-3.html"><b>Phase 3</b> · Days 21–30 · 446 topics<br>Generative AI & LLM Engineering<small>LLM engineering</small></a>
-<a class="card" href="telugu-phase-4.html"><b>Phase 4</b> · Days 31–45 · 243 topics<br>Retrieval Engineering: Embeddings & RAG<small>RAG</small></a>
-<a class="card" href="telugu-phase-5.html"><b>Phase 5</b> · Days 46–60 · 788 topics<br>Agentic AI Engineering: LangChain, LangGraph & MCP<small>LangChain, LangGraph & MCP</small></a>
-<a class="card" href="telugu-phase-6.html"><b>Phase 6</b> · Days 61–75 · 1,031 topics<br>Production AI Engineering, Cloud & DevOps<small>Cloud, Docker, K8s & DevOps</small></a>
-<a class="card" href="telugu-phase-7.html"><b>Phase 7</b> · Days 76–90 · 1,025 topics<br>Enterprise AI Architecture, System Design & Interview Prep<small>Enterprise architecture & System Design</small></a>
-<a class="card" href="telugu-phase-8.html"><b>Phase 8</b> · Days 91–135 · 752 topics<br>Advanced AI Engineering Specialization + Final Specializations<small>Advanced specializations & Final defense</small></a>
-</div>
-</div>
 <script>
 (function(){
+  var phaseTopicCounts = {
+    1: 197,
+    2: 160,
+    3: 446,
+    4: 243,
+    5: 788,
+    6: 1031,
+    7: 1025,
+    8: 752
+  };
   var totalTopics = 4642;
   var ACTIVE_USER_KEY = 'ai135_active_user';
   var activeUser = localStorage.getItem(ACTIVE_USER_KEY) || 'naveen';
@@ -135,25 +787,31 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 
   function computeStats(user) {
     var done = 0, prog = 0, arch = 0;
+    var phaseStats = {};
     for (var p = 1; p <= 8; p++) {
+      var pDone = 0, pProg = 0, pArch = 0;
       try {
         var d = JSON.parse(localStorage.getItem('ai135_' + user + '_phase' + p + '_status') || '{}');
         for (var k in d) {
-          if (d[k] === 'done') done++;
-          else if (d[k] === 'progress') prog++;
-          else if (d[k] === 'archive') arch++;
+          if (d[k] === 'done') { done++; pDone++; }
+          else if (d[k] === 'progress') { prog++; pProg++; }
+          else if (d[k] === 'archive') { arch++; pArch++; }
         }
       } catch(e) {}
+      var pTotal = phaseTopicCounts[p] - pArch;
+      var pPct = pTotal > 0 ? Math.round((pDone / pTotal) * 100) : 0;
+      phaseStats[p] = { done: pDone, prog: pProg, arch: pArch, total: pTotal, pct: pPct };
     }
     var activeTotal = totalTopics - arch;
     var pct = activeTotal > 0 ? Math.round((done / activeTotal) * 100) : 0;
-    return { done: done, prog: prog, arch: arch, activeTotal: activeTotal, pct: pct };
+    return { done: done, prog: prog, arch: arch, activeTotal: activeTotal, pct: pct, phases: phaseStats };
   }
 
   function renderDashboard() {
     var navStats = computeStats('naveen');
     var durStats = computeStats('durga');
 
+    // Update Learner Cards
     var navCard = document.getElementById('card-user-naveen');
     var durCard = document.getElementById('card-user-durga');
     if (navCard) navCard.classList.toggle('active', activeUser === 'naveen');
@@ -161,22 +819,47 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 
     var navMeta = document.getElementById('idx-user-naveen-meta');
     var durMeta = document.getElementById('idx-user-durga-meta');
-    if (navMeta) navMeta.textContent = navStats.done + ' పూర్తయ్యాయి (' + navStats.pct + '%)';
-    if (durMeta) durMeta.textContent = durStats.done + ' పూర్తయ్యాయి (' + durStats.pct + '%)';
+    if (navMeta) navMeta.textContent = navStats.done + ' / 4,642 టాపిక్స్ (' + navStats.pct + '%)';
+    if (durMeta) durMeta.textContent = durStats.done + ' / 4,642 టాపిక్స్ (' + durStats.pct + '%)';
 
+    // Active User Master Stats
     var current = (activeUser === 'naveen' ? navStats : durStats);
-    var bar = document.getElementById('tot-bar');
-    if (bar) bar.style.width = current.pct + '%';
-    var pctEl = document.getElementById('tot-pct');
-    if (pctEl) pctEl.textContent = current.pct + '% పూర్తయింది';
-    var cntEl = document.getElementById('tot-counts');
-    if (cntEl) cntEl.textContent = current.done + ' / ' + current.activeTotal + ' టాపిక్స్ పూర్తయ్యాయి';
-    var prgEl = document.getElementById('tot-prog');
-    if (prgEl) prgEl.textContent = current.prog + ' చదువుతున్నారు ⏳ · ' + current.arch + ' ఆర్కైవ్ 📦';
     
+    var dashAvatar = document.getElementById('dash-avatar');
+    if (dashAvatar) dashAvatar.textContent = (activeUser === 'naveen' ? '👨‍💻' : '👩‍💻');
+
     var curUserLabel = document.getElementById('tot-user-title');
     if (curUserLabel) {
-      curUserLabel.textContent = (activeUser === 'naveen' ? '👨‍💻 Naveen' : '👩‍💻 Durga') + ' గారి మొత్తం ప్రయాణం:';
+      curUserLabel.textContent = (activeUser === 'naveen' ? 'Naveen' : 'Durga') + ' గారి సమగ్ర అభ్యసన పురోగతి';
+    }
+
+    var pctEl = document.getElementById('tot-pct');
+    if (pctEl) pctEl.textContent = current.pct + '% పూర్తయింది';
+
+    var bar = document.getElementById('tot-bar');
+    if (bar) bar.style.width = current.pct + '%';
+
+    var mTotal = document.getElementById('metric-total');
+    if (mTotal) mTotal.textContent = current.activeTotal.toLocaleString();
+
+    var mDone = document.getElementById('metric-done');
+    if (mDone) mDone.textContent = current.done.toLocaleString();
+
+    var mProg = document.getElementById('metric-prog');
+    if (mProg) mProg.textContent = current.prog.toLocaleString();
+
+    var mArch = document.getElementById('metric-arch');
+    if (mArch) mArch.textContent = current.arch.toLocaleString();
+
+    // Update each Phase card's progress bar and text!
+    for (var p = 1; p <= 8; p++) {
+      var ps = current.phases[p];
+      var cntEl = document.getElementById('p' + p + '-counts');
+      var pPctEl = document.getElementById('p' + p + '-pct');
+      var pBar = document.getElementById('p' + p + '-bar');
+      if (cntEl) cntEl.textContent = ps.done + ' / ' + phaseTopicCounts[p] + ' పూర్తయ్యాయి';
+      if (pPctEl) pPctEl.textContent = ps.pct + '%';
+      if (pBar) pBar.style.width = ps.pct + '%';
     }
   }
 
@@ -192,7 +875,67 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
   if (durBtn) durBtn.addEventListener('click', function() { switchUser('durga'); });
 
   renderDashboard();
+
+  function showToast(msg) {
+    var t = document.getElementById('toast-msg');
+    if (t) {
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 2500);
+    }
+  }
+
+  var expBtn = document.getElementById('idx-export-btn');
+  if (expBtn) {
+    expBtn.addEventListener('click', function() {
+      var backup = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('ai135_') === 0) {
+          backup[k] = localStorage.getItem(k);
+        }
+      }
+      var blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'ai135_roadmap_backup_' + (new Date().toISOString().slice(0, 10)) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 మొత్తం డేటా బ్యాకప్ ఫైల్ డౌన్‌లోడ్ అయింది!');
+    });
+  }
+
+  var impInput = document.getElementById('idx-import-input');
+  if (impInput) {
+    impInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          var data = JSON.parse(evt.target.result);
+          var count = 0;
+          for (var k in data) {
+            if (k.indexOf('ai135_') === 0) {
+              localStorage.setItem(k, data[k]);
+              count++;
+            }
+          }
+          showToast('✅ ' + count + ' సెట్టింగ్స్ విజయవంతంగా రీస్టోర్ అయ్యాయి! రీలోడ్ అవుతోంది…');
+          setTimeout(function() { window.location.reload(); }, 1200);
+        } catch(err) {
+          alert('చెల్లని బ్యాకప్ ఫైల్! (Invalid backup file)');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
 })();
 </script>
+<div id="toast-msg" class="toast-msg"></div>
 </body>
 </html>
