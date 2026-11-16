@@ -31,6 +31,46 @@ pre{background:var(--code);color:var(--codet);padding:12px 14px;border-radius:10
 .mistake{background:var(--warn);border-left:4px solid var(--warnb);padding:8px 12px;border-radius:8px;margin-top:12px}
 code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:var(--soft);padding:1px 5px;border-radius:5px}
 .hide{display:none}
+
+.tools-row { display: flex; gap: 10px; flex-wrap: wrap; width: 100%; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; margin-top: 6px; }
+.tab-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; font: 14px/1.4 inherit; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.tab-btn:hover { border-color: var(--accent); }
+.tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+.tab-badge { background: var(--soft); color: var(--accent); padding: 1px 7px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+.tab-btn.active .tab-badge { background: rgba(255,255,255,0.25); color: #fff; }
+.tab-btn[data-tab="archive"].active { background: #475569; color: #fff; border-color: #475569; }
+
+.progress-container { width: 100%; margin-top: 6px; }
+.progress-wrap { width: 100%; background: var(--line); border-radius: 8px; height: 8px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--ok); width: 0%; transition: width 0.3s; }
+.progress-meta { font-size: 12.5px; color: var(--muted); margin-top: 4px; display: flex; justify-content: space-between; }
+
+summary { display: flex !important; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.summary-content { flex: 1; min-width: 0; }
+.status-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 14px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid transparent; user-select: none; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+.pill-start { background: var(--soft); color: var(--muted); border-color: var(--line); }
+.pill-progress { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+.pill-done { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+.pill-archive { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+@media (prefers-color-scheme: dark) {
+  .pill-progress { background: #451a03; color: #fde68a; border-color: #78350f; }
+  .pill-done { background: #052e16; color: #86efac; border-color: #14532d; }
+  .pill-archive { background: #1e293b; color: #94a3b8; border-color: #334155; }
+}
+
+.topic-status-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--soft); padding: 8px 12px; border-radius: 8px; margin: 12px 0 10px; font-size: 13.5px; }
+.topic-status-box label { font-weight: 600; color: var(--text); }
+.st-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font: inherit; font-size: 12.5px; cursor: pointer; transition: all 0.2s; }
+.st-btn:hover { border-color: var(--accent); }
+.st-btn.active-start { background: var(--muted); color: #fff; border-color: var(--muted); font-weight: 700; }
+.st-btn.active-progress { background: #d97706; color: #fff; border-color: #d97706; font-weight: 700; }
+.st-btn.active-done { background: #16a34a; color: #fff; border-color: #16a34a; font-weight: 700; }
+.st-btn.active-archive { background: #475569; color: #fff; border-color: #475569; font-weight: 700; }
+details.t[data-status="archive"] { opacity: 0.65; border-style: dashed; }
+details.t[data-status="archive"]:hover { opacity: 1; }
+.empty-tab-msg { text-align: center; padding: 40px 20px; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 12px; margin: 20px 0; font-size: 15px; }
+
 </style>
 </head>
 <body>
@@ -39,44 +79,26 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 <p class="sub"><a href="telugu-index.html">← అన్ని phases</a></p>
 <p class="sub">ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పులు. Technical పదాలు English లోనే ఉంటాయి.</p>
 <div class="tools">
-  <input id="q" type="search" placeholder="Search / వెతకండి…">
-  <button id="all">అన్నీ తెరువు / మూసివేయి</button>
-</div>
-
-
-
-<h2 class="day">Day 61: Production AI application architecture</h2>
-
-<details class="t"><summary>1. Prototype vs production application.<small>ప్రోటోటైప్ మరియు ప్రొడక్షన్ అప్లికేషన్ మధ్య తేడాలు</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>Jupyter Notebook లేదా ఒక సింగిల్ Python స్క్రిప్ట్‌లో AI మోడల్ పనిచేయడం చాలా సులభం. కానీ వేలాదిమంది యూజర్లు ఒకేసారి వాడినప్పుడు సర్వర్ క్రాష్ అవ్వకుండా, తక్కువ లేటెన్సీ, ఎర్రర్ హ్యాండ్లింగ్ మరియు సెక్యూరిటీతో రన్ అవ్వడానికి ప్రొడక్షన్ ఆర్కిటెక్చర్ తప్పనిసరి.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>Laravel లో మనం మొదట `routes/web.php` లో ఒక క్లోజర్ ఫంక్షన్ రాసి డైరెక్ట్ గా టెస్ట్ చేస్తాం (ప్రోటోటైప్). కానీ అసలైన ప్రొడక్షన్ కోసం Controllers, Form Requests, Queues, Services, Redis Caching, Sentry లాగింగ్ వాడతాం కదా. AI లో కూడా అంతే: ప్రోటోటైప్ కేవలం `openai.ChatCompletion.create()` తో ఆగిపోతే, ప్రొడక్షన్ లో రేట్ లిమిటింగ్, ఫాల్‌బ్యాక్ మోడల్స్, టోకెన్ బడ్జెటింగ్, అసిన్రోనస్ క్యూలు మరియు మోనిటరింగ్ ఉంటాయి.</p>
-<h4>ఉదాహరణ</h4>
-<pre># Prototype: హార్డ్‌కోడెడ్ మరియు ఎర్రర్ హ్యాండ్లింగ్ ఉండదు
-# response = openai.ChatCompletion.create(model="gpt-4", messages=[...])
-
-# Production: టైమ్‌అవుట్, రీట్రైలు మరియు ఎర్రర్ హ్యాండ్లింగ్‌తో కూడిన ఆర్కిటెక్చర్
-import httpx
-from tenacity import retry, stop_after_attempt, wait_exponential
-
-class ProductionLLMClient:
-    def __init__(self, api_key: str):
-        self.client = httpx.AsyncClient(timeout=30.0)
-        self.api_key = api_key
-
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
-    async def generate_reply(self, prompt: str) -&gt; str:
-        # 3 సార్లు exponential backoff తో retry చేస్తుంది
-        response = await self.client.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={"Authorization": f"Bearer {self.api_key}"},
-            json={"model": "gpt-4o-mini", "messages": [{"role": "user", "content": prompt}]}
-        )
-        response.raise_for_status()
-        return response.json()["choices"][0]["message"]["content"]
-</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> నోట్‌బుక్‌లో రాసిన కోడ్‌ను ఎర్రర్ హ్యాండ్లింగ్, రీట్రై లాజిక్ లేకుండా నేరుగా ప్రొడక్షన్ FastAPI లో పెట్టేయడం.</div>
+  <div class="tools-row">
+    <input id="q" type="search" placeholder="Search / వెతకండి…">
+    <button id="all">అన్నీ తెరువు / మూసివేయి</button>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="all">అన్నీ (All) <span class="tab-badge" id="cnt-all">0</span></button>
+    <button class="tab-btn" data-tab="start">ప్రారంభించు (Start) <span class="tab-badge" id="cnt-start">0</span></button>
+    <button class="tab-btn" data-tab="progress">చదువుతున్నా (In Progress) ⏳ <span class="tab-badge" id="cnt-progress">0</span></button>
+    <button class="tab-btn" data-tab="done">పూర్తయింది (Completed) ✅ <span class="tab-badge" id="cnt-done">0</span></button>
+    <button class="tab-btn" data-tab="archive">ఆర్కైవ్ (Archive) 📦 <span class="tab-badge" id="cnt-archive">0</span></button>
+  </div>
+  <div class="progress-container">
+    <div class="progress-wrap">
+      <div id="prog-bar" class="progress-bar"></div>
+    </div>
+    <div class="progress-meta">
+      <span id="prog-pct">0% పూర్తయింది</span>
+      <span id="prog-ratio">0 / 0 టాపిక్స్</span>
+    </div>
+  </div>
 </div></details>
 
 <details class="t"><summary>2. Monolithic vs microservices architecture.<small>మోనోలిథిక్ వర్సెస్ మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్</small></summary><div class="body">
@@ -11264,7 +11286,7 @@ cursor.execute(
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ల బ్రౌజర్లలో హానికరమైన జావాస్క్రిప్ట్ రన్ అయ్యి సెషన్ టోకెన్లు దొంగిలించబడకుండా లేదా సైట్ డిఫేస్ కాకుండా రక్షించడానికి XSS నివారణ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel Blade లో `{{ $name }}` ఆటోమేటిక్‌గా `htmlspecialchars()` చేసి XSS ని అడ్డుకుంటుంది. AI అప్లికేషన్లలో యూజర్ ప్రాంప్ట్ లో `<script>alert('hacked')</script>` పంపితే, లేదా AI మోడల్ జనరేట్ చేసిన HTML మార్క్‌డౌన్ రెస్పాన్స్‌ను ఫ్రంటెండ్ బ్రౌజర్‌లో నేరుగా `innerHTML` లేదా `v-html` లో రెండర్ చేస్తే XSS ప్రమాదం వస్తుంది. దీనికి DOMPurify వాడి శానిటైజ్ చేయాలి.</p>
+<p>Laravel Blade లో `{{ $name }}` ఆటోమేటిక్‌గా `htmlspecialchars()` చేసి XSS ని అడ్డుకుంటుంది. AI అప్లికేషన్లలో యూజర్ ప్రాంప్ట్ లో `&lt;script&gt;alert(1)&lt;/script&gt;` పంపితే, లేదా AI మోడల్ జనరేట్ చేసిన HTML మార్క్‌డౌన్ రెస్పాన్స్‌ను ఫ్రంటెండ్ బ్రౌజర్‌లో నేరుగా `innerHTML` లేదా `v-html` లో రెండర్ చేస్తే XSS ప్రమాదం వస్తుంది. దీనికి DOMPurify వాడి శానిటైజ్ చేయాలి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Python `html.escape` ద్వారా యూజర్ ఇన్పుట్ శానిటైజేషన్
 import html
@@ -19148,9 +19170,222 @@ Action:
 
 </div>
 <script>
-var q=document.getElementById('q'),ds=[].slice.call(document.querySelectorAll('details.t'));
-q.addEventListener('input',function(){var v=q.value.toLowerCase().trim();ds.forEach(function(d){var m=!v||d.textContent.toLowerCase().indexOf(v)>-1;d.classList.toggle('hide',!m);if(v&&m)d.open=true;});});
-var openAll=false;document.getElementById('all').addEventListener('click',function(){openAll=!openAll;ds.forEach(function(d){d.open=openAll;});});
+(function(){
+  var STORAGE_KEY = 'ai135_phase6_status';
+  var statusData = {};
+  try {
+    statusData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch(e) { statusData = {}; }
+
+  function saveStatus() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(statusData));
+    } catch(e) {}
+  }
+
+  var currentTab = 'all';
+  var q = document.getElementById('q');
+  var ds = [].slice.call(document.querySelectorAll('details.t'));
+  var days = [].slice.call(document.querySelectorAll('h2.day'));
+
+  var labels = {
+    start: { pill: '⚪ Start', cls: 'pill-start' },
+    progress: { pill: '⏳ In Progress', cls: 'pill-progress' },
+    done: { pill: '✅ Completed', cls: 'pill-done' },
+    archive: { pill: '📦 Archived', cls: 'pill-archive' }
+  };
+
+  var cycleOrder = ['start', 'progress', 'done', 'archive'];
+
+  ds.forEach(function(d, idx) {
+    var key = 't_' + idx;
+    var st = statusData[key] || 'start';
+    d.setAttribute('data-topic-id', key);
+    d.setAttribute('data-status', st);
+
+    var summary = d.querySelector('summary');
+    if (summary) {
+      var contentWrapper = summary.querySelector('.summary-content');
+      if (!contentWrapper) {
+        contentWrapper = document.createElement('div');
+        contentWrapper.className = 'summary-content';
+        while (summary.firstChild) {
+          contentWrapper.appendChild(summary.firstChild);
+        }
+        summary.appendChild(contentWrapper);
+      }
+
+      var pill = summary.querySelector('.status-pill');
+      if (!pill) {
+        pill = document.createElement('span');
+        summary.appendChild(pill);
+      }
+      pill.className = 'status-pill ' + (labels[st] ? labels[st].cls : 'pill-start');
+      pill.textContent = labels[st] ? labels[st].pill : '⚪ Start';
+      pill.title = 'Click to cycle status (Start -> In Progress -> Completed -> Archive)';
+      pill.onclick = function(ev) {
+        ev.stopPropagation();
+        var cur = d.getAttribute('data-status') || 'start';
+        var nextIdx = (cycleOrder.indexOf(cur) + 1) % cycleOrder.length;
+        setTopicStatus(key, cycleOrder[nextIdx]);
+      };
+    }
+
+    var body = d.querySelector('.body');
+    if (body) {
+      var box = body.querySelector('.topic-status-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'topic-status-box';
+        body.insertBefore(box, body.firstChild);
+      }
+      box.innerHTML = '<label>స్థితి (Status):</label>' +
+        '<button type="button" class="st-btn btn-start ' + (st === 'start' ? 'active-start' : '') + '">⚪ Start</button>' +
+        '<button type="button" class="st-btn btn-progress ' + (st === 'progress' ? 'active-progress' : '') + '">⏳ In Progress</button>' +
+        '<button type="button" class="st-btn btn-done ' + (st === 'done' ? 'active-done' : '') + '">✅ Completed</button>' +
+        '<button type="button" class="st-btn btn-archive ' + (st === 'archive' ? 'active-archive' : '') + '">📦 Archive</button>';
+      
+      var btns = box.querySelectorAll('.st-btn');
+      btns[0].addEventListener('click', function() { setTopicStatus(key, 'start'); });
+      btns[1].addEventListener('click', function() { setTopicStatus(key, 'progress'); });
+      btns[2].addEventListener('click', function() { setTopicStatus(key, 'done'); });
+      btns[3].addEventListener('click', function() { setTopicStatus(key, 'archive'); });
+    }
+  });
+
+  function setTopicStatus(key, newSt) {
+    statusData[key] = newSt;
+    saveStatus();
+
+    var d = document.querySelector('details.t[data-topic-id="' + key + '"]');
+    if (d) {
+      d.setAttribute('data-status', newSt);
+      var pill = d.querySelector('.status-pill');
+      if (pill && labels[newSt]) {
+        pill.className = 'status-pill ' + labels[newSt].cls;
+        pill.textContent = labels[newSt].pill;
+      }
+      var btns = d.querySelectorAll('.topic-status-box .st-btn');
+      if (btns.length === 4) {
+        btns[0].className = 'st-btn btn-start' + (newSt === 'start' ? ' active-start' : '');
+        btns[1].className = 'st-btn btn-progress' + (newSt === 'progress' ? ' active-progress' : '');
+        btns[2].className = 'st-btn btn-done' + (newSt === 'done' ? ' active-done' : '');
+        btns[3].className = 'st-btn btn-archive' + (newSt === 'archive' ? ' active-archive' : '');
+      }
+    }
+    updateCountsAndFilter();
+  }
+
+  function updateCountsAndFilter() {
+    var counts = { all: 0, start: 0, progress: 0, done: 0, archive: 0 };
+    ds.forEach(function(d) {
+      var st = d.getAttribute('data-status') || 'start';
+      if (st in counts) {
+        counts[st]++;
+      } else {
+        counts.start++;
+      }
+    });
+    var activeTotal = counts.start + counts.progress + counts.done;
+    counts.all = activeTotal;
+
+    document.getElementById('cnt-all').textContent = counts.all;
+    document.getElementById('cnt-start').textContent = counts.start;
+    document.getElementById('cnt-progress').textContent = counts.progress;
+    document.getElementById('cnt-done').textContent = counts.done;
+    document.getElementById('cnt-archive').textContent = counts.archive;
+
+    var pct = activeTotal ? Math.round((counts.done / activeTotal) * 100) : 0;
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-pct').textContent = pct + '% పూర్తయింది';
+    document.getElementById('prog-ratio').textContent = counts.done + ' / ' + activeTotal + ' టాపిక్స్';
+
+    var searchVal = (q ? q.value.toLowerCase().trim() : '');
+
+    var visibleCount = 0;
+    ds.forEach(function(d) {
+      var st = d.getAttribute('data-status') || 'start';
+      var matchTab = false;
+      if (currentTab === 'all') {
+        matchTab = (st !== 'archive');
+      } else {
+        matchTab = (st === currentTab);
+      }
+      var matchSearch = (!searchVal || d.textContent.toLowerCase().indexOf(searchVal) > -1);
+      var visible = matchTab && matchSearch;
+      d.classList.toggle('hide', !visible);
+      if (visible) visibleCount++;
+      if (searchVal && visible) d.open = true;
+    });
+
+    days.forEach(function(h2) {
+      var el = h2.nextElementSibling;
+      var hasVisible = false;
+      while (el && el.tagName !== 'H2') {
+        if (el.tagName === 'DETAILS' && !el.classList.contains('hide')) {
+          hasVisible = true;
+          break;
+        }
+        el = el.nextElementSibling;
+      }
+      h2.classList.toggle('hide', !hasVisible);
+    });
+
+    var emptyMsg = document.getElementById('empty-tab-msg');
+    if (!emptyMsg) {
+      emptyMsg = document.createElement('div');
+      emptyMsg.id = 'empty-tab-msg';
+      emptyMsg.className = 'empty-tab-msg hide';
+      var wrap = document.querySelector('.wrap');
+      if (wrap) wrap.appendChild(emptyMsg);
+    }
+    if (visibleCount === 0) {
+      emptyMsg.classList.remove('hide');
+      if (searchVal) {
+        emptyMsg.textContent = '"' + searchVal + '" శోధనకు సరిపోలే టాపిక్స్ లేవు.';
+      } else if (currentTab === 'done') {
+        emptyMsg.textContent = 'ఇంకా ఏ టాపిక్ పూర్తికాలేదు. టాపిక్స్ చదివి "Completed" గా మార్చండి!';
+      } else if (currentTab === 'progress') {
+        emptyMsg.textContent = 'ప్రస్తుతం చదువుతున్న (In Progress) టాపిక్స్ ఏవీ లేవు.';
+      } else if (currentTab === 'archive') {
+        emptyMsg.textContent = 'ఆర్కైవ్‌లో ఏ టాపిక్స్ లేవు. మీకు ప్రస్తుతం అవసరం లేని టాపిక్స్‌ను "Archive" గా మార్చి ఇక్కడ దాచుకోవచ్చు.';
+      } else {
+        emptyMsg.textContent = 'టాపిక్స్ ఏవీ లేవు.';
+      }
+    } else {
+      emptyMsg.classList.add('hide');
+    }
+  }
+
+  var tabBtns = [].slice.call(document.querySelectorAll('.tab-btn'));
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tabBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentTab = btn.getAttribute('data-tab');
+      updateCountsAndFilter();
+    });
+  });
+
+  if (q) {
+    q.addEventListener('input', function() {
+      updateCountsAndFilter();
+    });
+  }
+
+  var openAll = false;
+  var allBtn = document.getElementById('all');
+  if (allBtn) {
+    allBtn.addEventListener('click', function() {
+      openAll = !openAll;
+      ds.forEach(function(d) {
+        if (!d.classList.contains('hide')) d.open = openAll;
+      });
+    });
+  }
+
+  updateCountsAndFilter();
+})();
 </script>
 </body>
 </html>

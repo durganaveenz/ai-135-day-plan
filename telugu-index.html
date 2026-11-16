@@ -37,6 +37,19 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 <div class="wrap">
 <h1>135-Day AI Engineering Roadmap<br>తెలుగు వివరణలు – Index</h1>
 <p class="sub">ప్రతి phase కి ఒక పేజీ. ప్రతి topic కి: ఎందుకు అవసరం, సరళమైన వివరణ, ఉదాహరణ, సాధారణ తప్పు. Technical పదాలు English లోనే. (Day 1 sample: <a href="telugu-explanations.html">telugu-explanations.html</a>)</p>
+<div class="progress-box" style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:16px 0 20px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <b style="color:var(--accent)">మొత్తం ప్రయాణం (Overall Roadmap Progress)</b>
+    <span id="tot-pct" style="font-weight:700;color:var(--ok)">0% పూర్తయింది</span>
+  </div>
+  <div style="background:var(--line);border-radius:8px;height:10px;overflow:hidden">
+    <div id="tot-bar" style="background:var(--ok);height:100%;width:0%;transition:width .4s"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:13px;color:var(--muted)">
+    <span id="tot-counts">0 / 4,642 టాపిక్స్ పూర్తయ్యాయి</span>
+    <span id="tot-prog">0 చదువుతున్నారు ⏳ · 0 ఆర్కైవ్ 📦</span>
+  </div>
+</div>
 <div class="grid">
 <a class="card" href="telugu-phase-1.html"><b>Phase 1</b> · Days 1–10 · 197 topics<br>Python Engineering for AI Development<small>Python engineering</small></a>
 <a class="card" href="telugu-phase-2.html"><b>Phase 2</b> · Days 11–20 · 160 topics<br>Machine Learning and AI Fundamentals<small>ML మరియు AI ప్రాథమికాలు</small></a>
@@ -48,5 +61,31 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 <a class="card" href="telugu-phase-8.html"><b>Phase 8</b> · Days 91–135 · 752 topics<br>Advanced AI Engineering Specialization + Final Specializations<small>Advanced specializations & Final defense</small></a>
 </div>
 </div>
+<script>
+(function(){
+  var totalTopics = 4642;
+  var totalDone = 0, totalProg = 0, totalArch = 0;
+  for (var p = 1; p <= 8; p++) {
+    try {
+      var d = JSON.parse(localStorage.getItem('ai135_phase' + p + '_status') || '{}');
+      for (var k in d) {
+        if (d[k] === 'done') totalDone++;
+        else if (d[k] === 'progress') totalProg++;
+        else if (d[k] === 'archive') totalArch++;
+      }
+    } catch(e) {}
+  }
+  var activeTotal = totalTopics - totalArch;
+  var pct = activeTotal > 0 ? Math.round((totalDone / activeTotal) * 100) : 0;
+  var bar = document.getElementById('tot-bar');
+  if (bar) bar.style.width = pct + '%';
+  var pctEl = document.getElementById('tot-pct');
+  if (pctEl) pctEl.textContent = pct + '% పూర్తయింది';
+  var cntEl = document.getElementById('tot-counts');
+  if (cntEl) cntEl.textContent = totalDone + ' / ' + activeTotal + ' టాపిక్స్ పూర్తయ్యాయి';
+  var prgEl = document.getElementById('tot-prog');
+  if (prgEl) prgEl.textContent = totalProg + ' చదువుతున్నారు ⏳ · ' + totalArch + ' ఆర్కైవ్ 📦';
+})();
+</script>
 </body>
 </html>
