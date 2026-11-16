@@ -426,6 +426,99 @@ pre { position: relative; padding-top: 36px; }
   opacity: 0.9;
 }
 
+
+/* Profile Switcher Styles */
+.nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-prof-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-prof-pill:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.prof-avatar { font-size: 13.5px; }
+.prof-arrow { font-size: 11px; color: var(--muted); margin-left: 2px; }
+
+.user-section {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.user-toggle-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: all 0.2s;
+}
+.user-btn:hover {
+  border-color: var(--accent);
+}
+.user-btn.active {
+  border-color: var(--accent);
+  background: var(--panel);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+.user-avatar { font-size: 22px; flex-shrink: 0; }
+.user-btn-info { display: flex; flex-direction: column; min-width: 0; }
+.user-name { font-weight: 700; font-size: 14px; color: var(--text); }
+.user-summary { font-size: 12px; color: var(--muted); margin-top: 1px; }
+.user-btn.active .user-name { color: var(--accent); }
+.user-btn.active .user-summary { color: var(--ok); font-weight: 600; }
+
+.profile-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(50px);
+  background: #0f172a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.profile-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 </style>
 </head>
 <body>
@@ -446,6 +539,11 @@ pre { position: relative; padding-top: 36px; }
     </div>
 
     <div class="nav-right">
+      <button id="prof-switch-btn" class="nav-prof-pill" title="ప్రొఫైల్ మార్చుకోండి (Naveen ⇄ Durga)">
+        <span id="nav-active-user-avatar" class="prof-avatar">👨‍💻</span>
+        <span id="nav-active-user-name">Naveen</span>
+        <span class="prof-arrow">⇄</span>
+      </button>
       <button id="open-popup-btn" class="nav-popup-pill" title="ప్రోగ్రెస్, ఫిల్టర్ టాబ్స్ మరియు సెట్టింగ్స్ (క్లిక్ చేయండి)">
         <span class="pill-dot"></span>
         <span id="nav-pill-status">0% · 📋 All</span>
@@ -474,6 +572,27 @@ pre { position: relative; padding-top: 36px; }
     </div>
     
     <div class="modal-body">
+      <!-- 0. User Profile Selection Card -->
+      <div class="modal-section user-section">
+        <div class="modal-section-head">చదువుతున్న వ్యక్తి (Active Learner Profile):</div>
+        <div class="user-toggle-wrap">
+          <button class="user-btn active" data-user="naveen">
+            <span class="user-avatar">👨‍💻</span>
+            <div class="user-btn-info">
+              <span class="user-name">Naveen</span>
+              <span id="user-naveen-summary" class="user-summary">0% పూర్తయింది</span>
+            </div>
+          </button>
+          <button class="user-btn" data-user="durga">
+            <span class="user-avatar">👩‍💻</span>
+            <div class="user-btn-info">
+              <span class="user-name">Durga</span>
+              <span id="user-durga-summary" class="user-summary">0% పూర్తయింది</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
       <!-- 1. Progress Overview Card -->
       <div class="modal-section progress-card">
         <div class="progress-card-top">
@@ -18178,16 +18297,107 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
 </div>
 <script>
 (function(){
-  var STORAGE_KEY = 'ai135_phase7_status';
+  var PHASE_NUM = 7;
+  var ACTIVE_USER_KEY = 'ai135_active_user';
+  var activeUser = localStorage.getItem(ACTIVE_USER_KEY) || 'naveen';
+
+  function getUserKey(user) {
+    return 'ai135_' + user + '_phase' + PHASE_NUM + '_status';
+  }
+
+  // Automatic migration from legacy un-namespaced key to naveen:
+  var legacyKey = 'ai135_phase' + PHASE_NUM + '_status';
+  if (localStorage.getItem(legacyKey) && !localStorage.getItem(getUserKey('naveen'))) {
+    localStorage.setItem(getUserKey('naveen'), localStorage.getItem(legacyKey));
+  }
+
   var statusData = {};
-  try {
-    statusData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  } catch(e) { statusData = {}; }
+  function loadStatusData() {
+    try {
+      statusData = JSON.parse(localStorage.getItem(getUserKey(activeUser)) || '{}');
+    } catch(e) { statusData = {}; }
+  }
+  loadStatusData();
 
   function saveStatus() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(statusData));
+      localStorage.setItem(getUserKey(activeUser), JSON.stringify(statusData));
     } catch(e) {}
+  }
+
+  function showToast(msg) {
+    var toast = document.getElementById('profile-toast');
+    if (toast) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 2200);
+    }
+  }
+
+  function switchUser(newUser) {
+    if (newUser === activeUser) return;
+    activeUser = newUser;
+    localStorage.setItem(ACTIVE_USER_KEY, activeUser);
+    loadStatusData();
+    applyStatusToDOM();
+    updateCountsAndFilter();
+    updateUserUI();
+    showToast((activeUser === 'naveen' ? '👨‍💻 Naveen' : '👩‍💻 Durga') + ' ప్రొఫైల్‌కి మారారు!');
+  }
+
+  function applyStatusToDOM() {
+    ds.forEach(function(d, idx) {
+      var key = 't_' + idx;
+      var st = statusData[key] || 'start';
+      d.setAttribute('data-status', st);
+      var pill = d.querySelector('.status-pill');
+      if (pill && labels[st]) {
+        pill.className = 'status-pill ' + labels[st].cls;
+        pill.textContent = labels[st].pill;
+      }
+      var btns = d.querySelectorAll('.topic-status-box .st-btn');
+      if (btns) {
+        btns.forEach(function(b) {
+          var s = b.getAttribute('data-set-status');
+          b.className = 'st-btn' + (s === st ? ' active-' + s : '');
+        });
+      }
+    });
+  }
+
+  function calcUserPct(u) {
+    try {
+      var data = JSON.parse(localStorage.getItem(getUserKey(u)) || '{}');
+      var done = 0;
+      var total = ds.length;
+      for (var k in data) {
+        if (data[k] === 'done') done++;
+        else if (data[k] === 'archive') total--;
+      }
+      return total > 0 ? Math.round((done / total) * 100) : 0;
+    } catch(e) { return 0; }
+  }
+
+  function updateUserUI() {
+    var topUserName = document.getElementById('nav-active-user-name');
+    var topUserAvatar = document.getElementById('nav-active-user-avatar');
+    if (topUserName) {
+      topUserName.textContent = (activeUser === 'naveen' ? 'Naveen' : 'Durga');
+    }
+    if (topUserAvatar) {
+      topUserAvatar.textContent = (activeUser === 'naveen' ? '👨‍💻' : '👩‍💻');
+    }
+
+    var userBtns = document.querySelectorAll('.user-btn');
+    userBtns.forEach(function(btn) {
+      var u = btn.getAttribute('data-user');
+      btn.classList.toggle('active', u === activeUser);
+    });
+
+    var navSummary = document.getElementById('user-naveen-summary');
+    var durSummary = document.getElementById('user-durga-summary');
+    if (navSummary) navSummary.textContent = calcUserPct('naveen') + '% పూర్తయింది';
+    if (durSummary) durSummary.textContent = calcUserPct('durga') + '% పూర్తయింది';
   }
 
   var currentTab = 'all';
@@ -18281,6 +18491,7 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
       }
     }
     updateCountsAndFilter();
+    updateUserUI();
   }
 
   function updateCountsAndFilter() {
@@ -18425,8 +18636,29 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
     }
   });
 
+  
+  var profSwitchBtn = document.getElementById('prof-switch-btn');
+  if (profSwitchBtn) {
+    profSwitchBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var nextUser = (activeUser === 'naveen' ? 'durga' : 'naveen');
+      switchUser(nextUser);
+    });
+  }
+
+  var userBtns = document.querySelectorAll('.user-btn');
+  userBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var u = btn.getAttribute('data-user');
+      switchUser(u);
+    });
+  });
+
+  updateUserUI();
+
   updateCountsAndFilter();
 })();
 </script>
+<div id="profile-toast" class="profile-toast"></div>
 </body>
 </html>
