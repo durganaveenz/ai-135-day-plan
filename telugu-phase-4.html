@@ -4161,7 +4161,7 @@ for hop in range(max_hops):
     </div>
   </summary>
   <div class="day-body">
-    <span class="global-search-anchor" id="global-topic-4-128"></span><details class="t" id="p4-topic-128"><summary>1. Retrieval vs reranking<small>Retrieval vs reranking (మొదటి వడపోత vs రెండవ, ఖచ్చితమైన వడపోత)</small></summary><div class="body">
+    <span class="global-search-anchor" id="global-topic-4-128"></span><details class="t" id="p4-topic-128" id="p4-extra-128"><summary>1. Retrieval vs reranking<small>Retrieval vs reranking (మొదటి వడపోత vs రెండవ, ఖచ్చితమైన వడపోత)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-128-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-128-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-128-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>మొదటి search సంబంధం ఉన్న passages తెస్తుంది; reranking వాటిలో నిజంగా ఉపయోగపడేవి పైకి తీసుకొస్తుంది. ఈ రెండు దశలు కలిపితే సమాధానానికి సరైన ఆధారం దొరికే అవకాశం పెరుగుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Retriever వేగంగా పెద్ద collection లోంచి కొంతమంది candidates ఎంచుకుంటుంది. Reranker ప్రశ్న, candidate passage రెండింటినీ కలిపి మరింత జాగ్రత్తగా score ఇస్తుంది. తర్వాత అత్యధిక score ఉన్న కొద్ది passages ని LLM కి పంపుతారు.</p><h4>ఉదాహరణ</h4><p>వందల HR policy chunks లో search 20 తెస్తుంది; reranker వాటిలో ప్రశ్నకు నేరుగా సమాధానం ఉన్న మూడు chunks ని ముందుకు పెడుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Reranker వాడితే మొదటి retriever ఏదీ మిస్ చేయలేదని అనుకోవడం; మిస్ అయిన passage తిరిగి రాదు.</div></div><div class="explain-pane" id="p4-extra-128-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షల chunks లో ప్రతిదాన్నీ భారీ model తో పరిశీలించడం అసాధ్యం. కానీ చివరి 5-10 chunks ఎంపిక మాత్రం చాలా ఖచ్చితంగా ఉండాలి. అందుకే రెండు దశలు వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4178,9 +4178,9 @@ def stage2_rerank(query, candidates, top_n=5):
 cands = stage1_retrieve(&quot;refund policy&quot;)
 print(len(corpus), &quot;-&gt;&quot;, len(cands), &quot;-&gt;&quot;, len(stage2_rerank(&quot;refund policy&quot;, cands)))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Reranker ని మొత్తం corpus మీద నడపాలనుకోవడం. అది చాలా నెమ్మది మరియు ఖరీదు.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-129"></span><details class="t" id="p4-topic-129"><summary>2. Cross-encoder models<small>Cross-encoder models (query మరియు doc ని కలిపి చదివే models)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-129"></span><details class="t" id="p4-topic-129" id="p4-extra-129"><summary>2. Cross-encoder models<small>Cross-encoder models (query మరియు doc ని కలిపి చదివే models)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-129-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-129-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-129-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Query, passage మధ్య సంబంధాన్ని జాగ్రత్తగా కొలవడానికి cross-encoder ఉపయోగపడుతుంది. సాధారణంగా reranking దశలో ఇది సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Cross-encoder ప్రశ్న, passage ని ఒకే input గా model కి ఇస్తుంది. రెండింటి పదాలు ఒకదానిపై మరొకటి ఎలా ఆధారపడుతున్నాయో model చూడగలదు. అందువల్ల score బాగుండొచ్చు, కానీ ప్రతి candidate ని విడిగా process చేయడం వల్ల ఖర్చు ఎక్కువ.</p><h4>ఉదాహరణ</h4><p>“పని నుంచి ఎప్పుడు సెలవు తీసుకోవచ్చు?” అనే query ని ప్రతి policy passage తో కలిపి relevance score ఇవ్వడం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Cross-encoder ని లక్షల documents పై మొదటి search గా నడపడం; అది నెమ్మదిగా, ఖరీదుగా ఉంటుంది.</div></div><div class="explain-pane" id="p4-extra-129-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Embedding similarity ఒక "అంచనా" మాత్రమే. Query మరియు document ని కలిసి చదివితే సూక్ష్మమైన సంబంధాలు (negation, పదాల క్రమం) బాగా పట్టుకోగలం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4199,9 +4199,9 @@ pairs = [(&quot;refund policy&quot;, &quot;Money is returned in 7 days&quot;), (
 print(stub_cross_encoder(pairs))</pre>
 <p>కింది topics లో pipeline లో దీన్ని ఎలా వాడతామో చూస్తాం.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Cross-encoder ని వెతకడానికి (first stage) వాడటం. ప్రతి doc కి model నడపాలి కాబట్టి scale అవదు.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-130"></span><details class="t" id="p4-topic-130"><summary>3. Bi-encoder models<small>Bi-encoder models (query మరియు doc ని విడివిడిగా embed చేసే models)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-130"></span><details class="t" id="p4-topic-130" id="p4-extra-130"><summary>3. Bi-encoder models<small>Bi-encoder models (query మరియు doc ని విడివిడిగా embed చేసే models)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-130-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-130-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-130-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పెద్ద document collection లో వేగంగా search చేయడానికి bi-encoder embeddings ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p>Bi-encoder query, document ని విడివిడిగా vectors గా మారుస్తుంది. Documents ముందే embed చేసి నిల్వ చేయొచ్చు; query వచ్చినప్పుడు దాని vector తో పోల్చి దగ్గరైనవాటిని వెతుకుతాం. ఈ వేగం వల్ల పెద్ద collection లో మొదటి candidate search కి ఇది సరిపోతుంది.</p><h4>ఉదాహరణ</h4><p>Document vectors ని ముందే index లో ఉంచి, customer ప్రశ్న వచ్చినప్పుడు దగ్గరైన 20 chunks ని తిరిగి పొందడం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Query, document కలిపి చూడనందున bi-encoder score ని తుది relevance నిర్ణయంగా భావించడం.</div></div><div class="explain-pane" id="p4-extra-130-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Documents ని ముందే ఒకసారి embed చేసి నిల్వ చేసుకుంటే, query సమయంలో query ని మాత్రమే embed చేస్తే సరిపోతుంది. ఇదే vector search ని వేగంగా చేసేది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4218,9 +4218,9 @@ doc_vecs = {d: stub_encode(d) for d in [&quot;refund policy details&quot;, &quot
 qv = stub_encode(&quot;refund&quot;)                                                                # ప్రతి query కి
 for d, v in doc_vecs.items(): print(round(cos(qv, v), 2), d)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Bi-encoder ని cross-encoder తో గందరగోళపరచడం. Bi = విడివిడిగా encode, వేగం; Cross = కలిపి చదువు, ఖచ్చితం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-131"></span><details class="t" id="p4-topic-131"><summary>4. Cross-encoder scoring<small>Cross-encoder scoring (జత కి score ఇవ్వడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-131"></span><details class="t" id="p4-topic-131" id="p4-extra-131"><summary>4. Cross-encoder scoring<small>Cross-encoder scoring (జత కి score ఇవ్వడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-131-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-131-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-131-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Candidate passage లలో ఏది ప్రశ్నకు బాగా సరిపోతుందో సంఖ్యతో పోల్చడానికి cross-encoder score ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Reranker ప్రతి query-document జతను model కి ఇచ్చి relevance score తీసుకుంటుంది. ఆ scores ఆధారంగా candidates ని పెద్ద నుంచి చిన్న క్రమంలో పెడతాం. Score ఏ scale లో ఉంటుందో model మీద ఆధారపడి ఉంటుంది; అది నేరుగా probability అని భావించకూడదు.</p><h4>ఉదాహరణ</h4><p>మూడు passages కి 0.82, 0.21, 0.67 scores వస్తే, మొదటిదాన్ని ముందుకు, తర్వాత మూడోది, చివర రెండోది ఉంచవచ్చు.</p></div><div class="explain-pane" id="p4-extra-131-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Reranking లో actual పని: ప్రతి candidate కి ఒక సంఖ్య ఇచ్చి క్రమం చేయడం. ఆ సంఖ్య అర్థం ఏమిటో తెలిస్తే threshold పెట్టగలం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4235,9 +4235,9 @@ cands = [&quot;refund is returned within 7 days&quot;, &quot;7 days trial period
 scored = sorted(((stub_ce(query, d), d) for d in cands), reverse=True)
 for s, d in scored: print(round(s, 2), d)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Scores ని వేర్వేరు queries మధ్య absolute గా పోల్చడం. ఒకే query యొక్క candidates మధ్య మాత్రమే పోల్చండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-132"></span><details class="t" id="p4-topic-132"><summary>5. Reranker architecture<small>Reranker architecture (reranking pipeline నిర్మాణం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-132"></span><details class="t" id="p4-topic-132" id="p4-extra-132"><summary>5. Reranker architecture<small>Reranker architecture (reranking pipeline నిర్మాణం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-132-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-132-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-132-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Retrieval తర్వాత results క్రమాన్ని మెరుగుపరచడానికి reranker architecture ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>సాధారణ ప్రవాహం: query ని embed చేయడం, vector search తో candidates తెచ్చుకోవడం, reranker తో ప్రతి జతకు score ఇవ్వడం, పై results ని LLM కి పంపడం. Candidate సంఖ్య ఎక్కువైతే quality పెరగొచ్చు కానీ ఆలస్యం, ఖర్చు కూడా పెరుగుతాయి.</p><h4>ఉదాహరణ</h4><p>ముందుగా 50 passages తెచ్చి, reranker ద్వారా వాటిలో 5 మంచి passages మాత్రమే prompt కి పంపండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Top results ఎంత ఎక్కువైతే అంత మంచిదని అనుకోవడం; prompt లో అవసరం లేని passages సమాధానాన్ని గందరగోళం చేస్తాయి.</div></div><div class="explain-pane" id="p4-extra-132-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Reranker ని RAG pipeline లో ఎక్కడ పెట్టాలి, ఏ ఇన్‌పుట్, ఏ అవుట్‌పుట్ అనేది స్పష్టంగా ఉంటే integration సులభం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4253,9 +4253,9 @@ retrieve = lambda q: [{&quot;id&quot;: 1, &quot;text&quot;: &quot;queue worker&q
 rerank = lambda q, texts: [0.9 if &quot;refund&quot; in t else 0.1 for t in texts]   # stub reranker
 print(pipeline(&quot;refund?&quot;, retrieve, rerank, top_k=1))</pre>
 <p>ఇక్కడ <code>rerank</code> function ని మార్చడం ద్వారా Cohere నుండి local BGE కి మారడం సులభం.</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-133"></span><details class="t" id="p4-topic-133"><summary>6. Cohere rerank concepts<small>Cohere rerank concepts (Cohere hosted reranking API)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-133"></span><details class="t" id="p4-topic-133" id="p4-extra-133"><summary>6. Cohere rerank concepts<small>Cohere rerank concepts (Cohere hosted reranking API)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-133-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-133-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-133-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Cohere Rerank వంటి hosted service ని వాడితే reranker model ని స్వయంగా నిర్వహించాల్సిన పని తగ్గుతుంది.</p><h4>సరళమైన వివరణ</h4><p>మీరు query, passageల జాబితాను API కి పంపుతారు; service relevance క్రమాన్ని ఇస్తుంది. Provider, model version, data handling విధానం, ఖర్చు, rate limit పరిశీలించి ఎంచుకోవాలి. Private data బయట service కి పంపే ముందు policy చూడాలి.</p><h4>ఉదాహరణ</h4><p>Search చేసిన 20 policy chunks ని reranking API కి ఇచ్చి, తిరిగొచ్చిన క్రమంలో పై 4 chunks ని prompt లో చేర్చడం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Hosted reranker కి పంపే documents లో sensitive సమాచారం ఉందో చూడకపోవడం.</div></div><div class="explain-pane" id="p4-extra-133-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Reranker model ని మీరే host చేయడం కష్టం (GPU, latency). Hosted API తో ఒక్క call లో reranking పొందవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4275,9 +4275,9 @@ fake_results = [{&quot;index&quot;: 1, &quot;relevance_score&quot;: 0.93}, {&quo
 for r in fake_results: print(docs[r[&quot;index&quot;]], r[&quot;relevance_score&quot;])</pre>
 <p>గమనించండి: <code>index</code> అనేది మీరు పంపిన list లోని స్థానం, కాబట్టి దాని ద్వారా అసలు document ని తిరిగి కనుగొనండి.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Document కాకుండా index ని LLM కి పంపడం. Index తో original text/metadata లోకి map చేసుకోవాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-134"></span><details class="t" id="p4-topic-134"><summary>7. BGE reranker<small>BGE reranker (BAAI యొక్క open-source reranker)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-134"></span><details class="t" id="p4-topic-134" id="p4-extra-134"><summary>7. BGE reranker<small>BGE reranker (BAAI యొక్క open-source reranker)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-134-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-134-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-134-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>BGE reranker లాంటి open model ని మీరే deploy చేస్తే, data ఎక్కడ process అవుతుందో, model ఎలా configure చేయాలో మీరు నియంత్రించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>BGE family లో retrieval, reranking కోసం వేర్వేరు models ఉన్నాయి. Reranker query-passage జతలకు relevance score ఇస్తుంది. Model name, language support, hardware memory, license చూసి సరైన version ఎంచుకోవాలి.</p><h4>ఉదాహరణ</h4><p>తెలుగు, English కలిసిన queryలపై మీ documents తో చిన్న evaluation set తయారు చేసి, BGE reranker top results సరిచేస్తుందో చూడండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model పేరు ఒకటే కాబట్టి ప్రతి BGE model కూడా reranker అని అనుకోవడం.</div></div><div class="explain-pane" id="p4-extra-134-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>API ఖర్చు, డేటా బయటకు వెళ్లడం వద్దనుకుంటే, open-source reranker ని మీ సొంత server లో నడపవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4297,9 +4297,9 @@ order = sorted(range(len(scores)), key=lambda i: -scores[i])
 print([candidate_texts[i] for i in order])</pre>
 <p>Open-source reranker పంపిన డేటా మీ server దాటదు, ఇది privacy పరంగా లాభం.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Raw BGE score ని 0-1 probability అనుకోవడం. Normalize చేసుకోండి (తర్వాతి topics చూడండి).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-135"></span><details class="t" id="p4-topic-135"><summary>8. Top-K selection<small>Top-K selection (ఎన్ని results తీసుకోవాలి)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-135"></span><details class="t" id="p4-topic-135" id="p4-extra-135"><summary>8. Top-K selection<small>Top-K selection (ఎన్ని results తీసుకోవాలి)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-135-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-135-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-135-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LLM కి పంపే passages సంఖ్యను నియంత్రించడానికి Top-K ఎంపిక అవసరం. ఇది context, latency, answer నాణ్యతపై ప్రభావం చూపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Top-K అంటే score లేదా similarity ఆధారంగా ఎన్ని పై results ఉంచాలో. K తక్కువైతే సరైన passage మిస్ కావచ్చు; K ఎక్కువైతే సంబంధం లేని సమాచారం prompt లోకి రావచ్చు. మీ ప్రశ్నలపై పరీక్షించి K ఎంచుకోండి.</p><h4>ఉదాహరణ</h4><p>Vector search మొదట 30 candidates తెచ్చి, rerank చేసిన తర్వాత 4 మాత్రమే LLM కి ఇవ్వొచ్చు.</p></div><div class="explain-pane" id="p4-extra-135-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>K చాలా చిన్నదైతే అవసరమైన సమాచారం పోతుంది; పెద్దదైతే LLM context లో noise మరియు ఖర్చు పెరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4315,9 +4315,9 @@ print([candidate_texts[i] for i in order])</pre>
 ranked = [&quot;a &quot; * 100, &quot;b &quot; * 100, &quot;c &quot; * 100, &quot;d &quot; * 100]
 print(len(pick_top_k(ranked, k=4, max_tokens=250)))   # K=4 అయినా budget వల్ల 2 మాత్రమే</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> K ని guess తో పెట్టి మార్చకపోవడం. Eval లో K=3,5,8 పోల్చండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-136"></span><details class="t" id="p4-topic-136"><summary>9. Candidate retrieval size<small>Candidate retrieval size (reranker కి ఎన్ని candidates ఇవ్వాలి)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-136"></span><details class="t" id="p4-topic-136" id="p4-extra-136"><summary>9. Candidate retrieval size<small>Candidate retrieval size (reranker కి ఎన్ని candidates ఇవ్వాలి)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-136-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-136-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-136-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Reranker కి చాలా candidates ఇస్తే ఆలస్యం, compute ఖర్చు పెరుగుతుంది. Candidate retrieval size ని సరిగా ఎంచుకోవాలి.</p><h4>సరళమైన వివరణ</h4><p>Retriever మొదట ఎంత passages తెచ్చిందో candidate retrieval size. చాలా చిన్నదైతే సరైన సమాచారం మొదటి దశలోనే మిస్ అవుతుంది. చాలా పెద్దదైతే reranker పై భారం పెరుగుతుంది. Recall, response time రెండింటినీ కొలిచి సంఖ్య నిర్ణయించండి.</p><h4>ఉదాహరణ</h4><p>10, 25, 50 candidates తో ఒక evaluation set నడిపి, సరైన passage top 5 లో ఎంతసార్లు వచ్చిందో, ఎంత సమయం పట్టిందో పోల్చండి.</p></div><div class="explain-pane" id="p4-extra-136-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Reranker చాలా మంచిదైనా, సరైన doc candidates లో లేకపోతే ఏమీ చేయలేదు. కాబట్టి stage 1 లో ఎన్ని తెస్తామనేది recall ని నిర్ణయిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4330,9 +4330,9 @@ for n in (5, 10, 20, 50, 100):
     print(f&quot;candidates={n:3d} recall={recall_at(n):.2f}&quot;)
 # మెరుగుదల ఆగిపోయే చోట (diminishing returns) N ఎంచుకోండి</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Candidates ని 1000 కి పెంచి latency పట్టించుకోకపోవడం. Recall గ్రాఫ్ చదును అయ్యే చోట ఆపండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-137"></span><details class="t" id="p4-topic-137"><summary>10. Score normalization<small>Score normalization (scores ని ఒకే scale కి తేవడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-137"></span><details class="t" id="p4-topic-137" id="p4-extra-137"><summary>10. Score normalization<small>Score normalization (scores ని ఒకే scale కి తేవడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-137-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-137-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-137-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వేర్వేరు search methods లేదా rerankers scores ఒకే scale లో ఉండకపోవచ్చు. వాటిని కలిపే ముందు score normalization అవసరమవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Normalization scores ని పోల్చడానికి సౌకర్యమైన పరిధిలోకి మారుస్తుంది. కానీ ఒక model score 0.8, మరో model score 0.8 అని వాటి అర్థం ఒకటే కాదు. Calibration లేకుండా scores ని కలిపితే ranking తప్పవచ్చు.</p><h4>ఉదాహరణ</h4><p>Keyword search score, vector similarity score వేర్వేరు పరిధుల్లో ఉంటే, test data పై వాటి ప్రభావం సర్దుబాటు చేసి కలపండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Score ని 0 నుంచి 1 కి మార్చితే అది ఖచ్చితమైన probability అయిందని అనుకోవడం.</div></div><div class="explain-pane" id="p4-extra-137-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>BM25, cosine, reranker scores అన్నీ వేర్వేరు పరిధులలో ఉంటాయి. వాటిని కలపాలన్నా, threshold పెట్టాలన్నా ముందు ఒకే scale కి తేవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4344,9 +4344,9 @@ minmax = [(x - min(raw))/(max(raw) - min(raw)) for x in raw]
 sigmoid = [1/(1 + math.exp(-x)) for x in raw]
 for r, m, s in zip(raw, minmax, sigmoid): print(r, round(m, 2), round(s, 3))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని docs చెడ్డవైనా min-max తో గరిష్టాన్ని 1.0 గా చూసి "బాగుంది" అనుకోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-138"></span><details class="t" id="p4-topic-138"><summary>11. Retrieval thresholding<small>Retrieval thresholding (కనీస score పెట్టడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-138"></span><details class="t" id="p4-topic-138" id="p4-extra-138"><summary>11. Retrieval thresholding<small>Retrieval thresholding (కనీస score పెట్టడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-138-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-138-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-138-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సంబంధం తక్కువగా ఉన్న passages ని LLM కి పంపకుండా ఆపడానికి retrieval thresholding ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Score ఒక నిర్ణీత కనీస విలువ కంటే తక్కువైతే result ని తీసివేస్తాం. Threshold ఎక్కువ పెడితే తప్పు passageలు తగ్గవచ్చు, కానీ సరైనవీ మిస్ కావచ్చు. Threshold ని మీ data, model scoreలపై పరీక్షించి సెట్ చేయాలి.</p><h4>ఉదాహరణ</h4><p>Reranker score 0.4 కంటే తక్కువ ఉన్న passages ని prompt లో పెట్టకండి; కానీ ఆ పరిమితి మీ evaluation ఆధారంగా నిర్ణయించండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని models కి ఒకే threshold సరిపోతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p4-extra-138-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంబంధం లేని ప్రశ్న వచ్చినా, retrieval ఎప్పుడూ top-k ఇచ్చేస్తుంది. వాటిని LLM కి పంపితే hallucination లేదా తప్పు సమాధానం వస్తుంది. Threshold ఉంటే "నాకు తెలియదు" అనగలం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4360,9 +4360,9 @@ for name, res in ((&quot;relevant q&quot;, good), (&quot;off-topic q&quot;, bad)
     kept = filter_by_threshold(res, 0.5)
     print(name, &quot;-&gt;&quot;, kept if kept else &quot;NO CONTEXT: &#x27;సమాచారం లేదు&#x27; అని చెప్పు&quot;)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒక్క fixed threshold ని అన్ని queries మరియు models కి వాడటం. Model మారితే మళ్లీ calibrate చేయండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-139"></span><details class="t" id="p4-topic-139"><summary>12. Reranking latency<small>Reranking latency (reranking వల్ల వచ్చే ఆలస్యం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-139"></span><details class="t" id="p4-topic-139" id="p4-extra-139"><summary>12. Reranking latency<small>Reranking latency (reranking వల్ల వచ్చే ఆలస్యం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-139-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-139-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-139-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Reranking answer నాణ్యతను మెరుగుపరచినా, response ఆలస్యం పెరగవచ్చు. ఆ trade-off ని వినియోగదారుడికి అనుకూలంగా ఉంచాలి.</p><h4>సరళమైన వివరణ</h4><p>Reranker ప్రతి candidate ని process చేస్తుంది కాబట్టి candidateల సంఖ్య, model పరిమాణం latency ని ప్రభావితం చేస్తాయి. మొదటి results వెంటనే చూపించి, reranked results తర్వాత పంపడం లేదా చిన్న reranker ఎంచుకోవడం వంటి మార్గాలు ఉన్నాయి.</p><h4>ఉదాహరణ</h4><p>20 candidates rerank చేయడానికి 300ms పట్టితే, 50 candidates తో quality కేవలం 1% మాత్రమే మెరుగైతే, తక్కువ candidates సరిపోతాయా అని కొలవండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Answer quality మాత్రమే చూసి response time ని కొలవకపోవడం.</div></div><div class="explain-pane" id="p4-extra-139-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Reranking accuracy పెంచుతుంది కానీ ప్రతి query కి ఆలస్యం జోడిస్తుంది. Chat UX లో ఇది గమనించదగినది కాబట్టి కొలవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4378,9 +4378,9 @@ def fake_rerank(n):
 for n in (10, 50, 100): timed(f&quot;rerank {n} candidates&quot;, fake_rerank, n)</pre>
 <p>ఇది simulated సంఖ్యలు; మీ నిజమైన model కి మీరే కొలవండి.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Reranker latency ని p50 లో మాత్రమే చూడటం. p95/p99 కూడా చూడండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-140"></span><details class="t" id="p4-topic-140"><summary>13. Recall vs precision trade-offs<small>Recall vs precision trade-offs (ఏదీ మిస్ కాకుండా vs అన్నీ సరైనవి)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-140"></span><details class="t" id="p4-topic-140" id="p4-extra-140"><summary>13. Recall vs precision trade-offs<small>Recall vs precision trade-offs (ఏదీ మిస్ కాకుండా vs అన్నీ సరైనవి)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-140-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-140-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-140-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సంబంధమైన దాదాపు అన్ని passages దొరకాలా, లేక దొరికినవి చాలా ఖచ్చితంగా ఉండాలా అనే ఎంపిక retrieval రూపకల్పనలో ముఖ్యం.</p><h4>సరళమైన వివరణ</h4><p><b>Recall</b> అంటే అవసరమైన passages లో ఎన్ని దొరికాయి. <b>Precision</b> అంటే తెచ్చిన passages లో ఎన్ని నిజంగా ఉపయోగపడతాయి. Candidate retrieval లో recall ఎక్కువగా ఉంచవచ్చు; reranking తర్వాత precision పెంచవచ్చు.</p><h4>ఉదాహరణ</h4><p>అవసరమైన 10 passages లో 8 దొరికితే recall 80%. తెచ్చిన 10 లో 6 మాత్రమే సరైనవైతే precision 60%.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Recall, precision రెండూ ఒకటే కొలత అని అనుకోవడం.</div></div><div class="explain-pane" id="p4-extra-140-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>RAG లో రెండు విధాల విఫలం: సరైన chunk దొరకకపోవడం (recall సమస్య), లేదా చాలా చెత్త chunks తో LLM గందరగోళ పడటం (precision సమస్య).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4395,9 +4395,9 @@ for k in (1, 2, 5):
     p, r = metrics(retrieved)
     print(f&quot;K={k} precision={p:.2f} recall={r:.2f}&quot;)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే metric (precision) చూసి K ని తగ్గిస్తూ పోవడం. సరైన సమాచారం కోల్పోతారు.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-141"></span><details class="t" id="p4-topic-141"><summary>14. Context compression<small>Context compression (context ని కుదించడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-141"></span><details class="t" id="p4-topic-141" id="p4-extra-141"><summary>14. Context compression<small>Context compression (context ని కుదించడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-141-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-141-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-141-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చాలా పొడవైన passages ని అలాగే prompt లో పెడితే token ఖర్చు, processing సమయం పెరుగుతాయి. Context compression అవసరమైన సమాచారాన్ని చిన్నదిగా ఉంచుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Compression లో ప్రశ్నకు పనికిరాని వాక్యాలు తీసేయడం, సంబంధిత భాగాలనే extract చేయడం లేదా చిన్న summary తయారు చేయడం జరుగుతుంది. అసలు అర్థం, సంఖ్యలు, మినహాయింపులు పోకుండా తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><p>రెండు పేజీల policy లో refund deadline గురించే ప్రశ్నైతే, deadline మరియు దానికి సంబంధించిన షరతులు ఉన్న పేరాను మాత్రమే ఇవ్వండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Compress చేసినప్పుడు అర్హతలు, మినహాయింపులు తొలగించి తప్పు సమాధానం వచ్చేలా చేయడం.</div></div><div class="explain-pane" id="p4-extra-141-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Retrieved chunks లో చాలా భాగం ప్రశ్నకు సంబంధం లేనిది. దాన్ని LLM కి పంపితే tokens ఖర్చు, ఆలస్యం, noise పెరుగుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4413,9 +4413,9 @@ def compress(query, chunk, keep=2):
 chunk = &quot;Our office is in Hyderabad. Refunds are processed in 7 days. We love coffee. Refund requests need an order id.&quot;
 print(compress(&quot;refunds days order&quot;, chunk))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Compress చేసినప్పుడు కీలక వివరాలు (సంఖ్యలు, నిబంధనలు) తీసేయడం. Eval లో answer నాణ్యత పోలుస్తూ చూడండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-142"></span><details class="t" id="p4-topic-142"><summary>15. Lost-in-the-middle problem<small>Lost-in-the-middle problem (మధ్యలో ఉన్న సమాచారం విస్మరించబడటం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-142"></span><details class="t" id="p4-topic-142" id="p4-extra-142"><summary>15. Lost-in-the-middle problem<small>Lost-in-the-middle problem (మధ్యలో ఉన్న సమాచారం విస్మరించబడటం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-142-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-142-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-142-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పొడవైన context లో model మొదటి, చివరి భాగాలను బాగా ఉపయోగించి మధ్యలో ఉన్న ఆధారాన్ని పట్టించుకోకపోవచ్చు. దీన్ని lost-in-the-middle సమస్య అంటారు.</p><h4>సరళమైన వివరణ</h4><p>ఎక్కువ context ఇచ్చినంత మాత్రాన model ప్రతిదాన్ని సమానంగా గమనించదు. ముఖ్యమైన passages ని స్పష్టంగా గుర్తించండి; సంబంధం లేని context తగ్గించి, ముఖ్యమైన ఆధారాన్ని ప్రశ్నకు దగ్గరగా ఉంచండి. Retrieval, position మార్చడం సహాయపడవచ్చు.</p><h4>ఉదాహరణ</h4><p>పొడవైన contract లో ముఖ్యమైన termination clause ని వందల పంక్తుల మధ్య పెట్టకుండా, ప్రశ్నకు సంబంధించి స్పష్టంగా ముందుకు తీసుకురండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Context window లో passage ఉందంటే model తప్పకుండా దాన్ని ఉపయోగిస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p4-extra-142-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>10 chunks ఇచ్చి, సరైన సమాధానం 5వ chunk లో ఉంటే LLM దాన్ని పట్టుకోకపోవచ్చు. Chunk ల క్రమం answer నాణ్యతను ప్రభావితం చేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4431,9 +4431,14 @@ print(long_context_reorder([&quot;r1&quot;, &quot;r2&quot;, &quot;r3&quot;, &quo
 # [&#x27;r1&#x27;,&#x27;r3&#x27;,&#x27;r5&#x27;,&#x27;r6&#x27;,&#x27;r4&#x27;,&#x27;r2&#x27;]: r1, r2 ఇరు చివరల్లో; బలహీనమైనవి మధ్యలో</pre>
 <p>LangChain లో <code>LongContextReorder</code> పేరుతో ఇలాంటి utility ఉంది (docs చూడండి).</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎక్కువ chunks ని (20+) గుప్పించి model అన్నీ సమానంగా చదువుతుందని అనుకోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-4-143"></span><details class="t" id="p4-topic-143"><summary>16. Retrieval result deduplication<small>Retrieval result deduplication (పునరావృత ఫలితాల తొలగింపు)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-4-143"></span><details class="t" id="p4-topic-143" id="p4-extra-143"><summary>16. Retrieval result deduplication<small>Retrieval result deduplication (పునరావృత ఫలితాల తొలగింపు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p4-extra-143-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p4-extra-143-gemini">Gemini</button></div><div class="explain-pane" id="p4-extra-143-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే document లేదా overlapping chunks వల్ల ఒకే సమాచారం పలుమార్లు retrieval లో రావచ్చు. Deduplication వల్ల prompt లో ఖాళీ, ఖర్చు ఆదా అవుతాయి.</p><h4>సరళమైన వివరణ</h4><p>Results లో document ID, chunk ID, text hash లేదా దగ్గరైన content ఆధారంగా duplicateలను గుర్తించి ఒకదాన్ని ఉంచుతారు. చాలా దగ్గరగా ఉన్నా చిన్న తేడా ఉన్న passages ను తొలగించే ముందు జాగ్రత్తగా చూడాలి.</p><h4>ఉదాహరణ</h4><pre>seen = set()
+unique = []
+for chunk in results:
+    if chunk["id"] not in seen:
+        seen.add(chunk["id"])
+        unique.append(chunk)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకేలా కనిపించే text వేర్వేరు policy versions లో ఉంటే, version తేడా పట్టించుకోకుండా ఒకటి తొలగించడం.</div></div><div class="explain-pane" id="p4-extra-143-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Overlapping chunks లేదా ఒకే సమాచారం ఉన్న అనేక docs వల్ల top-k లో దాదాపు ఒకే text చాలాసార్లు వస్తుంది. అది tokens వృథా చేసి వైవిధ్యాన్ని తగ్గిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4455,7 +4460,7 @@ cands = [&quot;refund in 7 days&quot;, &quot;refund in 7 days now&quot;, &quot;r
 rel   = [0.90, 0.88, 0.70]                       # reranker scores
 print(mmr(cands, rel))    # రెండవ దాదాపు-నకలు వదిలి, భిన్నమైన 3వది ఎంచుతుంది</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Duplicates ని తొలగించకుండా K పెంచి సమస్య పరిష్కరించాలనుకోవడం. MMR/dedupe వాడండి.</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 

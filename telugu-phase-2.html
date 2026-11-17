@@ -2259,7 +2259,7 @@ for name, m in [("logistic", LogisticRegression()),
     </div>
   </summary>
   <div class="day-body">
-    <span class="global-search-anchor" id="global-topic-2-52"></span><details class="t"><summary>1. Linear regression<small>Linear regression (సరళ రేఖతో సంఖ్యను అంచనా వేయడం)</small></summary><div class="body">
+    <span class="global-search-anchor" id="global-topic-2-52"></span><details class="t" id="p2-batch-topic-52"><summary>1. Linear regression<small>Linear regression (సరళ రేఖతో సంఖ్యను అంచనా వేయడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-52">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-52-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-52" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>House price లేదా sales వంటి సంఖ్యలను అంచనా వేయడానికి regression ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Linear regression</b> input, output మధ్య సరళ రేఖ సంబంధం ఉందని భావించి, ఆ రేఖను data కి సరిపోయేలా నేర్చుకుంటుంది. ఒక input ఉంటే ఒకటి; చాలా inputs ఉంటే వాటి ప్రభావాన్ని కలిపి అంచనా వేస్తుంది.</p><h4>ఉదాహరణ</h4><p>పాత ఇళ్ల విస్తీర్ణం, ధరల ఆధారంగా కొత్త ఇంటి ధరను అంచనా వేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి data సంబంధం సరళ రేఖ రూపంలోనే ఉంటుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-52-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇంటి ధర, అమ్మకాలు, server load లాంటి సంఖ్యలను అంచనా వేయడానికి ఇది అత్యంత ప్రాథమిక మరియు ఎక్కువగా వాడే model. సరళమైనది కాబట్టి ఫలితాన్ని వివరించడం సులభం, మరియు ఇతర algorithms కి పునాది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2276,9 +2276,9 @@ print("w =", model.coef_[0].round(3))                  # 0.047 → 1 sqft కి
 print("b =", model.intercept_.round(2))                # 1.5
 print(model.predict([[1800]]).round(1))                # [86.1]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> X ని 1-D array గా ఇవ్వడం. <code>fit</code> కి X ఎప్పుడూ 2-D (samples, features) ఉండాలి, లేకపోతే error వస్తుంది.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-53"></span><details class="t"><summary>2. Simple and multiple regression<small>Simple (ఒకే feature) మరియు multiple (అనేక features) regression</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-53"></span><details class="t" id="p2-batch-topic-53"><summary>2. Simple and multiple regression<small>Simple (ఒకే feature) మరియు multiple (అనేక features) regression</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-53">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-53-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-53" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక విషయం మాత్రమే చూసి అంచనా వేయాలా, అనేక విషయాలు కలిపి చూడాలా అనేది ఈ తేడా తెలుసుకోవడం ద్వారా నిర్ణయించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>Simple regression</b> ఒక feature తో output అంచనా వేస్తుంది. <b>Multiple regression</b> అనేక features ని కలిపి అంచనా వేస్తుంది. ఇంటి ధరకు విస్తీర్ణంతో పాటు గదుల సంఖ్య, ప్రాంతం కూడా ఉపయోగపడవచ్చు.</p><h4>ఉదాహరణ</h4><p>Simple: ధరను విస్తీర్ణం ఆధారంగా అంచనా వేయడం. Multiple: విస్తీర్ణం, గదుల సంఖ్య, ప్రాంతం ఆధారంగా అంచనా వేయడం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఎక్కువ features పెడితే model తప్పకుండా మెరుగవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-53-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజ జీవితంలో ధర కేవలం size పై కాకుండా rooms, location, వయసు లాంటి అనేక అంశాలపై ఆధారపడుతుంది. ఎక్కువ features వాడితే సాధారణంగా అంచనాలు మెరుగవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2298,9 +2298,9 @@ for name, w in zip(["size", "rooms", "age"], m.coef_):
 print("b =", round(m.intercept_, 2))
 print(m.predict([[1700, 3, 4]]).round(1))   # కొత్త ఇంటి అంచనా</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> weights ని పోల్చి "ఈ feature ఎక్కువ ముఖ్యం" అనడం, features scale వేర్వేరుగా ఉన్నప్పుడు అది తప్పు (size వేలల్లో, rooms ఒకట్లలో). పోల్చాలంటే ముందు scaling చేయండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-54"></span><details class="t"><summary>3. Cost functions<small>Cost functions (తప్పు కొలిచే ఫంక్షన్లు)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-54"></span><details class="t" id="p2-batch-topic-54"><summary>3. Cost functions<small>Cost functions (తప్పు కొలిచే ఫంక్షన్లు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-54">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-54-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-54" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model అంచనా ఎంత తప్పిందో కొలవకపోతే ఏ model బాగుందో పోల్చలేం.</p><h4>సరళమైన వివరణ</h4><p><b>Cost function</b> predictions, నిజమైన విలువల మధ్య తేడాను ఒక సంఖ్యగా లెక్కిస్తుంది. Training సమయంలో model ఆ సంఖ్యను తగ్గించడానికి parameters ని మారుస్తుంది. ఏ తప్పుకి ఎక్కువ ప్రాధాన్యం ఇవ్వాలో formula నిర్ణయిస్తుంది.</p><h4>ఉదాహరణ</h4><p>అంచనా వేసిన ఇంటి ధర నిజమైన ధరకు దగ్గరగా ఉంటే cost తక్కువ; దూరంగా ఉంటే cost ఎక్కువ.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Training cost తగ్గితే కొత్త data మీద కూడా model తప్పకుండా బాగుంటుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-54-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఉత్తమ గీత" అంటే ఏమిటో గణితపరంగా నిర్వచించాలి, లేకపోతే computer దేన్ని మెరుగుపరచాలో తెలియదు. Cost function ఒక model ఎంత చెడ్డదో చెప్పే ఒకే సంఖ్య ఇస్తుంది, training ఆ సంఖ్యను తగ్గించడమే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2318,9 +2318,13 @@ def cost(w, b):
 print(cost(2, 1))     # 0.0  (ఉత్తమ గీత, తప్పు లేదు)
 print(cost(1, 0))     # 13.5 (చెడ్డ గీత, ఎక్కువ cost)
 print(cost(2, 0))     # 1.0  (దాదాపు సరైనది, తక్కువ cost)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-55"></span><details class="t"><summary>4. Mean squared error<small>Mean squared error, MSE (తప్పుల వర్గాల సగటు)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-55"></span><details class="t" id="p2-batch-topic-55"><summary>4. Mean squared error<small>Mean squared error, MSE (తప్పుల వర్గాల సగటు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-55">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-55-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-55" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model తప్పులను కొలిచి తగ్గించడానికి MSE ఉపయోగపడుతుంది. పెద్ద తప్పులకు ఇది ఎక్కువ ప్రాధాన్యం ఇస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Mean squared error</b> ప్రతి prediction తప్పును square చేసి, సగటు తీసుకుంటుంది. అందువల్ల పెద్ద తప్పు ఎక్కువ ప్రభావం చూపుతుంది.</p><h4>ఉదాహరణ</h4><pre>actual = [10, 20]
+predicted = [12, 17]
+errors = [a - p for a, p in zip(actual, predicted)]
+mse = sum(e * e for e in errors) / len(errors)
+print(mse)  # 6.5</pre><div class="mistake"><b>సాధారణ తప్పు:</b> పెద్ద తప్పులు MSE ని ఎక్కువగా పెంచుతాయని మర్చిపోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-55-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Regression లో అత్యంత సాధారణ loss. ఇది గణితపరంగా సున్నితంగా ఉండి (differentiable) gradient descent కి సరిపోతుంది, మరియు పెద్ద తప్పులను గట్టిగా శిక్షిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2335,9 +2339,12 @@ y_pred = np.array([110, 140, 230])
 errors = y_pred - y_true                 # [10, -10, 30]
 print(np.mean(errors ** 2))              # 366.67 (చేత్తో)
 print(mean_squared_error(y_true, y_pred))  # 366.666... (sklearn)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-56"></span><details class="t"><summary>5. Mean absolute error<small>Mean absolute error, MAE (తప్పుల పరిమాణాల సగటు)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-56"></span><details class="t" id="p2-batch-topic-56"><summary>5. Mean absolute error<small>Mean absolute error, MAE (తప్పుల పరిమాణాల సగటు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-56">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-56-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-56" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Prediction తప్పు సగటున ఎంత ఉందో సులభంగా అర్థం చేసుకోవడానికి MAE ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Mean absolute error</b> prediction, నిజమైన విలువ మధ్య తేడా పరిమాణం తీసుకుని సగటు లెక్కిస్తుంది. ఇది output యొక్క అసలు unit లో ఉంటుంది. MSE లాగా తప్పును square చేసి పెంచదు.</p><h4>ఉదాహరణ</h4><pre>actual = [10, 20]
+predicted = [12, 17]
+mae = sum(abs(a - p) for a, p in zip(actual, predicted)) / 2
+print(mae)  # 2.5</pre><div class="mistake"><b>సాధారణ తప్పు:</b> MAE తప్పు ఏ దిశలో జరిగిందో చెబుతుందని అనుకోవడం; ఇది పరిమాణం మాత్రమే చెబుతుంది.</div></div><div class="explain-pane" id="p2-batch-gpt-56-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"సగటున మన అంచనా ఎంత తప్పు?" అని అసలు యూనిట్లలో, సులభంగా చెప్పడానికి. Outliers ఎక్కువగా ఉన్న data లో MSE కంటే MAE నమ్మదగినది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2352,9 +2359,12 @@ y_pred = np.array([110, 140, 230])
 print(np.mean(np.abs(y_pred - y_true)))     # 16.67 (చేత్తో)
 print(mean_absolute_error(y_true, y_pred))  # 16.666...
 # పై MSE 366.67 తో పోల్చండి: 30 అనే పెద్ద తప్పు MSE ని ఎక్కువగా పెంచింది</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-57"></span><details class="t"><summary>6. Root mean squared error<small>Root mean squared error, RMSE (MSE యొక్క వర్గమూలం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-57"></span><details class="t" id="p2-batch-topic-57"><summary>6. Root mean squared error<small>Root mean squared error, RMSE (MSE యొక్క వర్గమూలం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-57">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-57-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-57" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>MSE ని అసలు output unit లో అర్థం చేసుకోవడానికి RMSE ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Root mean squared error</b> అనేది MSE కి square root. అందువల్ల ఫలితం prediction చేస్తున్న అదే unit లో ఉంటుంది. పెద్ద తప్పులకు ఇది కూడా ఎక్కువ ప్రాధాన్యం ఇస్తుంది.</p><h4>ఉదాహరణ</h4><pre>import math
+mse = 6.5
+rmse = math.sqrt(mse)
+print(rmse)  # సుమారు 2.55</pre><div class="mistake"><b>సాధారణ తప్పు:</b> RMSE ని target values పరిమాణంతో పోల్చకుండా model నాణ్యతగా చూడడం.</div></div><div class="explain-pane" id="p2-batch-gpt-57-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>MSE యొక్క లాభం (పెద్ద తప్పులను శిక్షించడం) ఉంచుకుంటూ, ఫలితాన్ని అసలు యూనిట్లలో చెప్పడానికి. Regression models నివేదికలలో RMSE చాలా సాధారణం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2370,9 +2380,9 @@ rmse = root_mean_squared_error(y_true, y_pred)
 print(round(rmse, 2))                                  # 19.15
 print(round(np.sqrt(366.67), 2))                       # 19.15 (MSE యొక్క వర్గమూలం)
 print(round(mean_absolute_error(y_true, y_pred), 2))   # 16.67 → RMSE &gt; MAE</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-58"></span><details class="t"><summary>7. Gradient descent<small>Gradient descent (క్రమంగా తప్పును తగ్గిస్తూ నేర్చుకోవడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-58"></span><details class="t" id="p2-batch-topic-58"><summary>7. Gradient descent<small>Gradient descent (క్రమంగా తప్పును తగ్గిస్తూ నేర్చుకోవడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-58">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-58-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-58" role="tabpanel"><h4>ఇంకా చదవండి</h4><p>Gradient descent loss తగ్గే దిశలో model parameters ని మారుస్తుంది. దాని పూర్తి వివరణ <a href="#gradient-descent">Gradient descent</a> topic లో ఉంది.</p></div><div class="explain-pane" id="p2-batch-gpt-58-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Linear regression కి formula ఉన్నా, లక్షల rows లేదా లక్షల features ఉన్నప్పుడు మరియు neural networks కి అదే మార్గం. ఇది ఎలా పని చేస్తుందో తెలిస్తే learning rate, convergence లాంటి పదాలు అర్థమవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2397,9 +2407,9 @@ from sklearn.linear_model import LinearRegression
 m = LinearRegression().fit(x.reshape(-1, 1), y)
 print(round(m.coef_[0], 2), round(m.intercept_, 2))   # sklearn కూడా అదే సమాధానం</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> learning rate మరీ పెద్దదిగా పెట్టడం; cost తగ్గకుండా పెరిగిపోయి <code>inf</code>/<code>nan</code> అవుతుంది.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-59"></span><details class="t"><summary>8. Regularization<small>Regularization (model ని మరీ సంక్లిష్టం కాకుండా నియంత్రించడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-59"></span><details class="t" id="p2-batch-topic-59"><summary>8. Regularization<small>Regularization (model ని మరీ సంక్లిష్టం కాకుండా నియంత్రించడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-59">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-59-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-59" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Training data మీద model బాగా పని చేసి, కొత్త data మీద తప్పులు చేస్తే model అతిగా నేర్చుకున్నట్టు. Regularization ఈ సమస్యను తగ్గిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Model తప్పును కొలిచే loss కి అదనపు penalty కలుపుతారు. పెద్ద weights ఉన్న model కి penalty ఎక్కువ అవుతుంది. దీంతో model data లోని చిన్న యాదృచ్ఛిక మార్పులను పట్టించుకోవడం తగ్గుతుంది.</p><h4>ఉదాహరణ</h4><p>పరీక్షలో వచ్చిన ప్రశ్నలనే కంఠస్థం చేయకుండా, కొత్త ప్రశ్నలకు కూడా సమాధానం చెప్పగలిగేలా నేర్చుకోవడం లాంటిది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Penalty మరీ ఎక్కువైతే అవసరమైన pattern ని కూడా model నేర్చుకోలేకపోవచ్చు.</div></div><div class="explain-pane" id="p2-batch-gpt-59-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎక్కువ features లేదా సంక్లిష్టమైన model ఉన్నప్పుడు weights చాలా పెద్దవై, model training data ని బట్టీ పట్టి overfit అవుతుంది. Regularization దాన్ని అదుపులో ఉంచుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2421,9 +2431,9 @@ for name, reg in [("no regularization", LinearRegression()), ("with Ridge(alpha=
     print(f"{name:22s} train R2={m.score(X_tr, y_tr):.2f}  test R2={m.score(X_te, y_te):.2f}")
 # regularization లేకుండా: train బాగుంటుంది కానీ test చాలా దారుణం (overfit); Ridge తో test మెరుగ్గా</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> features ని scale చేయకుండా regularization వాడటం; penalty పెద్ద scale ఉన్న features ని అన్యాయంగా శిక్షిస్తుంది.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-60"></span><details class="t"><summary>9. Ridge regression<small>Ridge regression (L2 regularization)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-60"></span><details class="t" id="p2-batch-topic-60"><summary>9. Ridge regression<small>Ridge regression (L2 regularization)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-60">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-60-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-60" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Linear regression weights చాలా పెద్దవి కాకుండా ఉంచితే model కొత్త data మీద స్థిరంగా పని చేయవచ్చు. Ridge ఈ నియంత్రణను ఇస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Ridge regression</b> loss కి weights యొక్క squares మొత్తాన్ని penalty గా కలుపుతుంది. దీనిని L2 regularization అంటారు. ఇది పెద్ద weights ని తగ్గిస్తుంది; సాధారణంగా వాటిని ఖచ్చితంగా సున్నా చేయదు.</p><h4>ఉదాహరణ</h4><p>ఇంటి ధర అంచనాలో features ఒకదానితో ఒకటి సంబంధం కలిగి ఉంటే, Ridge weights ని అదుపులో ఉంచి prediction ని స్థిరపరచవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Ridge ప్రతి feature weight ని సున్నా చేస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-60-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Features ఒకదానితో ఒకటి దగ్గరి సంబంధం కలిగి ఉన్నప్పుడు (multicollinearity) లేదా features ఎక్కువగా ఉన్నప్పుడు, సాధారణ linear regression యొక్క weights అస్థిరంగా, విపరీతంగా మారిపోతాయి. Ridge వాటిని స్థిరపరుస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2440,9 +2450,9 @@ y = 3 * x1 + rng.normal(0, 0.5, 50)
 
 print(LinearRegression().fit(X, y).coef_.round(2))    # అస్థిరమైన, విపరీత weights
 print(Ridge(alpha=1.0).fit(X, y).coef_.round(2))      # ~[1.5 1.5] స్థిరంగా, weight పంచుకున్నాయి</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-61"></span><details class="t"><summary>10. Lasso regression<small>Lasso regression (L1 regularization)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-61"></span><details class="t" id="p2-batch-topic-61"><summary>10. Lasso regression<small>Lasso regression (L1 regularization)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-61">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-61-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-61" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చాలా features ఉన్నప్పుడు ఉపయోగం లేని వాటిని తగ్గించాలంటే Lasso ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Lasso</b> loss కి weights యొక్క absolute values మొత్తాన్ని penalty గా కలుపుతుంది. దీనిని L1 regularization అంటారు. సరైన penalty తో కొన్ని weights సున్నా అవుతాయి; అప్పుడు ఆ features model కి అవసరం ఉండదు.</p><h4>ఉదాహరణ</h4><p>చాలా features ఉన్నా కొన్నే అంచనాకు ఉపయోగపడితే, Lasso కొన్ని weights ని సున్నా చేసి model ని సులభం చేయగలదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> పరస్పరం బలంగా సంబంధం ఉన్న features లో Lasso ఏదిని ఉంచుతుందో ఎప్పుడూ ఒకేలా ఉంటుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-61-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వందల features లో నిజంగా ఉపయోగపడేవి కొన్నే అయినప్పుడు, Lasso అనవసరమైన వాటి weights ని ఖచ్చితంగా 0 చేసి, ఆటోమేటిక్‌గా feature selection చేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2459,9 +2469,9 @@ Xs = StandardScaler().fit_transform(X)
 
 print(LinearRegression().fit(Xs, y).coef_.round(2))   # అన్నిటికీ చిన్న చిన్న సున్నా కాని weights
 print(Lasso(alpha=0.3).fit(Xs, y).coef_.round(2))     # అనవసరమైనవి ఖచ్చితంగా 0.</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-62"></span><details class="t"><summary>11. Polynomial regression<small>Polynomial regression (వంపు సంబంధాలకు)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-62"></span><details class="t" id="p2-batch-topic-62"><summary>11. Polynomial regression<small>Polynomial regression (వంపు సంబంధాలకు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-62">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-62-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-62" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Data సంబంధం సరళ రేఖలా లేక curve లా మారితే polynomial regression ఆ వంపును నేర్చుకోగలదు.</p><h4>సరళమైన వివరణ</h4><p>Input యొక్క square, cube వంటి కొత్త features కలుపుతాం. తర్వాత linear regression వాటిని ఉపయోగించి curve లాంటి ఫలితం ఇస్తుంది. Degree ఎక్కువైతే model అతిగా నేర్చుకోవచ్చు.</p><h4>ఉదాహరణ</h4><p>మొక్క మొదట నెమ్మదిగా, తర్వాత వేగంగా పెరుగుతుంటే దాని ఎత్తు, రోజుల మధ్య curve లాంటి సంబంధం ఉండొచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Degree పెంచితే కొత్త data మీద కూడా model మెరుగవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-62-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజ జీవిత సంబంధాలు అన్నీ సరళ రేఖలో ఉండవు (వయసు మరియు ఆదాయం, వేగం మరియు ఇంధన వినియోగం). సరళ రేఖ సరిపోని చోట వంపు సంబంధాన్ని నేర్చుకోవడానికి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2481,9 +2491,9 @@ poly = make_pipeline(PolynomialFeatures(degree=2, include_bias=False), LinearReg
 
 print("linear R2:", round(linear.score(x, y), 2))    # దాదాపు 0 (వంపును పట్టుకోలేదు)
 print("poly   R2:", round(poly.score(x, y), 2))      # ~0.98</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-63"></span><details class="t"><summary>12. Multicollinearity<small>Multicollinearity (features ఒకదానికొకటి సంబంధం కలిగి ఉండటం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-63"></span><details class="t" id="p2-batch-topic-63"><summary>12. Multicollinearity<small>Multicollinearity (features ఒకదానికొకటి సంబంధం కలిగి ఉండటం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-63">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-63-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-63" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>రెండు features దాదాపు ఒకే సమాచారం ఇస్తే, regression weights ని అర్థం చేసుకోవడం కష్టం. ఈ సమస్యను multicollinearity అంటారు.</p><h4>సరళమైన వివరణ</h4><p>ఉదాహరణకు ఇంటి విస్తీర్ణం square feet లో, అదే విస్తీర్ణం square meters లో రెండూ features గా పెడితే అవి చాలా దగ్గరగా మారతాయి. అప్పుడు model ఏ feature కి ఎంత ప్రభావం ఇవ్వాలో స్థిరంగా నిర్ణయించలేకపోవచ్చు.</p><h4>ఉదాహరణ</h4><p>Features మధ్య correlation ఎక్కువగా ఉందో చూడండి; ఒకే సమాచారం ఇచ్చే వాటిలో ఒకదాన్ని తొలగించడం లేదా Ridge వాడడం ఒక పరిష్కారం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Training accuracy బాగుందని features ఒకదానితో ఒకటి సంబంధం లేవని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-63-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రెండు features దాదాపు ఒకే సమాచారం ఇస్తుంటే (ఉదా: సెంటీమీటర్లలో ఎత్తు మరియు అంగుళాలలో ఎత్తు), linear regression యొక్క weights అస్థిరంగా మారి, వాటి అర్థం కోల్పోతాయి. దీన్ని గుర్తించి నివారించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2510,9 +2520,9 @@ def vif(df, col):
 
 for c in df.columns:
     print(c, round(vif(df, c), 1))   # height_* కి చాలా పెద్ద VIF, age కి ~1</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-64"></span><details class="t"><summary>13. Residual analysis<small>Residual analysis (మిగిలిన తప్పుల విశ్లేషణ)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-64"></span><details class="t" id="p2-batch-topic-64"><summary>13. Residual analysis<small>Residual analysis (మిగిలిన తప్పుల విశ్లేషణ)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-64">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-64-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-64" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model చేసిన తప్పులు ఎక్కడ, ఏ pattern లో ఉన్నాయో తెలుసుకుంటే model ఎందుకు తప్పుతోందో అర్థమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Residual</b> అనేది నిజమైన విలువ నుంచి prediction తీసివేస్తే వచ్చే తేడా. Residuals ని graph లో చూసి, అవి సగటు చుట్టూ యాదృచ్ఛికంగా ఉన్నాయా అని పరిశీలిస్తాం. ఒక స్పష్టమైన pattern ఉంటే model ఏదో సంబంధం నేర్చుకోలేకపోయి ఉండొచ్చు.</p><h4>ఉదాహరణ</h4><p>ఇంటి ధర అంచనాల్లో ఖరీదైన ఇళ్లకు ఎప్పుడూ తక్కువ అంచనా వస్తే, model ఆ పరిధిలోని సంబంధాన్ని సరిగా పట్టుకోలేదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Residual విలువల మొత్తం చిన్నదని చూసి అన్ని తప్పులు చిన్నవని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-64-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే స్కోర్ (R², RMSE) model లో ఏం తప్పు ఉందో చెప్పదు. Residuals ని చూస్తే model ఏ సందర్భాలలో విఫలమవుతోంది, సరళ model సరిపోతుందా, outliers ఉన్నాయా అని తెలుస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2535,9 +2545,9 @@ print(residuals[:20].mean().round(1), residuals[40:60].mean().round(1), residual
 # + / - / + అనే pattern → సరళ model తప్పు, వంపు ఉంది
 
 # plot కి: plt.scatter(pred, residuals); plt.axhline(0)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-65"></span><details class="t"><summary>14. Model evaluation<small>Model మూల్యాంకనం (evaluation)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-65"></span><details class="t" id="p2-batch-topic-65"><summary>14. Model evaluation<small>Model మూల్యాంకనం (evaluation)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-65">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-65-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-65" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Training data మీద మాత్రమే బాగున్న model కొత్త data మీద కూడా పనిచేస్తుందో తెలుసుకోవడానికి evaluation అవసరం.</p><h4>సరళమైన వివరణ</h4><p>Training కి వాడని validation లేదా test data మీద model ని నడిపి, task కి తగిన metric తో ఫలితం కొలుస్తాం. Regression కి MAE, RMSE వాడవచ్చు; classification కి precision, recall వంటి కొలతలు ఉపయోగపడతాయి. సరైన metric వ్యాపార సమస్యపై ఆధారపడుతుంది.</p><h4>ఉదాహరణ</h4><p>ఇంటి ధర అంచనాలో RMSE తో తప్పుల స్థాయిని చూడవచ్చు. రుణ ప్రమాదాన్ని గుర్తించేటప్పుడు ప్రమాదంలో ఉన్న customer ని మిస్ చేయడం ముఖ్యమైన తప్పు కావచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model ని training చేసిన అదే data మీద మాత్రమే పరీక్షించడం.</div></div><div class="explain-pane" id="p2-batch-gpt-65-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model మంచిదా కాదా చెప్పడానికి, వేర్వేరు models ని పోల్చడానికి, మరియు production లోకి వెళ్ళే ముందు నమ్మకం పొందడానికి సరైన కొలమానాలు, సరైన పద్ధతి అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2565,7 +2575,7 @@ for name, m in [("baseline", base), ("linear", model)]:
 cv = cross_val_score(LinearRegression(), X, y, cv=5, scoring="r2")
 print("5-fold R2:", cv.round(2))                            # స్థిరత్వం కోసం</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> training data పై R² చూసి model మంచిదని నిర్ణయించడం; అది overfitting ని దాచేస్తుంది.</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 
@@ -2580,7 +2590,7 @@ print("5-fold R2:", cv.round(2))                            # స్థిరత
     </div>
   </summary>
   <div class="day-body">
-    <span class="global-search-anchor" id="global-topic-2-66"></span><details class="t"><summary>1. Logistic regression<small>Logistic regression: అవును/కాదు సంభావ్యతను అంచనా వేసే model</small></summary><div class="body">
+    <span class="global-search-anchor" id="global-topic-2-66"></span><details class="t" id="p2-batch-topic-66"><summary>1. Logistic regression<small>Logistic regression: అవును/కాదు సంభావ్యతను అంచనా వేసే model</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-66">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-66-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-66" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక input ఆధారంగా “అవును” లేదా “కాదు” వంటి వర్గాన్ని అంచనా వేయడానికి logistic regression ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఇది మొదట input features కలిపి ఒక score లెక్కిస్తుంది. Sigmoid function ఆ score ని 0 నుంచి 1 మధ్య probability గా మారుస్తుంది. Threshold తో ఆ probability ని class గా మార్చుతాం. పేరు regression అయినా, సాధారణంగా classification కి వాడతారు.</p><h4>ఉదాహరణ</h4><p>ఒక email spam అయ్యే probability 0.92 వస్తే, threshold 0.5 వద్ద దాన్ని spam గా వర్గీకరించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Logistic regression తప్పనిసరిగా సరళ రేఖలోనే class ని విడగొడుతుందని అనుకోవడం; features ని ఎలా రూపొందించామన్నదీ ముఖ్యం.</div></div><div class="explain-pane" id="p2-batch-gpt-66-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఈ email spam ఆ?", "ఈ customer churn అవుతాడా?" లాంటి ప్రశ్నలకు సంఖ్య కాకుండా అవును/కాదు జవాబు కావాలి. Logistic regression అత్యంత సరళమైన, వేగవంతమైన, వివరించగలిగే classification model, అందుకే ఏ ML project లో అయినా మొదటి baseline గా వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2603,9 +2613,9 @@ print(model.score(X_test, y_test))        # accuracy
 print(model.predict_proba(X_test[:2]))    # ప్రతి class కి probability</pre>
 <p><code>predict_proba</code> ప్రతి row కి [class 0 probability, class 1 probability] ఇస్తుంది. రెండూ కలిపి 1 అవుతాయి.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> features ని scale చేయకపోవడం, దీనివల్ల solver converge అవ్వదు లేదా weights సరిగా రావు. అలాగే "regression" పేరు చూసి number predict చేస్తుంది అనుకోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-67"></span><details class="t"><summary>2. Binary classification<small>రెండు class ల వర్గీకరణ</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-67"></span><details class="t" id="p2-batch-topic-67"><summary>2. Binary classification<small>రెండు class ల వర్గీకరణ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-67">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-67-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-67" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>రెండు వర్గాల్లో ఒకటిని ఎంచుకోవడం చాలా సాధారణ సమస్య: spam/not spam, fraud/not fraud వంటివి.</p><h4>సరళమైన వివరణ</h4><p>Binary classification లో labels రెండు మాత్రమే ఉంటాయి. Model ప్రతి input కి score లేదా probability ఇస్తుంది; threshold ఆధారంగా ఒక label ఎంచుకుంటాం. ఏ తప్పు ఎక్కువ నష్టం చేస్తుందో బట్టి threshold మార్చవచ్చు.</p><h4>ఉదాహరణ</h4><p>Payment fraud గుర్తింపులో fraud ని మిస్ చేయడం ఖరీదైతే, recall పెంచేలా threshold తగ్గించవచ్చు; అప్పుడు false alarms పెరగొచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి సమస్యకీ probability 0.5 threshold సరిపోతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-67-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Business లో చాలా నిర్ణయాలు అవును/కాదు: fraud లేదా కాదు, loan ఇవ్వాలా వద్దా, user కొంటాడా కొనడా. ఇలాంటి సమస్యల్ని సరిగ్గా frame చేయడం మొదటి అడుగు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2624,9 +2634,9 @@ proba = clf.predict_proba(X[:3])[:, 1]   # class 1 probability
 print(proba)
 print(clf.predict(X[:3]))        # 0.5 threshold తో 0/1</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> positive class ఏదో స్పష్టంగా నిర్ణయించకపోవడం. Precision/recall లెక్కలు positive class మీదే ఆధారపడతాయి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-68"></span><details class="t"><summary>3. Multiclass classification<small>మూడు లేదా అంతకంటే ఎక్కువ class ల వర్గీకరణ</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-68"></span><details class="t" id="p2-batch-topic-68"><summary>3. Multiclass classification<small>మూడు లేదా అంతకంటే ఎక్కువ class ల వర్గీకరణ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-68">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-68-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-68" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకటి కంటే ఎక్కువ categories లో ఏదో ఒకటిని ఎంచుకోవడం అవసరమైనప్పుడు multiclass classification ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Multiclass model అనేక labels లో ఒకటి ఎంచుకుంటుంది. ఉదాహరణకు, పండు చిత్రం apple, orange, banana లో ఏదో గుర్తించడం. కొన్ని models ఒకేసారి అన్ని classes పోలుస్తాయి; మరికొన్ని binary classifiers ని కలిపి వాడతాయి.</p><h4>ఉదాహరణ</h4><p>Support ticket ని billing, shipping, account, other categories లో ఒకటిగా గుర్తించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Multiclass సమస్యలో labels కి క్రమం ఉందని అనుకోవడం; “billing” “shipping” కంటే ఎక్కువ లేదా తక్కువ కాదు.</div></div><div class="explain-pane" id="p2-batch-gpt-68-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Support ticket ని "billing / technical / sales" లోకి పంపడం, ఫోటోలో అంకె 0-9 గుర్తించడం లాంటివి రెండు కంటే ఎక్కువ options ఉన్న సమస్యలు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2643,9 +2653,9 @@ clf = LogisticRegression(max_iter=500).fit(X_tr, y_tr)
 print(clf.predict_proba(X_te[:1]))   # 3 probabilities, మొత్తం 1
 print(clf.predict(X_te[:5]), clf.score(X_te, y_te))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> multiclass కి కూడా binary metrics (precision/recall) నేరుగా వాడడం. ఇక్కడ <code>average="macro"</code> లేదా <code>"weighted"</code> చెప్పాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-69"></span><details class="t"><summary>4. Decision trees<small>Decision trees: ప్రశ్నల చెట్టు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-69"></span><details class="t" id="p2-batch-topic-69"><summary>4. Decision trees<small>Decision trees: ప్రశ్నల చెట్టు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-69">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-69-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-69" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చిన్న నియమాల వరుసగా నిర్ణయాన్ని వివరించాలంటే Decision tree సులభంగా అర్థమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Tree ఒక ప్రశ్న అడిగి data ని రెండు లేదా అంతకంటే ఎక్కువ భాగాలుగా విడగొడుతుంది. మళ్లీ ప్రశ్నలు అడుగుతూ చివరికి label లేదా సంఖ్య అంచనా వేస్తుంది. చెట్టు చాలా లోతుగా ఉంటే training data ని కంఠస్థం చేయవచ్చు.</p><h4>ఉదాహరణ</h4><p>ఒక loan applicant ఆదాయం 50,000 కంటే ఎక్కువా? అప్పు చెల్లింపు చరిత్ర బాగుందా? అనే ప్రశ్నలతో approve/deny నిర్ణయించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> చెట్టు లోతు నియంత్రించక training data కి మాత్రమే సరిపోయేలా చేయడం.</div></div><div class="explain-pane" id="p2-batch-gpt-69-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Business వాళ్లకు "model ఎందుకు ఇలా చెప్పింది?" అని వివరించాల్సి వస్తుంది. Decision tree ని మనుషులు చదవగలిగే if/else rules గా చూపించవచ్చు, features scale చేయక్కర్లేదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2660,9 +2670,9 @@ tree = DecisionTreeClassifier(max_depth=2, random_state=0).fit(X, y)
 # tree ని if/else rules లాగా చదవండి
 print(export_text(tree, feature_names=["sl", "sw", "pl", "pw"]))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> depth పరిమితి లేకుండా tree పెంచడం: training accuracy 100% వస్తుంది కానీ కొత్త డేటాపై తక్కువ.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-70"></span><details class="t"><summary>5. Random forests<small>Random forests: చాలా చెట్ల సమూహం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-70"></span><details class="t" id="p2-batch-topic-70"><summary>5. Random forests<small>Random forests: చాలా చెట్ల సమూహం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-70">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-70-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-70" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే Decision tree లో జరిగే పొరపాట్లను తగ్గించడానికి అనేక చెట్ల ఫలితాలు కలిపి Random forest ఉపయోగిస్తారు.</p><h4>సరళమైన వివరణ</h4><p>ప్రతి చెట్టుకు data లో కొంత భాగం, features లో కొంత భాగం చూపిస్తారు. చివరలో classification కి ఎక్కువ చెట్లు ఎంచుకున్న label తీసుకుంటాం; regression కి ఫలితాల సగటు తీసుకోవచ్చు. ఒకే చెట్టు కంటే ఫలితం సాధారణంగా స్థిరంగా ఉంటుంది.</p><h4>ఉదాహరణ</h4><p>చాలా చెట్లు “spam” అని చెబితే email ని spam గా గుర్తించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Random Forest ఎప్పుడూ అన్ని ఇతర models కంటే మెరుగని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-70-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక్క tree అస్థిరంగా ఉంటుంది. Random forest చాలా trees ని కలిపి వాడి చాలా తక్కువ tuning తో బలమైన ఫలితాలు ఇస్తుంది, అందుకే tabular data లో విశ్వసనీయమైన default.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2683,9 +2693,9 @@ print(rf.score(X_te, y_te))
 top = rf.feature_importances_.argsort()[::-1][:3]
 print([data.feature_names[i] for i in top])</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>feature_importances_</code> ని "కారణం" అనుకోవడం. ఇది model కి ఉపయోగపడిన features మాత్రమే చెబుతుంది, causation కాదు.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-71"></span><details class="t"><summary>6. K-nearest neighbors<small>K-nearest neighbors: దగ్గరి పొరుగువారిని చూసి నిర్ణయం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-71"></span><details class="t" id="p2-batch-topic-71"><summary>6. K-nearest neighbors<small>K-nearest neighbors: దగ్గరి పొరుగువారిని చూసి నిర్ణయం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-71">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-71-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-71" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>కొత్త data కి దగ్గరగా ఉన్న పాత examples ఆధారంగా సులభమైన అంచనా వేయడానికి K-nearest neighbors ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>KNN కొత్త sample కి దగ్గరగా ఉన్న K training samples ని చూస్తుంది. Classification లో వాళ్లలో ఎక్కువ మంది ఎంచుకున్న class తీసుకుంటుంది; regression లో వాళ్ల విలువల సగటు తీసుకోవచ్చు. Distance లెక్కించే ముందు features ని scale చేయడం ముఖ్యం.</p><h4>ఉదాహరణ</h4><p>ఒక customer కి దగ్గరగా ఉన్న 5 పాత customers లో 4 మంది churn అయ్యారంటే, కొత్త customer కి churn ప్రమాదం ఉందని అంచనా వేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Features వేర్వేరు scales లో ఉన్నా distance ని నేరుగా పోల్చడం.</div></div><div class="explain-pane" id="p2-batch-gpt-71-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాలా సరళమైన, training దాదాపు లేని algorithm. Recommendation, "ఇలాంటి వాటిని" వెతకడం వంటి similarity ఆలోచనలకు పునాది (vector search కి కూడా మూలం).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2704,9 +2714,9 @@ knn = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=5))
 knn.fit(X_tr, y_tr)
 print(knn.score(X_te, y_te))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> scaling మరచిపోవడం, మరియు <code>k</code> ని 1 పెట్టడం (noise కి చాలా సున్నితం).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-72"></span><details class="t"><summary>7. Naive Bayes<small>Naive Bayes: సంభావ్యత నియమంతో వేగవంతమైన classifier</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-72"></span><details class="t" id="p2-batch-topic-72"><summary>7. Naive Bayes<small>Naive Bayes: సంభావ్యత నియమంతో వేగవంతమైన classifier</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-72">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-72-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-72" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Text classification వంటి పనుల్లో వేగంగా పనిచేసే probability ఆధారిత baseline model గా Naive Bayes ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Bayes theorem తో ప్రతి class కి probability లెక్కిస్తుంది. Features ఒకదానితో ఒకటి సంబంధం లేనట్టు భావించడం వల్ల “Naive” అని పేరు. ఆ అంచనా నిజ జీవితంలో ఎప్పుడూ సరైనది కాకపోయినా, model కొన్ని పనుల్లో బాగా పనిచేస్తుంది.</p><h4>ఉదాహరణ</h4><p>Email లో “free”, “offer” వంటి పదాలు ఉంటే spam అయ్యే probability పెరుగుతుందా అని model నేర్చుకోవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Features నిజంగా independent కాకపోతే model ఎప్పుడూ పనిచేయదని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-72-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Spam filtering, text classification లో దశాబ్దాలుగా వాడుతున్న చాలా వేగవంతమైన, తక్కువ data తో పని చేసే model. Text baseline గా ఇప్పటికీ ఉపయోగపడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2724,9 +2734,9 @@ model = make_pipeline(CountVectorizer(), MultinomialNB())
 model.fit(texts, labels)
 print(model.predict(["free prize money", "see report at meeting"]))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> దీని <code>predict_proba</code> విలువల్ని అతి నమ్మడం: independence assumption వల్ల probabilities ఎక్కువ నమ్మకంగా (0 లేదా 1 దగ్గరగా) వస్తాయి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-73"></span><details class="t"><summary>8. Support vector machines<small>Support vector machines: రెండు class ల మధ్య అతి వెడల్పైన గీత</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-73"></span><details class="t" id="p2-batch-topic-73"><summary>8. Support vector machines<small>Support vector machines: రెండు class ల మధ్య అతి వెడల్పైన గీత</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-73">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-73-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-73" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>రెండు classes మధ్య స్పష్టమైన గీతను కనుగొని, దానికి దగ్గరగా ఉన్న examples ని బాగా విడగొట్టడానికి SVM ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Support Vector Machine</b> classes మధ్య margin పెద్దగా ఉండే decision boundary ని ఎంచుకుంటుంది. Boundary కి దగ్గరగా ఉన్న points support vectors. Kernel వాడితే వంకరగా ఉండే boundary లను కూడా సృష్టించవచ్చు.</p><h4>ఉదాహరణ</h4><p>రెండు రకాల flowers కి పొడవు, వెడల్పు కొలతలు ఇచ్చి వాటి మధ్య విడగొట్టే boundary నేర్చుకోవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Features ని scale చేయకుండా SVM నడిపి ఫలితాన్ని నమ్మడం.</div></div><div class="explain-pane" id="p2-batch-gpt-73-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>చిన్న-మధ్యస్థ డేటా, ఎక్కువ features (ఉదా: text) ఉన్నప్పుడు SVM చాలా బలమైన ఫలితాలు ఇస్తుంది. Deep learning కి ముందు కాలంలో ఇది ప్రధాన classifier.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2746,9 +2756,9 @@ svm.fit(X_tr, y_tr)
 print(svm.score(X_te, y_te))
 print(svm[-1].n_support_)    # ప్రతి class కి support vectors సంఖ్య</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> scaling లేకుండా SVM వాడటం, మరియు లక్షల rows ఉన్న డేటాపై <code>SVC</code> ప్రయత్నించడం (training సమయం చాలా పెరుగుతుంది).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-74"></span><details class="t"><summary>9. Ensemble learning<small>Ensemble learning: అనేక models ని కలిపి వాడటం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-74"></span><details class="t" id="p2-batch-topic-74"><summary>9. Ensemble learning<small>Ensemble learning: అనేక models ని కలిపి వాడటం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-74">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-74-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-74" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే model తప్పు చేసే చోట మరో model సరిచేయగలదు. వాటి ఫలితాలు కలిపితే prediction మరింత స్థిరంగా ఉండవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>Ensemble learning</b> లో అనేక models ఫలితాలు కలిపి ఒక final prediction ఇస్తాం. Models ఒకే విధంగా తప్పు చేయకుండా ఉంటే కలిపిన ఫలితం మెరుగవుతుంది. Bagging, boosting ముఖ్యమైన ensemble పద్ధతులు.</p><h4>ఉదాహరణ</h4><p>మూడు వేర్వేరు models ఒక transaction fraud అని చెబితే, ఆ transaction ని పరిశీలనకు పంపవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> చాలా బలహీనమైన లేదా ఒకేలా తప్పు చేసే models కలిపితే మెరుగుదల తప్పకుండా వస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-74-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక్క model కి ఉండే బలహీనతలను అనేక models కలిసి తగ్గిస్తాయి. Kaggle పోటీల్లో మరియు production tabular ML లో గెలిచే పద్ధతులు దాదాపు అన్నీ ensembles.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2772,9 +2782,9 @@ vote = VotingClassifier([
 
 print(cross_val_score(vote, X, y, cv=5).mean())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకేలా తప్పులు చేసే models ని కలపడం: వైవిధ్యం (diversity) లేకపోతే ensemble తో లాభం ఉండదు.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-75"></span><details class="t"><summary>10. Bagging and boosting<small>Bagging మరియు boosting: ensemble రెండు ప్రధాన పద్ధతులు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-75"></span><details class="t" id="p2-batch-topic-75"><summary>10. Bagging and boosting<small>Bagging మరియు boosting: ensemble రెండు ప్రధాన పద్ధతులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-75">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-75-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-75" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక model మీద ఎక్కువగా ఆధారపడకుండా అనేక models ని కలిపి ఫలితాన్ని స్థిరపరచడానికి bagging, boosting ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Bagging</b> లో వేర్వేరు data samples పై models ని విడిగా train చేసి, వాటి ఫలితాలు కలుపుతాం. <b>Boosting</b> లో models వరుసగా train అవుతాయి; తర్వాతి model ముందు చేసిన తప్పులను సరిచేయడానికి ప్రయత్నిస్తుంది.</p><h4>ఉదాహరణ</h4><p>Random Forest bagging ని ఉపయోగిస్తుంది. Gradient boosting లో కొత్త చెట్టు, ఇప్పటి model తప్పులను తగ్గించడానికి నేర్చుకుంటుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Bagging, boosting రెండూ models ని ఒకే విధంగా కలుపుతాయని భావించడం.</div></div><div class="explain-pane" id="p2-batch-gpt-75-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Bagging variance (అస్థిరత) తగ్గిస్తుంది, boosting bias (బలహీనత) తగ్గిస్తుంది. ఏ సమస్యకు ఏది సరిపోతుందో తెలిస్తే model ఎంపిక సులభమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2793,9 +2803,9 @@ boost = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=50,
 print("bagging :", cross_val_score(bag, X, y, cv=5).mean())
 print("boosting:", cross_val_score(boost, X, y, cv=5).mean())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> "boosting ఎప్పుడూ bagging కంటే మంచిది" అనుకోవడం. Noisy data లో boosting తప్పులను కూడా బట్టీ పట్టే ప్రమాదం ఉంది; cross-validation తో పోల్చాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-76"></span><details class="t"><summary>11. XGBoost and gradient boosting<small>XGBoost మరియు gradient boosting: tabular data కి అగ్రశ్రేణి model</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-76"></span><details class="t" id="p2-batch-topic-76"><summary>11. XGBoost and gradient boosting<small>XGBoost మరియు gradient boosting: tabular data కి అగ్రశ్రేణి model</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-76">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-76-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-76" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పట్టికల రూపంలో ఉన్న data మీద classification లేదా regression చేయడానికి gradient boosting models బలమైన ఎంపికలు.</p><h4>సరళమైన వివరణ</h4><p><b>Gradient boosting</b> చిన్న చెట్లను ఒకదాని తర్వాత ఒకటి జోడిస్తుంది. ప్రతి కొత్త చెట్టు ఇప్పటి వరకు మిగిలిన తప్పును తగ్గించడానికి నేర్చుకుంటుంది. XGBoost ఇదే ఆలోచనను వేగంగా, నియంత్రణలతో అమలు చేసే library.</p><h4>ఉదాహరణ</h4><p>Customer churn అంచనాకు ఖాతా వయసు, support calls, usage వంటి పట్టిక data ని ఇచ్చి churn అయ్యే అవకాశం నేర్పవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Hyperparameters సర్దకుండా XGBoost ఎంచుకున్నంత మాత్రాన సరైన ఫలితం వస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-76-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Tabular (rows/columns, DB tables లాంటి) డేటాలో gradient boosting libraries (XGBoost, LightGBM, CatBoost) ఇప్పటికీ చాలా సందర్భాల్లో neural networks కంటే మెరుగ్గా లేదా సమానంగా ఉంటాయి. Fraud, churn, ranking లో ఇండస్ట్రీ ప్రమాణం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2817,9 +2827,9 @@ print(gb.score(X_te, y_te))
 # xgb = XGBClassifier(n_estimators=200, learning_rate=0.05, max_depth=3)
 # xgb.fit(X_tr, y_tr)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> learning_rate ఎక్కువ + trees ఎక్కువ పెట్టి overfit చేయడం. Validation set తో <b>early stopping</b> వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-77"></span><details class="t"><summary>12. Confusion matrix<small>Confusion matrix: ఒప్పు తప్పుల పట్టిక</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-77"></span><details class="t" id="p2-batch-topic-77"><summary>12. Confusion matrix<small>Confusion matrix: ఒప్పు తప్పుల పట్టిక</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-77">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-77-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-77" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Classification model ఎన్ని రకాలుగా సరిగ్గా, తప్పుగా అంచనా వేసిందో ఒకే చోట చూడటానికి confusion matrix ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Binary classification లో ఇది నాలుగు లెక్కలు చూపిస్తుంది: నిజమైన positive ని సరిగ్గా పట్టుకోవడం, negative ని సరిగ్గా వదలడం, తప్పుగా positive చెప్పడం, positive ని మిస్ చేయడం. ఈ లెక్కల నుంచి precision, recall వంటి metrics వస్తాయి.</p><h4>ఉదాహరణ</h4><p>Fraud detection లో model పట్టుకున్న fraud, నిజంగా fraud అయిన వాటిని పోల్చితే false alarm, మిస్ అయిన కేసులు తెలుస్తాయి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Confusion matrix లో rows, columns ఏవి actual, ఏవి predicted అనేది చూడకుండా అర్థం చేసుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-77-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"Accuracy 95%" అనేది ఏ రకమైన తప్పులు జరుగుతున్నాయో చెప్పదు. Fraud ని మిస్ అవడం మరియు మంచి user ని fraud అనడం రెండూ వేర్వేరు నష్టాలు; confusion matrix వాటిని వేరు చేసి చూపిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2835,9 +2845,9 @@ print(cm)                    # [[3 1] [1 3]]
 tn, fp, fn, tp = cm.ravel()
 print(tn, fp, fn, tp)        # 3 1 1 3</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> rows/columns క్రమాన్ని తారుమారు చేసి చదవడం. scikit-learn లో row = actual, column = predicted.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-78"></span><details class="t"><summary>13. Precision, recall and F1 score<small>Precision, recall, F1 score: classification నాణ్యత కొలతలు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-78"></span><details class="t" id="p2-batch-topic-78"><summary>13. Precision, recall and F1 score<small>Precision, recall, F1 score: classification నాణ్యత కొలతలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-78">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-78-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-78" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Classification లో ఏ రకమైన తప్పు ముఖ్యం అనే దాన్ని బట్టి model ని కొలవడానికి precision, recall, F1 ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Precision</b> అంటే model positive అన్నవాటిలో నిజంగా positive అయిన వాటి శాతం. <b>Recall</b> అంటే మొత్తం నిజమైన positives లో model పట్టుకున్న వాటి శాతం. <b>F1</b> ఈ రెండింటి మధ్య సమతుల్య సగటు.</p><h4>ఉదాహరణ</h4><p>Spam filter ఎక్కువ emails ని spam గా గుర్తిస్తే precision తక్కువ కావచ్చు; నిజమైన spam ని మిస్ చేయకపోతే recall ఎక్కువ.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Accuracy బాగుందని, precision లేదా recall అవసరం లేదని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-78-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Data లో 1% మాత్రమే fraud అయితే "ఎప్పుడూ fraud కాదు" అని చెప్పే model కి 99% accuracy వస్తుంది కానీ పనికిరాదు. అందుకే precision/recall అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2853,9 +2863,9 @@ print(recall_score(y_true, y_pred))      # 3/(3+1) = 0.75
 print(f1_score(y_true, y_pred))          # 0.75
 print(classification_report(y_true, y_pred))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> imbalanced data లో accuracy మాత్రమే చూడటం. సమస్య ఖర్చును బట్టి precision లేదా recall ఏది ముఖ్యమో ముందే నిర్ణయించండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-79"></span><details class="t"><summary>14. ROC curve and AUC<small>ROC curve మరియు AUC: అన్ని thresholds లో model నాణ్యత</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-79"></span><details class="t" id="p2-batch-topic-79"><summary>14. ROC curve and AUC<small>ROC curve మరియు AUC: అన్ని thresholds లో model నాణ్యత</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-79">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-79-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-79" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Classification threshold ని మార్చినప్పుడు model ఎలా మారుతుందో ROC curve చూపిస్తుంది. వేర్వేరు models ని పోల్చడానికి AUC ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ROC curve అనేక thresholds వద్ద true positive rate, false positive rate మధ్య సంబంధం చూపిస్తుంది. AUC అనేది ఆ curve కింద ఉన్న విస్తీర్ణం; ఎక్కువ విలువ సాధారణంగా మెరుగైన class ranking ని సూచిస్తుంది. కానీ class imbalance ఉన్నప్పుడు PR curve కూడా చూడాలి.</p><h4>ఉదాహరణ</h4><p>Fraud model లో threshold తగ్గిస్తే ఎక్కువ fraud పట్టవచ్చు, అదే సమయంలో ఎక్కువ false alarms రావచ్చు. ROC ఆ మార్పును చూపిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> AUC ఎక్కువగా ఉందంటే ఎంచుకున్న threshold వద్ద తప్పులు తక్కువని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-79-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Threshold ఒక్కటి కాకుండా, model యొక్క మొత్తం "ranking" సామర్థ్యాన్ని (positives ని negatives కంటే పైన ఉంచే శక్తి) ఒకే సంఖ్యతో పోల్చడానికి AUC వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2877,9 +2887,9 @@ print(roc_auc_score(y_te, proba))
 fpr, tpr, thresholds = roc_curve(y_te, proba)
 print(len(thresholds), "thresholds పరిశీలించబడ్డాయి")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>roc_auc_score</code> కి <code>predict()</code> (0/1) ఇవ్వడం. <code>predict_proba</code> లేదా <code>decision_function</code> ఇవ్వాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-80"></span><details class="t"><summary>15. Class imbalance<small>Class imbalance: ఒక class చాలా తక్కువగా ఉండటం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-80"></span><details class="t" id="p2-batch-topic-80"><summary>15. Class imbalance<small>Class imbalance: ఒక class చాలా తక్కువగా ఉండటం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-80">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-80-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-80" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక class చాలా తక్కువగా ఉన్నప్పుడు సాధారణ accuracy model పనితీరును తప్పుగా చూపవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>Class imbalance</b> అంటే ఒక label కి examples ఎక్కువ, మరో label కి చాలా తక్కువ. ఉదాహరణకు, 1,000 payments లో 5 మాత్రమే fraud అయితే, ప్రతిదీ “fraud కాదు” అన్న model కి 99.5% accuracy వస్తుంది; అయినా ఒక్క fraud కూడా పట్టదు. Precision, recall, PR-AUC వంటి కొలతలు చూడాలి.</p><h4>ఉదాహరణ</h4><p>Fraud data లో rare positive cases ని గుర్తించడానికి class weights లేదా careful resampling వాడవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Imbalanced data మీద accuracy ఒక్కటే చూసి model బాగుందని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-80-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Fraud, defects, churn, అరుదైన వ్యాధులు: అసలైన events చాలా అరుదు. Imbalance ని పట్టించుకోకపోతే model మెజారిటీ class నే చెబుతూ "బాగా పనిచేస్తున్నట్టు" కనిపిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2900,9 +2910,9 @@ weighted = LogisticRegression(max_iter=1000, class_weight="balanced").fit(X_tr, 
 print("recall సాధారణ :", recall_score(y_te, plain.predict(X_te)))
 print("recall weighted:", recall_score(y_te, weighted.predict(X_te)))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> split కి ముందే SMOTE/oversampling చేయడం: test set లోకి training copies లీక్ అయి ఫలితాలు అబద్ధంగా మెరుగ్గా కనిపిస్తాయి (data leakage).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-2-81"></span><details class="t"><summary>16. Threshold tuning<small>Threshold tuning: 0.5 కటాఫ్‌ను సరిచేయడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-2-81"></span><details class="t" id="p2-batch-topic-81"><summary>16. Threshold tuning<small>Threshold tuning: 0.5 కటాఫ్‌ను సరిచేయడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-batch-gpt-81">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-batch-gpt-81-gemini">Gemini</button></div><div class="explain-pane" id="p2-batch-gpt-81" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model probability ని class గా మార్చే cutoff ని task కి తగినట్లు ఎంచుకుంటే తప్పుల ఖర్చును నియంత్రించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>Threshold</b> అనేది నిర్ణయ cutoff. Probability దానికంటే ఎక్కువైతే positive అంటాం. Threshold తగ్గిస్తే ఎక్కువ positives పట్టవచ్చు, కానీ false alarms పెరగవచ్చు. సరైన విలువ validation data, వ్యాపార అవసరాల ఆధారంగా ఎంచుకోవాలి.</p><h4>ఉదాహరణ</h4><p>Medical screening లో వ్యాధి ఉన్నవారిని మిస్ చేయడం ప్రమాదమైతే threshold తగ్గించి recall పెంచవచ్చు; తర్వాత test ద్వారా false alarms ని పరిశీలించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Probability 0.5 నే అన్ని classification పనులకు సరైన cutoff అని అనుకోవడం.</div></div><div class="explain-pane" id="p2-batch-gpt-81-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Default threshold 0.5 అనేది business అవసరాలకు సరిపోదు. Cancer screening లో మిస్ అవ్వడం ప్రమాదకరం కాబట్టి తక్కువ threshold; spam filter లో మంచి mail ని spam చేయడం ప్రమాదం కాబట్టి ఎక్కువ threshold.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2928,7 +2938,7 @@ p, r, th = precision_recall_curve(y_val, proba)
 ok = np.where(r[:-1] &gt;= 0.9)[0]
 print("ఎంచుకున్న threshold:", th[ok[-1]])</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> threshold ని test set పై tune చేయడం: అప్పుడు test ఫలితం నిష్పక్షపాతం కాదు. Validation set లేదా cross-validation వాడండి.</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 

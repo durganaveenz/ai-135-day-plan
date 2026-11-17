@@ -1063,7 +1063,7 @@ class ProductionLLMClient:
         return response.json()["choices"][0]["message"]["content"]
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> నోట్‌బుక్‌లో రాసిన కోడ్‌ను ఎర్రర్ హ్యాండ్లింగ్, రీట్రై లాజిక్ లేకుండా నేరుగా ప్రొడక్షన్ FastAPI లో పెట్టేయడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-2"></span><details class="t"><summary>2. Monolithic vs microservices architecture.<small>మోనోలిథిక్ వర్సెస్ మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-2"></span><details class="t" id="p6-gpt-batch-topic-2"><summary>2. Monolithic vs microservices architecture.<small>మోనోలిథిక్ వర్సెస్ మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-2-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-2-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-2-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే అప్లికేషన్‌గా నిర్మించాలా, విడివిడిగా services గా నిర్మించాలా అనేది నిర్వహణ, deploy, scale చేసే విధానాన్ని ప్రభావితం చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Monolith</b> లో features ఒకే application, సాధారణంగా ఒకే deployment లో ఉంటాయి. చిన్న టీమ్ కి నిర్మించి deploy చేయడం సులభం. <b>Microservices</b> లో వేర్వేరు పనులు విడి services గా deploy అవుతాయి; ఉదాహరణకు API, document processing, model inference. వాటిని విడిగా scale చేయొచ్చు, కానీ network calls, monitoring, data consistency వంటి నిర్వహణ భారమూ పెరుగుతుంది.</p><h4>ఉదాహరణ</h4><p>మొదట AI chat, user management, document search ఒక modular app లో ఉండొచ్చు. GPU ఖర్చు ఎక్కువైన inference భాగాన్ని మాత్రమే తర్వాత ప్రత్యేక service గా విడదీయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Microservices ఎప్పుడూ వేగంగా లేదా సులభంగా ఉంటాయని భావించడం; చిన్న product కి అవి నిర్వహణ భారాన్ని పెంచవచ్చు.</div></div><div class="gemini-pane" id="p6-batch-2-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్లలో కొన్ని టాస్క్‌లు CPU-bound (డేటా పార్సింగ్), కొన్ని GPU-bound (మోడల్ ఇన్‌ఫరెన్స్), మరియు కొన్ని I/O-bound (API కాల్స్). ఇవన్నీ ఒకే ప్రాసెస్‌లో పెడితే మొత్తం అప్లికేషన్ నెమ్మదిస్తుంది కాబట్టి సర్వీస్ విభజన అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1081,7 +1081,7 @@ def submit_ai_task(user_id: int, prompt: str):
     return {"status": "queued", "job_id": job_id.decode()}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> చిన్న ప్రాజెక్ట్‌లకు కూడా మొదట్లోనే డజన్ల కొద్దీ మైక్రోసర్వీసులు రాసి నెట్‌వర్క్ లేటెన్సీని అనవసరంగా పెంచడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-3"></span><details class="t" id="gpt-topic-p6-layered-architecture-0"><summary>3. Layered architecture.<small>లేయర్డ్ (బహుళ అంచెల) ఆర్కిటెక్చర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
 <button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-layered-architecture">GPT</button>
@@ -1145,7 +1145,7 @@ class AskQuestionUseCase:
         return self.llm.generate(f"Answer briefly: {question}")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కోర్ బిజినెస్ లాజిక్ అంతటా నేరుగా `import openai` వాడి తర్వాత మోడల్ మార్చడానికి ఇబ్బంది పడటం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-5"></span><details class="t"><summary>5. Hexagonal architecture.<small>హెక్సాగోనల్ (పోర్ట్స్ అండ్ అడాప్టర్స్) ఆర్కిటెక్చర్</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-5"></span><details class="t" id="p6-gpt-batch-topic-5"><summary>5. Hexagonal architecture.<small>హెక్సాగోనల్ (పోర్ట్స్ అండ్ అడాప్టర్స్) ఆర్కిటెక్చర్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-5-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-5-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-5-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LLM provider, database వంటి బయటి భాగాలు మారినా business logic ని మార్చకుండా ఉంచడానికి Hexagonal architecture ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>లోపలి application code తనకు కావాల్సిన పనులను interfaces గా చెబుతుంది; వీటిని <b>ports</b> అంటారు. OpenAI client, PostgreSQL repository వంటి బయటి implementations <b>adapters</b>. Core logic adapter ని నేరుగా పిలవకుండా port ద్వారా పనిచేస్తుంది. అందువల్ల provider మారినా లోపలి code స్థిరంగా ఉండొచ్చు.</p><h4>ఉదాహరణ</h4><p><code>AnswerService</code> కి <code>TextGenerator</code> interface ఇవ్వండి. ఒక adapter OpenAI ని పిలుస్తుంది; మరో adapter local model ని పిలుస్తుంది. Test లో fake adapter ఇచ్చి network లేకుండానే service ని పరీక్షించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి చిన్న function కి port, adapter సృష్టించి architecture ని అవసరానికి మించి క్లిష్టం చేయడం.</div></div><div class="gemini-pane" id="p6-batch-5-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్ అనేక రకాల బాహ్య సేవలపై (LLM APIs, Vector DBs, Cloud Storage, SQL DBs) ఆధారపడుతుంది. వీటన్నింటినీ సులభంగా టెస్ట్ చేయడానికి, మాక్ చేయడానికి పోర్ట్స్ &amp; అడాప్టర్స్ శైలి అత్యుత్తమమైనది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1171,7 +1171,7 @@ class SemanticSearchService:
         self.store = store
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టెస్టింగ్ సమయంలో అసలైన పెయిడ్ Pinecone/OpenAI API లను పిలుస్తూ ఖర్చు మరియు సమయం వృధా చేయడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-6"></span><details class="t" id="gpt-topic-p6-domain-driven-design-fundamentals-0"><summary>6. Domain-driven design fundamentals.<small>డొమైన్-డ్రివెన్ డిజైన్ (DDD) ప్రాథమిక అంశాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-domain-driven-design-fundamentals">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-domain-driven-design-fundamentals-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-domain-driven-design-fundamentals" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>AI application లో “ticket”, “customer”, “document”, “answer” వంటి business భావాలకు స్పష్టమైన అర్థం లేకపోతే, వేర్వేరు services వాటిని వేర్వేరుగా ఉపయోగిస్తాయి. Business పదాలను code లో స్పష్టంగా ఉంచడానికి domain-driven design సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Domain అంటే పరిష్కరించాల్సిన వ్యాపార రంగం. ఆ రంగంలోని ముఖ్యమైన వస్తువులు, నియమాలు, వాటి సంబంధాలను కలిసి అర్థం చేసుకుని model చేస్తాం. ఉదాహరణకు, “Support Ticket” కి status, owner, permitted actions ఉంటాయి; ఇది కేవలం database row కాదు.</p><h4>ఉదాహరణ</h4><p>సపోర్ట్ AI లో <code>Ticket</code>, <code>ReplyDraft</code>, <code>EscalationPolicy</code> వంటి పేర్లతో business concepts ని code లో చూపించవచ్చు. Product, engineering బృందాలు ఈ పదాలకు ఒకే అర్థం ఇస్తే integrations సులభమవుతాయి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ పదాలు అర్థం చేసుకోకుండా database tables పేర్లనే domain design గా భావించడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-domain-driven-design-fundamentals-0" role="tabpanel" hidden>
 
@@ -1200,7 +1200,7 @@ class ChatSession:
         self.total_tokens += (usage.prompt_tokens + usage.completion_tokens)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ రూల్స్‌ను డేటాబేస్ ట్రిగ్గర్లలో లేదా API కంట్రోలర్లలో చెల్లాచెదురుగా రాయడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-7"></span><details class="t"><summary>7. Separation of concerns.<small>బాధ్యతల విభజన (Separation of Concerns)</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-7"></span><details class="t" id="p6-gpt-batch-topic-7"><summary>7. Separation of concerns.<small>బాధ్యతల విభజన (Separation of Concerns)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-7-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-7-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-7-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే class అన్ని పనులు చేస్తే చిన్న మార్పు కూడా వేరే భాగాలను దెబ్బతీయొచ్చు. బాధ్యతలు విడగొడితే code అర్థం చేసుకోవడం, మార్చడం సులభం.</p><h4>సరళమైన వివరణ</h4><p><b>Separation of concerns</b> అంటే వేర్వేరు కారణాలతో మారే పనులను వేర్వేరు భాగాల్లో ఉంచడం. ఉదాహరణకు request validation, prompt తయారీ, model call, billing log ఒకే function లో ఉండకూడదు. Laravel లో Form Request, Service, Repository లాంటి విభజనతో పోల్చవచ్చు.</p><h4>ఉదాహరణ</h4><p>Chat endpoint input ని validate చేస్తుంది; application service పని క్రమాన్ని నడుపుతుంది; model client provider తో మాట్లాడుతుంది; usage recorder ఖర్చును నమోదు చేస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఫైళ్లను వేరు చేసినంత మాత్రాన బాధ్యతలు విడిపోయాయని అనుకోవడం; ప్రతి భాగానికి స్పష్టమైన పని ఉండాలి.</div></div><div class="gemini-pane" id="p6-batch-7-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే ఫైల్‌లో వెబ్ రూటింగ్, డేటా ప్రాసెసింగ్, AI ఇన్‌ఫరెన్స్, మరియు HTML రెండరింగ్ రాస్తే దాన్ని సవరించడం నరకం. ప్రతి భాగానికి ఒకే స్పష్టమైన ఆందోళన/బాధ్యత ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1221,7 +1221,7 @@ def log_audit(user_id: str, prompt: str, response: str):
     print(f"Logged audit for {user_id}")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Prompt engineering, JSON parsing, Database logging అన్నీ ఒకే ఫంక్షన్‌లో చేయడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-8"></span><details class="t" id="gpt-topic-p6-single-responsibility-principle-0"><summary>8. Single responsibility principle.<small>సింగిల్ రెస్పాన్సిబిలిటీ ప్రిన్సిపల్ (SRP)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-single-responsibility-principle">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-single-responsibility-principle-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-single-responsibility-principle" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక class మారడానికి ఒక ప్రధాన కారణం మాత్రమే ఉండేలా చూస్తే దాన్ని మార్చడం, పరీక్షించడం సులభమవుతుంది. AI system లో provider API, prompt rules, billing logic తరచూ వేర్వేరు కారణాల వల్ల మారుతాయి.</p><h4>సరళమైన వివరణ</h4><p>Single responsibility principle ప్రకారం, class కి ఒకే ప్రధాన బాధ్యత ఉండాలి. ఉదాహరణకు, <code>PromptBuilder</code> prompt ని తయారుచేస్తుంది; <code>OpenAIClient</code> request పంపుతుంది; <code>UsageRecorder</code> token usage ని నమోదు చేస్తుంది.</p><h4>ఉదాహరణ</h4><p>ఒక class కి prompt format మారినా అది మాత్రమే సవరించాలి. Provider మారినప్పుడు request పంపే client మాత్రమే మారాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> చాలా చిన్న classes సృష్టించడమే ఈ నియమం అని భావించడం; ముఖ్యమైంది బాధ్యతలు స్పష్టంగా ఉండటం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-single-responsibility-principle-0" role="tabpanel" hidden>
 
@@ -1244,7 +1244,12 @@ class EmbeddingService:
         return [[0.1, 0.2] for _ in chunks]
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> "DocumentManager" అనే ఒకే క్లాస్‌లో PDF డౌన్‌లోడ్, OCR (Optical Character Recognition), Chunking, Embedding, Pinecone అప్‌లోడ్ అన్నీ రాయడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-9"></span><details class="t"><summary>9. Dependency inversion.<small>డిపెండెన్సీ ఇన్వర్షన్ (Dependency Inversion Principle)</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-9"></span><details class="t" id="p6-gpt-batch-topic-9"><summary>9. Dependency inversion.<small>డిపెండెన్సీ ఇన్వర్షన్ (Dependency Inversion Principle)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-9-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-9-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-9-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక service concrete database లేదా model provider పైనే నేరుగా ఆధారపడితే, దాన్ని మార్చడం లేదా test చేయడం కష్టం. Dependency inversion ఈ బంధాన్ని తగ్గిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>High-level business logic ఒక interface లేదా protocol మీద ఆధారపడాలి; ఆ interface ని అమలు చేసే concrete class మీద నేరుగా ఆధారపడకూడదు. ఉదాహరణకు, <code>ChatService</code> కి <code>LLMClient</code> interface ఇస్తే, production లో hosted provider, test లో fake client పెట్టవచ్చు. Laravel container dependency injection ద్వారా implementation అందించగలదు.</p><h4>ఉదాహరణ</h4><pre>class ChatService:
+    def __init__(self, llm_client):
+        self.llm_client = llm_client
+
+    def reply(self, prompt):
+        return self.llm_client.generate(prompt)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Interface పేరు పెట్టి constructor లోనే concrete provider ని hard-code చేయడం.</div></div><div class="gemini-pane" id="p6-batch-9-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>హై-లెవల్ బిజినెస్ మాడ్యూల్స్ లో-లెవల్ డిటైల్స్ పై ఆధారపడకూడదు; రెండూ అబ్‌స్ట్రాక్షన్లపై ఆధారపడాలి. దీనివల్ల మోడల్ లేదా డేటాబేస్ లైబ్రరీ మారినా బిజినెస్ లాజిక్‌కు ఎలాంటి హాని జరగదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1272,7 +1277,7 @@ class AlertService:
         self.sender.send(f"Critical AI Alert: {err}")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సర్వీస్ లోపల నేరుగా `self.sender = SlackSender()` అని హార్డ్‌కోడ్ చేయడం వల్ల యూనిట్ టెస్టింగ్ అసాధ్యం కావడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-10"></span><details class="t" id="gpt-topic-p6-service-boundaries-0"><summary>10. Service boundaries.<small>సర్వీస్ సరిహద్దులు (Service Boundaries)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-service-boundaries">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-service-boundaries-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-service-boundaries" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఏ పని ఒక service లో ఉండాలి, ఏది వేరే service కి అప్పగించాలి అనే నిర్ణయం system ని సులభంగా మార్చగలదా అన్నది నిర్ణయిస్తుంది. స్పష్టమైన service boundary వల్ల ఒక భాగం మారినా మిగతా భాగాలపై ప్రభావం తగ్గుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఒక service కి తన data, API, బాధ్యతలు ఉంటాయి. Boundary అంటే service ఏ పనికి బాధ్యత వహిస్తుందో, ఏ పనిని ఇతర service కి అప్పగిస్తుందో తెలిపే అంచు. మంచి boundary వ్యాపార సామర్థ్యం లేదా స్వతంత్రంగా మారే భాగాన్ని చుట్టి ఉంటుంది.</p><h4>ఉదాహరణ</h4><p>Document ingestion service files చదివి chunks, metadata తయారు చేస్తుంది. Retrieval service query కి సరిపోయే chunks వెతుకుతుంది. వీటి మధ్య స్పష్టమైన API ఉంటే indexing మార్చినా answer-generation code మార్చాల్సిన అవసరం ఉండదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే database table లేదా code folder ఉందని దానిని ప్రత్యేక service గా ప్రకటించడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-service-boundaries-0" role="tabpanel" hidden>
 
@@ -1330,7 +1335,7 @@ async def gateway_rate_limiter(request: Request, call_next):
     return await call_next(request)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి చిన్న మైక్రోసర్వీస్ లోనూ ప్రత్యేకంగా రేట్ లిమిటింగ్ మరియు అథెంటికేషన్ డూప్లికేట్ కోడ్ రాయడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-12"></span><details class="t"><summary>12. Application service layer.<small>అప్లికేషన్ సర్వీస్ లేయర్</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-12"></span><details class="t" id="p6-gpt-batch-topic-12"><summary>12. Application service layer.<small>అప్లికేషన్ సర్వీస్ లేయర్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-12-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-12-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-12-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API endpoint లో మొత్తం business పని రాస్తే code చదవడం, పరీక్షించడం కష్టం. Application service ఒక use case లోని దశలను ఒకచోట నడుపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఉదాహరణకు, document upload use case లో permission తనిఖీ, file నిల్వ, indexing job పంపడం ఉంటాయి. Route request తీసుకుని service ని పిలుస్తుంది. అదే service ని queue worker లేదా command నుంచీ పిలవవచ్చు.</p><h4>ఉదాహరణ</h4><p>“పత్రాన్ని index చేయి” అనే service: user కి అనుమతి ఉందో చూస్తుంది, file ని నిల్వ చేస్తుంది, indexing job పంపి job ID ఇస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Application service లో HTTP, database, provider SDK code అన్నీ కలిపేయడం.</div></div><div class="gemini-pane" id="p6-batch-12-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ రిక్వెస్ట్ వచ్చినప్పుడు వెరిఫికేషన్, డేటా ఫెచింగ్, ప్రాంప్ట్ బిల్డింగ్, AI కాల్, డేటాబేస్ సేవింగ్ అనే బహుళ స్టెప్స్‌ను ఒక క్రమ పద్ధతిలో కోఆర్డినేట్ చేయడానికి అప్లికేషన్ సర్వీస్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1352,7 +1357,7 @@ async def gateway_rate_limiter(request: Request, call_next):
         return reply
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అప్లికేషన్ ఆర్కెస్ట్రేషన్ లాజిక్‌ను నేరుగా API route endpoints లో రాయడం వల్ల రీయూజబిలిటీ కోల్పోవడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-13"></span><details class="t" id="gpt-topic-p6-llm-orchestration-layer-0"><summary>13. LLM orchestration layer.<small>LLM ఆర్కెస్ట్రేషన్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-llm-orchestration-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-llm-orchestration-layer-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-llm-orchestration-layer" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక request కి retrieval, prompt తయారీ, model call, tool call వంటి దశలు అవసరమవుతాయి. ఈ దశలు ఏ క్రమంలో జరగాలో నియంత్రించడానికి LLM orchestration layer ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Orchestrator పని కేవలం model ని పిలవడం కాదు; ఏ దశకు ఏ input ఇవ్వాలి, ఫలితం ఖాళీగా ఉంటే ఏం చేయాలి, error వస్తే ఎక్కడ ఆపాలి అని కూడా నిర్ణయిస్తుంది. Workflow పెరిగితే దాన్ని స్పష్టమైన దశలుగా చూపడం నిర్వహణను సులభం చేస్తుంది.</p><h4>ఉదాహరణ</h4><p>Policy assistant ముందుగా user అనుమతిని తనిఖీ చేసి, పత్రాలు వెతికి, ఆ సమాచారంతో సమాధానం తయారు చేస్తుంది. పత్రాలు దొరకకపోతే model కి ఖాళీ context పంపకుండా “సంబంధిత సమాచారం దొరకలేదు” అని తిరిగి ఇవ్వొచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Workflow క్రమం, అనుమతులు అన్నీ prompt లోనే ఉంచి, application లో నియంత్రించకపోవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-llm-orchestration-layer-0" role="tabpanel" hidden>
 
@@ -1476,7 +1481,7 @@ class CachingEmbeddingService:
         return vector
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే డాక్యుమెంట్ చంక్‌లను ప్రతి యూజర్ క్వెరీకి మళ్ళీ మళ్ళీ ఎంబెడ్ చేస్తూ API ఖర్చులు పెంచడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-18"></span><details class="t"><summary>18. Agent orchestration service.<small>ఏజెంట్ ఆర్కెస్ట్రేషన్ సర్వీస్</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-18"></span><details class="t" id="p6-gpt-batch-topic-18"><summary>18. Agent orchestration service.<small>ఏజెంట్ ఆర్కెస్ట్రేషన్ సర్వీస్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-18-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-18-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-18-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent పని అనేక దశలు, tools లేదా చిన్న agents కలిపి చేయాల్సి వస్తుంది. Orchestration service ఈ పనుల క్రమాన్ని నియంత్రిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ఈ service user లక్ష్యాన్ని స్వీకరిస్తుంది, అవసరమైన agent లేదా tool ని ఎంచుకుంటుంది, ఫలితాన్ని state లో ఉంచుతుంది, తదుపరి దశను నడుపుతుంది. Timeout, గరిష్ఠ దశల సంఖ్య, అనుమతులు వంటి నియమాలు కూడా ఇక్కడ అమలు చేయాలి.</p><h4>ఉదాహరణ</h4><p>పత్రాల ప్రశ్నకు ముందు search agent పత్రం వెతుకుతుంది; తర్వాత answer agent ఆధారంతో సమాధానం రాస్తుంది. Orchestrator ఈ రెండు దశల ఫలితాలను కలుపుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Orchestrator లోనే ప్రతి tool, business rule ని చేర్చి దాన్ని మార్చలేని పెద్ద class గా చేయడం.</div></div><div class="gemini-pane" id="p6-batch-18-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఏజెంట్లు లూప్‌లో పనిచేస్తాయి: ఆలోచించడం (Reasoning), టూల్ ఎంచుకోవడం (Action), రిజల్ట్ పరిశీలించడం (Observation). ఈ లూప్‌ను కంట్రోల్ చేస్తూ, ఇన్ఫినిట్ లూప్‌లలో పడకుండా గరిష్ట స్టెప్స్ పరిమితులు విధించే సర్వీస్ ఇది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1500,7 +1505,7 @@ class CachingEmbeddingService:
         return {"done": True, "output": "Task completed successfully"}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> గరిష్ట స్టెప్పులు (max steps / timeout) సెట్ చేయకపోవడం వల్ల ఏజెంట్ ఇన్ఫినిట్ లూప్‌లోకి వెళ్లి వేలాది డాలర్ల టోకెన్ బిల్లు రావడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-19"></span><details class="t" id="gpt-topic-p6-tool-execution-service-0"><summary>19. Tool execution service.<small>టూల్ ఎగ్జిక్యూషన్ సర్వీస్ (Sandboxing &amp; Execution)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-tool-execution-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-tool-execution-service-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>Agent ఒక tool ని పిలవాలని నిర్ణయించినా, ఆ పని నేరుగా అనుమతించకూడదు. Tool execution service arguments, user అనుమతి, timeout ని తనిఖీ చేసి tool ని సురక్షితంగా నడుపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Agent tool పేరు, దానికి కావాల్సిన values పంపుతుంది. Service ఆ tool అనుమతించబడిందా, values సరైన రూపంలో ఉన్నాయా, ఈ user ఆ పని చేయవచ్చా అని చూసి తర్వాతే అమలు చేస్తుంది. ఫలితాన్ని కూడా పరిమితమైన రూపంలో తిరిగి ఇస్తుంది.</p><h4>ఉదాహరణ</h4><p>“ఈ ticket మూసేయి” అనే tool call వస్తే, service ticket ID ని తనిఖీ చేసి, user కి అనుమతి ఉంటేనే database లో మార్పు చేస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model ఇచ్చిన arguments ని తనిఖీ చేయకుండా database లేదా shell కి నేరుగా పంపడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-tool-execution-service-0" role="tabpanel" hidden>
 
@@ -1584,7 +1589,7 @@ app = FastAPI()
 app.include_router(chat_router, prefix="/api/v1")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి రూట్ ఫంక్షన్ పైన `@app.get` లేదా `@app.post` అని గ్లోబల్ యాప్ ఆబ్జెక్ట్ వాడి మాడ్యులర్ రూటర్స్ ఉపయోగించకపోవడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-23"></span><details class="t"><summary>23. Service layer.<small>సర్వీస్ లేయర్ (Service Layer)</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-23"></span><details class="t" id="p6-gpt-batch-topic-23"><summary>23. Service layer.<small>సర్వీస్ లేయర్ (Service Layer)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-23-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-23-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-23-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API route లో validation, business rules, database calls అన్నీ ఉంటే code మార్చడం, test చేయడం కష్టం. Service layer feature యొక్క business పనిని route నుండి వేరు చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Endpoint request, response బాధ్యత చూసుకుంటుంది. Service మాత్రం refund, search లేదా answer generation నియమాలను అమలు చేస్తుంది. దాన్ని విడిగా test చేయవచ్చు; వేరే route లేదా queue నుంచీ పిలవవచ్చు.</p><h4>ఉదాహరణ</h4><p>Refund service order స్థితి, అనుమతించిన మొత్తం, payment provider ఫలితం తనిఖీ చేస్తుంది. Endpoint input తీసుకుని service ని పిలిచి ఫలితం ఇస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Service layer పేరుతో అన్ని పనులను ఒక పెద్ద class లో చేర్చడం.</div></div><div class="gemini-pane" id="p6-batch-23-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>బిజినెస్ లాజిక్‌ను API ఫ్రేమ్‌వర్క్ నుండి వేరు చేయడానికి సర్వీస్ లేయర్ అవసరం. దీనివల్ల అదే బిజినెస్ లాజిక్‌ను వెబ్‌సాకెట్ ద్వారా లేదా CLI బ్యాచ్ కమాండ్ ద్వారా లేదా సెలెరీ టాస్క్ ద్వారా కూడా రీయూజ్ చేసుకోవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1602,7 +1607,7 @@ app.include_router(chat_router, prefix="/api/v1")
         return {"filename": filename, "status": "indexed", "url": file_url}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> API Route హ్యాండ్లర్ లోనే బిజినెస్ లాజిక్ మొత్తం రాయడం వలన CLI లేదా బ్యాక్‌గ్రౌండ్ వర్కర్ల నుండి ఆ లాజిక్ వాడలేకపోవడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-24"></span><details class="t" id="gpt-topic-p6-repository-pattern-0"><summary>24. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ (Repository Pattern)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-repository-pattern">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-repository-pattern-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-repository-pattern" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Service code అంతటా database queries చెల్లాచెదురుగా ఉంటే, data source మార్చడం లేదా database లేకుండా test చేయడం కష్టం. Repository pattern data access ని ఒకే interface వెనుక ఉంచుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Service <code>get_document(id)</code> వంటి పని అడుగుతుంది; repository దాన్ని PostgreSQL లేదా మరో store ద్వారా చేస్తుంది. Laravel లో repository pattern కి ఇది దగ్గరగా ఉంటుంది. చిన్న app లో ORM ని service లో నేరుగా వాడడం కూడా సరైన ఎంపిక కావచ్చు.</p><h4>ఉదాహరణ</h4><p><code>DocumentService</code> కి <code>DocumentRepository</code> ఇస్తాం. Test సమయంలో తాత్కాలిక fake repository ఇచ్చి నిజమైన database లేకుండా service ని తనిఖీ చేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Repository class పెట్టగానే transactions, data rules, queries అన్నీ ఆటోమేటిక్‌గా సరైపోతాయని అనుకోవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-repository-pattern-0" role="tabpanel" hidden>
 
@@ -1625,7 +1630,10 @@ class MessageRepository:
         return {"id": 101, "user_id": user_id, "content": content}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ సర్వీసులలో నేరుగా రా SQL (Raw SQL) క్వెరీలు రాసి డేటాబేస్ టైట్-కప్లింగ్ చేయడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-25"></span><details class="t"><summary>25. Database access layer.<small>డేటాబేస్ యాక్సెస్ లేయర్ (SQLAlchemy &amp; Sessions)</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-25"></span><details class="t" id="p6-gpt-batch-topic-25"><summary>25. Database access layer.<small>డేటాబేస్ యాక్సెస్ లేయర్ (SQLAlchemy &amp; Sessions)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-25-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-25-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-25-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Database queryలను API routeలలో చల్లితే మార్పు, transaction నిర్వహణ, test కష్టం అవుతుంది. Database access layer ఆ పనిని వేరుగా ఉంచుతుంది.</p><h4>సరళమైన వివరణ</h4><p>SQLAlchemy Session database తో ఒక పని లేదా transaction నడపడానికి ఉపయోగపడుతుంది. Access function query చేసి అవసరమైన row ని service కి ఇస్తుంది. పని పూర్తయ్యాక session commit లేదా rollback చేసి మూసేయాలి.</p><h4>ఉదాహరణ</h4><pre>def get_document(session, document_id):
+    return session.get(Document, document_id)
+
+# The service calls this function to load a document.</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే Session ని అన్ని requests మధ్య పంచుకోవడం.</div></div><div class="gemini-pane" id="p6-batch-25-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>అసమకాలిక (Asynchronous) వెబ్ సర్వర్లలో డేటాబేస్ కనెక్షన్ లీక్స్ జరగకుండా కనెక్షన్ పూలింగ్, సెషన్ లైఫ్‌సైకిల్ మేనేజ్‌మెంట్ మరియు ట్రాన్సాక్షన్ రోల్‌బ్యాక్స్ సమర్థవంతంగా నిర్వహించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1649,7 +1657,7 @@ async def get_db():
             raise
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి API కాల్ లో కొత్త database engine క్రియేట్ చేయడం లేదా సెషన్ ని `try...finally` లో క్లోజ్ చేయకపోవడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-26"></span><details class="t" id="gpt-topic-p6-dependency-injection-0"><summary>26. Dependency injection.<small>డిపెండెన్సీ ఇంజెక్షన్ (FastAPI Depends)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-dependency-injection">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-dependency-injection-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-dependency-injection" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక service తనకు అవసరమైన database లేదా LLM client ని తానే సృష్టిస్తే, దాన్ని మార్చడం, పరీక్షించడం కష్టమవుతుంది. Dependency injection తో ఆ భాగాలను బయట నుంచి అందించి service ని సులభంగా పరీక్షించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>ఉదాహరణకు, <code>TicketService</code> కి <code>TicketRepository</code> కావాలి. Service లోనే repository ని కొత్తగా సృష్టించకుండా, constructor ద్వారా అందుకుంటుంది. అప్పుడు production లో నిజమైన repository, tests లో తాత్కాలిక fake repository ఇవ్వొచ్చు. Laravel container ఇదే పనిని ఆటోమేటిక్‌గా చేయగలదు; FastAPI లో <code>Depends</code> ఒక సాధారణ మార్గం.</p><h4>ఉదాహరణ</h4><p>ఒక support service ని నిర్మించేటప్పుడు దానికి model client ని constructor లో ఇస్తాం. పరీక్షలో నకిలీ client ఇచ్చి, API key లేదా network అవసరం లేకుండా service ప్రవర్తనను తనిఖీ చేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> నిజమైన dependency ని constructor లో నేరుగా సృష్టించి, test లో దాన్ని మార్చలేని విధంగా చేయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-dependency-injection-0" role="tabpanel" hidden>
 
@@ -1671,7 +1679,14 @@ def read_status(srv: dict = Depends(get_api_service)):
     return {"status": "ok", "service": srv["service_name"]}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> గ్లోబల్ వేరియబుల్స్ గా సర్వీస్ ఆబ్జెక్టులను క్రియేట్ చేసి వాడటం, దీనివల్ల మల్టీ-త్రెడ్ లేదా టెస్టింగ్ వాతావరణంలో సమస్యలు రావడం.</div>
-</div></div></details><span class="global-search-anchor" id="global-topic-6-27"></span><details class="t"><summary>27. Configuration management.<small>కాన్ఫిగరేషన్ మేనేజ్‌మెంట్ (Pydantic BaseSettings)</small></summary><div class="body">
+</div></div></details><span class="global-search-anchor" id="global-topic-6-27"></span><details class="t" id="p6-gpt-batch-topic-27"><summary>27. Configuration management.<small>కాన్ఫిగరేషన్ మేనేజ్‌మెంట్ (Pydantic BaseSettings)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-27-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-27-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-27-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API key, database URL, timeout వంటి విలువలను code లో ఉంచితే secret బయటపడవచ్చు, environment మారినప్పుడు code మార్చాల్సి వస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Pydantic Settings environment variables ని చదివి, సరైన type ఉందో తనిఖీ చేస్తుంది. అవసరమైన value లేకపోతే app మొదలయ్యేటప్పుడు error చూపిస్తుంది. Production secrets ని secret manager లో ఉంచండి; logs లో వాటిని చూపించకండి.</p><h4>ఉదాహరణ</h4><pre>from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    app_name: str = "AI API"
+    timeout_seconds: int = 30
+    provider_api_key: str
+
+settings = Settings()</pre><div class="mistake"><b>సాధారణ తప్పు:</b> API key ని code లో default value గా పెట్టడం.</div></div><div class="gemini-pane" id="p6-batch-27-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్ పాస్‌వర్డ్‌లు, OpenAI API కీలు, హోస్ట్ పోర్టులను కోడ్‌లో పెట్టకూడదు (12-Factor App సిద్ధాంతం). టైప్-సేఫ్టీతో కూడిన ఎన్విరాన్మెంట్ కాన్ఫిగరేషన్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1692,9 +1707,16 @@ settings = Settings()
 # print(settings.APP_NAME)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> `os.getenv("KEY")` అని కోడ్‌బేస్ అంతటా చెల్లాచెదురుగా వాడటం వలన వేరియబుల్ మిస్ అయినప్పుడు రన్‌టైమ్‌లో క్రాష్ అవ్వడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-28"></span><details class="t"><summary>28. Environment-specific settings.<small>ఎన్విరాన్మెంట్-నిర్దిష్ట సెట్టింగ్‌లు (Dev/Staging/Prod)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-28"></span><details class="t" id="p6-gpt-batch-topic-28"><summary>28. Environment-specific settings.<small>ఎన్విరాన్మెంట్-నిర్దిష్ట సెట్టింగ్‌లు (Dev/Staging/Prod)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-28-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-28-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-28-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Development, staging, production లో database, debug, model settings వేరుగా ఉంటాయి. వేర్వేరు values వాడితే production data ని పొరపాటున మార్చే ప్రమాదం తగ్గుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఒకే configuration ఆకారం ఉంచి, ప్రతి environment కి తగిన values ఇవ్వండి. Development లో debug ఉండొచ్చు; production లో అది off చేయాలి. Production password ని local file లో పంచకండి.</p><h4>ఉదాహరణ</h4><pre># local development
+APP_ENV=development
+DEBUG=true
+DATABASE_URL=sqlite:///local.db
+
+# production values come from deployment secrets
+APP_ENV=production
+DEBUG=false</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Debug mode ని production లో on చేయడం లేదా production secrets ని పంచడం.</div></div><div class="gemini-pane" id="p6-batch-28-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లోకల్ డెవలప్‌మెంట్‌లో మాక్ మోడల్స్ మరియు లోకల్ SQLite సరిపోతాయి, కానీ ప్రొడక్షన్‌లో అసలైన OpenAI మరియు క్లౌడ్ PostgreSQL వాడాలి. ఎన్విరాన్మెంట్ ఆధారంగా సెట్టింగులు డైనమిక్ గా మారాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1721,9 +1743,14 @@ def get_settings():
     return DevConfig()
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రొడక్షన్ API కీలను లోకల్ డెవలప్‌మెంట్‌లో వాడి అనుకోకుండా భారీ బిల్లులు రావడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-29"></span><details class="t"><summary>29. Shared utilities.<small>షేర్డ్ యుటిలిటీస్ (Shared Utilities &amp; Helpers)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-29"></span><details class="t" id="p6-batch-topic-29"><summary>29. Shared utilities.<small>షేర్డ్ యుటిలిటీస్ (Shared Utilities &amp; Helpers)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-29-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-29-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-29-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే helper code అనేక చోట్ల copy చేస్తే, ఒక చోట bug fix చేసినా మిగతా చోట్ల పాత code ఉండిపోవచ్చు. Shared utilities సాధారణమైన పనులను ఒకచోట ఉంచుతాయి.</p><h4>సరళమైన వివరణ</h4><p>String శుభ్రపరచడం, request ID తయారు చేయడం, common validation వంటి సాధారణమైన, business rule కాని పనులను helper లో ఉంచవచ్చు. Helper చిన్నదిగా, స్పష్టమైన input/output తో ఉండాలి. ప్రతి పనినీ “shared” పేరుతో ఒకే file లో గుమికూడ్చకండి.</p><h4>ఉదాహరణ</h4><pre>from uuid import uuid4
+
+def new_request_id() -&gt; str:
+    return str(uuid4())
+
+print(new_request_id())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> సంబంధం లేని functions అన్నింటినీ ఒక పెద్ద utilities module లో చేర్చడం.</div></div><div class="gemini-pane" id="p6-batch-29-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>స్ట్రింగ్ శానిటైజేషన్, డేట్‌టైమ్ ఫార్మాటింగ్, హ్యాష్ జనరేషన్ వంటి పునరావృతమయ్యే పనుల కోసం ప్రాజెక్ట్ అంతటా వాడుకోదగిన కామన్ యుటిలిటీ లైబ్రరీ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1743,9 +1770,16 @@ def count_tokens(text: str, model: str = "gpt-4o") -&gt; int:
 # tokens = count_tokens("హలో, మీరు ఎలా ఉన్నారు?")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> చిన్న చిన్న ఫంక్షన్లను ప్రతి కంట్రోలర్ లేదా సర్వీస్ ఫైల్‌లో మళ్లీ మళ్లీ డూప్లికేట్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-30"></span><details class="t"><summary>30. Exception management.<small>ఎక్సెప్షన్ మేనేజ్‌మెంట్ (Centralized Exception Handling)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-30"></span><details class="t" id="p6-batch-topic-30"><summary>30. Exception management.<small>ఎక్సెప్షన్ మేనేజ్‌మెంట్ (Centralized Exception Handling)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-30-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-30-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-30-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Database, model provider, background worker నుంచి వేర్వేరు errors రావచ్చు. వాటిని ఒకే విధంగా handle చేస్తే user కి అర్థమయ్యే response ఇవ్వొచ్చు; logs లో కారణం కూడా దొరుకుతుంది.</p><h4>సరళమైన వివరణ</h4><p>తెలిసిన errors కి వేర్వేరు error types పెట్టండి: input తప్పు, permission లేదు, provider timeout. API layer వాటిని సరైన HTTP status, message గా మార్చాలి. తెలియని errors ని log చేసి, user కి సురక్షితమైన generic message ఇవ్వండి.</p><h4>ఉదాహరణ</h4><pre>class ProviderTimeout(Exception):
+    pass
+
+try:
+    result = call_model()
+except ProviderTimeout:
+    user_message = "సేవకు స్పందించడానికి ఎక్కువ సమయం పట్టింది."
+    log_error("model_timeout")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Exception ని పట్టుకుని దాచేయడం; error log లేకపోతే సమస్య కారణం కనిపించదు.</div></div><div class="gemini-pane" id="p6-batch-30-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI సర్వీసుల్లో రేట్ లిమిట్ ఎర్రర్, కాంటెక్స్ట్ లెంగ్త్ ఎక్సీడెడ్ ఎర్రర్ వంటి ఊహించని ఎర్రర్స్ వస్తాయి. యూజర్‌కు భయానకమైన ఇంటర్నల్ సర్వర్ 500 ఎర్రర్ చూపించకుండా అర్థమయ్యే క్లీన్ JSON రెస్పాన్స్ ఇవ్వాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1772,9 +1806,9 @@ async def rate_limit_handler(request: Request, exc: LLMRateLimitException):
     )
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి API ఫంక్షన్ లోనూ `try...except` రాసి ఎర్రర్ రెస్పాన్స్ ఫార్మాట్‌ను ఇష్టారీతిన మార్చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-31"></span><details class="t"><summary>31. Model gateway vs application backend.<small>మోడల్ గేట్‌వే వర్సెస్ అప్లికేషన్ బ్యాకెండ్</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-31"></span><details class="t" id="p6-batch-topic-31"><summary>31. Model gateway vs application backend.<small>మోడల్ గేట్‌వే వర్సెస్ అప్లికేషన్ బ్యాకెండ్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-31-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-31-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-31-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Application backend user requests, permissions, business rules చూసుకుంటుంది. Model gateway మాత్రం LLM provider calls, routing, usage నియంత్రించవచ్చు. వీటిని వేరు చేస్తే పనులు స్పష్టంగా ఉంటాయి.</p><h4>సరళమైన వివరణ</h4><p>Backend కి user, product సమాచారం తెలుస్తుంది; gateway కి ఏ model కి పంపాలి, retry, rate limit, token usage వంటి పనులు ఉంటాయి. ప్రతి project కి gateway అవసరం లేదు. అనేక apps ఒకే model infrastructure పంచుకున్నప్పుడు gateway ఉపయోగపడుతుంది.</p><h4>ఉదాహరణ</h4><p>Chat backend అనుమతి తనిఖీ చేసి, prompt/context తయారు చేస్తుంది. అది gateway కి model request పంపుతుంది; gateway provider ఎంచుకుని response, usage వివరాలు తిరిగి ఇస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Gateway లో user business rules పెట్టి, backend మరియు gateway బాధ్యతలు కలపడం.</div></div><div class="gemini-pane" id="p6-batch-31-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>అప్లికేషన్ బ్యాకెండ్‌లో యూజర్ ఆథరైజేషన్, పేమెంట్స్, ప్రొఫైల్స్ ఉంటాయి. మోడల్ గేట్‌వే (LiteLLM, Portkey వంటివి) కేవలం విభిన్న AI మోడల్స్ మధ్య లోడ్ బ్యాలెన్సింగ్, టోకెన్ ట్రాకింగ్, ఫాల్‌బ్యాక్స్ నిర్వహిస్తుంది. రెండింటినీ వేరు చేయడం వల్ల ఆర్కిటెక్చర్ శుభ్రంగా ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1798,9 +1832,9 @@ class ModelGatewayClient:
             return resp.json()["choices"][0]["message"]["content"]
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అప్లికేషన్ బ్యాకెండ్ సర్వర్లలోనే అన్ని మోడల్స్ యొక్క SDKలు, కీలు, ఫాల్‌బ్యాక్ లాజిక్‌లు దట్టించి అప్లికేషన్‌ను భారంగా మార్చడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-32"></span><details class="t"><summary>32. RAG service separation.<small>RAG సర్వీస్ విభజన (Decoupled RAG Architecture)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-32"></span><details class="t" id="p6-batch-topic-32"><summary>32. RAG service separation.<small>RAG సర్వీస్ విభజన (Decoupled RAG Architecture)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-32-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-32-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-32-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>RAG లో document తీసుకోవడం, text విభజించడం, embedding తయారు చేయడం, search చేయడం వంటి దశలు ఉంటాయి. వీటిని app లో కలిపి రాస్తే మార్చడం, scale చేయడం కష్టం.</p><h4>సరళమైన వివరణ</h4><p>RAG service పత్రాలను index చేయడం లేదా ప్రశ్నకు సంబంధించిన passages వెతకడం వంటి పనులు చేయవచ్చు. Chat backend దాన్ని API ద్వారా పిలుస్తుంది. Indexing ఎక్కువ సమయం తీసుకుంటే background queue కి పంపండి; query search కి తక్కువ latency అవసరం.</p><h4>ఉదాహరణ</h4><p>Document upload తర్వాత ingestion service text, embeddings సిద్ధం చేస్తుంది. User ప్రశ్న వచ్చినప్పుడు retrieval service సంబంధిత passages ఇస్తుంది; backend వాటిని prompt లో జోడిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Indexing, user question retrieval రెండింటినీ ఒకే synchronous request లో నడపడం.</div></div><div class="gemini-pane" id="p6-batch-32-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>RAG సిస్టమ్‌లో డాక్యుమెంట్ ప్రాసెసింగ్, చంకింగ్, ఎంబెడ్డింగ్ మరియు హైబ్రిడ్ సెర్చ్ ఉంటాయి. ఇవి ఎక్కువ మెమరీని మరియు CPU ని తీసుకుంటాయి కాబట్టి లైట్‌వెయిట్ వెబ్ API నుండి వేరు చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1816,9 +1850,9 @@ async def retrieve_context(query: str, top_k: int = 5):
     return {"passages": ["Context 1 from document", "Context 2 from document"]}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెబ్ ట్రాఫిక్ తీసుకునే సర్వర్‌లోనే హెవీ PDF పార్సింగ్ లైబ్రరీలు (PyPDF, Unstructured) రన్ చేసి వెబ్ సర్వర్ క్రాష్ అయ్యేలా చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-33"></span><details class="t"><summary>33. Vector database service.<small>వెక్టర్ డేటాబేస్ సర్వీస్ (Qdrant, Milvus, pgvector)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-33"></span><details class="t" id="p6-batch-topic-33"><summary>33. Vector database service.<small>వెక్టర్ డేటాబేస్ సర్వీస్ (Qdrant, Milvus, pgvector)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-33-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-33-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-33-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Vector database embeddings ని నిల్వ చేసి, query కి దగ్గరగా ఉన్న vectors ని వెతుకుతుంది. దాన్ని ప్రత్యేక service గా నిర్వహిస్తే indexing, retrieval పనులకు సరైన access, capacity ఇవ్వవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Vector database service collections, vectors, metadata, filters వంటి సామర్థ్యాలు అందిస్తుంది. App దానితో API లేదా client library ద్వారా మాట్లాడుతుంది. Qdrant, Milvus, pgvector వంటి ఎంపికలను latency, filtering, backup, నిర్వహణ అవసరాల ప్రకారం పోల్చండి.</p><h4>ఉదాహరణ</h4><p>ప్రతి document chunk తో embedding, document ID, access group నిల్వ చేయండి. Search లో vector similarity తో పాటు user కి అనుమతి ఉన్న access group ని filter చేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Vector దగ్గరగా ఉందని చూసి document permission ని పట్టించుకోకపోవడం.</div></div><div class="gemini-pane" id="p6-batch-33-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మిలియన్ల కొద్దీ ఎంబెడ్డింగ్ వెక్టర్లను సాధారణ MySQL బైనరీ కాలమ్‌లలో వెతకడం అసాధ్యం. మిల్లీసెకన్లలో Approximate Nearest Neighbor (ANN) సెర్చ్ చేయడానికి ప్రత్యేక వెక్టర్ డేటాబేస్ లేదా pgvector అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1842,9 +1876,9 @@ async def find_similar_vectors(session, query_vector: list[float], limit: int = 
     return result.fetchall()
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఇండెక్స్ (HNSW (Hierarchical Navigable Small World)/IVFFlat) క్రియేట్ చేయకుండా మిలియన్ల రికార్డులపై ఫుల్-టేబుల్ వెక్టర్ స్కాన్ చేయడం వల్ల క్వెరీలు నిమిషాల తరబడి రన్ అవ్వడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-34"></span><details class="t"><summary>34. Agent execution service.<small>ఏజెంట్ ఎగ్జిక్యూషన్ సర్వీస్ (Long-running Agent Runners)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-34"></span><details class="t" id="p6-batch-topic-34"><summary>34. Agent execution service.<small>ఏజెంట్ ఎగ్జిక్యూషన్ సర్వీస్ (Long-running Agent Runners)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-34-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-34-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-34-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent పని ఒకటి కంటే ఎక్కువ model/tool calls చేసి సమయం తీసుకోవచ్చు. దాన్ని web request లోనే నడిపితే request timeout లేదా server resource సమస్య రావచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Agent execution service ఒక job ID తీసుకుని agent run ని నడుపుతుంది, దాని state, result, error ని భద్రపరుస్తుంది. Web API job ని ప్రారంభించి status endpoint ఇవ్వొచ్చు. Run కి timeout, గరిష్ఠ tool-call సంఖ్య, cancellation నియమాలు పెట్టాలి.</p><h4>ఉదాహరణ</h4><p>పెద్ద report తయారీని job గా మొదలుపెట్టి <code>job-123</code> ID ఇవ్వండి. UI కొంతసేపటికి status అడిగి, పూర్తయినప్పుడు report ని తెస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Job కి timeout లేకుండా agent ని background లో నిరవధికంగా నడపడం.</div></div><div class="gemini-pane" id="p6-batch-34-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఏజెంట్లు పనులు పూర్తి చేయడానికి 30 సెకన్ల నుండి కొన్ని నిమిషాల సమయం పట్టవచ్చు. HTTP రిక్వెస్ట్ అంతసేపు హోల్డ్ చేయడం కనెక్షన్ డ్రాప్ మరియు గేట్‌వే టైమ్‌అవుట్ (504 Gateway Timeout) లకు దారితీస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1862,9 +1896,9 @@ async def trigger_agent(task_description: str):
 # క్లయింట్ WebSocket ద్వారా లేదా Polling (/tasks/{task_id}) ద్వారా ఫలితాన్ని తెలుసుకుంటుంది
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే సింక్రోనస్ HTTP రిక్వెస్ట్‌లో 10 సార్లు టూల్స్ రన్ చేసే భారీ ఏజెంట్‌ను ఉంచి క్లయింట్ బ్రౌజర్ టైమ్‌అవుట్ అయ్యేలా చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-35"></span><details class="t"><summary>35. Background processing service.<small>బ్యాక్‌గ్రౌండ్ ప్రాసెసింగ్ సర్వీస్ (Celery / ARQ / Redis Queues)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-35"></span><details class="t" id="p6-batch-topic-35"><summary>35. Background processing service.<small>బ్యాక్‌గ్రౌండ్ ప్రాసెసింగ్ సర్వీస్ (Celery / ARQ / Redis Queues)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-35-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-35-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-35-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Document parsing లేదా పెద్ద agent task త్వరగా పూర్తికాకపోవచ్చు. Background processing తో user request వెంటనే job ID తీసుకుని, పని పూర్తయ్యాక ఫలితం పొందగలడు.</p><h4>సరళమైన వివరణ</h4><p>Web app job ని queue లో పెడుతుంది; worker దాన్ని తీసుకుని పని చేస్తుంది. Celery, ARQ వంటి tools queue, retry, worker నిర్వహణకు సహాయపడతాయి. Job మళ్లీ run అయినా duplicate side effects రాకుండా జాగ్రత్తలు అవసరం.</p><h4>ఉదాహరణ</h4><p>PDF upload వెంటనే storage లో ఉంచి, index చేయమని job ని Redis queue కి పంపండి. Worker text తీసి chunks, embeddings తయారు చేస్తుంది; user కి job status చూపించండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Queue job మళ్లీ రావచ్చని మరిచి duplicate record లేదా payment సృష్టించడం.</div></div><div class="gemini-pane" id="p6-batch-35-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డాక్యుమెంట్ పార్సింగ్, ఫైల్ ఇండెక్సింగ్, లార్జ్ బ్యాచ్ ఎవాల్యుయేషన్స్ వంటివి యూజర్ వెయిట్ చేసే రిక్వెస్ట్-రెస్పాన్స్ సైకిల్ వెలుపల జరగాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1886,8 +1920,8 @@ async def enqueue_indexing(doc_id: int):
     return job.job_id
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> FastAPI యొక్క ఇన్-మెమరీ `BackgroundTasks` ని ప్రొడక్షన్ క్రిటికల్ పనులకు వాడటం (సర్వర్ రీస్టార్ట్ అయితే ఆ టాస్క్‌లు పోతాయి).</div>
-</div></details>
-<span class="global-search-anchor" id="global-topic-6-36"></span><details class="t"><summary>36. File ingestion service.<small>ఫైల్ ఇంజెషన్ సర్వీస్ (Ingestion Pipeline)</small></summary><div class="body">
+</div></div></details>
+<span class="global-search-anchor" id="global-topic-6-36"></span><details class="t" id="p6-batch-topic-36"><summary>36. File ingestion service.<small>ఫైల్ ఇంజెషన్ సర్వీస్ (Ingestion Pipeline)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-36-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-36-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-36-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>File upload వచ్చినప్పుడు దాని type, size, permission తనిఖీ చేసి, సురక్షితంగా text గా మార్చాలి. ఈ పని వేరే service లో ఉంటే API request ని వేగంగా తిరిగి పంపవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Ingestion service file ని స్వీకరిస్తుంది, type, size checks చేస్తుంది, text లేదా metadata తీస్తుంది, తర్వాత chunking, embedding, indexing job ని నడుపుతుంది. పెద్ద files, OCR పనులను queue లో పెట్టండి. ప్రతి దశ status నమోదు చేస్తే, error ఎక్కడ వచ్చిందో తెలుసుకోవచ్చు.</p><h4>ఉదాహరణ</h4><p>PDF upload → permission check → object storage → extraction job → chunks → vector index. ప్రతి దశకు status ఉంచండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> File extension చూసి మాత్రమే safe అని భావించి, content, size తనిఖీ చేయకుండా process చేయడం.</div></div><div class="gemini-pane" id="p6-batch-36-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్లు అప్‌లోడ్ చేసే PDF, Word, CSV లేదా ఆడియో ఫైల్స్ నుండి టెక్స్ట్ వేరు చేయడం, వైరస్ స్కానింగ్, OCR (Optical Character Recognition) చేయడం వంటి పనులను ఒక పటిష్టమైన పైప్‌లైన్ ద్వారా చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1910,9 +1944,9 @@ async def enqueue_indexing(doc_id: int):
         return "Extracted clean document text"
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> 50MB PDF ఫైల్‌ను మెమరీలో పూర్తిగా లోడ్ చేసి సింగిల్ త్రెడ్‌లో పార్స్ చేయడం వల్ల అవుట్-ఆఫ్-మెమరీ (OOM (Out Of Memory)) క్రాష్ రావడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-37"></span><details class="t"><summary>37. Authentication service.<small>ఆథెంటికేషన్ సర్వీస్ (OAuth2 &amp; JWT)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-37"></span><details class="t" id="p6-batch-topic-37"><summary>37. Authentication service.<small>ఆథెంటికేషన్ సర్వీస్ (OAuth2 &amp; JWT)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-37-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-37-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-37-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Authentication service ఎవరు request చేస్తున్నారు అని గుర్తించి, ఆ గుర్తింపును app లేదా services కి అందిస్తుంది. Private documents కి అనధికార access రాకుండా ఇది అవసరం.</p><h4>సరళమైన వివరణ</h4><p>Login లేదా identity provider నుంచి వచ్చిన token ని ధృవీకరించాలి. JWT signature, expiry తనిఖీ చేయాలి. OAuth2 authorization విధానాలను నిర్వచిస్తుంది. గుర్తింపు తెలిసిన తర్వాత ప్రతి resource కి permission ఉందో విడిగా తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><p>User token లో user ID చదివిన తర్వాత, కోరిన document ఆ user లేదా అతని team కి చెందినదా తనిఖీ చేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Valid token ఉందని user కి అన్ని documents చూడటానికి అనుమతి ఉందని భావించడం.</div></div><div class="gemini-pane" id="p6-batch-37-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఎండ్‌పాయింట్లు చాలా ఖరీదైనవి. సరైన యూజర్ వెరిఫికేషన్, రోల్-బేస్డ్ యాక్సెస్ (RBAC) మరియు టోకెన్ కోటాలు లేకుండా ఎవరినీ AI కాల్స్ చేయనివ్వకూడదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1936,9 +1970,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -&gt; dict:
         raise HTTPException(status_code=401, detail="Could not validate credentials")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> JWT టోకెన్ ఎక్స్‌పైరీ (exp) సెట్ చేయకపోవడం వల్ల లీక్ అయిన టోకెన్‌తో జీవితాంతం AI కాల్స్ చేసుకోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-38"></span><details class="t"><summary>38. Notification service.<small>నోటిఫికేషన్ సర్వీస్ (WebSockets &amp; Webhooks)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-38"></span><details class="t" id="p6-batch-topic-38"><summary>38. Notification service.<small>నోటిఫికేషన్ సర్వీస్ (WebSockets &amp; Webhooks)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-38-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-38-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-38-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పని పూర్తైనప్పుడు, approval కావాల్సినప్పుడు లేదా error వచ్చినప్పుడు user లేదా మరో service కి తెలియజేయాలి. Notification service ఆ సమాచారాన్ని ఒకచోట నిర్వహిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>WebSocket అనేది server, browser మధ్య తెరిచి ఉన్న connection ద్వారా updates పంపుతుంది. Webhook ఒక service నుంచి మరో service URL కి event request పంపుతుంది. Retry, authentication, duplicate event handling, user preferences కోసం నియమాలు పెట్టాలి.</p><h4>ఉదాహరణ</h4><p>Agent report తయారు చేస్తోంది. WebSocket ద్వారా UI progress చూపిస్తుంది; పూర్తయ్యాక webhook ద్వారా మరో internal service కి event పంపవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Webhook retry వల్ల అదే event మళ్లీ రావచ్చని పట్టించుకోకపోవడం.</div></div><div class="gemini-pane" id="p6-batch-38-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>బ్యాక్‌గ్రౌండ్‌లో రన్ అయ్యే ఏజెంట్ పని పూర్తయినప్పుడు యూజర్‌కు లేదా ఇతర సిస్టమ్‌లకు తక్షణ సమాచారం ఇవ్వడానికి నోటిఫికేషన్ సర్వీస్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1957,9 +1991,9 @@ class NotificationService:
                 return False
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెబ్‌హుక్ డెలివరీ ఫెయిల్ అయినప్పుడు ఎటువంటి రీట్రై లేకుండా సమాచారాన్ని శాశ్వతంగా కోల్పోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-39"></span><details class="t"><summary>39. Internal service communication.<small>అంతర్గత సర్వీస్ కమ్యూనికేషన్</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-39"></span><details class="t" id="p6-batch-topic-39"><summary>39. Internal service communication.<small>అంతర్గత సర్వీస్ కమ్యూనికేషన్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-39-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-39-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-39-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Services విడిగా deploy అయితే, ఒక service మరోదానికి data అడగడం లేదా event పంపడం అవసరం. Communication పద్ధతి response సమయం, retry, error handling మీద ప్రభావం చూపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Request వెంటనే సమాధానం కావాలంటే HTTP లేదా gRPC వంటి synchronous call వాడవచ్చు. పని తర్వాత పూర్తయినా సరిపోతే message queue లేదా event ద్వారా asynchronous communication చేయొచ్చు. ఏ పద్ధతి వాడినా timeout, authentication, version నియమాలు పెట్టాలి.</p><h4>ఉదాహరణ</h4><p>Chat API retrieval service ని వెంటనే పిలిచి passages తీసుకుంటుంది. పెద్ద document indexing ని queue కి పంపి, worker తర్వాత చేస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Service call ఎప్పుడూ విజయవంతంగా, వెంటనే స్పందిస్తుందని ఊహించడం.</div></div><div class="gemini-pane" id="p6-batch-39-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్‌లో సర్వీసులు ఒకదానితో ఒకటి వేగంగా, భద్రంగా మరియు తక్కువ లేటెన్సీతో కమ్యూనికేట్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1977,9 +2011,9 @@ async def call_internal_service(data: dict):
         return res.json()
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే సర్వర్ లోపల ఉన్న సర్వీసుల మధ్య కూడా పబ్లిక్ ఇంటర్నెట్ డొమైన్ల ద్వారా తిరిగి రావడం వల్ల లేటెన్సీ పెంచడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-40"></span><details class="t"><summary>40. REST APIs.<small>REST API ల రూపకల్పన</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-40"></span><details class="t" id="p6-batch-topic-40"><summary>40. REST APIs.<small>REST API ల రూపకల్పన</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-40-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-40-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-40-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>REST API services మధ్య data పంపడానికి సాధారణమైన పద్ధతి. Resource, method, response రూపం స్పష్టంగా ఉంటే client, server వేర్వేరుగా అభివృద్ధి చేయవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>HTTP method ద్వారా చర్యను, path ద్వారా resource ని సూచిస్తారు. ఉదాహరణకు <code>GET /documents/42</code> document చదువుతుంది; <code>POST /documents</code> కొత్తది సృష్టించవచ్చు. Status code, schema, authentication స్పష్టంగా ఉండాలి.</p><h4>ఉదాహరణ</h4><p>Chat API <code>POST /chat</code> కి message JSON పంపి, response JSON పొందుతుంది. Endpoint input size, user permission, error response తనిఖీ చేయాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి error కి 200 status ఇచ్చి, error ఉందని response body లోనే దాచడం.</div></div><div class="gemini-pane" id="p6-batch-40-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వివిధ క్లయింట్లు (వెబ్, మొబైల్, థర్డ్ పార్టీ డెవలపర్లు) సులభంగా అర్థం చేసుకునే ప్రామాణిక HTTP మెథడ్స్ (GET, POST, PUT, DELETE) మరియు స్టేటస్ కోడ్‌లతో కూడిన ఇంటర్‌ఫేస్ ఇది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1999,9 +2033,9 @@ async def create_chat_session(payload: ChatRequest):
     return {"id": "chat_999", "initial_message": payload.message}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని యాక్షన్లకు కేవలం HTTP POST వాడి URI లలో `/get_chat`, `/delete_chat` అని REST నియమాలకు విరుద్ధంగా రాయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-41"></span><details class="t"><summary>41. gRPC fundamentals.<small>gRPC ప్రాథమిక అంశాలు (Protocol Buffers)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-41"></span><details class="t" id="p6-batch-topic-41"><summary>41. gRPC fundamentals.<small>gRPC ప్రాథమిక అంశాలు (Protocol Buffers)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-41-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-41-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-41-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వేర్వేరు services తక్కువ latency తో, నిర్దిష్ట schema ప్రకారం మాట్లాడాల్సినప్పుడు gRPC ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>gRPC లో service methods ని Protocol Buffers schema లో నిర్వచిస్తారు. Schema నుంచి client, server code తయారు చేయవచ్చు; binary messages సాధారణంగా చిన్నవిగా, వేగంగా ఉంటాయి. Browser లేదా external client తో ఉపయోగించేప్పుడు compatibility, gateway మద్దతు తనిఖీ చేయండి.</p><h4>ఉదాహరణ</h4><p>Embedding service కి <code>Embed(text)</code> అనే gRPC method ఉండొచ్చు. App text పంపుతుంది; service vector ని తిరిగి ఇస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> gRPC ఉండగానే schema version మార్పులను పట్టించుకోకపోవడం; పాత client లు కూడా పని చేయాలి.</div></div><div class="gemini-pane" id="p6-batch-41-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మైక్రోసర్వీసుల మధ్య భారీ టెక్స్ట్ లేదా ఫ్లోటింగ్ పాయింట్ వెక్టర్ డేటాను JSON ద్వారా పంపితే డేటా సైజ్ మరియు పార్సింగ్ టైమ్ ఎక్కువవుతాయి. gRPC బైనరీ ప్రోటోకాల్ (Protobuf) వాడటం వల్ల 5x నుండి 10x వేగవంతంగా పనిచేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2023,9 +2057,9 @@ async def create_chat_session(payload: ChatRequest):
 #         return rag_pb2.SearchResponse(results=["result1"])
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పబ్లిక్ బ్రౌజర్ క్లయింట్లకు నేరుగా gRPC ఎక్స్‌పోజ్ చేయడం (బ్రౌజర్‌లకు gRPC-Web లేదా REST గేట్‌వే అవసరం).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-42"></span><details class="t"><summary>42. Synchronous communication.<small>సింక్రోనస్ కమ్యూనికేషన్ (Sync HTTP)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-42"></span><details class="t" id="p6-batch-topic-42"><summary>42. Synchronous communication.<small>సింక్రోనస్ కమ్యూనికేషన్ (Sync HTTP)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-42-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-42-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-42-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Synchronous call లో ఒక service ఇంకో service response వచ్చే వరకు వేచి ఉంటుంది. తక్షణ ఫలితం అవసరమైనప్పుడు ఇది సులభమైన పద్ధతి.</p><h4>సరళమైన వివరణ</h4><p>Caller request పంపి, response వచ్చే వరకు తన పని కొనసాగించదు. అందుకే timeout తప్పనిసరి; retry చేస్తే duplicate side effect రాకూడదు. Dependency slow లేదా down అయితే circuit breaker వంటి రక్షణ ఉపయోగపడుతుంది.</p><h4>ఉదాహరణ</h4><p>Chat request retrieval API ని పిలుస్తుంది; సరైన passages లేకుండా సమాధానం తయారుచేయడం కుదరకపోతే response కోసం వేచి ఉంటుంది. కానీ call కి గరిష్ఠ సమయం పెట్టాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Timeout లేకుండా synchronous call చేయడం వల్ల worker నిరవధికంగా నిలిచిపోవడం.</div></div><div class="gemini-pane" id="p6-batch-42-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ అడిగిన ప్రశ్నకు వెంటనే సమాధానం రావాల్సినప్పుడు (ఉదా: వెరిఫికేషన్, షార్ట్ టెక్స్ట్ కంప్లీషన్) సింక్రోనస్ రిక్వెస్ట్-రెస్పాన్స్ విధానం సరైనది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2040,9 +2074,9 @@ def sync_get_ai_status():
         return resp.json()
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> 2 నిమిషాలు పట్టే భారీ RAG పైప్‌లైన్లకు సింక్రోనస్ కాల్స్ వాడి కనెక్షన్ డ్రాప్స్ తెచ్చుకోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-43"></span><details class="t"><summary>43. Asynchronous communication.<small>అసమకాలిక కమ్యూనికేషన్ (Async, Queues &amp; PubSub)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-43"></span><details class="t" id="p6-batch-topic-43"><summary>43. Asynchronous communication.<small>అసమకాలిక కమ్యూనికేషన్ (Async, Queues &amp; PubSub)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-43-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-43-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-43-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పని పూర్తవడానికి సమయం పట్టినా, మొదటి request వెంటనే తిరిగి ఇవ్వాల్సినప్పుడు asynchronous communication ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Producer queue లేదా event stream కి message పంపుతుంది; consumer తర్వాత దాన్ని తీసుకుని పని చేస్తుంది. Producer, consumer ఒకేసారి online ఉండాల్సిన అవసరం తగ్గుతుంది. Message retry, duplicate delivery, ordering, dead-letter handling ను పరిగణించాలి.</p><h4>ఉదాహరణ</h4><p>Document upload API indexing job ని queue కి పంపి job ID ఇస్తుంది. Worker indexing చేసిన తర్వాత status ని completed గా మారుస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Queue message ఒక్కసారే వస్తుందని భావించి duplicate job ని గుర్తించకపోవడం.</div></div><div class="gemini-pane" id="p6-batch-43-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రిక్వెస్ట్ పంపిన వెంటనే సర్వర్ దానిని స్వీకరించి ఒక రసీదు (202 Accepted) ఇస్తుంది. బ్యాక్‌గ్రౌండ్‌లో ప్రాసెస్ పూర్తయిన తర్వాత ఈవెంట్స్ ద్వారా సమాచారం తెలుస్తుంది. సర్వర్లపై లోడ్ తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2062,9 +2096,9 @@ async def start_indexing(file_id: str, bg: BackgroundTasks):
     return {"message": "Processing started", "file_id": file_id}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అసమకాలిక టాస్క్ స్టేటస్ తెలుసుకోవడానికి క్లయింట్‌కు ఎటువంటి స్టేటస్ ఎండ్‌పాయింట్ లేదా పోలింగ్ మెకానిజం అందించకపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-44"></span><details class="t"><summary>44. Internal service authentication.<small>అంతర్గత సర్వీస్ అథెంటికేషన్ (mTLS &amp; API Keys)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-44"></span><details class="t" id="p6-batch-topic-44"><summary>44. Internal service authentication.<small>అంతర్గత సర్వీస్ అథెంటికేషన్ (mTLS &amp; API Keys)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-44-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-44-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-44-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Internal services కూడా ఒకదానికొకటి request పంపుతాయి. ఒక service లోకి నకిలీ request వస్తే private data బయటపడొచ్చు; అందుకే services పరస్పరం authenticate కావాలి.</p><h4>సరళమైన వివరణ</h4><p>mTLS లో client, server రెండూ certificates తో తమ గుర్తింపును నిర్ధారిస్తాయి; connection కూడా encrypt అవుతుంది. API key సరళమైన గుర్తింపు కావచ్చు కానీ దాన్ని secret గా నిల్వ చేసి, rotate చేయాలి. Authentication తర్వాత ఏ చర్యకు అనుమతి ఉందో authorization కూడా తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><p>Chat backend retrieval service ని పిలిచేటప్పుడు, valid workload identity ఉన్నదా, ఆ user కి ఆ document చూడటానికి హక్కుందా తనిఖీ చేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Internal network లో ఉందని service కి authentication అవసరం లేదని అనుకోవడం.</div></div><div class="gemini-pane" id="p6-batch-44-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక హ్యాకర్ ప్రైవేట్ క్లౌడ్ నెట్‌వర్క్‌లోకి ప్రవేశించినా, సర్వీసుల మధ్య పరస్పర గుర్తింపు (Authentication) లేకపోతే మొత్తం డేటా దొంగిలించబడే ప్రమాదం ఉంది (Zero Trust Architecture).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2080,9 +2114,9 @@ def verify_internal_service(x_service_auth: str = Header(...)):
     return True
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అంతర్గత నెట్‌వర్క్‌లో ఉంది కదా అని ఎలాంటి సెక్యూరిటీ లేకుండా మైక్రోసర్వీసులను ఓపెన్ గా వదిలేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-45"></span><details class="t"><summary>45. API contracts.<small>API కాంట్రాక్ట్‌లు (OpenAPI &amp; Protobuf)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-45"></span><details class="t" id="p6-batch-topic-45"><summary>45. API contracts.<small>API కాంట్రాక్ట్‌లు (OpenAPI &amp; Protobuf)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-45-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-45-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-45-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API producer, consumer ఒకే data రూపంపై అంగీకరించకపోతే integration errors వస్తాయి. API contract request, response ఎలా ఉండాలో ముందే వివరిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>REST API కి OpenAPI document paths, parameters, schemas, responses వివరిస్తుంది. gRPC కి Protocol Buffers service, message రూపాన్ని చెబుతుంది. Contract ని code మార్పుతో పాటు update చేసి, compatibility తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><p>Chat endpoint కి message string అవసరం, response లో answer string, request ID ఉంటాయి అని schema లో రాయండి. Client ఆ contract బట్టి request పంపగలదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Code లో response field పేరు మార్చి, API contract ని పాతదిగానే ఉంచడం.</div></div><div class="gemini-pane" id="p6-batch-45-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఫ్రంటెండ్ టీమ్ మరియు బ్యాకెండ్ టీమ్ ఒకే సమయంలో పని చేయాలంటే ఇన్పుట్ మరియు అవుట్‌పుట్ ఫార్మాట్లపై స్పష్టమైన ఒప్పందం (Contract) ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2100,9 +2134,16 @@ class ResponseContract(BaseModel):
     tokens_consumed: int
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కాంట్రాక్ట్ లేకుండా కేవలం ఫ్రీ-ఫారమ్ ఆర్బిట్రరీ డిక్షనరీలను API ఇన్పుట్/అవుట్‌పుట్ గా పంపడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-46"></span><details class="t"><summary>46. Request and response schemas.<small>రిక్వెస్ట్ మరియు రెస్పాన్స్ స్కీమాలు (Pydantic Models)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-46"></span><details class="t" id="p6-batch-topic-46"><summary>46. Request and response schemas.<small>రిక్వెస్ట్ మరియు రెస్పాన్స్ స్కీమాలు (Pydantic Models)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-46-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-46-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-46-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Request, response data కి స్పష్టమైన schema ఉంటే తప్పు input ముందే పట్టుకోవచ్చు; client ఏం పంపాలి, ఏం వస్తుంది తెలుస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Pydantic model fields, types, అవసరమైన విలువలను నిర్వచిస్తుంది. Request చదివేటప్పుడు validation చేస్తుంది; response model ద్వారా బయటికి వెళ్లే data కూడా నియంత్రించవచ్చు. Sensitive fields ని response లో అనుకోకుండా పంపకూడదు.</p><h4>ఉదాహరణ</h4><pre>from pydantic import BaseModel
+
+class ChatRequest(BaseModel):
+    message: str
+
+class ChatResponse(BaseModel):
+    answer: str
+    request_id: str</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Database model నే API response గా నేరుగా పంపడం; అందులో internal fields ఉండొచ్చు.</div></div><div class="gemini-pane" id="p6-batch-46-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ సరైన డేటా పంపుతున్నాడా లేదా అని వాలిడేట్ చేయడానికి మరియు డేటాబేస్ లోని సున్నితమైన సమాచారం (ఉదా: యూజర్ పాస్‌వర్డ్ హ్యాష్) బయటకు లీక్ కాకుండా రెస్పాన్స్ ఫిల్టర్ చేయడానికి ఇవి తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2125,9 +2166,9 @@ class UserResponseSchema(BaseModel):
         from_attributes = True
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డేటాబేస్ మోడల్‌ను నేరుగా API రెస్పాన్స్ గా రిటర్న్ చేసి సున్నితమైన కాలమ్‌లను బయటకు వెల్లడించడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-47"></span><details class="t"><summary>47. Service discovery.<small>సర్వీస్ డిస్కవరీ (Consul, Eureka, K8s DNS)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-47"></span><details class="t" id="p6-batch-topic-47"><summary>47. Service discovery.<small>సర్వీస్ డిస్కవరీ (Consul, Eureka, K8s DNS)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-47-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-47-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-47-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక service కి అనేక instances ఉంటే, client ఏ address కి request పంపాలో తెలుసుకోవాలి. Service discovery ఆరోగ్యంగా ఉన్న instance ని కనుగొనడంలో సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Service registry లేదా platform DNS service పేరు నుంచి అందుబాటులో ఉన్న instances కి route చేస్తుంది. Kubernetes లో Service DNS పేరు ఉపయోగించవచ్చు; Consul వంటి tools registry, health checks ఇవ్వగలవు.</p><h4>ఉదాహరణ</h4><p>App hard-coded IP బదులు <code>retrieval-service</code> DNS పేరు వాడుతుంది. Instance మారినా app అదే service name కి request పంపుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Registry లో instance ఉందని అది ఆరోగ్యంగా ఉందని అనుకోవడం; health status కూడా తనిఖీ చేయాలి.</div></div><div class="gemini-pane" id="p6-batch-47-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లౌడ్ లేదా కుబెర్‌నెటిస్ లో కంటైనర్లు ఎప్పటికప్పుడు రీస్టార్ట్ అవుతూ కొత్త IP అడ్రస్‌లను పొందుతాయి. సర్వీసులు ఒకదాని IP ని మరొకటి డైనమిక్‌గా కనిపెట్టడానికి సర్వీస్ డిస్కవరీ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2143,9 +2184,9 @@ RAG_URL = f"http://{RAG_SERVICE_HOST}:{RAG_SERVICE_PORT}/api/v1/search"
 print(f"Connecting to discovery endpoint: {RAG_URL}")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కాన్ఫిగరేషన్‌లో స్టాటిక్ IP అడ్రస్‌లను రాసి కంటైనర్ రీప్లేస్ అయినప్పుడు కనెక్షన్ ఎర్రర్లు ఎదుర్కోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-48"></span><details class="t"><summary>48. API versioning.<small>API వర్షనింగ్ (Versioning Strategies)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-48"></span><details class="t" id="p6-batch-topic-48"><summary>48. API versioning.<small>API వర్షనింగ్ (Versioning Strategies)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-48-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-48-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-48-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API మారినప్పుడు పాత client లు ఒక్కసారిగా విఫలం కాకుండా ఉండటానికి versioning ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Version ని URL, header లేదా media type లో చూపవచ్చు. ఏ మార్పు backward compatible, ఏది breaking change అని నిర్ణయించాలి. కొత్త version విడుదల చేసిన తర్వాత పాతదాన్ని ఎంతకాలం support చేస్తారో ప్రకటించండి.</p><h4>ఉదాహరణ</h4><p><code>/v1/documents</code> పాత response format ఇవ్వొచ్చు; <code>/v2/documents</code> కొత్త field లేదా కొత్త response shape ఇవ్వొచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి చిన్న additive field మార్పుకీ కొత్త version సృష్టించి clients ని అనవసరంగా విభజించడం.</div></div><div class="gemini-pane" id="p6-batch-48-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ప్రాంప్ట్ స్ట్రక్చర్ లేదా రెస్పాన్స్ ఫార్మాట్ మారినప్పుడు పాత మొబైల్ యాప్ లేదా క్లయింట్లు క్రాష్ కాకుండా ఉండటానికి API వర్షనింగ్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2171,9 +2212,9 @@ app.include_router(v1_router)
 app.include_router(v2_router)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఇప్పటికే ఉన్న ఎండ్‌పాయింట్ యొక్క రెస్పాన్స్ JSON కీలను మార్చి పాత క్లయింట్ అప్లికేషన్లను బ్రేక్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-6-49"></span><details class="t"><summary>49. Backward compatibility.<small>బ్యాక్‌వర్డ్ కంపాటబిలిటీ (సామరస్యత)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-6-49"></span><details class="t" id="p6-batch-topic-49"><summary>49. Backward compatibility.<small>బ్యాక్‌వర్డ్ కంపాటబిలిటీ (సామరస్యత)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p6-batch-49-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p6-batch-49-gemini">Gemini</button></div><div class="gpt-pane" id="p6-batch-49-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Backend మార్చినా పాత clients పని చేస్తే upgrade సులభమవుతుంది. Backward compatibility అనేది ఇప్పటికే వాడుతున్న client expectations ని కాపాడటం.</p><h4>సరళమైన వివరణ</h4><p>పాత fields తొలగించకండి, వాటి అర్థం మార్చకండి; కొత్త optional field చేర్చడం సాధారణంగా సురక్షితం. Breaking change అవసరమైతే కొత్త API version, migration సమయం, deprecation సూచన ఇవ్వండి. Contract tests పాత client expectations ని తనిఖీ చేయగలవు.</p><h4>ఉదాహరణ</h4><p>Response లో <code>answer</code> field ని అలాగే ఉంచి, కొత్త <code>sources</code> field optional గా చేర్చండి. పాత client దాన్ని పట్టించుకోకపోయినా పని కొనసాగుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Field పేరును లేదా type ని మార్చి, client లకు ముందుగా తెలియజేయకపోవడం.</div></div><div class="gemini-pane" id="p6-batch-49-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొత్త ఫీచర్లు విడుదల చేసినప్పుడు పాత క్లయింట్లు లేదా థర్డ్-పార్టీ ఇంటిగ్రేషన్లు ఎలాంటి అంతరాయం లేకుండా పనిచేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2189,7 +2230,7 @@ class PromptRequest(BaseModel):
     system_instruction: Optional[str] = "You are a helpful assistant."
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పాత API రిక్వెస్ట్ స్కీమాలో ఉన్న ఫీల్డ్‌ను తొలగించి లేదా తప్పనిసరి (Required) చేసి పాత క్లయింట్లను బ్రేక్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-6-50"></span><details class="t" id="gpt-topic-p6-dependency-injection-1"><summary>50. Dependency injection.<small>డిపెండెన్సీ ఇంజెక్షన్ ప్యాటర్న్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-duplicate-dependency-injection-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-dependency-injection-1">Gemini</button></div><div class="gpt-pane" id="gpt-p6-duplicate-dependency-injection-1" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p6-dependency-injection">మొదటి GPT వివరణను చూడండి</a>.</p></div></details><span class="global-search-anchor" id="global-topic-6-51"></span><details class="t"><summary>51. Factory pattern.<small>ఫ్యాక్టరీ ప్యాటర్న్ (Factory Pattern)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>

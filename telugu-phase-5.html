@@ -2257,7 +2257,12 @@ run_agent_safely()</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎర్రర్ వచ్చినప్పుడు డేటాబేస్ లాక్స్ ని రిలీజ్ చేయకుండా ప్రాసెస్ ని ఎగ్జిట్ చేయడం.</div>
 </div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-56"></span><details class="t"><summary>56. Build a simple Python agent.<small>సాధారణ పైథాన్ ఏజెంట్‌ను నిర్మించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-56"></span><details class="t" id="p5-gpt-batch-topic-56"><summary>56. Build a simple Python agent.<small>సాధారణ పైథాన్ ఏజెంట్‌ను నిర్మించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-56-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-56-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-56-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చిన్న Python agent నిర్మిస్తే, user ఇచ్చిన లక్ష్యం నుంచి tool వాడి ఫలితం ఇచ్చే వరకు ప్రతి దశ ఎలా కలుస్తుందో అర్థమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ప్రాథమిక agent కి మూడు భాగాలు చాలు: user లక్ష్యం, అవసరమైనప్పుడు పిలిచే tools, ఏ పని చేయాలో ఎంచుకునే నియమం. మొదట చిన్నగా నిర్మించి, తర్వాత memory, retries, permissions వంటి వాటిని జోడించండి. ఇది Laravel లో controller నుంచి service, action కి పని పంపినట్లే; agent మాత్రం తదుపరి action ఏదో input బట్టి ఎంచుకుంటుంది.</p><h4>ఉదాహరణ</h4><pre>def answer_question(question, search_tool):
+    if "policy" in question.lower():
+        return search_tool(question)
+    return "దయచేసి ప్రశ్నను ఇంకాస్త వివరించండి."
+
+print(answer_question("refund policy ఏమిటి?", lambda q: "Policy result"))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> మొదటి నుంచే agent కి పరిమితిలేని tools, permissions ఇవ్వడం.</div></div><div class="explain-pane" id="p5-batch-56-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>భారీ ఫ్రేమ్‌వర్క్స్ వాడటానికి ముందు, ప్రాథమిక పైథాన్ కోడ్‌తో ఒక ఏజెంట్ ఎలా పనిచేస్తుందో లోపలి మెకానిజం స్వయంగా నిర్మించి తెలుసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2275,9 +2280,14 @@ run_agent_safely()</pre>
 agent = MinimalAgent()
 print(agent.step("greet", "Naveen"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బేసిక్ లూప్ అర్థం కాకుండానే నేరుగా సంక్లిష్టమైన ఫ్రేమ్‌వర్క్ ఆర్కిటెక్చర్స్ లోకి దూకడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-57"></span><details class="t"><summary>57. Give the agent a system instruction.<small>ఏజెంట్‌కు సిస్టమ్ సూచన (System instruction) ఇవ్వడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-57"></span><details class="t" id="p5-gpt-batch-topic-57"><summary>57. Give the agent a system instruction.<small>ఏజెంట్‌కు సిస్టమ్ సూచన (System instruction) ఇవ్వడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-57-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-57-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-57-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent కి ఏ లక్ష్యంతో, ఏ నియమాల లోపల పని చేయాలో చెప్పకపోతే సమాధానాలు మారుతూ ఉండవచ్చు లేదా అనుమతి లేని పని చేయవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>System instruction</b> అనేది agent పని విధానం, పరిమితులు, సమాధానం రూపం గురించి ఇచ్చే ముందస్తు సూచన. ఉదాహరణకు, agent HR policy నుంచి మాత్రమే సమాధానం ఇవ్వాలి, ఆధారం దొరకకపోతే అలా చెప్పాలి. ఇది ప్రతి user ప్రశ్నతో వచ్చే వాక్యం కాదు; agent కి స్థిరంగా వర్తించే నియమం.</p><h4>ఉదాహరణ</h4><pre>system_instruction = """
+మీరు HR సహాయకుడు.
+ఇచ్చిన policy text ఆధారంగానే సమాధానం ఇవ్వండి.
+సమాచారం లేకపోతే తెలియదని చెప్పండి.
+"""
+print(system_instruction)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> System instruction ఒక్కటే భద్రతకు సరిపోతుందని భావించడం; permission checks ను code లోనూ అమలు చేయాలి.</div></div><div class="explain-pane" id="p5-batch-57-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ తన పాత్ర ఏమిటి (Role), ఏ నియమాలను పాటించాలి (Constraints), సమాధానాలు ఏ టోన్‌లో ఇవ్వాలి అనేది System Instruction ద్వారానే నిర్దేశించబడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2296,9 +2306,14 @@ def prompt_builder(user_msg: str) -&gt; str:
 
 print(prompt_builder("How do I fetch active users?"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సిస్టమ్ ఇన్‌స్ట్రక్షన్ లో నెగెటివ్ రూల్స్ ("ఇది చేయకు") ఎక్కువగా రాయడం; పాజిటివ్ సూచనలు ("ఇలా చేయి") మోడల్స్ కు బాగా అర్థమవుతాయి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-58"></span><details class="t"><summary>58. Add a calculator tool.<small>క్యాలిక్యులేటర్ టూల్‌ను జోడించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-58"></span><details class="t" id="p5-gpt-batch-topic-58"><summary>58. Add a calculator tool.<small>క్యాలిక్యులేటర్ టూల్‌ను జోడించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-58-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-58-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-58-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సంఖ్యల లెక్కను LLM కే చేయమంటే పొరపాటు రావచ్చు. Calculator tool తో ఖచ్చితమైన లెక్కను code చేయిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Calculator tool ఒక స్పష్టమైన input తీసుకుని ఫలితం ఇస్తుంది. Agent ముందు లెక్క అవసరమా నిర్ణయిస్తుంది, ఆపై పరిమితమైన calculator function ని పిలుస్తుంది. User ఇచ్చిన text ని నేరుగా <code>eval</code> కి పంపకండి; అనుమతించిన operations మాత్రమే అమలు చేయండి.</p><h4>ఉదాహరణ</h4><pre>def add_numbers(a: float, b: float) -&gt; float:
+    return a + b
+
+# Agent tool call చేసినట్టుగా
+result = add_numbers(125.50, 24.50)
+print(result)  # 150.0</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Calculator పేరుతో user ఇచ్చిన ఏ Python code అయినా అమలు చేయడం.</div></div><div class="explain-pane" id="p5-batch-58-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM లు అంకగణితాన్ని తప్పుగా లెక్కిస్తాయి (ఉదా: 39485 * 29482). ఖచ్చితమైన గణిత ఫలితాల కోసం క్యాలిక్యులేటర్ టూల్ ను ఏజెంట్‌కు అనుసంధానించడం తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2317,9 +2332,14 @@ def safe_calculator(op: str, a: float, b: float) -&gt; float:
 
 print("Calculation result:", safe_calculator("mul", 125, 8))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Python యొక్క `eval()` ఫంక్షన్ ని నేరుగా వాడటం (ఇది ఆర్బిట్రరీ కోడ్ ఎగ్జిక్యూషన్ సెక్యూరిటీ హోల్ ని తెస్తుంది).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-59"></span><details class="t"><summary>59. Add a search tool.<small>సెర్చ్ టూల్‌ను జోడించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-59"></span><details class="t" id="p5-gpt-batch-topic-59"><summary>59. Add a search tool.<small>సెర్చ్ టూల్‌ను జోడించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-59-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-59-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-59-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model కి తెలియని తాజా లేదా సంస్థలోని సమాచారాన్ని వెతికి ఇవ్వడానికి Search tool ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Search tool ఒక query తీసుకుని సంబంధిత పత్రాలు లేదా web results ఇస్తుంది. Agent ఆ ఫలితాన్ని చదివి, సరిపడే ఆధారం ఉందో చూస్తుంది; తర్వాత సమాధానం తయారు చేస్తుంది. Search ఫలితం రావడం మాత్రమే అది నిజమని నిరూపించదు, కాబట్టి source, date, relevance తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><pre>def search_docs(query: str) -&gt; list[str]:
+    docs = ["Leave policy: సంవత్సరానికి 20 రోజులు.",
+            "Travel policy: bills సమర్పించాలి."]
+    return [doc for doc in docs if "leave" in doc.lower()]
+
+print(search_docs("leave days"))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Search లో వచ్చిన మొదటి ఫలితాన్నే సరైనదిగా భావించి, దాని ఆధారం తనిఖీ చేయకపోవడం.</div></div><div class="explain-pane" id="p5-batch-59-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM జ్ఞానం ట్రైనింగ్ కటాఫ్ డేట్ వరకే పరిమితం. తాజా వార్తలు, డాక్యుమెంటేషన్ లేదా ఇంటర్నల్ డేటాను వెతకడానికి వెబ్ లేదా డాక్యుమెంట్ సెర్చ్ టూల్ జోడించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2338,9 +2358,14 @@ print("Calculation result:", safe_calculator("mul", 125, 8))</pre>
 
 print("Search Output:", search_kb("Tell me about Laravel 11"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సెర్చ్ ఫలితాల లోని మొత్తం HTML ని అలాగే ప్రాంప్ట్ లోకి పంపడం (టెక్స్ట్ ను క్లీన్ చేసి మెయిన్ సారాంశాన్ని మాత్రమే పంపాలి).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-60"></span><details class="t"><summary>60. Observe tool-selection decisions.<small>టూల్ ఎంపిక నిర్ణయాలను పరిశీలించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-60"></span><details class="t" id="p5-gpt-batch-topic-60"><summary>60. Observe tool-selection decisions.<small>టూల్ ఎంపిక నిర్ణయాలను పరిశీలించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-60-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-60-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-60-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent ఏ tool ఎంచుకుందో, ఆ tool వల్ల ఏ ఫలితం వచ్చిందో తెలుసుకుంటే తప్పు నిర్ణయాలను సరిచేయడం సులభం.</p><h4>సరళమైన వివరణ</h4><p>Tool పేరు, request ID, సమయం, విజయం లేదా error వంటి వివరాలను log చేయండి. Passwordలు, API keys, పూర్తి వ్యక్తిగత సమాచారం logs లో పెట్టకండి. కొన్ని test ప్రశ్నలు తయారు చేసి agent ఎంచుకున్న tool సరైనదో పరిశీలించండి.</p><h4>ఉదాహరణ</h4><pre>event = {
+    "request_id": "req-104",
+    "tool": "search_policy",
+    "status": "success",
+}
+print(event)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Debug కోసం secrets లేదా వ్యక్తిగత సమాచారాన్ని logs లో రాయడం.</div></div><div class="explain-pane" id="p5-batch-60-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ సరైన సందర్భంలో సరైన టూల్ ని ఎంచుకుంటుందో లేదో పర్యవేక్షించడం (Observability &amp; Tracing). దీనివల్ల తప్పుడు టూల్ సెలెక్షన్స్ ను వెంటనే గుర్తించి ప్రాంప్ట్స్ ని మెరుగుపరచవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2356,9 +2381,16 @@ print("Search Output:", search_kb("Tell me about Laravel 11"))</pre>
 
 log_tool_decision("What is 45 * 90?", "safe_calculator", "User query involves arithmetic calculation.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టూల్ సెలెక్షన్ లాగింగ్ లేకపోవడం వల్ల ఏజెంట్ ఎందుకు వింతగా సమాధానమిచ్చిందో డీబగ్ చేయలేకపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-61"></span><details class="t"><summary>61. Add execution limits.<small>ఎగ్జిక్యూషన్ పరిమితులను జోడించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-61"></span><details class="t" id="p5-gpt-batch-topic-61"><summary>61. Add execution limits.<small>ఎగ్జిక్యూషన్ పరిమితులను జోడించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-61-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-61-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-61-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent tool call లూప్‌లో ఇరుక్కుంటే, ఖర్చు పెరగొచ్చు లేదా ప్రమాదకర చర్యలను మళ్లీ మళ్లీ చేయొచ్చు. పరిమితులు దాన్ని నియంత్రిస్తాయి.</p><h4>సరళమైన వివరణ</h4><p>ఒక request కి గరిష్ఠ model calls, tool calls, గడువు, token ఖర్చు వంటి పరిమితులు పెట్టండి. Limit చేరితే agent ని ఆపి, ఏ దశలో ఆగిందో log చేయండి. Retry ఉంటే దానికీ గరిష్ఠ సంఖ్య ఉండాలి.</p><h4>ఉదాహరణ</h4><pre>MAX_TOOL_CALLS = 5
+
+for call_number in range(MAX_TOOL_CALLS):
+    result = run_one_agent_step()
+    if result.is_final:
+        break
+else:
+    result = "పరిమితి చేరింది; మానవ సహాయం అవసరం."</pre><div class="mistake"><b>సాధారణ తప్పు:</b> “agent ఎప్పుడో ఆగిపోతుంది” అనుకుని hard limit లేకుండా run చేయడం.</div></div><div class="explain-pane" id="p5-batch-61-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ లూప్ రన్ అవుతున్నప్పుడు అది కంట్రోల్ తప్పకుండా గరిష్ట కాలపరిమితి మరియు స్టెప్ కౌంట్ హార్డ్ లిమిట్లను కోడ్ లో అమలు చేయడం తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2380,9 +2412,14 @@ print(agent.run_step())
 print(agent.run_step())
 print(agent.run_step()) # ఆగిపోతుంది</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం LLM కి ప్రాంప్ట్ లో "3 స్టెప్పుల్లో ముగించు" అని చెప్పి వదిలేయడం; కోడ్ లెవల్ లో హార్డ్ స్టాప్ పెట్టాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-62"></span><details class="t"><summary>62. Implement error handling.<small>ఎర్రర్ హ్యాండ్లింగ్‌ను అమలు చేయడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-62"></span><details class="t" id="p5-gpt-batch-topic-62"><summary>62. Implement error handling.<small>ఎర్రర్ హ్యాండ్లింగ్‌ను అమలు చేయడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-62-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-62-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-62-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Tool లేదా model service అందుబాటులో లేకపోవచ్చు, తప్పు input రావచ్చు. ఒక error వల్ల మొత్తం agent, API request క్రాష్ కాకుండా handle చేయాలి.</p><h4>సరళమైన వివరణ</h4><p>Input validation errors, timeout, provider errors, unexpected programming errors ను వేర్వేరుగా పరిగణించండి. మళ్లీ ప్రయత్నించడం సురక్షితమైన transient failures కి మాత్రమే చేయండి. User కి ఉపయోగకరమైన, కానీ secret లేని సందేశం ఇవ్వండి; పూర్తి technical వివరాలు secured logs లో ఉంచండి.</p><h4>ఉదాహరణ</h4><pre>try:
+    result = search_tool(query)
+except TimeoutError:
+    result = "వెతకడానికి ఎక్కువ సమయం పట్టింది. మళ్లీ ప్రయత్నించండి."
+except ValueError as exc:
+    result = f"ప్రశ్నను తనిఖీ చేయండి: {exc}"</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి error ని పట్టుకుని “ఏదో తప్పు” అని చెప్పడం వల్ల నిజమైన కారణం logs లో పోవడం.</div></div><div class="explain-pane" id="p5-batch-62-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>టూల్స్ ఎగ్జిక్యూట్ అయ్యేటప్పుడు JSON decode error, Network error లేదా Database connection timeout రావచ్చు. వాటిని క్రాష్ అవ్వకుండా సురక్షితంగా హ్యాండిల్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2399,9 +2436,9 @@ print(agent.run_step()) # ఆగిపోతుంది</pre>
 # టెస్ట్
 print(safe_tool_runner(lambda a, b: a / b, 10, 0))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎర్రర్ ట్రేస్ మొత్తాన్ని యూజర్ కి చూపించడం లేదా ఏమీ సమాచారం లేకుండా సైలెంట్ గా ఫెయిల్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-63"></span><details class="t"><summary>63. Compare agent and workflow approaches.<small>ఏజెంట్ మరియు వర్క్‌ఫ్లో విధానాల పోలిక</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-63"></span><details class="t" id="p5-gpt-batch-topic-63"><summary>63. Compare agent and workflow approaches.<small>ఏజెంట్ మరియు వర్క్‌ఫ్లో విధానాల పోలిక</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-63-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-63-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-63-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ప్రతి పని agent చేత చేయించాలా, లేక ముందే తెలిసిన క్రమంలో workflow గా అమలు చేయాలా అన్నది సరైన architecture ఎంచుకోవడానికి ముఖ్యం.</p><h4>సరళమైన వివరణ</h4><p>Workflow లో దశలు, branching నియమాలు ముందే నిర్ణయిస్తారు; ఫలితం ఊహించగలిగేలా ఉంటుంది. Agent కి లక్ష్యం, tools ఇస్తారు; తదుపరి దశను model ఎంచుకుంటుంది. స్థిరమైన invoice approval కి workflow సరిపోతుంది. ఎన్నో పత్రాలు వెతికి సమాధానం తయారు చేసే పని agent కి ఉపయోగపడవచ్చు. అవసరమైతే workflow లో పరిమిత agent step కలపవచ్చు.</p><h4>ఉదాహరణ</h4><p>“$500 కంటే తక్కువ అయితే ఆటోమేటిక్ approval; లేకపోతే manager review” అనేది workflow. “ఈ ఫిర్యాదును పరిశీలించి, సరైన policy వెతికి, ఏ టీమ్ కి పంపాలో నిర్ణయించు” అనేది agent పని.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Agent స్వేచ్ఛను అవసరం లేని స్థిరమైన పనికీ ఇవ్వడం; workflow సులభంగా పరీక్షించగలిగే చోట దాన్నే వాడండి.</div></div><div class="explain-pane" id="p5-batch-63-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాఫ్ట్‌వేర్ ఆర్కిటెక్ట్ గా ఒక ప్రాజెక్ట్ రిక్వైర్‌మెంట్ వచ్చినప్పుడు దానికి స్టాటిక్ వర్క్‌ఫ్లో సరిపోతుందా లేదా డైనమిక్ ఏజెంట్ అవసరమా అని ఖచ్చితమైన నిర్ణయం తీసుకోవడానికి ఈ పోలిక అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2427,7 +2464,7 @@ def choose_architecture(is_path_known_in_advance: bool) -&gt; str:
 print("For Invoice Processing:", choose_architecture(True))
 print("For Open Research Investigation:", choose_architecture(False))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఫిక్స్‌డ్ బిజినెస్ రూల్స్ ఉన్న ప్రాసెస్‌లకు కూడా ఏజెంట్లను వాడి అకారణంగా సిస్టమ్ రిలయబిలిటీని తగ్గించడం.</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 
@@ -2442,7 +2479,7 @@ print("For Open Research Investigation:", choose_architecture(False))</pre>
     </div>
   </summary>
   <div class="day-body">
-    <span class="global-search-anchor" id="global-topic-5-64"></span><details class="t"><summary>1. What is LangChain?<small>LangChain అంటే ఏమిటి?</small></summary><div class="body">
+    <span class="global-search-anchor" id="global-topic-5-64"></span><details class="t" id="p5-new-topic-64"><summary>1. What is LangChain?<small>LangChain అంటే ఏమిటి?</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-64-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-64-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-64-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LLM API ని నేరుగా పిలవడం సులభమే. కానీ prompt templates, tool calls, model మార్పులు, structured output వంటి సాధారణ పనులు పెరిగినప్పుడు వాటిని ఒకే విధంగా నిర్వహించడానికి LangChain ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>LangChain అనేది LLM apps నిర్మించడానికి libraries సమూహం. ఇది model provider తో మాట్లాడటం, prompt తయారు చేయడం, tools పిలవడం వంటి పనులకు interface లు ఇస్తుంది. ఇది model కాదు; model ని ఉపయోగించే application code రాయడంలో సహాయం చేసే framework.</p><h4>ఉదాహరణ</h4><p>Customer support app లో user ప్రశ్నను prompt లో పెట్టి model కి పంపడం, అవసరమైతే policy search tool పిలవడం, ఆపై సమాధానం ఇవ్వడం వంటి దశలను LangChain తో కలపవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> LangChain వాడితే model సమాధానాలు స్వయంగా మరింత నిజమవుతాయని అనుకోవడం; framework accuracy కి హామీ ఇవ్వదు.</div></div><div class="explain-pane" id="p5-batch-64-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ఆధారిత అప్లికేషన్లను నిర్మించేటప్పుడు కేవలం API కాల్ చేస్తే సరిపోదు. Prompts నిర్వహణ, Output parsing, Vector databases తో RAG కనెక్ట్ చేయడం, వేర్వేరు మోడల్ ప్రొవైడర్లను మార్చడం వంటి అనేక పనులను సులభతరం చేసే ప్రామాణిక ఫ్రేమ్‌వర్క్ LangChain.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2462,9 +2499,9 @@ chain = prompt | model | parser
 response = chain.invoke({"topic": "Laravel Eloquent ORM"})
 print(response)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> LangChain అనేది కేవలం OpenAI wrapper మాత్రమే అనుకోవడం; ఇది ఏ LLM నైనా (Anthropic, Gemini, Local Ollama) ప్లగ్-అండ్-ప్లే చేసే పూర్తి ఆర్కిటెక్చర్.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-65"></span><details class="t"><summary>2. Problems it solves.<small>LangChain పరిష్కరించే సమస్యలు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-65"></span><details class="t" id="p5-new-topic-65"><summary>2. Problems it solves.<small>LangChain పరిష్కరించే సమస్యలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-65-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-65-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-65-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LLM app లో prompt, model call, parsing, tools ని విడివిడిగా రాస్తే integration code పెరిగి దాన్ని മാറ്റడం కష్టం కావచ్చు. LangChain కొన్ని సాధారణ integration పనులను එකే రూపంలో నిర్వహించడంలో సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Chat model interfaces, prompt templates, tool calling, output parsers වැනි building blocks ఇస్తుంది. మీరు app లో అవసరమైనవి మాత్రమే ఎంచుకోవచ్చు. చిన్న పని కోసం framework అవసరం లేకపోవచ్చు; direct API call మరింత సులభం కావచ్చు.</p><h4>ఉదాహరణ</h4><p>ఒక invoice app prompt ని model కి పంపి, వచ్చిన text లో invoice total ని తీసుకోవాలి. Prompt template మరియు output validation వేరు నిర్వహిస్తే మార్పులు, tests సులభం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి LLM call ని framework లోకి మార్చి అవసరం లేని abstraction చేర్చడం.</div></div><div class="explain-pane" id="p5-batch-65-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రకరకాల LLM ప్రొవైడర్లు (OpenAI, Anthropic, Google) వేర్వేరు API ఫార్మాట్‌లు, పారామీటర్లను కలిగి ఉంటారు. నేరుగా APIs వాడితే ప్రొవైడర్ లాక్-ఇన్ అవ్వడం, బోయిలర్‌ప్లేట్ కోడ్ విపరీతంగా పెరగడం జరుగుతుంది. LangChain ఈ సమస్యలన్నింటినీ పరిష్కరిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2477,9 +2514,9 @@ from langchain_anthropic import ChatAnthropic
 # కేవలం ఈ ఒక్క లైన్ మారిస్తే చాలు, మిగిలిన ఛైన్ మొత్తం యథాతథంగా పనిచేస్తుంది:
 model = ChatAnthropic(model="claude-3-5-sonnet-20241022")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి ప్రాజెక్ట్ లోనూ సొంతంగా custom HTTP wrappers రాయడానికి సమయం వృథా చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-66"></span><details class="t"><summary>3. LangChain ecosystem.<small>LangChain పర్యావరణ వ్యవస్థ (Ecosystem)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-66"></span><details class="t" id="p5-new-topic-66"><summary>3. LangChain ecosystem.<small>LangChain పర్యావరణ వ్యవస్థ (Ecosystem)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-66-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-66-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-66-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LangChain ఒక్క package మాత్రమే కాదు. App లో ఏ సామర్థ్యం కావాలో తెలుసుకుంటే అవసరమైన భాగాలనే install చేసి, dependency లను నియంత్రించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>LangChain ecosystem లో core abstractions, provider integrations, community integrations, model/tool packages వంటి భాగాలు ఉంటాయి. Package పేర్లు, APIs మారవచ్చు; project documentation, lock file చూసి మీరు ఉపయోగించే version కి సరిపోయే package ని ఎంచుకోండి.</p><h4>ఉదాహరణ</h4><p>OpenAI chat model, PostgreSQL-backed vector store రెండూ కావాలంటే వాటి provider packages మాత్రమే చేర్చండి. అన్ని integrations ని అవసరం లేకుండా install చేయకండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> పాత tutorial లోని import path ఇప్పటికీ తాజా package లో అదే ఉందని అనుకోవడం.</div></div><div class="explain-pane" id="p5-batch-66-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LangChain ఇప్పుడు ఒకే లైబ్రరీ కాదు. ఇది బహుళ ప్యాకేజీలు మరియు సాధనాలతో కూడిన ఒక పెద్ద పర్యావరణ వ్యవస్థ. దేని ప్రయోజనం ఏమిటో తెలిస్తేనే ప్రొడక్షన్ లో సరైన లైబ్రరీని ఇన్స్టాల్ చేయగలం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2492,9 +2529,9 @@ from langchain_core.messages import HumanMessage
 msg = HumanMessage(content="Hello LangChain!")
 print("Core message object:", type(msg))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> భారీ మరియు లెగసీ ప్యాకేజీ అయిన పాత `langchain` మొత్తాన్ని అవసరం లేకపోయినా ఇన్స్టాల్ చేసుకోవడం (`langchain-core` మరియు నిర్దిష్ట ప్రొవైడర్ ప్యాకేజీ వాడటం ఆధునిక పద్ధతి).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-67"></span><details class="t"><summary>4. LangChain vs direct LLM API calls.<small>LangChain vs డైరెక్ట్ LLM API కాల్స్</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-67"></span><details class="t" id="p5-new-topic-67"><summary>4. LangChain vs direct LLM API calls.<small>LangChain vs డైరెక్ట్ LLM API కాల్స్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-67-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-67-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-67-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే prompt ని ఒక model కి పంపడం మాత్రమే అయితే direct API సరిపోతుంది. App లో tools, parsing, prompt reuse పెరిగినప్పుడు framework ఉపయోగకరమా అన్నది ఈ పోలికతో నిర్ణయించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Direct API call లో నియంత్రణ, dependencies తక్కువ; provider-specific code ఎక్కువగా మీరే రాస్తారు. LangChain common interfaces, prompt/tool composition ఇస్తుంది; దానికి బదులుగా అదనపు abstraction, dependencies వస్తాయి. పనికి అవసరమైనంత మాత్రమే వాడండి.</p><h4>ఉదాహరణ</h4><p>ఒక FAQ answer కోసం direct call సరళంగా ఉండొచ్చు. అనేక tools, structured outputs, provider fallback కలిగిన service లో LangChain integration code తగ్గించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Framework ఉన్నందుకు app చిన్నదైనా అన్ని పనులకు దాన్ని తప్పనిసరి చేయడం.</div></div><div class="explain-pane" id="p5-batch-67-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొన్ని చిన్న స్క్రిప్ట్‌లకు డైరెక్ట్ `requests.post()` లేదా `openai.ChatCompletion.create()` సరిపోవచ్చు. కానీ ప్రాజెక్ట్ పెరిగే కొద్దీ ఏది ఎంచుకోవాలో సరైన ఆర్కిటెక్చరల్ నిర్ణయం తీసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2510,9 +2547,9 @@ from langchain_core.output_parsers import StrOutputParser
 chain = PromptTemplate.from_template("Translate to Telugu: {text}") | model | StrOutputParser()
 print(chain.invoke({"text": "Welcome to agentic AI"}))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం 10 లైన్ల వన్-ఆఫ్ స్క్రిప్ట్ కోసం అనవసరంగా LangChain ను ఓవర్‌కిల్ గా వాడటం, లేదా భారీ ఎంటర్‌ప్రైజ్ యాప్ కోసం ఆర్కిటెక్చర్ లేకుండా రా API కాల్స్ రాసి మెయింటెనెన్స్ సమస్యల్లో పడటం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-68"></span><details class="t"><summary>5. LangChain vs LangGraph.<small>LangChain vs LangGraph మధ్య సంబంధం మరియు తేడా</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-68"></span><details class="t" id="p5-new-topic-68"><summary>5. LangChain vs LangGraph.<small>LangChain vs LangGraph మధ్య సంబంధం మరియు తేడా</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-68-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-68-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-68-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LangChain, LangGraph పేర్లు దగ్గరగా ఉన్నా, వాటి ప్రధాన ఉపయోగం ఒకటే కాదు. ఏది ఎప్పుడు వాడాలో తెలిస్తే app నిర్మాణాన్ని తగినట్లు ఎంచుకోవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>LangChain model, prompt, tool వంటి భాగాలను కలపడానికి సౌకర్యాలు ఇస్తుంది. LangGraph state ఉన్న బహుళ దశల agent workflow ని graph గా నిర్వహించడానికి ఉపయోగపడుతుంది; దశల మధ్య మళ్లీ వెళ్లడం, నిలిపి తర్వాత కొనసాగించడం వంటి నియంత్రణలు అందిస్తుంది. సరళమైన prompt-call-parse క్రమానికి LangChain చాలు; stateful loop లేదా human approval ఉన్నప్పుడు LangGraph ఉపయోగపడవచ్చు.</p><h4>ఉదాహరణ</h4><p>ఒక user message కి model response ఇవ్వడం LangChain chain తో సరిపోవచ్చు. Search → draft → approval → send అనే stateful flow ని LangGraph లో nodes, edges గా చూపవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి agent పని LangGraph లోనే ఉండాలని లేదా రెండింటినీ ఒకటిగా చూడడం.</div></div><div class="explain-pane" id="p5-batch-68-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డెవలపర్లు తరచుగా LangChain మరియు LangGraph మధ్య గందరగోళానికి గురవుతారు. చైన్స్ ఎప్పుడు వాడాలి, గ్రాఫ్స్ ఎప్పుడు వాడాలి అనేది ప్రాజెక్ట్ ఆర్కిటెక్చర్ లో అత్యంత కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2527,9 +2564,9 @@ print(chain.invoke({"text": "Welcome to agentic AI"}))</pre>
 # workflow.add_node("tools", call_tool)
 # workflow.add_conditional_edges("agent", should_continue, ["tools", END])</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కాంప్లెక్స్ లూప్స్ మరియు మల్టీ-స్టెప్ ఏజెంట్ల కోసం పాత LangChain AgentExecutor ను వాడటం; ఆధునిక పద్ధతిలో LangGraph మాత్రమే వాడాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-69"></span><details class="t"><summary>6. LangChain Python packages.<small>LangChain పైథాన్ ప్యాకేజీల విభజన</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-69"></span><details class="t" id="p5-new-topic-69"><summary>6. LangChain Python packages.<small>LangChain పైథాన్ ప్యాకేజీల విభజన</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-69-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-69-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-69-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఏ package ఏ పని చేస్తుందో స్పష్టంగా ఉంటే dependencies, import errors, deployment సమస్యలు తగ్గుతాయి.</p><h4>సరళమైన వివరణ</h4><p>LangChain Python packages వేర్వేరు integrations లేదా core interfaces ని అందించవచ్చు. మీ code లో వాడే imports ఏ installed package నుంచి వస్తున్నాయో documentation చూసి నిర్ధారించండి. Dependency ని project file లో pin చేసి lock చేయడం reproducible install కి సహాయపడుతుంది.</p><h4>ఉదాహరణ</h4><p>Project local environment లో ఒక provider integration install చేసి app ప్రారంభమవుతుందని తనిఖీ చేయండి; ఆ తర్వాత అదే dependency version ని deployment environment లో install చేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఒక package install అయిందని దాని పేరుతో అనుకున్న అన్ని imports అందుబాటులో ఉంటాయని భావించడం.</div></div><div class="explain-pane" id="p5-batch-69-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LangChain v0.1 మరియు v0.2 నుండి ప్యాకేజీలు మోడ్యులర్ గా విభజించబడ్డాయి. సరైన ప్యాకేజీని ఇంపోర్ట్ చేయకపోతే Deprecation Warnings వస్తాయి మరియు అనవసరమైన హెవీ డిపెండెన్సీలు లోడ్ అవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2542,9 +2579,9 @@ from langchain_openai import ChatOpenAI
 
 # పాత పద్ధతి (వాడకండి): from langchain.chat_models import ChatOpenAI</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పాత ట్యుటోరియల్స్ చూసి `from langchain.llms import OpenAI` అని డిప్రికేట్ అయిన క్లాసులను ఇంపోర్ట్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-70"></span><details class="t"><summary>7. Core abstractions.<small>LangChain యొక్క ప్రాథమిక అబ్‌స్ట్రాక్షన్స్</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-70"></span><details class="t" id="p5-new-topic-70"><summary>7. Core abstractions.<small>LangChain యొక్క ప్రాథమిక అబ్‌స్ట్రాక్షన్స్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-70-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-70-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-70-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Core abstractions అర్థమైతే model, prompt, tool, output parser వంటి భాగాలను ఎలా కలపాలో తెలుస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Abstraction ఒక సాధారణ interface లేదా రూపం. ఉదాహరణకు, chat model interface, prompt template, tool definition, output parser. App వీటిని కలిపి ఒక పని చేస్తుంది; లోపలి implementation provider ని బట్టి మారవచ్చు.</p><h4>ఉదాహరణ</h4><p>ఒక prompt template లో <code>{question}</code> స్థానాన్ని user ప్రశ్నతో నింపి, chat model కి పంపి, జవాబును parser తో JSON గా తనిఖీ చేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Interface ఒకటే ఉందని అన్ని provider లలో ఒకే features ఉంటాయని అనుకోవడం.</div></div><div class="explain-pane" id="p5-batch-70-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LangChain లోని అన్ని కాంపోనెంట్లు కొన్ని ప్రాథమిక నియమాలు మరియు అబ్‌స్ట్రాక్షన్లపై ఆధారపడి పనిచేస్తాయి. ఇవి అర్థమైతే మొత్తం ఫ్రేమ్‌వర్క్ చాలా సులభంగా అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2560,9 +2597,9 @@ add_exclamation = RunnableLambda(lambda text: text + "!!")
 custom_chain = uppercase_runnable | add_exclamation
 print(custom_chain.invoke("hello laravel and langchain"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కాంపోనెంట్ల మధ్య డేటా టైప్స్ (Messages vs raw Strings) సరిపోల్చకుండా పైప్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-71"></span><details class="t"><summary>8. Framework limitations.<small>LangChain ఫ్రేమ్‌వర్క్ పరిమితులు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-71"></span><details class="t" id="p5-new-topic-71"><summary>8. Framework limitations.<small>LangChain ఫ్రేమ్‌వర్క్ పరిమితులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-71-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-71-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-71-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Framework ప్రతి సమస్యను పరిష్కరించదు. దాని పరిమితులు తెలుసుకుంటే app లో ఎక్కడ custom code, validation లేదా monitoring కావాలో ముందే నిర్ణయించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Framework abstraction వాడుతున్నప్పుడు underlying API behavior, version మార్పులు, errors అర్థం కాకపోవచ్చు. కొన్ని సమస్యలకు abstraction దాచిన వివరాలను పరిశీలించాలి. Framework వల్ల prompt quality, data security, model accuracy ఆటోమేటిక్ గా మెరుగుపడవు.</p><h4>ఉదాహరణ</h4><p>Model tool call సరిగ్గా parse కాలేదనుకోండి. Framework result మాత్రమే చూసి ఆగకుండా raw response, validation error, provider docs తనిఖీ చేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Framework method ఒకటి ఉందని దాని failure modes గురించి తెలుసుకోవాల్సిన అవసరం లేదనుకోవడం.</div></div><div class="explain-pane" id="p5-batch-71-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ ఫ్రేమ్‌వర్క్ పరిపూర్ణం కాదు. LangChain లో ఉన్న పరిమితులు మరియు అదనపు అబ్‌స్ట్రాక్షన్ లేయర్ల వల్ల వచ్చే నష్టాలు తెలిస్తేనే సరైన చోట సరైన టూల్స్ వాడగలుగుతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2574,9 +2611,9 @@ os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"] = "your_key_here"
 # ఇది ప్రతి అడుగును LangSmith డ్యాష్‌బోర్డ్‌లో స్పష్టంగా చూపుతుంది</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డీబగ్గింగ్ టూల్స్ (LangSmith లేదా Callbacks) లేకుండా క్లిష్టమైన చైన్లు నిర్మించి ఎక్కడ ఫెయిల్ అయిందో తెలుసుకోలేకపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-72"></span><details class="t"><summary>9. Chat model interfaces.<small>చాట్ మోడల్ ఇంటర్‌ఫేస్‌లు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-72"></span><details class="t" id="p5-new-topic-72"><summary>9. Chat model interfaces.<small>చాట్ మోడల్ ఇంటర్‌ఫేస్‌లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-72-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-72-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-72-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Chat model interface ఒకే విధంగా వాడితే provider మార్చినప్పుడు app code మొత్తం మార్చాల్సిన అవసరం తగ్గుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Chat model interface messages తీసుకుని assistant response ఇస్తుంది. System, user, assistant messages కి వేర్వేరు పనులు ఉంటాయి. Provider బట్టి tool calling, vision, structured output వంటి features మారవచ్చు; interface ఒకటే ఉందని అన్ని features ఉన్నాయని అనుకోకండి.</p><h4>ఉదాహరణ</h4><p>Support app లో system message లో నియమాలు, user message లో ప్రశ్న పంపండి. Response వచ్చిన తర్వాత దాన్ని కావాల్సిన schema కి సరిపోతుందో తనిఖీ చేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Text completion API, chat message API రెండూ ఒకే input రూపం వాడతాయని అనుకోవడం.</div></div><div class="explain-pane" id="p5-batch-72-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పాత LLMs కేవలం ఒక raw string input తీసుకునేవి. ఆధునిక LLMs అన్నీ చాట్ మెసేజ్ ల ఆధారంగా (System, User, Assistant, Tool) పనిచేస్తాయి. LangChain Chat Model ఇంటర్‌ఫేస్ ఈ మెసేజ్‌లను ప్రామాణికంగా హ్యాండిల్ చేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2593,9 +2630,14 @@ messages = [
 response = model.invoke(messages)
 print("Response content:", response.content)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Chat మోడల్ కు raw string ఇచ్చి సిస్టమ్ ప్రాంప్ట్ యొక్క గైడ్‌లైన్స్ ప్రయోజనాన్ని కోల్పోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-73"></span><details class="t"><summary>10. Model initialization.<small>మోడల్ ఇనీషియలైజేషన్ (ప్రారంభించడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-73"></span><details class="t" id="p5-new-topic-73"><summary>10. Model initialization.<small>మోడల్ ఇనీషియలైజేషన్ (ప్రారంభించడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-73-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-73-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-73-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>App ప్రారంభమైనప్పుడు model client, credentials, timeout వంటి వాటిని సరైన విధంగా సిద్ధం చేయాలి. తప్పు initialization ఉంటే ప్రతి request లో error వస్తుంది లేదా secret బయటపడవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Model initialization లో provider ని ఎంచుకోవడం, API key ని environment నుంచి చదవడం, model పేరు, timeout, retry వంటి settings ఇవ్వడం జరుగుతుంది. Client ని app lifespan లో ఒకసారి సృష్టించి, అవసరమైన చోట పంచుకోవచ్చు; secret ని source code లో పెట్టకండి.</p><h4>ఉదాహరణ</h4><pre>api_key = os.environ["MODEL_API_KEY"]
+client = ChatModel(
+    model="chosen-model",
+    api_key=api_key,
+    timeout=30,
+)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి request లో కొత్త client సృష్టించడం లేదా API key ని code లో రాయడం.</div></div><div class="explain-pane" id="p5-batch-73-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్‌ను సరైన API credentials, default configurations, timeouts మరియు retry పాలసీలతో ప్రారంభించడం ప్రొడక్షన్ స్టెబిలిటీకి ముఖ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2613,9 +2655,9 @@ llm = ChatOpenAI(
 )
 print("Model initialized:", llm.model_name)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> హార్డ్‌కోడెడ్ API కీలను నేరుగా కోడ్ లో రాయడం (`os.environ` లేదా `.env` వాడాలి).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-74"></span><details class="t"><summary>11. Provider integrations.<small>ప్రొవైడర్ ఇంటిగ్రేషన్లు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-74"></span><details class="t" id="p5-batch-topic-74"><summary>11. Provider integrations.<small>ప్రొవైడర్ ఇంటిగ్రేషన్లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-74-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-74-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-74-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>App నుంచి వేర్వేరు LLM providers ని పిలవాల్సి రావచ్చు. Provider integration వారి API ని app కి ఉపయోగపడే interface తో కలుపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Integration provider credentials, request format, response format వంటి విషయాలు చూసుకుంటుంది. Provider package, API పేర్లు version బట్టి మారవచ్చు కాబట్టి installed version documentation చూడండి. API key ని environment లేదా secret store నుంచి చదవండి.</p><h4>ఉదాహరణ</h4><p>ఒక chat service లో model client ని dependency గా ఇవ్వండి. Test లో fake client, production లో provider client ఇవ్వవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> API key ని notebook లేదా source code లో రాసి commit చేయడం.</div></div><div class="explain-pane" id="p5-batch-74-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే ప్రొవైడర్‌పై ఆధారపడితే ఆ సర్వీస్ డౌన్ అయినప్పుడు మన అప్లికేషన్ కూడా ఆగిపోతుంది. ప్రొవైడర్ ఇంటిగ్రేషన్స్ ద్వారా OpenAI, Anthropic, Google Gemini, Ollama ల మధ్య క్షణాల్లో మారవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2638,9 +2680,9 @@ def get_chat_model(provider: str):
 model = get_chat_model("openai")
 print("Loaded model instance:", type(model).__name__)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒక ప్రొవైడర్ యొక్క స్పెసిఫిక్ JSON ఫార్మాట్ ని చైన్ మధ్యలో హార్డ్‌కోడ్ చేసి మిగతా ప్రొవైడర్లతో పనిచేయకుండా చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-75"></span><details class="t"><summary>12. Model parameters.<small>మోడల్ పారామీటర్లు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-75"></span><details class="t" id="p5-batch-topic-75"><summary>12. Model parameters.<small>మోడల్ పారామీటర్లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-75-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-75-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-75-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model కి ఇచ్చే settings దాని వేగం, ఖర్చు, సమాధానం పొడవు, randomness మీద ప్రభావం చూపుతాయి. అవసరానికి తగ్గ settings ఎంచుకోవాలి.</p><h4>సరళమైన వివరణ</h4><p>సాధారణ parameters లో <b>temperature</b> output randomness ని ప్రభావితం చేస్తుంది; output token limit సమాధానం పొడవును పరిమితం చేస్తుంది. Provider బట్టి పేర్లు, అర్థం, గరిష్ఠ విలువలు మారవచ్చు. Settings ని request, model version తో log చేస్తే ఫలితాలను పోల్చడం సులభం.</p><h4>ఉదాహరణ</h4><p>ఖచ్చితమైన JSON extraction కి తక్కువ randomness, creative draft కి కొంత ఎక్కువ randomness ఉపయోగపడవచ్చు. కానీ temperature ఒక్కటే factual accuracy ని నిర్ధారించదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని providers లో parameter పేర్లు, విలువల ప్రభావం ఒకటే అని అనుకోవడం.</div></div><div class="explain-pane" id="p5-batch-75-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక మోడల్ ఎలా స్పందించాలో నియంత్రించడానికి temperature, top_p, frequency_penalty వంటి పారామీటర్లను సరిగ్గా ట్యూన్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2657,9 +2699,9 @@ code_model = ChatOpenAI(
 )
 print("Configured params:", code_model.temperature)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> JSON లేదా కోడ్ జనరేషన్ పనులకు హై టెంపరేచర్ (ఉదా: 0.9) వాడటం వల్ల తప్పుడు సింటాక్స్ రావడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-76"></span><details class="t"><summary>13. Temperature and token limits.<small>టెంపరేచర్ మరియు టోకెన్ పరిమితులు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-76"></span><details class="t" id="p5-batch-topic-76"><summary>13. Temperature and token limits.<small>టెంపరేచర్ మరియు టోకెన్ పరిమితులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-76-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-76-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-76-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model సమాధానం అవసరానికి మించి పొడవుగా వస్తే latency, token ఖర్చు పెరుగుతుంది. పరిమితి పెడితే app ఖర్చును, response పరిమాణాన్ని నియంత్రించగలదు.</p><h4>సరళమైన వివరణ</h4><p>Temperature సమాధానం ఎంత మారుతూ రావచ్చో ప్రభావితం చేస్తుంది. Max output tokens సమాధానం పొడవుపై గరిష్ఠ పరిమితి పెడుతుంది. ఇది input context limit కి వేరు. Provider/API బట్టి setting పేరు మారవచ్చు.</p><h4>ఉదాహరణ</h4><p>“ఒక వాక్యంలో సమాధానం ఇవ్వు” అనే prompt తో పాటు చిన్న output limit పెట్టండి. పరిమితి చేరితే సమాధానం మధ్యలోనే ఆగవచ్చని UI లో చూడాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Output token limit తక్కువగా పెట్టి JSON లేదా వాక్యం పూర్తికాకపోవడాన్ని పట్టించుకోకపోవడం.</div></div><div class="explain-pane" id="p5-batch-76-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>అపరిమిత టోకెన్లతో LLM ను రన్ చేస్తే ఒకే రిక్వెస్ట్ వల్ల పెద్ద బిల్లు వచ్చే ప్రమాదం ఉంది. సరైన టెంపరేచర్ ఎంపిక మరియు టోకెన్ క్యాప్ బడ్జెట్ మరియు పనితీరుకు మూలస్తంభాలు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2676,9 +2718,9 @@ safe_model = ChatOpenAI(
 res = safe_model.invoke("Laravel 11 ఫీచర్లను 3 పాయింట్లలో వివరించు.")
 print(res.content)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> `max_tokens` చాలా తక్కువగా పెట్టేసి వాక్యం మధ్యలోనే కట్ అయిపోయేలా చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-77"></span><details class="t"><summary>14. Streaming.<small>స్ట్రీమింగ్ (ఒక్కొక్క పదం ప్రత్యక్షంగా ప్రసారం చేయడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-77"></span><details class="t" id="p5-batch-topic-77"><summary>14. Streaming.<small>స్ట్రీమింగ్ (ఒక్కొక్క పదం ప్రత్యక్షంగా ప్రసారం చేయడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-77-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-77-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-77-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పూర్తి సమాధానం తయారయ్యే వరకు user వేచి ఉండకుండా, model text ని ముక్కలుగా పంపితే మొదటి స్పందన త్వరగా కనిపిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Streaming లో server model నుంచి వచ్చే chunks ని వెంటనే client కి పంపుతుంది. UI వాటిని క్రమంగా చూపిస్తుంది. Connection తెరిచి ఉంచాలి; disconnect, timeout, cancellation, partial response ని కూడా handle చేయాలి.</p><h4>ఉదాహరణ</h4><p>Chat UI లో model మొదటి వాక్యం పంపగానే చూపించండి. Stream మధ్యలో provider error వస్తే, ఇప్పటికే వచ్చిన text ని పూర్తయిన సమాధానంగా చూపకుండా “సమాధానం మధ్యలో ఆగింది” అని తెలియజేయండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> చివరి chunk రాకముందే partial output ని పూర్తయిన valid JSON గా parse చేయడం.</div></div><div class="explain-pane" id="p5-batch-77-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM మొత్తం సమాధానం రాయడానికి 5 నుండి 15 సెకన్లు పట్టవచ్చు. యూజర్ అంతసేపు తెల్ల స్క్రీన్ చూస్తూ వేచి ఉండకుండా, తయారైన ప్రతి పదాన్ని అప్పటికప్పుడు బ్రౌజర్‌లో చూపించడానికి స్ట్రీమింగ్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2694,9 +2736,11 @@ for chunk in model.stream("PHP vs Python in 3 bullet points"):
     print(chunk.content, end="", flush=True)
 print("\n[Done streaming]")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఫ్రంటెండ్‌లో చాట్ ఇంటర్‌ఫేస్ నిర్మిస్తున్నప్పుడు `.invoke()` వాడి యూజర్‌ను సమాధానం మొత్తం పూర్తయ్యేదాకా నిరీక్షించేలా చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-78"></span><details class="t"><summary>15. Async model invocation.<small>అసమకాలిక మోడల్ ఇన్వొకేషన్ (.ainvoke)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-78"></span><details class="t" id="p5-batch-topic-78"><summary>15. Async model invocation.<small>అసమకాలిక మోడల్ ఇన్వొకేషన్ (.ainvoke)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-78-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-78-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-78-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model response కోసం ఒక request ఎదురుచూస్తున్నప్పుడు server మిగతా పనులు చేయగలిగితే, ఒకేసారి ఎక్కువ requests ని నిర్వహించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Async call ని <code>await</code> చేస్తే response వచ్చే వరకు event loop మరో పని చేయగలదు. LangChain version, provider integration లో async method ఉందో documentation లో చూడండి. Async endpoint లో blocking call వాడితే event loop ఆగిపోతుంది.</p><h4>ఉదాహరణ</h4><pre>async def answer_question(model, messages):
+    response = await model.ainvoke(messages)
+    return response</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Coroutine ని <code>await</code> చేయకుండా వదిలేయడం.</div></div><div class="explain-pane" id="p5-batch-78-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే వెబ్ సర్వర్ లో ఒకేసారి వందల మంది యూజర్లు రిక్వెస్ట్‌లు పంపినప్పుడు synchronous కాల్స్ వాడితే సర్వర్ థ్రెడ్స్ బ్లాక్ అయిపోతాయి. అసమకాలిక (Async/Await) కాల్స్ ద్వారా సర్వర్ సామర్థ్యాన్ని వందల రెట్లు పెంచవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2717,9 +2761,9 @@ async def run_parallel_queries():
 
 # asyncio.run(run_parallel_queries())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> FastAPI లేదా Async Python అప్లికేషన్లలో synchronous `.invoke()` వాడి ఈవెంట్ లూప్‌ను బ్లాక్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-79"></span><details class="t"><summary>16. Provider abstraction.<small>ప్రొవైడర్ అబ్‌స్ట్రాక్షన్ (ఏకీకృత విధానం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-79"></span><details class="t" id="p5-batch-topic-79"><summary>16. Provider abstraction.<small>ప్రొవైడర్ అబ్‌స్ట్రాక్షన్ (ఏకీకృత విధానం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-79-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-79-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-79-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Provider మారినప్పుడు app లో అనేక చోట్ల vendor-specific code మార్చాల్సి వస్తే migration కష్టం. Provider abstraction మార్పును ఒక సరిహద్దులో ఉంచుతుంది.</p><h4>సరళమైన వివరణ</h4><p>App లోని service ఒక సాధారణ interface ద్వారా generate request చేస్తుంది. ఆ interface ని OpenAI, Anthropic లేదా local model client అమలు చేయవచ్చు. అందరికీ ఒకే features ఉంటాయని మాత్రం అనుకోకండి; provider-specific capability ని తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><p><code>TextGenerator.generate(messages)</code> అనే interface పెట్టి, production లో hosted model, tests లో fake implementation అందించండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Common interface అన్ని provider తేడాలను పూర్తిగా దాచేస్తుందని భావించడం.</div></div><div class="explain-pane" id="p5-batch-79-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంపెనీలో రేపు OpenAI నుండి Azure OpenAI కి లేదా AWS Bedrock కి మారాల్సి వస్తే మొత్తం కోడ్ బేస్ మార్చకుండా ఉండటానికి బలమైన Provider Abstraction అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2735,9 +2779,9 @@ def analyze_user_sentiment(model: BaseChatModel, review: str) -&gt; str:
 # analyze_user_sentiment(ChatOpenAI(), "Great product!")
 # analyze_user_sentiment(ChatAnthropic(), "Great product!")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒక నిర్దిష్ట SDK (ఉదా: `openai` package direct methods) కి కోడ్ ని గట్టిగా బంధించి, మైగ్రేషన్ సమయంలో ఇబ్బంది పడటం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-80"></span><details class="t"><summary>17. Model response objects.<small>మోడల్ రెస్పాన్స్ ఆబ్జెక్ట్‌లు (AIMessage &amp; Metadata)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-80"></span><details class="t" id="p5-batch-topic-80"><summary>17. Model response objects.<small>మోడల్ రెస్పాన్స్ ఆబ్జెక్ట్‌లు (AIMessage &amp; Metadata)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-80-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-80-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-80-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model నుంచి వచ్చిన response లో text మాత్రమే కాకుండా tool calls, token usage, finish reason వంటి metadata కూడా ఉండవచ్చు. Metadata ఉపయోగిస్తే app response ని సరిగ్గా నిర్వహించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Chat response object లో సాధారణంగా message content తో పాటు అదనపు fields ఉంటాయి. Provider బట్టి వాటి రూపం మారవచ్చు. Content ని user కి చూపించే ముందు, tool call ఉంటే దాన్ని permission checks తర్వాత మాత్రమే అమలు చేయాలి; usage ని ఖర్చు కొలవడానికి నమోదు చేయవచ్చు.</p><h4>ఉదాహరణ</h4><p>Response లో text ఉందా, model tool call కోరిందా, ఎంత output tokens వాడిందా విడిగా చూడండి. Tool call ని assistant text గా చూపించకండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Response object మొత్తాన్ని text అని భావించి, control fields ని పట్టించుకోకపోవడం.</div></div><div class="explain-pane" id="p5-batch-80-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్ కేవలం టెక్స్ట్ సమాధానం మాత్రమే ఇవ్వదు; ఎన్ని టోకెన్లు వాడబడ్డాయి (Usage metadata), ఎందుకు ఆగిపోయింది (finish_reason), ఏ టూల్స్ ని పిలిచింది (tool_calls) వంటి కీలక సమాచారాన్ని మోడల్ రెస్పాన్స్ ఆబ్జెక్ట్ లో అందిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2752,9 +2796,12 @@ print("Content:", ai_msg.content)
 print("Tool calls:", ai_msg.tool_calls)
 print("Token usage:", ai_msg.response_metadata.get("token_usage"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> `response` అనేది కేవలం స్ట్రింగ్ అనుకుని `response.strip()` చేయడం; `response.content` అని ప్రాపర్టీని యాక్సెస్ చేయాలి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-81"></span><details class="t"><summary>18. Prompt templates.<small>ప్రాంప్ట్ టెంప్లేట్‌లు (PromptTemplate)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-81"></span><details class="t" id="p5-batch-topic-81"><summary>18. Prompt templates.<small>ప్రాంప్ట్ టెంప్లేట్‌లు (PromptTemplate)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-81-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-81-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-81-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Prompt లో ప్రశ్న మాత్రమే మారుతుంటే, ప్రతి సారి string ని చేతితో కలపడం తప్పులు తెస్తుంది. Template ఒకే రూపాన్ని మళ్లీ వాడటానికి సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Template లో <code>{question}</code> వంటి చోటు ఉంటుంది. Code ఆ చోట user ప్రశ్నను పెడుతుంది. User input ని system నియమాలతో కలపకుండా వేరు ఉంచండి.</p><h4>ఉదాహరణ</h4><pre>template = "ప్రశ్న: {question}
+చిన్నగా సమాధానం ఇవ్వు."
+prompt = template.format(question="Refund ఎన్ని రోజుల్లో వస్తుంది?")
+print(prompt)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> User input లోని curly braces ని template variables గా అనుకుని format చేయడం.</div></div><div class="explain-pane" id="p5-batch-81-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>హార్డ్‌కోడెడ్ స్ట్రింగ్స్‌తో ప్రాంప్ట్‌లు తయారు చేస్తే డైనమిక్ వేరియబుల్స్ కలపడం కష్టమవుతుంది మరియు ఫార్మాటింగ్ బగ్స్ వస్తాయి. ప్రాంప్ట్‌లను పునర్వినియోగించదగిన టెంప్లేట్లుగా మార్చడానికి PromptTemplate అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2769,9 +2816,9 @@ template = PromptTemplate.from_template(
 formatted_prompt = template.format(role="Laravel Expert", question="What is Eloquent?")
 print(formatted_prompt)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Python f-strings (`f"Hello {name}"`) వాడి నేరుగా ప్రాంప్ట్‌లు కట్టడం; దీనివల్ల dynamic validation మరియు LCEL పైప్‌లైన్ ఇంటిగ్రేషన్ కోల్పోతాం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-82"></span><details class="t"><summary>19. Chat prompt templates.<small>చాట్ ప్రాంప్ట్ టెంప్లేట్‌లు (ChatPromptTemplate)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-82"></span><details class="t" id="p5-batch-topic-82"><summary>19. Chat prompt templates.<small>చాట్ ప్రాంప్ట్ టెంప్లేట్‌లు (ChatPromptTemplate)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-82-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-82-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-82-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Chat model కి వేర్వేరు పాత్రల messages ఇవ్వడం వల్ల ఏది స్థిరమైన నియమం, ఏది user ప్రశ్న, ఏది ముందు response అని స్పష్టమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ChatPromptTemplate పాత్రల క్రమంలో message template లను అమర్చుతుంది. System message app నియమాలు చెబుతుంది; human/user message ప్రశ్న ఇస్తుంది; అవసరమైతే assistant message చరిత్రలోని సమాధానాన్ని చూపుతుంది. Template లో అన్ని values నింపబడ్డాయో తనిఖీ చేయండి.</p><h4>ఉదాహరణ</h4><p>System: “policy ఆధారంగా మాత్రమే సమాధానం ఇవ్వు.” User: “వార్షిక సెలవు ఎన్ని రోజులు?” ఇలా roles వేరు చేస్తే నియమం, ప్రశ్న కలిసిపోవు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> User ఇచ్చిన వాక్యాన్ని system instruction లో కలిపి, దానికి అధిక ప్రాధాన్యం ఇవ్వడం.</div></div><div class="explain-pane" id="p5-batch-82-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆధునిక చాట్ మోడల్స్ రోల్-ఆధారిత (System, Human, AI) మెసేజ్ స్ట్రక్చర్‌ను ఆశిస్తాయి. వేర్వేరు రోల్స్ తో కూడిన మెసేజ్‌లను ఒకే టెంప్లేట్ గా నిర్మించడానికి ChatPromptTemplate ప్రామాణిక సాధనం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2787,9 +2834,9 @@ chat_prompt = ChatPromptTemplate.from_messages([
 messages = chat_prompt.format_messages(domain="Database Tuning", user_input="How to index JSON columns in MySQL 8?")
 print("Generated messages:", messages)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సిస్టమ్ మెసేజ్ ని మరియు యూజర్ మెసేజ్ ని ఒకే స్ట్రింగ్ లో కలిపేసి చాట్ మోడల్ యొక్క రోల్ సెపరేషన్ సామర్థ్యాన్ని దెబ్బతీయడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-5-83"></span><details class="t"><summary>20. System and human messages.<small>సిస్టమ్ మరియు హ్యూమన్ మెసేజ్‌లు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-5-83"></span><details class="t" id="p5-batch-topic-83"><summary>20. System and human messages.<small>సిస్టమ్ మరియు హ్యూమన్ మెసేజ్‌లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-batch-83-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-batch-83-gemini">Gemini</button></div><div class="explain-pane" id="p5-batch-83-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>System, human messages ఏ పని చేస్తాయో తెలిసితే prompt ని సురక్షితంగా, స్పష్టంగా రూపొందించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>System message</b> app యొక్క స్థిరమైన విధి, పరిమితులు చెబుతుంది. <b>Human message</b> ప్రస్తుత user input. Model response సాధారణంగా assistant role లో వస్తుంది. User మాటలను system నియమాలుగా మార్చకండి; user text కి వేరే message role ఇవ్వండి.</p><h4>ఉదాహరణ</h4><p>System: “కంపెనీ policy లో ఉన్న సమాచారంతో మాత్రమే సమాధానం ఇవ్వు.” Human: “నేను ఎన్ని సెలవులు తీసుకోవచ్చు?” అప్పుడు model రెండింటినీ వేరు గుర్తిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Role పేర్లు వేరైనా అన్ని messages కి ఒకే నమ్మక స్థాయి ఉందని భావించడం.</div></div><div class="explain-pane" id="p5-batch-83-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మోడల్ యొక్క ప్రాథమిక ప్రవర్తనను (Behavior) నిర్ణయించడానికి SystemMessage, మరియు ప్రస్తుత యూజర్ ప్రశ్నను అందించడానికి HumanMessage ల మధ్య స్పష్టమైన విభజన ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2805,7 +2852,7 @@ conversation = [
 ]
 print(f"Total messages in thread: {len(conversation)}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> మెసేజ్ లిస్ట్ లో dictionaries (`{"role": "user", ...}`) మరియు LangChain Message Objects ని గందరగోళంగా కలపడం.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-5-84"></span><details class="t"><summary>21. Few-shot prompt templates.<small>ఫ్యూ-షాట్ ప్రాంప్ట్ టెంప్లేట్‌లు (Few-shot prompting)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>

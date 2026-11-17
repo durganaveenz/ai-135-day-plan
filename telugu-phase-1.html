@@ -3407,7 +3407,12 @@ print(run(len, "hello"))   # 5
 print(set_mode("dev"))     # set_mode("test") ని mypy తప్పు అంటుంది</pre>
 </div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-81"></span><details class="t"><summary>18. Generic types<small>వేర్వేరు data రకాలతో పనిచేసే reusable type సూచనలు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-81"></span><details class="t" id="p1-batch-topic-81"><summary>18. Generic types<small>వేర్వేరు data రకాలతో పనిచేసే reusable type సూచనలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-batch-gpt-81">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-batch-gpt-81-gemini">Gemini</button></div><div class="explain-pane" id="p1-batch-gpt-81" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక function కి వచ్చిన data type ఏదైనా కావచ్చు. Generic type వాడితే function ని మళ్లీ మళ్లీ రాయకుండా వాడవచ్చు; type checker కూడా తప్పులు గుర్తించగలదు.</p><h4>సరళమైన వివరణ</h4><p><b>Generic</b> అంటే type ని ముందే ఒక్కటిగా నిర్ణయించకుండా, వాడే సమయంలో వచ్చిన type కి సరిపోయేలా code రాయడం. <code>T</code> అనే type పేరు ఒక placeholder లాంటిది. Input, output రెండూ ఒకే type అని కూడా చెప్పవచ్చు.</p><h4>ఉదాహరణ</h4><pre>from typing import TypeVar
+T = TypeVar("T")
+def first(items: list[T]) -> T:
+    return items[0]
+print(first([10, 20]))
+print(first(["a", "b"]))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Type hint పెట్టినంత మాత్రాన runtime లో data తప్పు అయితే error వస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-batch-gpt-81-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఏ type ఇస్తే అదే type తిరిగి వస్తుంది" అని చెప్పాలంటే generics కావాలి. లేకపోతే <code>Any</code> వాడాల్సి వచ్చి type safety పోతుంది. Repository, cache, API response wrapper లాంటి reusable code కి ఉపయోగం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3426,9 +3431,17 @@ print(first([1, 2, 3]))        # type checker దీన్ని int అని �
 print(first(["a", "b"]))       # ఇది str
 b = Box("hello")               # Box[str]
 print(b.get().upper())         # HELLO</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-82"></span><details class="t"><summary>19. Protocols and structural typing<small>Protocols మరియు structural typing</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-82"></span><details class="t" id="p1-batch-topic-82"><summary>19. Protocols and structural typing<small>Protocols మరియు structural typing</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-batch-gpt-82">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-batch-gpt-82-gemini">Gemini</button></div><div class="explain-pane" id="p1-batch-gpt-82" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక class కి కావాల్సిన methods ఉన్నాయా అని తెలుసుకోవడానికి దాని parent class ని చూడాల్సిన అవసరం లేకుండా Protocol సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Protocol</b> ఏ methods ఉండాలో వివరిస్తుంది. ఒక class ఆ methods ని కలిగి ఉంటే, type checker దాన్ని సరిపోయేదిగా గుర్తిస్తుంది; Protocol నుంచి inherit కావాల్సిన అవసరం లేదు. దీన్నే <b>structural typing</b> అంటారు.</p><h4>ఉదాహరణ</h4><pre>from typing import Protocol
+class Sender(Protocol):
+    def send(self, message: str) -> None: ...
+class EmailSender:
+    def send(self, message: str) -> None:
+        print(message)
+def notify(sender: Sender):
+    sender.send("Order shipped")
+notify(EmailSender())</pre></div><div class="explain-pane" id="p1-batch-gpt-82-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Class ఒక నిర్దిష్ట base class నుండి inherit కావాల్సిన పనిలేకుండా "ఈ methods ఉంటే చాలు" అని చెప్పడానికి. Testing (fake objects) మరియు loose coupling కి బాగా ఉపయోగం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3451,9 +3464,14 @@ def alert(n: Notifier) -&gt; None:
 
 alert(EmailNotifier())          # OK: send() ఉంది
 # alert(FakeNotifier())         # mypy: error, send() లేదు</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-83"></span><details class="t"><summary>20. Pydantic data validation<small>Pydantic తో data validation</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-83"></span><details class="t" id="p1-batch-topic-83"><summary>20. Pydantic data validation<small>Pydantic తో data validation</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-batch-gpt-83">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-batch-gpt-83-gemini">Gemini</button></div><div class="explain-pane" id="p1-batch-gpt-83" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API నుంచి వచ్చిన data తప్పు ఆకారంలో ఉంటే తర్వాతి code లో bugs రావచ్చు. Pydantic input ని తనిఖీ చేసి Python object గా ఇస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Pydantic model లో fields, వాటి types రాస్తాం. Data వచ్చినప్పుడు కావాల్సిన fields ఉన్నాయా, విలువలు సరైనవా అని validate చేస్తుంది. FastAPI request validation లో కూడా దీన్ని ఉపయోగిస్తారు.</p><h4>ఉదాహరణ</h4><pre>from pydantic import BaseModel
+class User(BaseModel):
+    name: str
+    age: int
+user = User(name="Ravi", age="30")
+print(user.age, type(user.age))  # 30, int</pre><div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ type hint ఒక్కటే data ని validate చేస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-batch-gpt-83-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>API requests, LLM outputs, config files నుండి వచ్చే data ని నమ్మకూడదు. Pydantic type hints ఆధారంగా data ని తనిఖీ చేసి, సరైన types లోకి మారుస్తుంది. FastAPI లో request/response validation దీనిపైనే ఆధారపడింది. Laravel లో FormRequest rules (<code>'age' => 'integer|min:18'</code>) చేసే పనే ఇది, కానీ type hints రూపంలో.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3483,7 +3501,7 @@ try:
 except ValidationError as e:
     print(e.error_count(), "errors")   # 2 errors</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> v1 పద్ధతులు (<code>@validator</code>, <code>.dict()</code>, <code>.json()</code>) వాడటం. v2 లో <code>@field_validator</code>, <code>.model_dump()</code>, <code>.model_dump_json()</code> వాడాలి.</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 
@@ -3498,7 +3516,7 @@ except ValidationError as e:
     </div>
   </summary>
   <div class="day-body">
-    <span class="global-search-anchor" id="global-topic-1-84"></span><details class="t"><summary>1. Process vs thread<small>Process మరియు thread మధ్య తేడా</small></summary><div class="body">
+    <span class="global-search-anchor" id="global-topic-1-84"></span><details class="t" id="p1-extra-topic-84"><summary>1. Process vs thread<small>Process మరియు thread మధ్య తేడా</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-84">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-84-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-84" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక program లో చాలా పనులు ఉన్నప్పుడు, వాటిని thread లేదా process గా ఎలా పంచాలో తెలుసుకోవడం ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Process</b> కి తన memory ఉంటుంది. దాని లోపల <b>thread</b> అనే పని ప్రవాహాలు ఉంటాయి; ఒకే process లోని threads memory పంచుకుంటాయి. Threads తేలికగా మారతాయి, కానీ shared data ని జాగ్రత్తగా వాడాలి.</p><h4>ఉదాహరణ</h4><p>Web server ఒక process లో అనేక threads ఉంచి, వేర్వేరు network requests కోసం వేచి ఉండే పని చేయవచ్చు. పెద్ద CPU లెక్కలకు వేర్వేరు processes ఉపయోగపడవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Threads వాడితే CPU పని తప్పకుండా parallel గా వేగమవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-extra-gpt-84-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకేసారి చాలా పనులు చేయాలంటే (వందల API calls, పెద్ద data processing) process లేదా thread ఏది వాడాలో ఎంచుకోవాలి. తప్పు ఎంపిక వల్ల speed పెరగదు, bugs పెరుగుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3517,18 +3535,18 @@ if __name__ == "__main__":
 
     p = Process(target=show, args=("process",))
     p.start(); p.join()                  # pid వేరు (కొత్త process)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-85"></span><details class="t"><summary>2. Concurrency vs parallelism<small>Concurrency మరియు parallelism</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-85"></span><details class="t" id="p1-extra-topic-85"><summary>2. Concurrency vs parallelism<small>Concurrency మరియు parallelism</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-85">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-85-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-85" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Concurrency, parallelism రెండూ అనేక పనులు చేస్తున్నట్టు కనిపిస్తాయి. వాటి తేడా తెలుసుకుంటే సరైన పద్ధతి ఎంచుకోవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>Concurrency</b> అంటే పనుల మధ్య మారుతూ, అన్నింటినీ ముందుకు తీసుకెళ్లడం. ఒకటి వేచి ఉండగా మరొకటి నడుస్తుంది. <b>Parallelism</b> అంటే వేర్వేరు CPU cores మీద పనులు ఒకే సమయంలో నిజంగా నడవడం. Async ఎక్కువగా I/O పనులకు; processes CPU పనులకు ఉపయోగపడతాయి.</p><h4>ఉదాహరణ</h4><p>ఒకరు రెండు వంటలు చేస్తూ, ఒకటి మరిగేలోపు మరొకటి సిద్ధం చేయడం concurrency. ఇద్దరు వేర్వేరు వంటలు ఒకేసారి చేయడం parallelism.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Concurrent code ఎప్పుడూ parallel గా కూడా నడుస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-extra-gpt-85-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఈ రెండూ ఒకటి కాదు. ఏది కావాలో తెలిస్తేనే సరైన tool (asyncio, threads, processes) ఎంచుకోగలం.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>Concurrency</b> అంటే అనేక పనులను మార్చి మార్చి చేస్తూ అన్నింటినీ ముందుకు నడపడం (ఒకే చెఫ్ నీళ్ళు మరుగుతున్నప్పుడు కూరగాయలు తరగడం). <b>Parallelism</b> అంటే నిజంగా ఒకేసారి అనేక పనులు చేయడం (ఇద్దరు చెఫ్‌లు, ఇద్దరికీ వేర్వేరు CPU cores). Concurrency "వేచి ఉండే సమయాన్ని" ఉపయోగించుకోవడానికి (network, DB), parallelism "లెక్కల వేగం" పెంచడానికి. PHP-FPM లో 10 workers ఉంటే 10 requests parallel గా నడుస్తాయి; Python asyncio లో ఒకే thread లో 1000 requests concurrent గా వేచి ఉండగలవు.</p>
 <h4>ఉదాహరణ</h4>
 <p>Scenario: 100 వేర్వేరు APIs ని పిలవాలి, ప్రతిదానికి 1 సెకను జవాబు సమయం. వరుసగా చేస్తే 100 సెకన్లు. Concurrency తో (asyncio) అన్నీ ఒకేసారి పంపి వేచి ఉంటే సుమారు 1 సెకనులో అవుతుంది, CPU cores ఎక్కువ అవసరం లేదు. కానీ 100 పెద్ద images ని resize చేయడం CPU పని; అక్కడ కావాల్సింది parallelism (అనేక processes, అనేక cores).</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-86"></span><details class="t"><summary>3. Python Global Interpreter Lock (GIL)<small>Python threads ఒకేసారి అమలు కావడంపై GIL ప్రభావం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-86"></span><details class="t" id="p1-extra-topic-86"><summary>3. Python Global Interpreter Lock (GIL)<small>Python threads ఒకేసారి అమలు కావడంపై GIL ప్రభావం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-86">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-86-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-86" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Python threads ఉన్నాయని CPU పనులు ఒకేసారి జరుగుతాయని అనుకోవచ్చు. GIL వల్ల threads ఎప్పుడు ఉపయోగపడతాయో తెలుసుకోవాలి.</p><h4>సరళమైన వివరణ</h4><p><b>GIL</b> అనేది CPython లో ఒక lock. ఒక process లో ఒకేసారి ఒక thread మాత్రమే Python bytecode నడపగలదు. CPU-heavy Python code కి threads వేగం ఇవ్వకపోవచ్చు. కానీ network లేదా file కోసం వేచి ఉండగా మరో thread పని చేయగలదు.</p><h4>ఉదాహరణ</h4><p>చాలా HTTP requests కోసం వేచి ఉండటం I/O-bound; threads సహాయపడొచ్చు. పెద్ద Python లెక్కలు CPU-bound; processes లేదా వేగమైన library చూడండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> GIL ఉందంటే Python threads అసలు ఉపయోగం లేవని అనుకోవడం.</div></div><div class="explain-pane" id="p1-extra-gpt-86-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"Python లో threads వేసినా CPU పని వేగంగా కాదు" అనే ప్రసిద్ధ సమస్యకు కారణం GIL. ఇది తెలియకపోతే threads తో performance పెరుగుతుందని తప్పుగా ఆశిస్తాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3552,9 +3570,9 @@ ts = [Thread(target=cpu_work) for _ in range(2)]
 print("2 threads :", round(time.perf_counter() - t0, 2), "s")
 # standard (GIL ఉన్న) Python లో రెండూ దాదాపు ఒకే సమయం</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> "GIL వల్ల threads అసలు పనికిరావు" అనుకోవడం. I/O పనులకు threads చాలా ఉపయోగకరం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-87"></span><details class="t"><summary>4. CPU-bound vs I/O-bound workloads<small>CPU-bound మరియు I/O-bound పనులు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-87"></span><details class="t" id="p1-extra-topic-87"><summary>4. CPU-bound vs I/O-bound workloads<small>CPU-bound మరియు I/O-bound పనులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-87">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-87-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-87" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పని ఎక్కువసేపు లెక్కలా, లేక database లేదా network కోసం వేచి ఉండటమా అని తెలుసుకుంటే సరైన విధానం ఎంచుకోవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>CPU-bound</b> పనిలో processor ఎక్కువగా లెక్కలు చేస్తుంది. <b>I/O-bound</b> పనిలో బయట service, disk లేదా network కోసం వేచి ఉంటాం. I/O పనులకు async లేదా threads; CPU పనులకు processes లేదా వేగమైన library ఉపయోగపడతాయి.</p><h4>ఉదాహరణ</h4><p>చిత్రాన్ని మార్చడం CPU-bound కావచ్చు; చాలా URLs కి request పంపి response కోసం వేచి ఉండటం I/O-bound.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Async వాడితే CPU-heavy పని కూడా స్వయంగా వేగమవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-extra-gpt-87-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ పని ఏ రకమో గుర్తిస్తేనే సరైన concurrency పద్ధతి ఎంచుకోగలరు. ఇదే మొత్తం Day 6 కి కీలకమైన నిర్ణయం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3572,9 +3590,15 @@ for fn in (io_task, cpu_task):
     t0 = time.perf_counter()
     fn()
     print(fn.__name__, round(time.perf_counter() - t0, 2), "s")</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-88"></span><details class="t"><summary>5. Threading module<small>ఒక process లో పలుపనులను సమన్వయంతో నడపడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-88"></span><details class="t" id="p1-extra-topic-88"><summary>5. Threading module<small>ఒక process లో పలుపనులను సమన్వయంతో నడపడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-88">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-88-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-88" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Network response కోసం వేచి ఉండే పనులను එකేసారి ముందుకు తీసుకెళ్లడానికి threads ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p><code>threading</code> module తో threads సృష్టించవచ్చు. ఒకే process లోని threads memory పంచుకుంటాయి. ఒక shared value ని అనేక threads మార్చే అవకాశం ఉంటే lock వాడాలి. CPU-heavy Python code కి GIL వల్ల వేగం పెరగకపోవచ్చు.</p><h4>ఉదాహరణ</h4><pre>from concurrent.futures import ThreadPoolExecutor
+import time
+def check(name):
+    time.sleep(1)  # network కోసం వేచి ఉన్నట్టు
+    return name + " ready"
+with ThreadPoolExecutor(max_workers=3) as pool:
+    print(list(pool.map(check, ["api", "db", "cache"])))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే data ని threads మార్చేటప్పుడు lock అవసరం లేదని అనుకోవడం.</div></div><div class="explain-pane" id="p1-extra-gpt-88-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>I/O పనులను (కొన్ని API calls, file downloads) ఒకేసారి నడిపి సమయం ఆదా చేయడానికి సులభమైన మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3595,9 +3619,14 @@ for t in threads:
     t.join()                     # అన్నీ అయ్యే వరకు వేచి ఉండండి
 print("total:", round(time.perf_counter() - t0, 1), "s")   # ~1.0s (3s కాదు)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> thread లో వచ్చిన exception main thread కి కనిపించదు (thread లోనే print అయి ఆగిపోతుంది). Results/errors కోసం <code>ThreadPoolExecutor</code> (topic 7) వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-89"></span><details class="t"><summary>6. Multiprocessing module<small>వేర్వేరు processes తో CPU పనులను సమాంతరంగా నడపడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-89"></span><details class="t" id="p1-extra-topic-89"><summary>6. Multiprocessing module<small>వేర్వేరు processes తో CPU పనులను సమాంతరంగా నడపడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-89">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-89-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-89" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>CPU ఎక్కువగా వాడే లెక్కలను వేర్వేరు cores మీద ఒకేసారి నడపడానికి multiprocessing సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>multiprocessing</code> వేర్వేరు processes సృష్టిస్తుంది; ప్రతి process కి తన memory ఉంటుంది. CPython లో వేర్వేరు processes CPU లెక్కలను parallel గా చేయగలవు. Process మొదలుపెట్టడానికి, data పంపడానికి కొంత ఖర్చు ఉంటుంది.</p><h4>ఉదాహరణ</h4><pre>from concurrent.futures import ProcessPoolExecutor
+def square(n):
+    return n * n
+if __name__ == "__main__":
+    with ProcessPoolExecutor() as pool:
+        print(list(pool.map(square, [1, 2, 3, 4])))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Process సృష్టించే code ని <code>if __name__ == "__main__"</code> లో పెట్టకపోతే కొన్ని systems లో process మళ్లీ మొదలవచ్చు.</div></div><div class="explain-pane" id="p1-extra-gpt-89-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>CPU-heavy పనులను అనేక CPU cores మీద నిజమైన parallel గా నడపడానికి. GIL సమస్యను దాటడానికి ఇదే ప్రామాణిక మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3616,9 +3645,13 @@ if __name__ == "__main__":
         results = pool.map(heavy, nums)     # 4 processes లో parallel
     print(results[0], round(time.perf_counter() - t0, 2), "s")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>__main__</code> guard మర్చిపోవడం; మరియు chunk చాలా చిన్నది అయితే process తయారీ ఖర్చే ఎక్కువై నెమ్మదిగా అవ్వడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-90"></span><details class="t"><summary>7. ThreadPoolExecutor<small>thread pool తో పనులను సమర్పించి ఫలితాలు పొందడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-90"></span><details class="t" id="p1-extra-topic-90"><summary>7. ThreadPoolExecutor<small>thread pool తో పనులను సమర్పించి ఫలితాలు పొందడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-extra-gpt-90">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-extra-gpt-90-gemini">Gemini</button></div><div class="explain-pane" id="p1-extra-gpt-90" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ప్రతి task కి కొత్త thread సృష్టించడం ఖర్చుతో కూడుకున్నది. Thread pool లోని threads ని తిరిగి ఉపయోగించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><code>ThreadPoolExecutor</code> కొన్ని threads ఉన్న సమూహాన్ని నిర్వహిస్తుంది. అనేక పనులు ఇస్తే ఆ threads వాటిని పూర్తి చేస్తాయి. <code>map</code> అనేక inputs కి ఒక function నడిపి ఫలితాలు ఇస్తుంది.</p><h4>ఉదాహరణ</h4><pre>from concurrent.futures import ThreadPoolExecutor
+def check(url):
+    return "checked " + url
+with ThreadPoolExecutor(max_workers=3) as pool:
+    print(list(pool.map(check, ["/health", "/users", "/orders"])))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Threads సంఖ్య చాలా ఎక్కువగా ఉంటే పని తప్పకుండా వేగమవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-extra-gpt-90-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Threads ని చేతితో తయారుచేసి join చేయడం కంటే pool వాడితే code చిన్నది, results/errors సులభంగా అందుతాయి. Sync libraries (<code>requests</code>, PDO-వంటి DB drivers) తో concurrency కి ఇది ఉత్తమ మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3643,9 +3676,14 @@ with ThreadPoolExecutor(max_workers=5) as ex:
         except ValueError as e:      # thread లోని error ఇక్కడ కనిపిస్తుంది
             print(i, "error:", e)
 print("total:", round(time.perf_counter() - t0, 1), "s")   # ~1.0s</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-91"></span><details class="t"><summary>8. ProcessPoolExecutor<small>process pool తో CPU పనులను పంపిణీ చేయడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-91"></span><details class="t" id="p1-async-topic-91"><summary>8. ProcessPoolExecutor<small>process pool తో CPU పనులను పంపిణీ చేయడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-91">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-91-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-91" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>CPU-heavy పనులను అనేక cores మీద నడపడానికి process pool ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>ProcessPoolExecutor</code> worker processes ని సిద్ధంగా ఉంచుతుంది. పనిని ఇస్తే ఒక process దాన్ని నడిపి ఫలితాన్ని ఇస్తుంది. Process కి విడి memory ఉంటుంది, కాబట్టి పెద్ద data పంపడం ఖర్చుతో కూడుకున్నది.</p><h4>ఉదాహరణ</h4><pre>from concurrent.futures import ProcessPoolExecutor
+def square(n):
+    return n * n
+if __name__ == "__main__":
+    with ProcessPoolExecutor(max_workers=2) as pool:
+        print(list(pool.map(square, [2, 3, 4])))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> చిన్న పనులకూ process pool వాడటం; process ప్రారంభించే ఖర్చు ఎక్కువ కావచ్చు.</div></div><div class="explain-pane" id="p1-async-gpt-91-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>CPU-bound పనులకు ThreadPoolExecutor లాంటి సులభమైన API తోనే multi-core parallelism కావాలంటే ఇది వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3668,7 +3706,7 @@ if __name__ == "__main__":
         for limit, count in zip(limits, ex.map(count_primes, limits)):
             print(limit, "→", count, "primes")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>ex.map(lambda x: ..., items)</code> వాడటం. lambda ని pickle చేయలేం కాబట్టి error వస్తుంది.</div>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-1-92"></span><details class="t" id="async-programming-fundamentals"><summary>9. Async programming fundamentals<small>Async programming ప్రాథమికాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-async">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-async-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-async" role="tabpanel">
 <h4>ఎందుకు అవసరం?</h4>
@@ -3726,7 +3764,11 @@ async def main():
 asyncio.run(main())</pre>
 </div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-93"></span><details class="t" id="async-event-loop"><summary>10. Event loop<small>async పనుల ప్రారంభం, వేచి ఉండటం, కొనసాగింపును నిర్వహించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-93"></span><details class="t" id="async-event-loop"><summary>10. Event loop<small>async పనుల ప్రారంభం, వేచి ఉండటం, కొనసాగింపును నిర్వహించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-93">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-93-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-93" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక async పని response కోసం వేచి ఉండగా మరో పని నడపడానికి event loop సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Event loop సిద్ధంగా ఉన్న coroutine ని నడుపుతుంది. అది <code>await</code> వద్ద వేచి ఉంటే loop మరో పనికి సమయం ఇస్తుంది. సాధారణంగా <code>asyncio.run()</code> loop ని సృష్టించి నడుపుతుంది.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+async def main():
+    await asyncio.sleep(1)
+    print("done")
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Async function లో blocking <code>time.sleep()</code> వాడి event loop ని ఆపడం.</div></div><div class="explain-pane" id="p1-async-gpt-93-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Async code ఎందుకు కొన్నిసార్లు "ఆగిపోతుంది", ఎందుకు blocking call ప్రమాదకరం అనేది event loop అర్థమైతే స్పష్టమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3750,9 +3792,16 @@ async def main():
 
 asyncio.run(main())    # tick 0, 1, 2 సరిగ్గా సమయానికి print అవుతాయి</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>async def</code> లోపల <code>time.sleep()</code> లేదా <code>requests.get()</code> వాడటం. Server లో అన్ని requests ఆగిపోతాయి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-94"></span><details class="t" id="async-coroutines"><summary>11. Coroutines and async / await<small>Coroutines మరియు async / await</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-94"></span><details class="t" id="async-coroutines"><summary>11. Coroutines and async / await<small>Coroutines మరియు async / await</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-94">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-94-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-94" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Async function ని ఎలా నడపాలి, దాని ఫలితం కోసం ఎలా వేచి ఉండాలో coroutine ద్వారా తెలుస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><code>async def</code> function ని పిలిస్తే పని వెంటనే నడవదు; coroutine వస్తుంది. దాన్ని <code>await</code> చేయాలి లేదా task గా schedule చేయాలి. <code>await</code> వద్ద loop మరో పని చేయగలదు.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+async def get_name():
+    await asyncio.sleep(0.1)
+    return "Ravi"
+async def main():
+    name = await get_name()
+    print(name)
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Coroutine ని await చేయకుండా వదిలేయడం.</div></div><div class="explain-pane" id="p1-async-gpt-94-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p><code>async def</code> మరియు <code>await</code> అనేవి asyncio code రాసే ప్రాథమిక syntax. వీటిని సరిగ్గా వాడకపోతే "coroutine was never awaited" warning వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3776,9 +3825,16 @@ async def main():
 
 asyncio.run(main())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>await</code> మర్చిపోయి <code>price = get_price("apple")</code> అని రాయడం. అప్పుడు <code>price</code> లో సంఖ్య కాదు coroutine object ఉంటుంది.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-95"></span><details class="t"><summary>12. Tasks and futures<small>Tasks మరియు futures</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-95"></span><details class="t" id="p1-async-topic-95"><summary>12. Tasks and futures<small>Tasks మరియు futures</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-95">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-95-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-95" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Async పని పూర్తయ్యేలోపు దాన్ని కొనసాగించడానికి, తర్వాత ఫలితం లేదా error పొందడానికి Task, Future ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Task</b> coroutine ని event loop లో schedule చేస్తుంది. <b>Future</b> అనేది తర్వాత ఫలితం వస్తుందని చెప్పే object. Task ఫలితాన్ని <code>await</code> చేసి పొందవచ్చు.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+async def work():
+    await asyncio.sleep(0.1)
+    return "finished"
+async def main():
+    task = asyncio.create_task(work())
+    print(await task)
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Task పూర్తయ్యేలోపు program ముగియనివ్వడం.</div></div><div class="explain-pane" id="p1-async-gpt-95-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Coroutines ని వెంటనే background లో మొదలుపెట్టి, తర్వాత ఫలితం తీసుకోవాలంటే Task కావాలి. ఇదే asyncio లో concurrency యొక్క ప్రాథమిక యూనిట్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3799,9 +3855,9 @@ async def main():
     print(type(t1).__name__, t1.done())     # Task True
 
 asyncio.run(main())</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-96"></span><details class="t"><summary>13. asyncio.gather()<small>అనేక async పనులను కలిపి ఫలితాల కోసం వేచి ఉండటం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-96"></span><details class="t" id="p1-async-topic-96"><summary>13. asyncio.gather()<small>అనేక async పనులను కలిపి ఫలితాల కోసం వేచి ఉండటం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-96">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-96-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-96" role="tabpanel"><h4>ఇంకా చదవండి</h4><p><code>asyncio.gather()</code> తో చాలా పనులను కలిపి నడపడం, వాటి ఫలితాలు పొందడం <a href="#async-programming-fundamentals">Async programming fundamentals</a> ఉదాహరణలో ఉంది.</p></div><div class="explain-pane" id="p1-async-gpt-96-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>అనేక awaitables ని ఒకేసారి నడిపి, అన్ని ఫలితాలను ఒకే list లో పొందడానికి అత్యంత సాధారణ మార్గం (ఉదా: 10 LLM calls ఒకేసారి).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3824,9 +3880,16 @@ async def main():
 
 asyncio.run(main())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వేలాది coroutines ని ఒకేసారి gather చేయడం. Server లేదా API rate limit దెబ్బతింటుంది; Semaphore (topic 19) తో పరిమితి పెట్టండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-97"></span><details class="t"><summary>14. asyncio.create_task()<small>async పనిని వెంటనే అమలుకు షెడ్యూల్ చేయడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-97"></span><details class="t" id="p1-async-topic-97"><summary>14. asyncio.create_task()<small>async పనిని వెంటనే అమలుకు షెడ్యూల్ చేయడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-97">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-97-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-97" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక async పని మొదలైన వెంటనే మరో పని కూడా మొదలుపెట్టాలంటే <code>create_task</code> ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>asyncio.create_task(coroutine)</code> పని event loop లో schedule చేసి Task ని ఇస్తుంది. దాని ఫలితం లేదా error తెలుసుకోవడానికి తర్వాత Task ని await చేయాలి.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+async def work():
+    await asyncio.sleep(1)
+    return "done"
+async def main():
+    task = asyncio.create_task(work())
+    print(await task)
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Task సృష్టించి, అది పూర్తికాకముందే program ముగించడం.</div></div><div class="explain-pane" id="p1-async-gpt-97-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక పనిని వెంటనే background లో మొదలుపెట్టి, ఈలోగా main flow ని కొనసాగించడానికి (ఉదా: response పంపుతూ logging/analytics పంపడం).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3849,9 +3912,15 @@ async def handle_request():
 
 asyncio.run(handle_request())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>create_task(...)</code> ఫలితాన్ని ఎక్కడా ఉంచకపోవడం మరియు fire-and-forget task లో exception వస్తే ఎవరూ గమనించకపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-98"></span><details class="t"><summary>15. Async HTTP requests<small>HTTP స్పందన కోసం వేచి ఉండగా ఇతర పనులు కొనసాగించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-98"></span><details class="t" id="p1-async-topic-98"><summary>15. Async HTTP requests<small>HTTP స్పందన కోసం వేచి ఉండగా ఇతర పనులు కొనసాగించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-98">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-98-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-98" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చాలా APIs నుంచి ఒకేసారి data కావాల్సి రావచ్చు. Response కోసం వేచి ఉండగా ఇతర requests ముందుకు సాగేందుకు async HTTP ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>httpx.AsyncClient</code> వంటి async client తో request పంపి <code>await</code> చేయవచ్చు. <code>requests</code> sync library; async function లో వాడితే event loop ఆగవచ్చు.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+import httpx
+async def main():
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://example.com")
+        print(response.status_code)
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Async endpoint లో synchronous HTTP library వాడటం.</div></div><div class="explain-pane" id="p1-async-gpt-98-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>అనేక external APIs (LLM providers, payment, scraping) ఒకేసారి పిలవడం async యొక్క అత్యంత సాధారణ ఉపయోగం. <code>requests</code> library blocking కాబట్టి async code లో వాడకూడదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3873,9 +3942,9 @@ async def main():
     print([r["title"] for r in results])
 
 asyncio.run(main())</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-99"></span><details class="t"><summary>16. Async database operations<small>database స్పందన కోసం వేచి ఉండగా event loop ను ఖాళీగా ఉంచడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-99"></span><details class="t" id="p1-async-topic-99"><summary>16. Async database operations<small>database స్పందన కోసం వేచి ఉండగా event loop ను ఖాళీగా ఉంచడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-99">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-99-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-99" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Database response కోసం వేచి ఉండే సమయంలో server మరో request ని నిర్వహించేందుకు async database operations ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p>Async database driver query ని పంపి, ఫలితం వచ్చేవరకు <code>await</code> చేస్తుంది. ఆ వేచి ఉన్న సమయంలో event loop మరొక పని చేస్తుంది. Sync driver వాడితే ఈ లాభం ఉండదు.</p><h4>ఉదాహరణ</h4><p>FastAPI లో async SQLAlchemy session వాడి query ని await చేయవచ్చు. Connection pool పరిమాణాన్ని కూడా పరిమితం చేయాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Function ని async గా మార్చితే database driver కూడా async అవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-async-gpt-99-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Async web app లో sync DB driver వాడితే ప్రతి query event loop ని ఆపేస్తుంది. అందుకే async drivers అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3898,9 +3967,17 @@ async def main():
 
 asyncio.run(main())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>await</code> మర్చిపోవడం, మరియు async session ని <code>await</code> లేకుండా lazy-loaded relationship కి access చేయడం (async లో lazy loading పనిచేయదు, eager loading వాడాలి).</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-100"></span><details class="t"><summary>17. Async generators<small>async stream నుంచి విలువలను ఒక్కొక్కటిగా అందించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-100"></span><details class="t" id="p1-async-topic-100"><summary>17. Async generators<small>async stream నుంచి విలువలను ఒక్కొక్కటిగా అందించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-100">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-100-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-100" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పెద్ద stream లేదా file ని మొత్తం memory లోకి తీసుకురాకుండా ఒక్కో భాగాన్ని process చేయడానికి async generator ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>async def</code> లో <code>yield</code> వాడితే async generator వస్తుంది. దాని విలువలను <code>async for</code> తో ఒక్కొక్కటిగా తీసుకోవచ్చు. తర్వాతి భాగం సిద్ధమయ్యే వరకు అది వేచి ఉండొచ్చు.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+async def numbers():
+    for n in range(3):
+        await asyncio.sleep(0.1)
+        yield n
+async def main():
+    async for value in numbers():
+        print(value)
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Async generator ని సాధారణ <code>for</code> loop తో నడపడం.</div></div><div class="explain-pane" id="p1-async-gpt-100-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM streaming responses, పేజీలవారీ API results, live feeds ని ఒక్కొక్క ముక్కగా, వేచి ఉంటూ ప్రాసెస్ చేయడానికి. FastAPI <code>StreamingResponse</code> తో ఇది తరచూ వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3923,9 +4000,15 @@ async def main():
     print(words)       # ['A', 'B', 'C']
 
 asyncio.run(main())</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-101"></span><details class="t"><summary>18. Race conditions and locks<small>Race conditions మరియు locks</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-101"></span><details class="t" id="p1-async-topic-101"><summary>18. Race conditions and locks<small>Race conditions మరియు locks</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-101">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-101-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-101" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>రెండు threads ఒకే data ని ఒకేసారి మార్చితే ఫలితం తప్పవచ్చు. ఈ సమస్యను race condition అంటారు.</p><h4>సరళమైన వివరణ</h4><p>ఏ thread ముందుగా నడుస్తుందో ఖచ్చితంగా చెప్పలేం. క్రమం మారితే ఫలితం కూడా మారవచ్చు. Shared data ని ఒకేసారి ఒక thread మాత్రమే మార్చేలా <code>Lock</code> తో కాపాడాలి.</p><h4>ఉదాహరణ</h4><pre>from threading import Lock
+lock = Lock()
+count = 0
+def add_one():
+    global count
+    with lock:
+        count += 1</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Shared data ని lock లేకుండా మార్చినా bug ఎప్పుడూ కనిపిస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-async-gpt-101-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రెండు threads ఒకే data ని ఒకేసారి మార్చితే ఫలితం తప్పుగా వస్తుంది, అదీ అప్పుడప్పుడు మాత్రమే (reproduce చేయడం కష్టం). బ్యాంక్ balance, counters, caches లో ఇది పెద్ద bug.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3958,9 +4041,17 @@ for fn in (unsafe, safe):
     print(fn.__name__, counter, "(expected 1000)")
 # unsafe సాధారణంగా 1000 కంటే తక్కువ వస్తుంది; safe ఎల్లప్పుడూ 1000</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> "GIL ఉంది కాబట్టి locks అక్కర్లేదు" అనుకోవడం. GIL ప్రతి bytecode instruction ని మాత్రమే కాపాడుతుంది, <code>counter += 1</code> వంటి multi-step పనులను కాదు.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-1-102"></span><details class="t"><summary>19. Semaphores and synchronization<small>Semaphores మరియు synchronization</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-1-102"></span><details class="t" id="p1-async-topic-102"><summary>19. Semaphores and synchronization<small>Semaphores మరియు synchronization</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-async-gpt-102">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-async-gpt-102-gemini">Gemini</button></div><div class="explain-pane" id="p1-async-gpt-102" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకేసారి చాలా పనులు database లేదా API ని వాడితే వాటిపై భారం పెరుగుతుంది. Semaphore ఒకేసారి అనుమతించే పనుల సంఖ్యను పరిమితం చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Semaphore లో పరిమిత permits ఉంటాయి. పని మొదలుపెట్టే ముందు ఒక permit తీసుకుంటుంది; పూర్తయ్యాక తిరిగి ఇస్తుంది. ఉదాహరణకు, ఒకేసారి రెండు API calls మాత్రమే నడిచేలా చేయవచ్చు.</p><h4>ఉదాహరణ</h4><pre>import asyncio
+limit = asyncio.Semaphore(2)
+async def call_api(i):
+    async with limit:
+        print("call", i)
+        await asyncio.sleep(0.1)
+async def main():
+    await asyncio.gather(*(call_api(i) for i in range(5)))
+asyncio.run(main())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Permit తిరిగి ఇవ్వకుండా వదిలితే మిగతా పనులు వేచి ఉండిపోవచ్చు.</div></div><div class="explain-pane" id="p1-async-gpt-102-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>1000 URLs ని ఒకేసారి పిలిస్తే API rate limit కొట్టుకుంటుంది లేదా connections అయిపోతాయి. "ఒకేసారి గరిష్టంగా N" అని పరిమితి పెట్టడానికి semaphore కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3988,7 +4079,7 @@ async def main():
     print(round(time.perf_counter() - t0, 1), "s")          # ~0.9s (9/3 × 0.3)
 
 asyncio.run(main())</pre>
-</div></details>
+</div></div></details>
   </div>
 </details>
 

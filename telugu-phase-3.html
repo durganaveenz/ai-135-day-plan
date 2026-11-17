@@ -1431,7 +1431,7 @@ text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_pr
 ids = tokenizer(text, return_tensors="pt")   # ఇప్పుడు model కి ఇవ్వడానికి సిద్ధం</pre>
 </div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-21"></span><details class="t" id="tokenization-topic"><summary>21. Tokenization<small>Tokenization (text ని tokens గా విడగొట్టడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-21"></span><details class="t" id="tokenization-topic" id="p3-extra-21"><summary>21. Tokenization<small>Tokenization (text ని tokens గా విడగొట్టడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-21-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-21-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-21-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model కి text నేరుగా ఇవ్వలేం; ముందుగా చిన్న భాగాలుగా మార్చాలి. ఆ భాగాలనే tokens అంటారు.</p><h4>సరళమైన వివరణ</h4><p>Tokenizer వాక్యాన్ని పదాలుగా, పద భాగాలుగా లేదా అక్షరాలుగా విడగొట్టి ప్రతి భాగానికి ఒక ID ఇస్తుంది. ఒకే వాక్యం వేర్వేరు model tokenizers లో వేరే IDs, token సంఖ్య ఇవ్వొచ్చు. అందుకే token count అక్షరాల లెక్కతో సమానం కాదు.</p><h4>ఉదాహరణ</h4><pre>from transformers import AutoTokenizer\ntokenizer = AutoTokenizer.from_pretrained("gpt2")\ntext = "Hello, how are you?"\nids = tokenizer.encode(text)\nprint(ids)\nprint(len(ids))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి పదం ఒక్క token అవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-21-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ధర, context limit అన్నీ tokens లోనే కొలుస్తారు, words లో కాదు. తెలుగు వంటి భాషలకు ఎక్కువ tokens పడతాయి, అంటే ఖర్చు కూడా ఎక్కువ.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1443,9 +1443,9 @@ print(tok.tokenize("Hello world"))        # ['Hello', 'Ġworld']  (Ġ = ము�
 print(tok("Hello world")["input_ids"])    # ఆ tokens యొక్క IDs
 print(len(tok("నమస్తే")["input_ids"]))     # తెలుగు అక్షరాలకు చాలా ఎక్కువ tokens పడతాయి</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> 1 word = 1 token అనుకోవడం. ఇంగ్లీష్ లో సుమారుగా 1 token ≈ ¾ word, తెలుగులో ఇంకా తక్కువ అక్షరాలకే ఒక token.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-22"></span><details class="t"><summary>22. Token embedding lookup<small>Token embedding lookup (ID ద్వారా vector తీసుకోవడం)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-22"></span><details class="t" id="p3-extra-22"><summary>22. Token embedding lookup<small>Token embedding lookup (ID ద్వారా vector తీసుకోవడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-22-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-22-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-22-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Transformer layers text биш సంఖ్యల vector process చేస్తాయి. Token ID నుంచి vector తీసుకొచ్చే దశ embedding lookup.</p><h4>సరళమైన వివరణ</h4><p>Embedding table లో ప్రతి token ID కి ఒక vector ఉంటుంది. ID ని row number లా వాడి ఆ vector తీసుకుంటారు. ఒకే ID వస్తే ప్రారంభ vector ఒకటే; తర్వాతి layers సందర్భాన్ని బట్టి దాన్ని మార్చుతాయి. వివరానికి <a href="#token-embedding-layer">Token embedding layer</a> చూడండి.</p><h4>ఉదాహరణ</h4><pre>import numpy as np\ntable = np.arange(20).reshape(5, 4)\ntoken_ids = [1, 3]\nprint(table[token_ids])  # రెండు token vectors</pre></div><div class="explain-pane" id="p3-extra-22-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Inference pipeline లో tokenizer తర్వాత జరిగే మొదటి model operation ఇది; ఇది చాలా చౌక కానీ ప్రతి request లోనూ జరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1457,9 +1457,9 @@ ids = torch.tensor([[5, 17, 5]])                                # batch=1, 3 tok
 x = emb(ids)
 print(x.shape)                                                   # torch.Size([1, 3, 8])</pre>
 
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-23"></span><details class="t"><summary>23. Forward pass through transformer layers<small>Transformer layers గుండా forward pass</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-23"></span><details class="t" id="p3-extra-23"><summary>23. Forward pass through transformer layers<small>Transformer layers గుండా forward pass</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-23-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-23-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-23-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Prompt లోని సమాచారం చివరి layer వరకు ఎలా మారుతుందో forward pass వివరిస్తుంది. Generation సమయంలో model ఏం లెక్కిస్తుందో అర్థం చేసుకోవడానికి ఇది అవసరం.</p><h4>సరళమైన వివరణ</h4><p>Tokens embedding vectors గా మారిన తర్వాత, ప్రతి Transformer block వాటిని attention, feedforward లెక్కలతో మార్చుతుంది. చివరి block output నుంచి తర్వాతి token scores తయారవుతాయి. ఈ ప్రక్రియలో inference సమయంలో weights మారవు.</p><h4>ఉదాహరణ</h4><pre>token_ids = [12, 45, 8]\nembeddings = embedding_table[token_ids]\nhidden = transformer_blocks(embeddings)\nlogits = output_layer(hidden[-1])  # చివరి token స్థానానికి scores</pre></div><div class="explain-pane" id="p3-extra-23-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఒక token తయారు చేయడానికి ఎంత పని జరుగుతుంది" అని అర్థమైతే, latency మరియు GPU ఖర్చు ఎందుకు ఉంటాయో తెలుస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1474,9 +1474,11 @@ layers = [np.random.randn(8, 8) * 0.1 for _ in range(3)]
 for W in layers:
     x = block(x, W)                # ఒక్కో layer గుండా
 print(x.shape)                     # (4, 8): ఆకారం మారదు, విలువలు మెరుగుపడతాయి</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-24"></span><details class="t"><summary>24. Logits generation<small>Logits తయారీ</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-24"></span><details class="t" id="p3-extra-24"><summary>24. Logits generation<small>Logits తయారీ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-24-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-24-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-24-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model తర్వాత ఏ token ఇస్తుందో నిర్ణయించే ముందు vocabulary లోని ఎంపికల scores కావాలి. ఆ scores నే logits అంటారు.</p><h4>సరళమైన వివరణ</h4><p>చివరి hidden vector ని output projection vocabulary పరిమాణం గల scores గా మారుస్తుంది. Score ఎక్కువగా ఉండటం probability అని కాదు; softmax తర్వాత probability వస్తుంది. Generation లో చివరి స్థానంలోని scores తర్వాతి token ఎంపికకు ఉపయోగపడతాయి.</p><h4>ఉదాహరణ</h4><pre>logits = [1.2, -0.4, 2.1]  # token 0, 1, 2 scores
+# ఇవి ఇంకా probabilityలు కావు
+# softmax తర్వాత వాటి మొత్తం 1 అవుతుంది</pre></div><div class="explain-pane" id="p3-extra-24-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Temperature, top-k వంటి generation settings అన్నీ logits మీదే పనిచేస్తాయి. కాబట్టి logits అంటే ఏమిటో స్పష్టంగా తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1487,9 +1489,9 @@ out = model(**inputs)                 # forward pass
 logits = out.logits                   # ఆకారం: (batch, tokens, vocab_size)
 last = logits[0, -1]                  # చివరి token యొక్క scores: తర్వాతి token కోసం
 print(last.shape)                     # (vocab_size,)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-25"></span><details class="t"><summary>25. Probability distribution using softmax<small>Softmax తో probability distribution</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-25"></span><details class="t" id="p3-extra-25"><summary>25. Probability distribution using softmax<small>Softmax తో probability distribution</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-25-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-25-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-25-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Logits ని probabilityలుగా మార్చితే ప్రతి token వచ్చే అవకాశం అర్థమవుతుంది. Sampling సమయంలో ఏ token ఎంచుకోవాలో ఇది ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Softmax ప్రతి score కి positive probability ఇస్తుంది; అన్ని probabilities కలిపితే 1 వస్తుంది. పెద్ద logit ఉన్న token కి సాధారణంగా ఎక్కువ అవకాశం ఉంటుంది. Temperature మార్చితే distribution పదునుగా లేదా సమంగా మారుతుంది.</p><h4>ఉదాహరణ</h4><pre>import numpy as np\nlogits = np.array([1.0, 2.0, 0.5])\nexp = np.exp(logits - logits.max())\nprobs = exp / exp.sum()\nprint(probs, probs.sum())</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Logits ని నేరుగా probabilityలుగా భావించడం.</div></div><div class="explain-pane" id="p3-extra-25-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Logits ని "సంభావ్యతలు"గా మార్చితేనే ఏ token ఎంత అవకాశం ఉందో చెప్పగలం, మరియు sampling సాధ్యమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1505,9 +1507,9 @@ for T in (0.5, 1.0, 2.0):
 # 0.5 [0.864 0.117 0.019]   పదునైనది
 # 1.0 [0.659 0.242 0.099]
 # 2.0 [0.502 0.304 0.194]   సమంగా</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-26"></span><details class="t"><summary>26. Next-token selection<small>తర్వాతి token ఎంపిక (sampling)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-26"></span><details class="t" id="p3-extra-26"><summary>26. Next-token selection<small>తర్వాతి token ఎంపిక (sampling)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-26-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-26-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-26-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model సమాధానాన్ని ఒక్కో token చొప్పున తయారు చేయాలంటే, తర్వాతి token ని ఎలా ఎంచుకుంటుందో తెలుసుకోవాలి.</p><h4>సరళమైన వివరణ</h4><p>Logits నుంచి probabilityలు తీసుకుని, decoding నియమం ప్రకారం token ఎంచుకుంటారు. Greedy పద్ధతి ఎక్కువ probability ఉన్నదాన్ని ఎంచుకుంటుంది; sampling పద్ధతి probability ఆధారంగా యాదృచ్ఛికంగా ఎంచుకుంటుంది. Temperature, top-k, top-p ఎంపికను మార్చగలవు.</p><h4>ఉదాహరణ</h4><pre>import numpy as np\nprobs = np.array([0.1, 0.7, 0.2])\nchoice = np.random.choice(len(probs), p=probs)\nprint(choice)  # ఎక్కువగా 1 రావచ్చు, కానీ ఎప్పుడూ కాదు</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Sampling లో ఎక్కువ probability ఉన్న token ప్రతిసారీ వస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-26-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే prompt కి సృజనాత్మక answers కావాలా, లేదా ఎప్పుడూ ఒకే ఖచ్చితమైన answer కావాలా అనేది ఈ ఎంపిక పద్ధతి నిర్ణయిస్తుంది (ఉదా. JSON extraction కి తక్కువ randomness).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1524,9 +1526,9 @@ def sample(logits, T=1.0, k=0, p=1.0):
     q = pr[idx] / pr[idx].sum()
     return int(np.random.choice(idx, p=q))
 print(sample([3, 2, 1, 0], T=0.7, k=2, p=0.9))  # చాలా సార్లు 0 వస్తుంది (greedy కి దగ్గరగా)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-27"></span><details class="t"><summary>27. Autoregressive generation loop<small>గత tokens ఆధారంగా తదుపరి token ను వరుసగా తయారుచేయడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-27"></span><details class="t" id="p3-extra-27"><summary>27. Autoregressive generation loop<small>గత tokens ఆధారంగా తదుపరి token ను వరుసగా తయారుచేయడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-27-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-27-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-27-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే సారి పూర్తి సమాధానం కాకుండా, model ప్రతి కొత్త token తర్వాత మళ్లీ అంచనా వేస్తుంది. ఈ loop వల్లే సాధారణ text generation జరుగుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Prompt నుంచి మొదలుపెట్టి, model తదుపరి token ఎంచుకుంటుంది. దాన్ని input చివర చేర్చి మళ్లీ model నడుపుతుంది. Stop token లేదా గరిష్ట పొడవు వచ్చే వరకు ఇది కొనసాగుతుంది. KV cache గత attention లెక్కలను తిరిగి వాడి decode వేగాన్ని పెంచుతుంది.</p><h4>ఉదాహరణ</h4><pre>tokens = prompt_tokens\nwhile len(tokens) < max_length:\n    next_id = model.generate_next(tokens)\n    if next_id == eos_id:\n        break\n    tokens.append(next_id)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Stop condition పెట్టకపోతే generation పొడవుగా కొనసాగవచ్చు.</div></div><div class="explain-pane" id="p3-extra-27-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM answer ఒకేసారి రాదు, token ఒక్కొక్కటిగా వస్తుంది. అందుకే output పొడవు పెరిగే కొద్దీ సమయం, ఖర్చు పెరుగుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1540,9 +1542,9 @@ while tokens[-1] != "&lt;eos&gt;" and len(tokens) &lt; 10:    # EOS లేదా
     nxt = random.choice(table[tokens[-1]])         # నిజంగా: model(tokens) + sampling
     tokens.append(nxt)
 print(tokens)   # ['&lt;s&gt;', 'నేను', 'ఇంటికి', 'వెళ్తున్నాను', '&lt;eos&gt;']</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-28"></span><details class="t"><summary>28. EOS and stop sequences<small>EOS token మరియు stop sequences</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-28"></span><details class="t" id="p3-extra-28"><summary>28. EOS and stop sequences<small>EOS token మరియు stop sequences</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-28-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-28-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-28-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model ఎప్పుడు ఆగాలో స్పష్టంగా చెప్పకపోతే, సమాధానం అనవసరంగా కొనసాగవచ్చు. EOS, stop sequence ఆపే నియమాలు.</p><h4>సరళమైన వివరణ</h4><p><b>EOS</b> అనేది సమాధానం ముగిసిందని tokenizer/model సూచించే ప్రత్యేక token. Stop sequence మాత్రం code లేదా API చూసే text క్రమం; అది కనిపిస్తే generation ఆగుతుంది. ఏది వర్తిస్తుందో model API మీద ఆధారపడుతుంది.</p><h4>ఉదాహరణ</h4><pre>if next_token_id == eos_token_id:\n    stop_generation()\n\nif generated_text.endswith("\\nUser:"):\n    stop_generation()</pre><div class="mistake"><b>సాధారణ తప్పు:</b> EOS token, మనం నిర్దేశించే stop text రెండూ ఎప్పుడూ ఒకటే అని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-28-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Generation ఎప్పుడు ఆగాలో నిర్ణయించకపోతే model ఆగకుండా వ్రాస్తూనే ఉంటుంది, డబ్బు వృథా అవుతుంది. Stop sequences తో output ఫార్మాట్ ని నియంత్రించవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1560,9 +1562,9 @@ print(tokens)   # ['&lt;s&gt;', 'నేను', 'ఇంటికి', 'వెళ
                 return out[: -len(s)]
     return out</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> max tokens చాలా తక్కువ పెట్టడం వల్ల answer మధ్యలోనే తెగిపోవడం. Response లో finish reason (ఉదా. length vs stop) చూడండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-29"></span><details class="t"><summary>29. Streaming token generation<small>మొత్తం సమాధానం పూర్తికాకముందే tokens ను పంపించడం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-29"></span><details class="t" id="p3-extra-29"><summary>29. Streaming token generation<small>మొత్తం సమాధానం పూర్తికాకముందే tokens ను పంపించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-29-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-29-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-29-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పొడవైన సమాధానం పూర్తయ్యే వరకు user వేచి ఉండాల్సి రాకుండా, వచ్చిన భాగాలను వెంటనే చూపించడానికి streaming ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Model token తయారు చేసినప్పుడల్లా server ఆ భాగాన్ని connection ద్వారా పంపుతుంది. Browser లేదా app వాటిని క్రమంగా చూపిస్తుంది. Streaming మొదటి token త్వరగా చూపించవచ్చు; మొత్తం generation సమయం మాత్రం తప్పనిసరిగా తగ్గదు.</p><h4>ఉదాహరణ</h4><pre>for token in model.stream(prompt):\n    print(token, end="", flush=True)  # వచ్చిన వెంటనే చూపించు</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Streaming అంటే మొత్తం సమాధానం వేగంగా తయారవుతుందని అనుకోవడం; ఇది ప్రధానంగా మొదటి భాగాన్ని త్వరగా చూపిస్తుంది.</div></div><div class="explain-pane" id="p3-extra-29-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పూర్తి answer కోసం 20 సెకన్లు వేచి ఉండటం కంటే, మొదటి words 0.5 సెకన్లలో కనిపించడం యూజర్ అనుభవానికి చాలా మంచిది. ChatGPT లో text క్రమంగా కనిపించేది ఇందుకే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1576,18 +1578,18 @@ def token_stream():                  # generator: tokens ని ఒక్కొ�
 for t in token_stream():
     print(t, end="", flush=True)     # వచ్చిన వెంటనే చూపించడం
 print()</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-30"></span><details class="t"><summary>30. Context window definition<small>Context window నిర్వచనం</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-30"></span><details class="t" id="p3-extra-30"><summary>30. Context window definition<small>Context window నిర్వచనం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-30-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-30-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-30-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model ఒక request లో ఎంత text ని పరిగణించగలదో context window పరిమాణం నిర్ణయిస్తుంది. దీని వల్ల prompt, history, answer పొడవు పరిమితం అవుతాయి.</p><h4>సరళమైన వివరణ</h4><p>Context window అనేది model ఒకసారి process చేసే గరిష్ట tokenల పరిధి. ఇందులో system prompt, user message, conversation history, tool results, model సమాధానం అన్నీ లెక్కలోకి రావచ్చు. ఇది characters సంఖ్య కాదు; tokenizer tokenల సంఖ్య.</p><h4>ఉదాహరణ</h4><p>మొత్తం పరిమితి 8,000 tokens అయితే, system prompt 1,000, history 5,000 ఉంటే మిగతా భాగంలో user ప్రశ్న, సమాధానం సరిపోవాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Context window లో user input మాత్రమే లెక్కవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-30-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model ఒకేసారి ఎంత text ని "గుర్తుంచుకుని" చూడగలదో ఇదే నిర్ణయిస్తుంది. RAG, chat history, పెద్ద documents అన్నీ దీనికి లోబడి ఉంటాయి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>Context window</b> అంటే model ఒక్క request లో చూడగలిగే గరిష్ట tokens సంఖ్య (input + output కలిపి). Model కి శాశ్వత జ్ఞాపకం లేదు: ప్రతి request లో మొత్తం conversation ని మీరే మళ్ళీ పంపాలి, అది window లో ఇమిడాలి. ఇది ఒక whiteboard లాంటిది: స్థలం పరిమితం, నిండితే ఏదో ఒకటి చెరిపేయాలి. Window పరిమాణాలు model ని బట్టి మారతాయి మరియు తరచూ మారుతుంటాయి, కాబట్టి docs లో check చేయండి.</p>
 <h4>ఉదాహరణ</h4>
 <p>Window 8,000 tokens అనుకుంటే: system prompt 500 + chat history 6,000 + కొత్త ప్రశ్న 500 = 7,000. Answer కి మిగిలేది 1,000 tokens మాత్రమే.</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-31"></span><details class="t"><summary>31. Input tokens vs output tokens<small>Input tokens మరియు output tokens</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-31"></span><details class="t" id="p3-extra-31"><summary>31. Input tokens vs output tokens<small>Input tokens మరియు output tokens</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-31-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-31-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-31-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model కి ఇచ్చిన text, model తయారు చేసే text రెండూ token usage, ఖర్చు, context పరిమితిలో వేర్వేరుగా లెక్కపడతాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Input tokens</b> లో prompt, system instructions, history, tool ఫలితాలు ఉంటాయి. <b>Output tokens</b> model రాసే సమాధానం. చాలా APIs రెండింటికీ వేర్వేరు ధరలు వసూలు చేయవచ్చు. Output కోసం కూడా context window లో స్థలం అవసరం.</p><h4>ఉదాహరణ</h4><p>ఒక request లో 2,000 input tokens, 500 output tokens వస్తే, usage report లో అవి విడిగా కనిపిస్తాయి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Prompt చిన్నదే కాబట్టి మొత్తం token ఖర్చు కూడా చిన్నదని అనుకోవడం; history, answer కూడా లెక్కలోకి వస్తాయి.</div></div><div class="explain-pane" id="p3-extra-31-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>API బిల్లులో input, output tokens కి వేర్వేరు ధరలు ఉంటాయి. వేగం కూడా వేర్వేరుగా ప్రభావితమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1598,9 +1600,9 @@ price_in, price_out = 1.0, 4.0        # ప్రతి మిలియన్ to
 in_tok, out_tok = 2000, 500
 cost = in_tok/1e6*price_in + out_tok/1e6*price_out
 print(round(cost, 5))                 # 0.004</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-32"></span><details class="t"><summary>32. Maximum sequence length<small>గరిష్ట sequence పొడవు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-32"></span><details class="t" id="p3-extra-32"><summary>32. Maximum sequence length<small>గరిష్ట sequence పొడవు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-32-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-32-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-32-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Maximum sequence length దాటితే request తిరస్కరించబడవచ్చు లేదా text కత్తిరించబడవచ్చు. కాబట్టి పొడవు పరిమితి తెలుసుకోవాలి.</p><h4>సరళమైన వివరణ</h4><p>Sequence అనేది model process చేసే tokenల క్రమం. Model లేదా serving system కి గరిష్ట length ఉంటుంది. Prompt, generation రెండింటి పొడవు కలిపి పరిమితి దాటితే overflow వస్తుంది. వేర్వేరు models లో గరిష్టం వేరుగా ఉండొచ్చు.</p><h4>ఉదాహరణ</h4><p>Request పంపేముందు tokenizer తో prompt token count తీసుకుని, కావాల్సిన answer స్థలం కూడా విడిచిపెట్టండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model పేరు చూసి మాత్రమే maximum length ఊహించడం; ఉపయోగిస్తున్న model version, service పరిమితి తనిఖీ చేయాలి.</div></div><div class="explain-pane" id="p3-extra-32-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Limit దాటితే error వస్తుంది లేదా text కత్తిరించబడుతుంది. App లో ముందే తనిఖీ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1611,36 +1613,36 @@ MAX_LEN = 1024                               # gpt2 వంటి చిన్న
 ids = tokenizer(text)["input_ids"]
 if len(ids) + 200 &gt; MAX_LEN:                 # 200 = output కోసం ఉంచే స్థలం
     ids = ids[-(MAX_LEN - 200):]             # పాత భాగాన్ని కత్తిరించు (ఒక్క వ్యూహం)</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-33"></span><details class="t"><summary>33. Context-window limitations<small>Context window పరిమితులు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-33"></span><details class="t" id="p3-extra-33"><summary>33. Context-window limitations<small>Context window పరిమితులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-33-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-33-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-33-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చాలా పెద్ద prompt పెట్టినా model ప్రతి భాగాన్ని సమానంగా ఉపయోగించకపోవచ్చు. పరిమితులు తెలుసుకుంటే ముఖ్యమైన సమాచారాన్ని ముందుకు తేవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Context పరిమితి వల్ల పాత messages తొలగించాల్సి రావచ్చు. పొడవైన context పై attention ఖర్చు పెరుగుతుంది, మధ్యలో ఉన్న సమాచారం మర్చిపోయే సమస్య కూడా ఉండొచ్చు. అందుకే summary, retrieval, అవసరం లేని history తొలగింపు ఉపయోగపడతాయి.</p><h4>ఉదాహరణ</h4><p>చాలా పొడవైన chat history ని మొత్తం పంపకుండా, పాత సంభాషణలోని నిర్ణయాలు మాత్రమే చిన్న summary గా ఉంచండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఎక్కువ context window అంటే సమాధానం ఎప్పుడూ మరింత ఖచ్చితమని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-33-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Window పెద్దదైనా ఎక్కువ నింపడం ఎప్పుడూ మంచిది కాదు. దాని పరిమితులు తెలిస్తే మంచి RAG, prompt design చేయగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>పరిమితులు:</p><div class="steps-box"><div class="step-row"><span class="step-badge">1</span><span><b>ఖర్చు</b>: ఎక్కువ tokens అంటే ఎక్కువ బిల్లు, ఎక్కువ latency.</span></div><div class="step-row"><span class="step-badge">2</span><span><b>Memory</b>: KV (Key-Value) cache ఎక్కువ GPU memory తింటుంది.</span></div><div class="step-row"><span class="step-badge">3</span><span><b>నాణ్యత</b>: చాలా పొడవైన context లో మధ్యలో ఉన్న సమాచారాన్ని model కొన్నిసార్లు మిస్ చేస్తుంది ("lost in the middle" అని పరిశోధనల్లో గమనించారు; ఇది model ని బట్టి మారుతుంది).</span></div><div class="step-row"><span class="step-badge">4</span><span>పూర్తి database ని prompt లో పెట్టలేం.</span></div></div><p>కాబట్టి retrieval తో సంబంధిత భాగాలను మాత్రమే పంపాలి.</p>
 <h4>ఉదాహరణ</h4>
 <p>1000 పేజీల PDF మొత్తం పంపే బదులు, ప్రశ్నకు సంబంధించిన 3-5 భాగాలను embeddings search తో ఎంచి పంపడం చౌక మరియు ఖచ్చితమైనది (ఇదే RAG).</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-34"></span><details class="t"><summary>34. Position encoding limitations<small>Position encoding పరిమితులు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-34"></span><details class="t" id="p3-extra-34"><summary>34. Position encoding limitations<small>Position encoding పరిమితులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-34-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-34-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-34-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Position encoding token క్రమం గురించి model కి చెబుతుంది. దాని పరిమితులు long sequence లో ఎందుకు ముఖ్యం అనేది తెలుసుకోవాలి.</p><h4>సరళమైన వివరణ</h4><p>Position పద్ధతి model కి token ఏ స్థానంలో ఉందో, ఇంకో token కి ఎంత దూరంలో ఉందో తెలియజేస్తుంది. కొన్ని పద్ధతులు train చేసిన పొడవు దాటి వెళ్లినప్పుడు నాణ్యత తగ్గవచ్చు. RoPE scaling వంటి మార్పులు పొడవైన context కి సహాయపడినా, ప్రతి పొడవులో సమాన నాణ్యత హామీ కాదు.</p><h4>ఉదాహరణ</h4><p>Model 4,000 tokens వరకు train అయి, 32,000 token input ఇచ్చితే, చివరి భాగాల సంబంధాలను సరిగ్గా పట్టుకోకపోవచ్చు.</p></div><div class="explain-pane" id="p3-extra-34-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model training లో చూసిన పొడవు కంటే ఎక్కువ పొడవు input ఇస్తే నాణ్యత పడిపోవచ్చు. కారణం position encoding.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>Model training లో కొన్ని position ల వరకు మాత్రమే నేర్చుకుంటుంది. అంతకు మించిన positions కి అది ఎప్పుడూ ప్రాక్టీస్ చేయలేదు, కాబట్టి extrapolate చేయడం కష్టం. Learned absolute positions లో పరిమితి కఠినం (table లో rows ఉన్నంత వరకే). RoPE (Rotary Position Embedding) లో కోణాలు ఎంత దూరానికైనా లెక్కించవచ్చు, కానీ training పొడవు దాటాక నాణ్యత పడుతుంది. దీనికి పరిష్కారాలు: RoPE (Rotary Position Embedding) scaling/interpolation, తర్వాత ఎక్కువ పొడవుతో fine-tuning. వివరాలు model ని బట్టి మారతాయి.</p>
 <h4>ఉదాహరణ</h4>
 <p>GPT-2 (learned positions, 1024 వరకు): 1025వ token ఇస్తే index error వస్తుంది, ఎందుకంటే position table లో ఆ row లేదు. ఇది 1024 rows ఉన్న array లో 1025వ index అడిగినట్టే.</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-35"></span><details class="t"><summary>35. Long-context models<small>పొడవైన token క్రమాలను ఒకే context లో చదివే models</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-35"></span><details class="t" id="p3-extra-35"><summary>35. Long-context models<small>పొడవైన token క్రమాలను ఒకే context లో చదివే models</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-35-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-35-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-35-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పొడవైన documents లేదా conversations ని ఒకే request లో process చేయడానికి long-context models ఉపయోగపడతాయి.</p><h4>సరళమైన వివరణ</h4><p>ఈ models పెద్ద context window ని అంగీకరిస్తాయి. అయినా input పొడవు పెరిగేకొద్దీ compute, memory ఖర్చు పెరుగుతుంది; ముఖ్యమైన విషయం మధ్యలో ఉంటే దాన్ని గుర్తించడం కూడా కష్టం కావచ్చు. అందుకే long context ఉన్నా retrieval, summarization ఇంకా ఉపయోగపడతాయి.</p><h4>ఉదాహరణ</h4><p>పెద్ద contract ని ఒకేసారి పంపి ప్రశ్న అడగవచ్చు; కానీ సంబంధిత clause ని ముందుగా వెతికి ఇవ్వడం ఖర్చు, తప్పులు తగ్గించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Long context ఉన్న model కి అవసరమైన సమాచారం ఎప్పుడూ సులభంగా దొరుకుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-35-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పెద్ద codebase, పొడవైన contracts వంటి వాటిని ఒకేసారి చూడాల్సిన పనులకు పొడవైన context ఉపయోగపడుతుంది. కానీ ఎప్పుడు వాడాలి, ఎప్పుడు RAG మేలు అనేది తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>Long-context models</b> అంటే వందల వేల నుండి లక్షల tokens వరకు window ఉన్నవి. దీనికి సాంకేతికతలు: RoPE (Rotary Position Embedding) scaling, పొడవైన sequences తో extra training, సమర్థవంతమైన attention (FlashAttention), KV (Key-Value) cache తగ్గించే GQA (Grouped-Query Attention). అయినా ఖర్చు, latency, మరియు "మధ్యలో మిస్ అవ్వడం" సమస్యలు ఉంటాయి. ప్రస్తుత models యొక్క window పరిమాణాలు వేగంగా మారుతున్నాయి, docs లో check చేయండి. సలహా: అవసరమైనప్పుడు మాత్రమే పొడవు వాడండి, లేకపోతే retrieval.</p>
 <h4>ఉదాహరణ</h4>
 <p>ఒక్క 300 పేజీల contract ని సంపూర్ణంగా విశ్లేషించాలంటే long-context. కానీ "FAQ లో రిటర్న్ పాలసీ ఏమిటి?" కి చిన్న retrieval చాలు, long-context వాడితే వృథా ఖర్చు.</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-36"></span><details class="t"><summary>36. Attention complexity<small>Attention complexity (O(n²))</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-36"></span><details class="t" id="p3-extra-36"><summary>36. Attention complexity<small>Attention complexity (O(n²))</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-36-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-36-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-36-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Attention ఎందుకు పొడవైన text తో ఖరీదవుతుందో తెలుసుకుంటే context పరిమితులు అర్థమవుతాయి.</p><h4>సరళమైన వివరణ</h4><p>సాధారణ self-attention లో ప్రతి token మిగతా tokens తో సంబంధం లెక్కిస్తుంది. n tokens ఉంటే జంటల సంఖ్య సుమారుగా n×n అవుతుంది; అందుకే ఖర్చు <code>O(n²)</code> అంటారు. Tokens రెట్టింపు అయితే attention matrix పరిమాణం సుమారుగా నాలుగు రెట్లు అవుతుంది.</p><h4>ఉదాహరణ</h4><p>1,000 tokens కి సుమారు 10 లక్షల token జంటలు; 2,000 tokens కి సుమారు 40 లక్షల జంటలు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Tokens రెట్టింపు అయితే attention ఖర్చు కూడా కేవలం రెట్టింపే అవుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-36-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Context రెట్టింపు చేస్తే ఖర్చు, సమయం ఎందుకు రెట్టింపుకన్నా ఎక్కువ పెరుగుతాయో ఇది చెబుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1648,9 +1650,9 @@ if len(ids) + 200 &gt; MAX_LEN:                 # 200 = output కోసం ఉ�
 <h4>ఉదాహరణ</h4>
 <pre>for n in (1_000, 2_000, 10_000):
     print(n, n * n)      # score matrix లోని entries: 1,000,000 / 4,000,000 / 100,000,000</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-37"></span><details class="t"><summary>37. Context truncation and overflow<small>Context truncation మరియు overflow</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-37"></span><details class="t" id="p3-extra-37"><summary>37. Context truncation and overflow<small>Context truncation మరియు overflow</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-37-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-37-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-37-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Context window దాటిన input ని API స్వీకరించకపోవచ్చు. Truncation జరిగితే ముఖ్యమైన వివరాలు మాయమయ్యే అవకాశం ఉంది.</p><h4>సరళమైన వివరణ</h4><p><b>Truncation</b> అంటే పొడవైన text లో కొంత భాగాన్ని తీసేయడం. ఇది మొదటి భాగం లేదా చివరి భాగం కావచ్చు; అమలు ఎలా ఉందో చూడాలి. Overflow ని నివారించడానికి prompt, history, output స్థలాన్ని ముందే లెక్కించాలి.</p><h4>ఉదాహరణ</h4><pre>if prompt_tokens + max_output_tokens > context_limit:\n    prompt = summarize_old_history(prompt)\n# తర్వాత token count మళ్లీ తనిఖీ చేయాలి</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Text కత్తిరించినా model కి అన్ని వివరాలు అందాయని అనుకోవడం.</div></div><div class="explain-pane" id="p3-extra-37-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Production లో chat పెరిగిపోతే ఏదో ఒకరోజు limit దాటుతుంది. ముందే ప్లాన్ చేయకపోతే errors లేదా అనూహ్యంగా సమాచారం పోవడం జరుగుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1662,9 +1664,9 @@ if len(ids) + 200 &gt; MAX_LEN:                 # 200 = output కోసం ఉ�
         rest.pop(0)                                      # అన్నిటికన్నా పాత message తొలగించు
     return [system] + rest</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> tokens కాకుండా characters లేదా words తో పొడవు లెక్కించడం. ఎల్లప్పుడూ model యొక్క tokenizer తో లెక్కించండి.</div>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-38"></span><details class="t"><summary>38. Context management strategies<small>Context management వ్యూహాలు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-38"></span><details class="t" id="p3-extra-38"><summary>38. Context management strategies<small>Context management వ్యూహాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-38-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-38-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-38-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పొడవైన chat లేదా పెద్ద document ని నిర్వహించకపోతే token ఖర్చు పెరుగుతుంది, ముఖ్యమైన విషయాలు context నుంచి బయటపడతాయి.</p><h4>సరళమైన వివరణ</h4><p>ఉపయోగపడే పద్ధతులు: పాత సంభాషణని summary చేయడం, అవసరమైన documents మాత్రమే retrieval చేయడం, duplicate context తొలగించడం, token budget కేటాయించడం. Summary లో నిర్ణయాలు, పేర్లు, పరిమితులు వంటి అవసరమైన వివరాలు ఉండాలి.</p><h4>ఉదాహరణ</h4><p>చాట్‌లో గత 20 messages బదులు, “వినియోగదారు PostgreSQL వాడుతున్నారు; retry గరిష్టం 3” వంటి చిన్న స్థిర సమాచారం ఉంచండి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Summary చేస్తూ అవసరమైన సంఖ్యలు లేదా నిర్ణయాలను తొలగించడం.</div></div><div class="explain-pane" id="p3-extra-38-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పొడవైన conversations, agents లో context త్వరగా నిండుతుంది. మంచి వ్యూహం ఖర్చు తగ్గించి నాణ్యత కాపాడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1676,9 +1678,9 @@ def add(msg, keep_last=6):
     del history[:-keep_last]       # sliding window: చివరి 6 మాత్రమే
 add({"role": "user", "content": "హాయ్"})
 print(len(history))                # 1</pre>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-39"></span><details class="t"><summary>39. KV (Key-Value) cache<small>KV (Key-Value) cache (Key/Value నిల్వ)</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-39"></span><details class="t" id="p3-extra-39"><summary>39. KV (Key-Value) cache<small>KV (Key-Value) cache (Key/Value నిల్వ)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-39-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-39-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-39-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Generation లో కొత్త token వచ్చిన ప్రతిసారి పాత tokens కోసం attention మళ్లీ లెక్కిస్తే సమయం వృథా. KV cache ఆ పాత లెక్కలను మళ్లీ వాడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ప్రతి attention layer లో గత tokens యొక్క Key, Value vectors ని cache లో ఉంచుతారు. తర్వాతి token వచ్చినప్పుడు కొత్త token కి సంబంధించిన భాగమే లెక్కించి, cache తో కలుపుతారు. దీని వల్ల decode వేగం పెరుగుతుంది; అయితే cache కి GPU memory అవసరం, పెద్ద batch లేదా పొడవైన context లో అది గణనీయంగా పెరుగుతుంది.</p><h4>ఉదాహరణ</h4><p>10 tokenల తర్వాత 11వ token తయారు చేస్తే, KV cache లేకుండా మొదటి 10 tokenల key/value మళ్లీ లెక్కిస్తాం; cache ఉంటే వాటిని మళ్లీ వాడతాం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> KV cache ఉచిత వేగం అని అనుకోవడం; వేగం పెరిగినా memory ఎక్కువ వాడుతుంది.</div></div><div class="explain-pane" id="p3-extra-39-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>KV (Key-Value) cache లేకపోతే ప్రతి కొత్త token కి మొత్తం ఇప్పటి వరకు ఉన్న text ని మళ్ళీ మొదటి నుండి లెక్కించాలి. ఇది generation ను నెమ్మదిగా చేస్తుంది. Inference లో అత్యంత కీలకమైన optimization ఇది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1700,9 +1702,9 @@ for t in range(T):                       # ప్రతి కొత్త token
     print(t, out.shape)
 # ఇది cache లేకుండా మొత్తం causal attention చేసిన ఫలితంతో సమానం (నేను పరీక్షించాను)</pre>
 <p>Llama-2-7B వంటి నిర్మాణం (32 layers, 32 kv heads, head_dim 128, FP16 (16-bit Floating Point)) కి ఒక్క token కి సుమారు 0.5 MB; 4096 tokens కి సుమారు 2 GB per sequence. ఇది ఉదాహరణ లెక్క మాత్రమే; GQA (Grouped-Query Attention) ఉన్న models లో చాలా తక్కువ.</p>
-</div></details>
+</div></div></details>
 
-<span class="global-search-anchor" id="global-topic-3-40"></span><details class="t"><summary>40. Prefill vs decode stages<small>Prefill మరియు decode దశలు</small></summary><div class="body">
+<span class="global-search-anchor" id="global-topic-3-40"></span><details class="t" id="p3-extra-40"><summary>40. Prefill vs decode stages<small>Prefill మరియు decode దశలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-extra-40-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-extra-40-gemini">Gemini</button></div><div class="explain-pane" id="p3-extra-40-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LLM request సమయం రెండు రకాల పనులతో ఉంటుంది: prompt చదవడం, తర్వాతి tokens తయారు చేయడం. ఈ దశలు వేర్వేరు వేగ పరిమితులు కలిగి ఉంటాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Prefill</b> లో prompt tokens అన్నింటినీ ఒకేసారి process చేసి KV cache తయారు చేస్తారు. <b>Decode</b> లో ఒక్కో output token వరుసగా తయారవుతుంది. Prompt చాలా పొడవైతే prefill నెమ్మదిస్తుంది; output పొడవైతే decode సమయం పెరుగుతుంది.</p><h4>ఉదాహరణ</h4><p>5,000 token prompt, 20 token answer ఉంటే prefill ఎక్కువ సమయం తీసుకోవచ్చు. 100 token answer అయితే decode దశ కూడా ఎక్కువ సమయం పడుతుంది.</p></div><div class="explain-pane" id="p3-extra-40-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Latency ఎందుకు రెండు భాగాలుగా (మొదటి token వరకు, ఆ తర్వాత ఒక్కొక్కటి) ఉంటుందో, వేగం పెంచడానికి దేన్ని optimize చేయాలో ఇది చెబుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1712,7 +1714,7 @@ for t in range(T):                       # ప్రతి కొత్త token
 # t0 = start
 # prefill ముగింపు = మొదటి token వచ్చిన సమయం  -&gt; TTFT
 # decode = మిగిలిన tokens: (మొత్తం సమయం - TTFT) / (output tokens - 1)</pre>
-</div></details>
+</div></div></details>
 
 <span class="global-search-anchor" id="global-topic-3-41"></span><details class="t"><summary>41. Time to First Token (TTFT (Time to First Token))<small>Time to First Token (మొదటి token కి పట్టే సమయం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
