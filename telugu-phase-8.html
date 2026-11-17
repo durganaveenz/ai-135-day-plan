@@ -41,6 +41,8 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 .tab-badge { background: var(--soft); color: var(--accent); padding: 1px 7px; border-radius: 12px; font-size: 12px; font-weight: 700; }
 .tab-btn.active .tab-badge { background: rgba(255,255,255,0.25); color: #fff; }
 .tab-btn[data-tab="archive"].active { background: #475569; color: #fff; border-color: #475569; }
+.explain-tabs{display:flex;gap:8px;margin:4px 0 14px;border-bottom:1px solid var(--line)}.explain-tab{border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--soft);color:var(--text);padding:7px 14px;cursor:pointer;font:inherit}.explain-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}.explain-pane[hidden]{display:none}
+
 
 .progress-container { width: 100%; margin-top: 6px; }
 .progress-wrap { width: 100%; background: var(--line); border-radius: 8px; height: 8px; overflow: hidden; }
@@ -1019,7 +1021,11 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. Scalars, vectors and matrices.<small>స్కేలార్లు, వెక్టర్లు మరియు మాట్రిసెస్ ప్రాథమిక భావనలు</small></summary><div class="body">
+    <details class="t" id="gpt-p8-t1"><summary>1. Scalars, vectors and matrices.<small>స్కేలార్లు, వెక్టర్లు మరియు మాట్రిసెస్ ప్రాథమిక భావనలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t1-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t1-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t1-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>AI లో data ని ఎలా అమర్చుతామో అర్థమైతే, model చేసే లెక్కలను చదవడం సులభమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Scalar</b> అంటే ఒకే సంఖ్య. <b>Vector</b> అంటే సంఖ్యల వరుస. <b>Matrix</b> అంటే వరుసలు, నిలువు వరుసలుగా ఉన్న సంఖ్యల పట్టిక. ఇంకా ఎక్కువ కొలతలతో ఉన్న data ని <b>Tensor</b> అంటారు. ఉదాహరణకు, ఒక ఫోటోని మూడు రంగుల పొరలున్న Tensor గా చూడొచ్చు.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+score = np.array(5)
+vector = np.array([2, 4, 6])
+matrix = np.array([[1, 2], [3, 4]])
+print(score.shape, vector.shape, matrix.shape)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> సంఖ్యల విలువలే ముఖ్యం అనుకోవడం; అవి ఏ ఆకారంలో అమర్చబడ్డాయో కూడా ముఖ్యం.</div></div><div class="explain-pane" id="gpt-p8-t1-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మెషిన్ లెర్నింగ్ మరియు డీప్ లెర్నింగ్ అల్గారిథమ్స్ అన్నీ డేటాను సంఖ్యలుగానే ప్రాసెస్ చేస్తాయి. టెక్స్ట్, ఇమేజ్, ఆడియో ఏదైనా సరే కంప్యూటర్ అర్థం చేసుకోవడానికి స్కేలార్, వెక్టర్, మాట్రిక్స్ రూపంలోకి మార్చాల్సి ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1043,10 +1049,14 @@ matrix = np.array([
 ])
 print("Matrix shape:", matrix.shape)  # (3, 3)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సింగిల్ ఎలిమెంట్ ఉన్న వెక్టర్ [5] ని మరియు స్కేలార్ 5 ని ఒకటే అనుకోవడం; షేప్స్ (1,) మరియు () వేర్వేరుగా ఉంటాయి.</div>
-</div></details>
+</div></div></details>
 
 
-<details class="t"><summary>2. Matrix dimensions and operations.<small>మాట్రిక్స్ డైమెన్షన్స్ (కొలతలు) మరియు ప్రాథమిక ఆపరేషన్స్</small></summary><div class="body">
+<details class="t" id="gpt-p8-t2"><summary>2. Matrix dimensions and operations.<small>మాట్రిక్స్ డైమెన్షన్స్ (కొలతలు) మరియు ప్రాథమిక ఆపరేషన్స్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t2-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t2-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t2-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Matrix లెక్కల ముందు వాటి కొలతలు సరిపోతున్నాయా తెలుసుకోవాలి. సరిపోకపోతే Python shape error చూపిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Shape</b> అంటే ఎన్ని వరుసలు, ఎన్ని నిలువు వరుసలు ఉన్నాయో. 2 వరుసలు, 3 నిలువు వరుసలు ఉంటే shape <code>(2, 3)</code>. Matrix multiplication లో మొదటి matrix నిలువు వరుసల సంఖ్య, రెండో matrix వరుసల సంఖ్య ఒకటే కావాలి.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+a = np.zeros((2, 3))
+b = np.zeros((3, 4))
+c = a @ b
+print(c.shape)  # (2, 4)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> రెండు matrices కొలతలు ఒకేలా ఉండాలని అనుకోవడం; లోపలి కొలతలు సరిపోతే గుణించవచ్చు.</div></div><div class="explain-pane" id="gpt-p8-t2-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>న్యూరల్ నెట్‌వర్క్‌లలో ఒక లేయర్ అవుట్‌పుట్ తర్వాతి లేయర్‌కు ఇన్‌పుట్‌గా వెళ్తుంది. మాట్రిక్స్ డైమెన్షన్స్ (Rows, Columns) సరిపోలకపోతే 'Shape Mismatch' ఎర్రర్ వచ్చి మోడల్ క్రాష్ అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1070,9 +1080,13 @@ C = A + B
 print("Element-wise Sum:
 ", C)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎలిమెంట్-వైజ్ గుణకారం (A * B) మరియు డాట్ ప్రొడక్ట్ మాట్రిక్స్ మల్టిప్లికేషన్ (A @ B) ల మధ్య గల తేడాను గమనించకపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>3. Matrix addition and multiplication.<small>మాట్రిక్స్ కూడిక మరియు గుణకార సూత్రాలు</small></summary><div class="body">
+<details class="t" id="gpt-p8-t3"><summary>3. Matrix addition and multiplication.<small>మాట్రిక్స్ కూడిక మరియు గుణకార సూత్రాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t3-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t3-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t3-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Neural network లో data ని కలిపి తదుపరి layer కి పంపడానికి matrix కూడిక, గుణకారం తరచుగా వాడతారు.</p><h4>సరళమైన వివరణ</h4><p>Matrix కూడికలో ఒకే స్థానంలో ఉన్న సంఖ్యలను కలుపుతాం; రెండు matrices ఆకారం ఒకటే కావాలి. Matrix గుణకారంలో మొదటి matrix వరుసలను, రెండో matrix నిలువు వరుసలతో కలిపి లెక్కిస్తాం. A ఆకారం <code>(m, n)</code>, B ఆకారం <code>(n, p)</code> అయితే, ఫలితం <code>(m, p)</code> అవుతుంది.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[10, 20], [30, 40]])
+print(a + b)  # స్థానాల వారీగా కూడిక
+print(a @ b)  # matrix multiplication</pre><div class="mistake"><b>సాధారణ తప్పు:</b> NumPy లో <code>*</code> ని matrix multiplication అనుకోవడం; దానికి <code>@</code> వాడాలి.</div></div><div class="explain-pane" id="gpt-p8-t3-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డీప్ లెర్నింగ్‌లో వెయిట్స్ (Weights), ఇన్‌పుట్స్ (Inputs) మరియు బయాస్ (Bias) కలిపి లెక్కింపులు చేయడానికి ($Y = XW + b$) మాట్రిక్స్ కూడిక మరియు గుణకారం అతి ముఖ్యమైన ప్రాథమిక ఆపరేషన్స్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1094,9 +1108,9 @@ C = A @ B  # Result shape: (2, 2)
 print("Matrix Product C (Shape: {}):
 {}".format(C.shape, C))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> మాట్రిక్స్ మల్టిప్లికేషన్‌లో ఆర్డర్ చాలా ముఖ్యం; A @ B అనేది B @ A కి సమానం కాదు ($AB \neq BA$).</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>4. Dot products and vector similarity.<small>డాట్ ప్రొడక్ట్ మరియు వెక్టర్ సిమిలారిటీ లెక్కింపు</small></summary><div class="body">
+<details class="t" id="gpt-p8-t4"><summary>4. Dot products and vector similarity.<small>డాట్ ప్రొడక్ట్ మరియు వెక్టర్ సిమిలారిటీ లెక్కింపు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t4-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t4-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t4-gpt" role="tabpanel"><h4>ఇంకా చదవండి</h4><p>Dot product, vector similarity, cosine similarity గురించి పూర్తివివరణ Phase 2 లో ఇప్పటికే ఉంది. అదే విషయాన్ని మళ్లీ రాయకుండా <a href="telugu-phase-2.html#cosine-similarity">Phase 2: Dot product and cosine similarity</a> చూడండి.</p><p>ఈ Phase లో ఆ భావనను embeddings మధ్య దగ్గరితనం లెక్కించడానికి ఉపయోగిస్తాం.</p></div><div class="explain-pane" id="gpt-p8-t4-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సెర్చ్ ఇంజిన్లు, RAG మరియు రికమండర్ సిస్టమ్‌లలో ఒక యూజర్ ప్రశ్న వెక్టర్‌కు, డేటాబేస్‌లోని డాక్యుమెంట్ వెక్టర్స్‌కు ఎంత పోలిక ఉందో గుర్తించడానికి డాట్ ప్రొడక్ట్ వాడుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1120,9 +1134,15 @@ sim2 = np.dot(query_vec, doc2_vec)
 print(f"Similarity with ML Doc: {sim1:.4f}")      # High score ~1.385
 print(f"Similarity with Recipe: {sim2:.4f}")      # Low score ~0.215</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్‌లు నార్మలైజ్ కానప్పుడు, పెద్ద సంఖ్యలు ఉన్న వెక్టర్ల డాట్ ప్రొడక్ట్ అసలైన సిమిలారిటీ లేకపోయినా అనవసరంగా పెద్దదిగా రావడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>5. Matrix transpose and inverse.<small>మాట్రిక్స్ ట్రాన్స్‌పోజ్ మరియు ఇన్వర్స్ భావనలు</small></summary><div class="body">
+<details class="t" id="gpt-p8-t5"><summary>5. Matrix transpose and inverse.<small>మాట్రిక్స్ ట్రాన్స్‌పోజ్ మరియు ఇన్వర్స్ భావనలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t5-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t5-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t5-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Transpose, inverse అనేవి data ఆకారం మార్చడానికి, linear equations పరిష్కరించడానికి ఉపయోగపడతాయి. Neural network లెక్కల్లో ఇవి తరచుగా కనిపిస్తాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Transpose</b> లో వరుసలు, నిలువు వరుసలుగా మారతాయి. <b>Inverse</b> అంటే matrix తో గుణిస్తే identity matrix వచ్చే matrix. Inverse ఉండాలంటే matrix square అయి, determinant సున్నా కాకూడదు. పెద్ద లెక్కల్లో inverse ని చేతితో లెక్కించకుండా solver వాడటం మంచిది.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+a = np.array([[1.0, 2.0], [3.0, 4.0]])
+print(a.T)  # transpose
+
+b = np.array([5.0, 11.0])
+x = np.linalg.solve(a, b)
+print(x)  # Ax = b కి పరిష్కారం</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి matrix కి inverse ఉంటుందని అనుకోవడం; determinant సున్నా అయితే inverse ఉండదు.</div></div><div class="explain-pane" id="gpt-p8-t5-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>న్యూరల్ నెట్‌వర్క్‌లలో డైమెన్షన్స్ మార్చడానికి ట్రాన్స్‌పోజ్ ($A^T$), మరియు లీనియర్ ఈక్వేషన్స్ సాల్వ్ చేయడానికి లేదా మార్పులను వెనక్కి తీసుకురావడానికి ఇన్వర్స్ ($A^{-1}$) వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1148,9 +1168,13 @@ identity_check = np.round(A @ A_inv)
 print("A @ A_inv (Identity Matrix):
 ", identity_check)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> స్క్వేర్ మాట్రిక్స్ (NxN) కాని వాటికి లేదా డిటర్మినెంట్ సున్నా అయిన వాటికి ఇన్వర్స్ కనుక్కోవడానికి ప్రయత్నించి SingularMatrixError తెచ్చుకోవడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>6. Identity matrices.<small>ఐడెంటిటీ మాట్రిక్స్ (తత్సమ మాత్రిక)</small></summary><div class="body">
+<details class="t" id="gpt-p8-t6"><summary>6. Identity matrices.<small>ఐడెంటిటీ మాట్రిక్స్ (తత్సమ మాత్రిక)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t6-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t6-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t6-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Matrix multiplication లో మార్పు చేయకుండా ఉంచే matrix ఏదో తెలుసుకోవడానికి identity matrix అవసరం. Inverse అంటే ఏమిటో అర్థం చేసుకోవడానికి కూడా ఇది పునాది.</p><h4>సరళమైన వివరణ</h4><p>Identity matrix లో ఎడమ పై నుంచి కుడి కిందికి వెళ్లే diagonal స్థానాల్లో 1లు ఉంటాయి; మిగతా చోట్ల 0లు ఉంటాయి. ఏ matrix ని identity matrix తో గుణించినా అసలు matrix మారదు. సంఖ్యని 1 తో గుణిస్తే అది మారనట్టే.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+a = np.array([[2, 3], [4, 5]])
+i = np.eye(2)
+print(i)
+print(a @ i)  # a లోని విలువలే వస్తాయి</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Identity matrix లో అన్ని చోట్ల 1లు ఉంటాయని అనుకోవడం; diagonal లో మాత్రమే 1లు ఉంటాయి.</div></div><div class="explain-pane" id="gpt-p8-t6-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మాట్రిక్స్ గణితంలో ఐడెంటిటీ మాట్రిక్స్ సంఖ్య 1 లాంటిది. ఏదైనా మాట్రిక్స్‌ను ఐడెంటిటీ మాట్రిక్స్‌తో గుణిస్తే అదే మాట్రిక్స్ మార్పు లేకుండా మిగులుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1171,9 +1195,13 @@ result = I @ v
 print("Result of I @ v:", result)
 print("Is exactly equal?", np.array_equal(v, result))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఐడెంటిటీ మాట్రిక్స్ ఎప్పుడూ స్క్వేర్ (N x N) గానే ఉండాలని మర్చిపోయి దీర్ఘచతురస్రాకార (M x N) ఐడెంటిటీ మాట్రిక్స్ ఆశించడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>7. Determinants.<small>డిటర్మినెంట్ (నిర్ణాయకం) ప్రాముఖ్యత</small></summary><div class="body">
+<details class="t" id="gpt-p8-t7"><summary>7. Determinants.<small>డిటర్మినెంట్ (నిర్ణాయకం) ప్రాముఖ్యత</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t7-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t7-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t7-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Matrix ఒక transformation గా పనిచేసినప్పుడు విస్తీర్ణం లేదా పరిమాణం ఎలా మారుతుందో determinant ద్వారా తెలుసుకోవచ్చు. Matrix కి inverse ఉందో లేదో కూడా ఇది సూచిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Determinant</b> అనేది square matrix నుంచి వచ్చే ఒక సంఖ్య. 2D లో అది విస్తీర్ణం ఎంత రెట్లు పెరిగిందో లేదా తగ్గిందో చెబుతుంది. Determinant సున్నా అయితే matrix ఒక దిశలో సమాచారాన్ని కోల్పోయింది; అప్పుడు దానికి inverse ఉండదు.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+a = np.array([[2.0, 0.0], [0.0, 3.0]])
+print(np.linalg.det(a))  # 6.0
+b = np.array([[1.0, 2.0], [2.0, 4.0]])
+print(np.linalg.det(b))  # 0.0; inverse లేదు</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఏ matrix కి అయినా determinant ఉంటుందని అనుకోవడం; ఇది square matrix కి మాత్రమే వర్తిస్తుంది.</div></div><div class="explain-pane" id="gpt-p8-t7-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక మాట్రిక్స్ డేటాను ఎంత మేర స్కేల్ (సాగదీయడం లేదా కుదించడం) చేస్తుందో చెప్పడానికి, మరియు ఆ మాట్రిక్స్‌కు ఇన్వర్స్ సాధ్యమేనా కాదా అని నిర్ధారించడానికి డిటర్మినెంట్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1193,9 +1221,13 @@ B = np.array([[2, 4],
 det_B = np.linalg.det(B)
 print(f"Determinant of B: {det_B:.2f}")  # 0.00 -&gt; Cannot be inverted!</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డిటర్మినెంట్ కేవలం చతురస్ర (Square NxN) మాట్రిక్స్‌లకు మాత్రమే ఉంటుందని గమనించకుండా రెక్టాంగ్యులర్ మాట్రిక్స్‌పై det() కాల్ చేయడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>8. Eigenvalues and eigenvectors.<small>ఐగెన్‌వ్యాల్యూస్ మరియు ఐగెన్‌వెక్టర్స్ ప్రాముఖ్యత</small></summary><div class="body">
+<details class="t" id="gpt-p8-t8"><summary>8. Eigenvalues and eigenvectors.<small>ఐగెన్‌వ్యాల్యూస్ మరియు ఐగెన్‌వెక్టర్స్ ప్రాముఖ్యత</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t8-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t8-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t8-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Matrix ఏ దిశలో data ని పెంచుతుంది, తగ్గిస్తుంది అనే విషయాన్ని తెలుసుకోవడానికి eigenvalues, eigenvectors ఉపయోగపడతాయి. PCA వంటి పద్ధతులు వీటిని ఉపయోగిస్తాయి.</p><h4>సరళమైన వివరణ</h4><p>ఒక matrix ని vector తో గుణిస్తే సాధారణంగా దాని దిశ మారుతుంది. కొన్ని ప్రత్యేక vectors మాత్రం అదే దిశలో ఉంటాయి; వాటిని <b>eigenvectors</b> అంటారు. ఆ vector పొడవు ఎంత రెట్లు మారిందో తెలిపే సంఖ్య <b>eigenvalue</b>. దీనిని <code>A v = λ v</code> అని రాస్తారు.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+a = np.array([[2.0, 0.0], [0.0, 3.0]])
+values, vectors = np.linalg.eig(a)
+print(values)  # 2, 3
+print(vectors) # eigenvectors</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Eigenvector ఏ vector అయినా అవుతుందని అనుకోవడం; matrix తో గుణించినా దిశ మారకూడదు.</div></div><div class="explain-pane" id="gpt-p8-t8-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లక్షలాది డైమెన్షన్స్ ఉన్న డేటాసెట్లలో అత్యంత ముఖ్యమైన దిశలను (Principal Components) గుర్తించడానికి, డేటా కంప్రెషన్ మరియు డైమెన్షనాలిటీ రిడక్షన్ (PCA (Principal Component Analysis)) చేయడానికి ఇవి అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1220,9 +1252,15 @@ lambda0 = eigenvalues[0]
 print("A @ v0:        ", A @ v0)
 print("lambda0 * v0:  ", lambda0 * v0)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఐగెన్‌వెక్టర్ కేవలం డైరెక్షన్ మాత్రమేనని, దాని మాగ్నిట్యూడ్ ముఖ్యం కాదని మర్చిపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>9. Vector norms and normalization.<small>వెక్టర్ నార్మ్స్ (L1, L2) మరియు నార్మలైజేషన్</small></summary><div class="body">
+<details class="t" id="gpt-p8-t9"><summary>9. Vector norms and normalization.<small>వెక్టర్ నార్మ్స్ (L1, L2) మరియు నార్మలైజేషన్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t9-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t9-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t9-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Vector ఎంత పొడవు ఉందో norm చెబుతుంది. Vectors ని పోల్చే ముందు ఒకే పొడవుకు మార్చాల్సినప్పుడు normalization ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Norm</b> అనేది vector పొడవు. L2 norm కోసం ప్రతి సంఖ్యను square చేసి కలిపి, దాని square root తీసుకుంటాం. <b>Normalization</b> లో ప్రతి సంఖ్యను norm తో భాగిస్తాం; అప్పుడు కొత్త vector పొడవు 1 అవుతుంది. Zero vector ని ఇలా మార్చలేం, ఎందుకంటే దాని norm సున్నా.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+v = np.array([3.0, 4.0])
+length = np.linalg.norm(v)
+unit_v = v / length
+print(length)  # 5.0
+print(unit_v)  # [0.6, 0.8]
+print(np.linalg.norm(unit_v))  # 1.0</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Zero vector ని norm తో భాగించడం; భాగించే ముందు norm సున్నా కాదో తనిఖీ చేయాలి.</div></div><div class="explain-pane" id="gpt-p8-t9-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వెక్టర్ పొడవును లెక్కించడానికి మరియు వేర్వేరు స్కేల్స్‌లో ఉన్న ఫీచర్లు లేదా ఎంబెడ్డింగ్స్ సమాన ప్రాధాన్యత కలిగి ఉండేలా స్కేల్ చేయడానికి నార్మలైజేషన్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1246,9 +1284,9 @@ v_normalized = v / l2_norm
 print("Normalized Vector:", v_normalized)
 print("Normalized Length:", np.linalg.norm(v_normalized))  # 1.0</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ నార్మలైజ్ చేయకుండా యూక్లిడియన్ డిస్టెన్స్ లెక్కిస్తే, పెద్ద డాక్యుమెంట్లు అనవసరంగా ఎక్కువ దూరం ఉన్నట్లు చూపించడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Cosine similarity.<small>కొసైన్ సిమిలారిటీ గణన మరియు ప్రయోజనాలు</small></summary><div class="body">
+<details class="t" id="gpt-p8-t10"><summary>10. Cosine similarity.<small>కొసైన్ సిమిలారిటీ గణన మరియు ప్రయోజనాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t10-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t10-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t10-gpt" role="tabpanel"><h4>ఇంకా చదవండి</h4><p>Cosine similarity గురించి పూర్తివివరణ Phase 2 లో ఇప్పటికే ఉంది. అదే విషయాన్ని మళ్లీ వివరించకుండా <a href="telugu-phase-2.html#cosine-similarity">Phase 2: Dot product and cosine similarity</a> topic చూడండి.</p><p>ఈ కొలతను text embeddings లేదా image embeddings మధ్య దగ్గరితనం లెక్కించడానికి ఉపయోగించవచ్చు.</p></div><div class="explain-pane" id="gpt-p8-t10-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వెక్టర్ సైజు లేదా టెక్స్ట్ పొడవుతో సంబంధం లేకుండా, రెండు కాన్సెప్ట్‌ల మధ్య అర్థవంతమైన సారూప్యతను (Semantic Similarity) కొలవడానికి RAG మరియు వెక్టర్ సెర్చ్ లో కొసైన్ సిమిలారిటీ ప్రధాన కొలమానం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1269,9 +1307,9 @@ vec_long  = np.array([0.4, 1.6, 1.0])  # Exactly double magnitude, same directio
 sim = cosine_similarity(vec_short, vec_long)
 print(f"Cosine Similarity: {sim:.4f}")  # Exactly 1.0000</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కొసైన్ సిమిలారిటీ మరియు యూక్లిడియన్ డిస్టెన్స్‌లను తారుమారు చేయడం; కొసైన్ కోణాన్ని చూస్తుంది, దూరాన్ని కాదు.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>11. Matrix multiplication in neural networks.<small>న్యూరల్ నెట్‌వర్క్‌లలో మాట్రిక్స్ మల్టిప్లికేషన్ పాత్ర</small></summary><div class="body">
+<details class="t" id="gpt-p8-t11"><summary>11. Matrix multiplication in neural networks.<small>న్యూరల్ నెట్‌వర్క్‌లలో మాట్రిక్స్ మల్టిప్లికేషన్ పాత్ర</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t11-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t11-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t11-gpt" role="tabpanel"><h4>ఇంకా చదవండి</h4><p>Matrix multiplication ఎలా పని చేస్తుందో Topic 3 లో వివరించాను. అదే లెక్కను మళ్లీ రాయకుండా <a href="#gpt-p8-t3">Matrix addition and multiplication</a> వివరణ చూడండి.</p><p>Neural network లో ఈ గుణకారం input ని కొత్త representation గా మారుస్తుంది. సాధారణంగా దాని తర్వాత bias కలిపి activation function కి పంపుతారు.</p></div><div class="explain-pane" id="gpt-p8-t11-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక డీప్ లెర్నింగ్ మోడల్ ఫార్వర్డ్ పాస్ అంటే ప్రాథమికంగా ఇన్‌పుట్ ఫీచర్స్ మరియు వెయిట్ మాట్రిక్స్ ల వరుస మాట్రిక్స్ గుణకారాల సమాహారమే ($Y = \sigma(XW + b)$).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1303,9 +1341,12 @@ print("Layer Output Shape:", Y.shape)  # (4, 2)
 print("Layer Output:
 ", Y)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఇన్‌పుట్ ఫీచర్ల సంఖ్య మరియు వెయిట్ మాట్రిక్స్ రోస్ సంఖ్య మిస్‌మ్యాచ్ అయినప్పుడు Matrix multiplication dimension mismatch రావడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>12. Linear transformations.<small>లీనియర్ ట్రాన్స్‌ఫార్మేషన్స్ (రేఖీయ రూపాంతరాలు)</small></summary><div class="body">
+<details class="t" id="gpt-p8-t12"><summary>12. Linear transformations.<small>లీనియర్ ట్రాన్స్‌ఫార్మేషన్స్ (రేఖీయ రూపాంతరాలు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t12-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t12-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t12-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Vector ని మరో రూపంలోకి మార్చే గణిత పద్ధతి linear transformation. Neural network లోని linear layer ఈ పద్ధతిని ఉపయోగిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ఒక matrix ని vector తో గుణిస్తే కొత్త vector వస్తుంది. Matrix లోని సంఖ్యలు ఏ దిశను ఎంత మార్చాలో నిర్ణయిస్తాయి. ఈ మార్పు vector ల కూడికను, సంఖ్యతో గుణించడాన్ని అలాగే ఉంచుతుంది. Matrix multiplication నియమం కోసం <a href="#gpt-p8-t3">Topic 3</a> చూడండి.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+weights = np.array([[1, 0], [0, 2]])
+x = np.array([3, 4])
+print(weights @ x)  # [3, 8]</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Bias ని కూడా matrix తో గుణిస్తారని అనుకోవడం; సాధారణంగా matrix ఫలితానికి bias ని విడిగా కలుపుతారు.</div></div><div class="explain-pane" id="gpt-p8-t12-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాను ఒక డైమెన్షనల్ స్పేస్ నుండి మరొక స్పేస్‌కు (ఉదా: 768 డైమెన్షన్స్ నుండి 128 డైమెన్షన్స్‌కు) ప్రొజెక్ట్ చేయడానికి మరియు అర్థవంతమైన ప్యాటర్న్స్ వెలికితీయడానికి లీనియర్ ట్రాన్స్‌ఫార్మేషన్స్ ఉపకరిస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1328,9 +1369,15 @@ v_rotated = R @ v
 print("Original Vector:", v)
 print("Rotated Vector (0, 1):", np.round(v_rotated, 2))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> లీనియర్ ట్రాన్స్‌ఫార్మేషన్స్ కేవలం లీనియర్ సంబంధాలను మాత్రమే చూపగలవని గుర్తించకపోవడం; అందుకే నాన్-లీనియారిటీ కోసం అదనంగా యాక్టివేషన్ ఫంక్షన్స్ వాడాలి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>13. Practical NumPy implementation.<small>ప్రాక్టికల్ NumPy ఇంప్లిమెంటేషన్ మరియు బ్రాడ్‌కాస్టింగ్</small></summary><div class="body">
+<details class="t" id="gpt-p8-t13"><summary>13. Practical NumPy implementation.<small>ప్రాక్టికల్ NumPy ఇంప్లిమెంటేషన్ మరియు బ్రాడ్‌కాస్టింగ్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t13-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t13-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t13-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>NumPy తో matrix operations చేసి చూస్తే, AI model లో జరిగే ప్రాథమిక లెక్కలు అర్థమవుతాయి. చిన్న ఉదాహరణలతో shape తప్పులనూ సులభంగా గుర్తించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>NumPy లో సంఖ్యలను array గా ఉంచి, <code>@</code> తో matrix multiplication చేస్తాం. ప్రతి దశలో <code>shape</code> చూసి, ఫలితం ఊహించిన కొలతలో ఉందో తనిఖీ చేయాలి.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+x = np.array([1.0, 2.0])
+w = np.array([[2.0, 0.0], [0.0, 3.0]])
+y = w @ x
+print(y)       # [2.0, 6.0]
+print(y.shape) # (2,)
+print(np.linalg.norm(y))</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Python list, NumPy array లెక్కలు ఒకేలా ఉంటాయని అనుకోవడం; NumPy లో shape, broadcasting నియమాలు వర్తిస్తాయి.</div></div><div class="explain-pane" id="gpt-p8-t13-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పైథాన్‌లో సాధారరణ లూప్‌ల కంటే NumPy C-ఆప్టిమైజ్డ్ వెక్టోరైజ్డ్ ఆపరేషన్స్ 50x నుండి 100x వేగవంతమైనవి. AI డేటా పైప్‌లైన్లకు ఇది ప్రాథమిక ఇంజిన్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1352,9 +1399,13 @@ print("Broadcasting Addition:
 ", result)
 # [[11, 22], [31, 42], [51, 62]]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> NumPy అరేలపై అవసరం లేకపోయినా పైథాన్ ఫర్ লూప్స్ రాసి ప్రాసెసింగ్ వేగాన్ని దారుణంగా తగ్గించడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>14. Mathematical foundations of embeddings.<small>ఎంబెడ్డింగ్స్ యొక్క గణిత మూలాలు</small></summary><div class="body">
+<details class="t" id="gpt-p8-t14"><summary>14. Mathematical foundations of embeddings.<small>ఎంబెడ్డింగ్స్ యొక్క గణిత మూలాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="Select explanation"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p8-t14-gpt">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gpt-p8-t14-gemini">Gemini</button></div><div class="explain-pane" id="gpt-p8-t14-gpt" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Embedding అనేది ఒక వస్తువు లేదా పదాన్ని సంఖ్యల vector గా చూపించే పద్ధతి. ఆ vectors ని లెక్కలతో పోల్చడం వల్ల search, recommendation వంటి పనులు చేయవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Vector లోని ప్రతి స్థానం ఒక ప్రత్యేక కొలతను సూచిస్తుంది. ఆ కొలతలకు మనుషులు ముందుగానే పేర్లు పెట్టాల్సిన అవసరం లేదు; model training లో ఉపయోగకరమైన సంఖ్యలను నేర్చుకుంటుంది. ఒకే విషయానికి దగ్గరైన data, ఉపయోగకరమైన embedding model లో vectors గా దగ్గరగా రావచ్చు. Token embedding layer ఎలా పనిచేస్తుందో <a href="telugu-phase-3.html#token-embedding-layer">Phase 3: Token embedding layer</a> లో చూడండి.</p><h4>ఉదాహరణ</h4><pre>import numpy as np
+# రెండు వస్తువుల చిన్న embeddings
+book = np.array([0.8, 0.2, 0.1])
+novel = np.array([0.7, 0.3, 0.1])
+print(np.dot(book, novel))  # vectors పోలికకు ఒక భాగం</pre><p>ఇది చిన్న గణిత ఉదాహరణ మాత్రమే. నిజమైన embedding ని ఒక trained model సృష్టిస్తుంది; vector లోని ఒక్కో సంఖ్యకి మనకు అర్థమయ్యే పదం ఉండాల్సిన అవసరం లేదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Vector లోని ప్రతి సంఖ్య ఒక స్పష్టమైన లక్షణాన్ని సూచిస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="gpt-p8-t14-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>పదాలు, డాక్యుమెంట్లు లేదా ఉత్పత్తుల వంటి అరూప (Categorical) విషయాలను నిరంతర సంఖ్యాత్మక వెక్టర్ స్పేస్ (Vector Space) లో అమర్చడానికి ఎంబెడ్డింగ్స్ గణితం అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1375,7 +1426,7 @@ calculated_queen = king - man + woman
 sim = np.dot(calculated_queen, queen) / (np.linalg.norm(calculated_queen) * np.linalg.norm(queen))
 print(f"Similarity of (King - Man + Woman) to Queen: {sim:.4f}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎంబెడ్డింగ్స్ కేవలం యాదృచ్ఛిక సంఖ్యలు అనుకోవడం; అవి సెమాంటిక్ సంబంధాలను సూచించే కచ్చితమైన కోఆర్డినేట్స్.</div>
-</div></details>
+</div></div></details>
 
 <details class="t"><summary>15. Exercise: Implement vector similarity, matrix operations and cosine similarity using NumPy.<small>NumPy ఉపయోగించి వెక్టర్ సిమిలారిటీ, మాట్రిక్స్ ఆపరేషన్స్ మరియు కొసైన్ సిమిలారిటీ ఇంప్లిమెంటేషన్ ప్రాక్టీస్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -16926,6 +16977,13 @@ generation_generation.end(output=response_text, usage={"total_tokens": 850})</pr
       emptyMsg.classList.add('hide');
     }
   }
+
+  document.querySelectorAll('.explain-tabs').forEach(function(group) {
+    var buttons = [].slice.call(group.querySelectorAll('.explain-tab'));
+    buttons.forEach(function(button) { button.addEventListener('click', function() {
+      buttons.forEach(function(item) { var selected = item === button; item.setAttribute('aria-selected', selected ? 'true' : 'false'); var pane = document.getElementById(item.getAttribute('data-pane')); if (pane) pane.hidden = !selected; });
+    }); });
+  });
 
   var tabBtns = [].slice.call(document.querySelectorAll('.tab-btn'));
   tabBtns.forEach(function(btn) {

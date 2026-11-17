@@ -41,6 +41,11 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;backgroun
 .tab-badge { background: var(--soft); color: var(--accent); padding: 1px 7px; border-radius: 12px; font-size: 12px; font-weight: 700; }
 .tab-btn.active .tab-badge { background: rgba(255,255,255,0.25); color: #fff; }
 .tab-btn[data-tab="archive"].active { background: #475569; color: #fff; border-color: #475569; }
+.explain-tabs { display:flex; gap:8px; margin: 4px 0 14px; border-bottom:1px solid var(--line); }
+.explain-tab { border:1px solid var(--line); border-bottom:0; border-radius:8px 8px 0 0; background:var(--soft); color:var(--text); padding:7px 14px; cursor:pointer; font:inherit; }
+.explain-tab[aria-selected="true"] { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; }
+.explain-pane[hidden] { display:none; }
+
 
 .progress-container { width: 100%; margin-top: 6px; }
 .progress-wrap { width: 100%; background: var(--line); border-radius: 8px; height: 8px; overflow: hidden; }
@@ -1019,7 +1024,13 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. What is an LLM?<small>LLM (Large Language Model) అంటే ఏమిటి</small></summary><div class="body">
+    <details class="t"><summary>1. What is an LLM?<small>LLM (Large Language Model) అంటే ఏమిటి</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-1-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-1" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>మనిషి అడిగిన ప్రశ్నకు సమాధానం ఇవ్వడం, text ను సారాంశం చేయడం, code రాయడం వంటి పనులకు LLM ఉపయోగపడుతుంది. Chatbot, document assistant, coding helper వంటి feature లలో ఇది ప్రధాన భాగంగా ఉంటుంది.</p><h4>సరళమైన వివరణ</h4><p><b>LLM</b> అంటే చాలా text ఉదాహరణలపై training పొందిన language model. ఇది పదాలు లేదా tokens మధ్య ఉన్న నమూనాలను నేర్చుకుని, ఇచ్చిన context కి సరిపోయే తర్వాతి token ను అంచనా వేస్తుంది. అందుకే ప్రశ్నలకు సమాధానం చెప్పగలదు, text కొనసాగించగలదు.</p><p>దీనిని database లా భావించకూడదు. Database లో నిల్వచేసిన ఖచ్చితమైన row ను query చేస్తాం; LLM మాత్రం నేర్చుకున్న నమూనాల ఆధారంగా సమాధానాన్ని తయారుచేస్తుంది. తాజా ధరలు లేదా order status లాంటి live data కావాలంటే API లేదా database tool అవసరం.</p><h4>ఉదాహరణ</h4><pre>question = "What is a database index?"
+answer = llm.generate(question)
+print(answer)  # model తయారుచేసిన సమాధానం
+
+# తాజా order status కావాలంటే:
+# order = database.find(order_id)
+# ఆ నిజమైన వివరాన్ని model కి ఇచ్చి సమాధానం తయారుచేయించాలి</pre><div class="mistake"><b>సాధారణ తప్పు:</b> LLM చెప్పిన ప్రతి సమాధానం నిజమని అనుకోవడం; అది నమ్మదగినట్టు వినిపించే తప్పు వివరాలను కూడా తయారుచేయవచ్చు.</div></div><div class="explain-pane" id="p3-gpt-1-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇకపై మీరు వాడే ప్రతి AI feature (chatbot, RAG, agents) వెనుక ఉండేది LLM. అది లోపల ఏం చేస్తుందో తెలిస్తేనే cost, latency, తప్పు answers (hallucination) ఎందుకు వస్తాయో అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1027,10 +1038,15 @@ pre { position: relative; padding-top: 36px; }
 <h4>ఉదాహరణ</h4>
 <p>"హైదరాబాద్ ఒక ..." అని ఇస్తే model "నగరం" అనే token కి ఎక్కువ probability ఇస్తుంది. ఈ ప్రక్రియను పదే పదే చేసి పూర్తి వాక్యాలు, వ్యాసాలు తయారవుతాయి.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> LLM ని search engine లేదా database లా నమ్మడం. అది అంచనా వేసే యంత్రం, కాబట్టి confident గా తప్పు చెప్పగలదు.</div>
-</div></details>
+</div></div></details>
 
 
-<details class="t"><summary>2. Language modeling and next-token prediction<small>భాషా నమూనా మరియు తర్వాతి token అంచనా</small></summary><div class="body">
+<details class="t"><summary>2. Language modeling and next-token prediction<small>భాషా నమూనా మరియు తర్వాతి token అంచనా</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-2-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-2" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Text generation లో model ఎలా ఒక వాక్యాన్ని తయారుచేస్తుందో ఈ భావన వివరిస్తుంది. Prompt నుంచి సమాధానం ఎలా పెరుగుతుందో అర్థం చేసుకోవడానికి ఇది పునాది.</p><h4>సరళమైన వివరణ</h4><p>Language model కి ముందు ఉన్న text ఇస్తే, తర్వాత ఏ token రావచ్చో సంభావ్యత లెక్కిస్తుంది. ఉదాహరణకు, <code>"The server returned an"</code> తర్వాత <code>"error"</code> రావచ్చు. ఒక token ఎంచుకున్నాక దాన్ని text కి జోడించి, తర్వాతి token కోసం మళ్లీ లెక్కిస్తుంది.</p><p>ఇలా ఒక్కో token ను వరుసగా అంచనా వేయడాన్ని <b>next-token prediction</b> అంటారు. Training లో model కు వాక్యంలోని అసలు తదుపరి token చూపించి, తన అంచనాను దానితో పోల్చి తప్పును తగ్గించడం నేర్పుతారు.</p><h4>ఉదాహరణ</h4><pre>context = "The server returned an"
+next_token = model.predict_next(context)
+print(next_token)  # ఉదాహరణకు: "error"
+
+context = context + " " + next_token
+# ఇప్పుడు కొత్త context తో తర్వాతి token ను అంచనా వేస్తుంది</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకేసారి పూర్తి సమాధానం తయారవుతుందని అనుకోవడం; సాధారణంగా model token తర్వాత token గా text ను నిర్మిస్తుంది.</div></div><div class="explain-pane" id="p3-gpt-2-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ఏ పనైనా (translate, summarize, code) చేయగలిగేది ఈ ఒక్క training objective వల్లే. ఇది తెలిస్తే prompt ఎందుకు ఆ విధంగా రాయాలో అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1041,9 +1057,14 @@ pre { position: relative; padding-top: 36px; }
 pred = {"blue": 0.6, "red": 0.1, "big": 0.3}   # model ఇచ్చిన probabilities
 loss = -math.log(pred["blue"])                  # సరైన token కి ఎంత ఎక్కువ prob ఇస్తే loss అంత తక్కువ
 print(round(loss, 3))                           # 0.511</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>3. Autoregressive vs masked language models<small>Autoregressive మరియు masked language models</small></summary><div class="body">
+<p><b>Masked language model</b> వాక్యంలో దాచిన token ను దాని ముందు, తర్వాత ఉన్న context ఆధారంగా గుర్తిస్తుంది. BERT ఈ పద్ధతిలో training పొందుతుంది; text అర్థం చేసుకోవడం, classification వంటి పనులకు ఇది ఉపయోగపడుతుంది. అందువల్ల text సృష్టించడానికీ, ఇప్పటికే ఉన్న text ను అర్థం చేసుకోవడానికీ వేర్వేరు training పద్ధతులు ఉండవచ్చు.</p>
+"The customer needs a"  -&gt;  "refund"
+
+# Masked: మధ్య token దాచబడింది; రెండు వైపుల పదాలను ఉపయోగించు
+"The customer needs a [MASK] today"
+# సాధ్యమైన token: "refund"</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Masked model కూడా తప్పనిసరిగా GPT లాగా ఎడమ నుంచి కుడికి పూర్తి సమాధానం రాస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p3-gpt-3-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ChatGPT-తరహా models (generate చేసేవి) మరియు BERT-తరహా models (embeddings, classification కి వాడేవి) వేర్వేరు రకాలు. ఏ పనికి ఏది వాడాలో తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1051,18 +1072,28 @@ print(round(loss, 3))                           # 0.511</pre>
 <h4>ఉదాహరణ</h4>
 <pre>Autoregressive:  "నేను రేపు" -&gt; ?   (తర్వాతి word మాత్రమే అంచనా)
 Masked (BERT):   "నేను [MASK] ఆఫీస్ కి వెళ్తాను" -&gt; "రేపు"  (రెండు వైపులా చూస్తుంది)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>4. Foundation models vs task-specific models<small>Foundation models మరియు task-specific models</small></summary><div class="body">
+<details class="t"><summary>4. Foundation models vs task-specific models<small>Foundation models మరియు task-specific models</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-4">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-4-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-4" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే model ను అనేక రకాల పనులకు వాడాలా, లేక ఒకే పనికి ప్రత్యేక model తయారుచేయాలా అనేది architecture, ఖర్చు, నిర్వహణపై ప్రభావం చూపుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Foundation model</b> అనేది విస్తృత data పై ముందుగా training పొందిన పెద్ద model. దాన్ని prompt, fine-tuning లేదా tools ద్వారా అనేక పనులకు సరిపడేలా వాడవచ్చు. <b>Task-specific model</b> ఒక పరిమిత పనికి — ఉదాహరణకు invoice fields గుర్తించడం లేదా spam గుర్తించడం — ప్రత్యేకంగా తయారవుతుంది.</p><p>Foundation model ఎక్కువ పనులు చేయగలదు, కానీ ఖర్చు లేదా latency ఎక్కువ కావచ్చు. చిన్న task-specific model వేగంగా, తక్కువ ఖర్చుతో పని చేయొచ్చు; అయితే తన పరిధి బయట ప్రశ్నలకు సరిపోదు. Laravel లో generic service class తో పోలిస్తే foundation model, ఒక ప్రత్యేక action class తో task-specific model పోల్చవచ్చు.</p><h4>ఉదాహరణ</h4><pre># One general model for multiple tasks
+answer = foundation_model.generate("Summarize this invoice")
+
+# A specialized model predicts one label
+label = invoice_classifier.predict(invoice_text)
+print(label)  # paid or unpaid</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Foundation model అన్నీ పనుల్లో ఎప్పుడూ ఉత్తమమని అనుకోవడం; task-specific చిన్న model సరైన పనికి మెరుగ్గా ఉండొచ్చు.</div></div><div class="explain-pane" id="p3-gpt-4-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రతి పనికి కొత్త model train చేయడం ఖరీదు. Foundation model ఒకసారి train చేసి చాలా పనులకు వాడటం ఇప్పటి ధోరణి, ఇది మీ architecture నిర్ణయాలను ప్రభావితం చేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>Foundation model</b> అంటే భారీ, సాధారణ డేటా మీద train అయిన base model, దీన్ని prompt ద్వారా లేదా కొద్దిగా fine-tune చేసి అనేక పనులకు వాడతారు. <b>Task-specific model</b> ఒక్క పనికే (ఉదా. spam detection, sentiment) train చేసిన చిన్న model. ఇది ఆ పనిలో చాలా వేగంగా, చౌకగా ఉండవచ్చు కానీ వేరే పని చేయలేదు. Laravel లో generic framework (foundation) మరియు ఒక్క పనికి రాసిన custom script (task-specific) లాంటి తేడా.</p>
 <h4>ఉదాహరణ</h4>
 <p>మీ app కి "support email ని spam/not spam గా వర్గీకరించాలి" అనుకోండి. చిన్న task-specific classifier రోజుకు లక్షల emails ని పైసల్లో చేస్తుంది. కానీ "email ని సారాంశం రాసి, reply draft చేయి" కి foundation LLM కావాలి. రెండూ కలిపి వాడటం సాధారణం.</p>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>5. Parameters, weights and biases<small>Parameters, weights, biases (model లోని సంఖ్యలు)</small></summary><div class="body">
+<details class="t"><summary>5. Parameters, weights and biases<small>Parameters, weights, biases (model లోని సంఖ్యలు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-5">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-5-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-5" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model తన training సమయంలో ఏమి నేర్చుకుందో parameters లో ఉంటుంది. Parameters భావన తెలియకపోతే model size, training, fine-tuning గురించి మాట్లాడటం కష్టమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Parameters</b> అనేవి model training లో మారే సంఖ్యలు. <b>Weights</b> input లోని సమాచారానికి ఎంత ప్రభావం ఇవ్వాలో సూచిస్తాయి; <b>bias</b> అదనపు స్థిర విలువను జత చేస్తుంది. Training లో model తన అంచనా తప్పును చూసి ఈ సంఖ్యలను కొద్దికొద్దిగా సరిచేస్తుంది.</p><p>సరళమైన లెక్కగా <code>y = w*x + b</code> తీసుకోండి. ఇక్కడ <code>w</code>, <code>b</code> నేర్చుకునే parameters. నిజమైన Transformer లో ఈ లెక్కలు చాలా పెద్ద matrices పై జరుగుతాయి. Parameters సంఖ్య ఎక్కువగా ఉండటం ఒక్కటే model నాణ్యతకు హామీ కాదు.</p><h4>ఉదాహరణ</h4><pre># సులభమైన linear model
+weight = 2.0
+bias = 1.0
+x = 3.0
+prediction = weight * x + bias
+print(prediction)  # 7.0</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Weights, bias అన్నీ మనం ప్రతి input కి చేతితో పెట్టే settings అనుకోవడం; training వాటి విలువలను నేర్చుకుంటుంది.</div></div><div class="explain-pane" id="p3-gpt-5-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"7B model", "70B model" అంటే ఏమిటో, అది ఎంత memory తింటుందో లెక్కించడానికి parameters భావన కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1074,9 +1105,14 @@ b = np.zeros(3)             # bias: 3 సంఖ్యలు
 x = np.ones(4)
 y = x @ W + b               # ఒక linear layer
 print(W.size + b.size)      # 15 parameters</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>6. Training vs inference<small>Training (నేర్చుకోవడం) మరియు inference (వాడటం)</small></summary><div class="body">
+<details class="t"><summary>6. Training vs inference<small>Training (నేర్చుకోవడం) మరియు inference (వాడటం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-6">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-6-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-6" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model ను నిర్మించే దశకు, app లో దాన్ని ఉపయోగించే దశకు ఖర్చు మరియు అవసరాలు వేరు. GPU అవసరం, latency, deployment నిర్ణయాలకు ఈ తేడా ముఖ్యం.</p><h4>సరళమైన వివరణ</h4><p><b>Training</b> లో చాలా ఉదాహరణలు చూపించి model parameters ను సరిచేస్తారు. ఇది ఎక్కువ compute, సమయం, data తీసుకోవచ్చు. <b>Inference</b> లో శిక్షణ పూర్తయిన model కు కొత్త input ఇచ్చి output తీసుకుంటాం; సాధారణ user request ఇదే.</p><p>ఉదాహరణకు, support messages ను ఎన్నోసార్లు చూపించి refund/billing labels నేర్పడం training. App లో కొత్త message వచ్చినప్పుడు దానికి label ఇవ్వడం inference. Laravel app లో training అనేది model తయారీ pipeline; inference అనేది API లేదా service ను పిలిచి prediction పొందడం.</p><h4>ఉదాహరణ</h4><pre># Training దశ: examples తో parameters నేర్చుకోవడం
+model.fit(training_texts, training_labels)
+
+# Inference దశ: కొత్త input పై ఫలితం పొందడం
+label = model.predict(["I need a refund"])
+print(label)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Production API request లో ప్రతి సారి training నడపడం; సాధారణంగా model ముందే train అయి ఉంటుంది.</div></div><div class="explain-pane" id="p3-gpt-6-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీరు (backend dev గా) ఎక్కువగా inference చేస్తారు, training కాదు. రెండింటి ఖర్చు, hardware అవసరాలు పూర్తిగా వేరు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1086,9 +1122,13 @@ print(W.size + b.size)      # 15 parameters</pre>
 import torch
 with torch.no_grad():
     out = model(input_ids)   # illustrative: model, input_ids ముందే ఉన్నాయని అనుకోండి</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>7. Model checkpoints and model architectures<small>Model checkpoints మరియు architectures</small></summary><div class="body">
+<details class="t"><summary>7. Model checkpoints and model architectures<small>Model checkpoints మరియు architectures</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-7">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-7-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-7" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model లోని నేర్చుకున్న విలువలను భద్రపరచడం, వాటిని అమలు చేసే నిర్మాణాన్ని వేరు చేసి అర్థం చేసుకోవాలి. Model ను load చేయడం, version మార్చడం, deploy చేయడం వీటిపై ఆధారపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Architecture</b> అనేది model లో ఎన్ని layers, వాటి మధ్య ఏ లెక్కలు జరుగుతాయి అనే blueprint. <b>Checkpoint</b> అనేది training సమయంలో లేదా చివరలో సేవ్ చేసిన parameters. ఒకే architecture కి వేర్వేరు checkpoints ఉండొచ్చు; వాటి training data లేదా training దశ వేరు కావచ్చు.</p><p>ఇల్లు కట్టే blueprint architecture అయితే, ఆ blueprint ప్రకారం కట్టిన ఇంటి ప్రస్తుత స్థితి checkpoint లాంటిది. Checkpoint ను load చేయడానికి దానికి సరిపోయే architecture code కావాలి.</p><h4>ఉదాహరణ</h4><pre>config = load_model_config("model_config.json")  # architecture వివరాలు
+model = build_model(config)
+model.load_weights("checkpoint.bin")              # నేర్చుకున్న విలువలు
+
+result = model.generate("Explain an API")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Checkpoint file ఒక్కటే model ను నడపడానికి సరిపోతుందని అనుకోవడం; దానికి సరైన architecture, tokenizer, configuration కూడా అవసరం కావచ్చు.</div></div><div class="explain-pane" id="p3-gpt-7-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Hugging Face నుండి model డౌన్‌లోడ్ చేసినప్పుడు వచ్చే ఫైల్స్ ఏమిటో, "architecture" కీ "weights" కీ తేడా ఏమిటో తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1097,18 +1137,42 @@ with torch.no_grad():
 <pre>from transformers import AutoConfig   # illustrative: మొదటిసారి config డౌన్‌లోడ్ అవుతుంది (చిన్న ఫైల్)
 cfg = AutoConfig.from_pretrained("gpt2")
 print(cfg.n_layer, cfg.n_head, cfg.n_embd)   # 12 12 768 : ఇదే architecture వివరం</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>8. GPT, Claude, Gemini, Llama and Mistral model families<small>ప్రధాన model కుటుంబాలు</small></summary><div class="body">
+<details class="t"><summary>8. GPT, Claude, Gemini, Llama and Mistral model families<small>ప్రధాన model కుటుంబాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-8">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-8-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-8" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వేర్వేరు model families కి సామర్థ్యం, deployment మార్గం, ధర, privacy ఎంపికలు వేరుగా ఉంటాయి. Project కి సరైన model ను ఎంచుకోవడానికి ఈ కుటుంబాల భావన ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Model family</b> అంటే ఒక provider లేదా team విడుదల చేసే సంబంధిత models సమూహం. GPT, Claude, Gemini వంటి hosted services ను provider API ద్వారా పిలుస్తారు. Llama, Mistral కుటుంబాల్లో downloadable/open-weight ఎంపికలు ఉండవచ్చు; వాటిని మీ infrastructure లో నడపగలరు. ప్రతి family లో కూడా వేర్వేరు పరిమాణాలు, సామర్థ్యాలు ఉంటాయి.</p><p>ఎంపిక చేసేటప్పుడు task quality, latency, ఖర్చు, context length, data policy, tool/vision మద్దతు వంటి అవసరాలు పరీక్షించాలి. Model పేరు మాత్రమే చూసి ఒకటి అన్నింటికీ ఉత్తమమని నిర్ణయించకండి; మీ వాడుకకు సరిపోయే evaluation చేయాలి.</p><h4>ఉదాహరణ</h4><pre>candidates = ["provider_model_a", "provider_model_b", "self_hosted_model"]
+for model_name in candidates:
+    result = run_same_test_set(model_name, evaluation_cases)
+    print(model_name, result.accuracy, result.latency, result.cost)
+# అదే examples పై నాణ్యత, సమయం, ఖర్చు పోల్చండి</pre><div class="mistake"><b>సాధారణ తప్పు:</b> పేరు లేదా ప్రచార వివరాల ఆధారంగా model ఎంచుకోవడం; మీ task పై కొలిచిన ఫలితాలు ముఖ్యం.</div></div><div class="explain-pane" id="p3-gpt-8-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రాజెక్ట్ కి ఏ model వాడాలో ఎంచుకోవడానికి ఏ కుటుంబం ఎవరిది, hosted లేదా open-weight అనేది తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>GPT</b> (OpenAI), <b>Claude</b> (Anthropic), <b>Gemini</b> (Google) ప్రధానంగా hosted API ద్వారా దొరికే closed models: weights మీకు ఇవ్వరు, API call చేస్తారు. <b>Llama</b> (Meta), <b>Mistral</b> (Mistral AI) open-weight కుటుంబాలు: weights డౌన్‌లోడ్ చేసి మీ సొంత server లో నడపవచ్చు (license షరతులు చదవాలి). ఇది Laravel Forge/SaaS (hosted) వర్సెస్ self-hosted MySQL ఎంపికలా ఉంటుంది. ఈ కుటుంబాల్లో కొత్త versions, పేర్లు, context sizes, ధరలు తరచూ మారతాయి, కాబట్టి తాజా వివరాలకు ప్రతి provider docs లో check చేయండి.</p>
 <h4>ఉదాహరణ</h4>
 <p>Startup ప్రోటోటైప్: hosted API వాడండి (వేగంగా, సర్వర్ అవసరం లేదు). డేటా బయటకు వెళ్ళకూడదనే bank ప్రాజెక్ట్: open-weight model ని సొంత GPU server లో నడపండి.</p>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>9. Decoder-only transformer architecture<small>Decoder-only transformer నిర్మాణం</small></summary><div class="body">
+<details class="t" id="decoder-only-architecture"><summary>9. Decoder-only transformer architecture<small>Decoder-only transformer నిర్మాణం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-9">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-9-gemini">Gemini</button></div>
+<div class="explain-pane" id="p3-gpt-9" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Chat model ఒక సమాధానాన్ని ఎలా తయారుచేస్తుందో decoder-only Transformer నిర్మాణం వివరిస్తుంది. Attention, embedding, token prediction వంటి LLM భావనలు ఈ నిర్మాణంలో కలిసి పనిచేస్తాయి.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>Transformer అనేది ఒకే block ను చాలాసార్లు వరుసగా ఉపయోగించే నిర్మాణం. <b>Decoder-only</b> model లో decoder blocks మాత్రమే ఉంటాయి. ప్రతి block లో attention మరియు feedforward network ఉంటాయి; ఇవి tokens యొక్క సంఖ్యారూప సమాచారాన్ని క్రమంగా మార్చుతాయి.</p>
+<p><b>Causal self-attention</b> వల్ల ప్రతి స్థానం తనకు ముందు ఉన్న tokens ని మాత్రమే చూడగలదు. తర్వాతి token ని model ముందే చూడదు. అందువల్ల సమాధానం ఒక్కో token చొప్పున ఉత్పత్తి అవుతుంది. Block లో సాధారణంగా normalization, self-attention, residual add, normalization, feedforward network, మరో residual add ఉంటాయి. ఖచ్చితమైన క్రమం architecture ను బట్టి మారవచ్చు.</p>
+<p>చివరి block తర్వాత output projection vocabulary లోని ప్రతి token కి score ఇస్తుంది; ఆ scores ని <b>logits</b> అంటారు. Model ఒక token ఎంచుకుని input కి జోడిస్తుంది; తర్వాతి token అంచనా మళ్లీ మొదలవుతుంది. Token ని vector గా మార్చే దశను <a href="#my-embedding-explanation">Token embedding layer</a> లో చూడండి.</p>
+<h4>ఉదాహరణ</h4>
+<pre>tokens
+  → token embeddings + position information
+  → Transformer Block × N
+      → Normalization → Causal self-attention
+      → Residual add → Normalization
+      → Feedforward network → Residual add
+  → Output projection → vocabulary logits
+  → తర్వాతి token ఎంపిక</pre>
+<p>ఇది Laravel middleware pipeline లాగా, input ఒక్కో దశ దాటుతుంది; ప్రతి Transformer block token సమాచారాన్ని కొద్దిగా మెరుగుపరుస్తుంది. కానీ middleware, Transformer block ఒకే విధంగా పని చేయవు.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని Transformer models ఒకే రకం అనుకోవడం. Encoder-only, encoder-decoder, decoder-only నిర్మాణాలు వేర్వేరు.</div>
+</div>
+<div class="explain-pane" id="p3-gpt-9-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఇప్పటి దాదాపు అన్ని chat/generation LLMs ఈ నిర్మాణమే వాడతాయి. ఇది అర్థమైతే తర్వాతి 10 topics సులువవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1121,9 +1185,43 @@ print(cfg.n_layer, cfg.n_head, cfg.n_embd)   # 12 12 768 : ఇదే architectur
   -&gt; output projection (logits)
   -&gt; softmax -&gt; తర్వాతి token</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని transformers ఒకేలా అనుకోవడం. Encoder-only (BERT), encoder-decoder (T5) కూడా ఉన్నాయి; ఇప్పటి chat LLMs ఎక్కువగా decoder-only.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Token embedding layer<small>Token embedding layer (token → vector)</small></summary><div class="body">
+<details class="t" id="token-embedding-layer"><summary>10. Token embedding layer<small>Token embedding layer (token → vector)</small></summary><div class="body">
+<div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+  <button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="my-embedding-explanation">GPT</button>
+  <button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="original-embedding-explanation">Gemini</button>
+</div>
+<div class="explain-pane" id="my-embedding-explanation" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4>
+<p>Neural network కి పదాలు నేరుగా అర్థం కావు; దానికి సంఖ్యలు కావాలి. Token embedding layer ప్రతి token ID కి సంఖ్యల వరుసను ఇస్తుంది. Transformer ఆ సంఖ్యలను తర్వాతి layers లో ఉపయోగించి వాక్యాన్ని అర్థం చేసుకోవడం మొదలుపెడుతుంది.</p>
+<h4>సరళమైన వివరణ</h4>
+<p>ముందుగా tokenizer వాక్యాన్ని చిన్న భాగాలుగా విభజిస్తుంది. ఆ భాగాలను <b>tokens</b> అంటారు; ప్రతి token కి ఒక ID వస్తుంది. ఉదాహరణకు, <code>"cat sat"</code> అనేది <code>[12, 45]</code> అనే IDs గా మారవచ్చు. ఇది ఎలా జరుగుతుందో <a href="#tokenization-topic">Tokenization topic</a> లో చూడండి.</p>
+<p>Embedding layer ఒక పెద్ద lookup table లాంటిది. Vocabulary లో 50,000 tokens ఉంటే, table లో 50,000 rows ఉంటాయి. ప్రతి row లో ఉదాహరణకు 4,096 సంఖ్యలు ఉండొచ్చు. Token ID ని row number గా ఉపయోగించి ఆ row ని తీసుకుంటాం. PHP లో <code>$embedding[$tokenId]</code> అని array నుంచి value తీసుకున్నట్లే.</p>
+<p>ఈ సంఖ్యలకు మనుషులు ముందుగానే అర్థాలు ఇవ్వరు; model training లో వాటి విలువలను model నేర్చుకుంటుంది. ఒకే token ID వస్తే మొదట దానికి వచ్చే vector ఒకటే. తర్వాతి Transformer layers లో చుట్టూ ఉన్న tokens ఆధారంగా దాని సందర్భానికి తగిన అర్థం మారుతుంది. Position సమాచారం ఎలా చేరుతుందో <a href="#positional-embedding-topic">Positional embeddings and RoPE topic</a> లో చూడండి. తర్వాత ఈ vectors <a href="#decoder-only-architecture">Decoder-only Transformer blocks</a> లోకి వెళ్తాయి.</p>
+<h4>ఉదాహరణ</h4>
+<pre>import numpy as np
+
+# 5 tokens; ప్రతి token కి 3 సంఖ్యల vector
+embedding_table = np.array([
+    [0.1, 0.2, 0.3],  # token ID 0
+    [0.4, 0.5, 0.6],  # token ID 1
+    [0.7, 0.8, 0.9],  # token ID 2
+    [1.0, 1.1, 1.2],  # token ID 3
+    [1.3, 1.4, 1.5],  # token ID 4
+])
+
+token_ids = [2, 4, 2]
+vectors = embedding_table[token_ids]
+
+print(vectors)
+print(vectors.shape)  # (3, 3): 3 tokens, ఒక్కొక్కదానికి 3 సంఖ్యలు
+# ID 2 రెండుసార్లు వచ్చింది; lookup vector కూడా రెండుసార్లు ఒకటే.</pre>
+<p>ఇది అర్థం చేసుకోవడానికి చేసిన చిన్న ఉదాహరణ. నిజమైన model లో vocabulary, vector size చాలా పెద్దవి. ఇక్కడి సంఖ్యలు చూపించడానికి మాత్రమే; నిజమైన embedding విలువలను model training లో నేర్చుకుంటుంది.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> Token ID నే token అర్థం అని అనుకోవడం. ID అనేది table లో సరైన row ని కనుగొనే సంఖ్య మాత్రమే; ఆ row లోని vector విలువలను model నేర్చుకుంటుంది.</div>
+</div>
+<div class="explain-pane" id="original-embedding-explanation" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>Neural networks సంఖ్యలతోనే పనిచేస్తాయి. Token ID (ఒక పూర్ణ సంఖ్య) ని అర్థవంతమైన vector గా మార్చే మొదటి దశ ఇదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1135,13 +1233,19 @@ E = np.random.randn(vocab_size, dim)   # embedding table: 10 tokens, ఒక్�
 ids = [3, 7, 3]
 vecs = E[ids]                          # row lookup
 print(vecs.shape)                      # (3, 4); ID 3 రెండుసార్లు: ఒకే vector</pre>
+</div>
 </div></details>
 
-<details class="t"><summary>11. Positional embeddings and RoPE (Rotary Position Embedding)<small>Position సమాచారం మరియు RoPE (Rotary Position Embedding)</small></summary><div class="body">
+<details class="t" id="p3-topic-11" id="positional-embedding-topic"><summary>11. Positional embeddings and RoPE (Rotary Position Embedding)<small>టోకెన్ల క్రమాన్ని Transformer కు తెలియజేసే పద్ధతులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-11">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-11-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-11" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పదాల అర్థం క్రమాన్ని బట్టి మారుతుంది. Position సమాచారం లేకపోతే model “కుక్క మనిషిని కరిచింది” అన్న వాక్యాన్నీ “మనిషి కుక్కను కరిచింది” అన్నట్టే చూడొచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Embedding layer ప్రతి token కి ఒక vector ఇస్తుంది. Position embedding ఆ token వాక్యంలో ఎక్కడ ఉందో తెలిపే సమాచారాన్ని కూడా జత చేస్తుంది. పాత పద్ధతిలో position vector ను token vector తో కలుపుతారు. <b>RoPE</b> లో attention లెక్కల్లో ఉపయోగించే query, key vectors ను position ఆధారంగా తిప్పుతారు. దీనివల్ల tokens క్రమం, వాటి మధ్య దూరం గురించి model కు సమాచారం అందుతుంది.</p><p>Position సమాచారం చేరే విధానం model architecture ను బట్టి మారుతుంది. RoPE ఉన్న model లో దాన్ని సాధారణ position vector లా embedding table కి జోడించరు.</p><h4>ఉదాహరణ</h4><pre>tokens = ["The", "cat", "sat"]
+positions = [0, 1, 2]
+
+# ప్రతి token కు దాని స్థానం కూడా model కు తెలియాలి
+for token, position in zip(tokens, positions):
+    print(token, "position", position)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> RoPE ను token embedding table లోని మరో row మాత్రమే అనుకోవడం; అది attention లెక్కల్లో position ను చేర్చే పద్ధతి.</div></div><div class="explain-pane" id="p3-gpt-11-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Attention స్వతహాగా tokens క్రమాన్ని పట్టించుకోదు. "కుక్క మనిషిని కరిచింది" మరియు "మనిషి కుక్కను కరిచాడు" వేరే అర్థాలు కాబట్టి క్రమ సమాచారం జోడించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p><b>Positional embedding</b> అంటే ప్రతి token స్థానం (0,1,2...) గురించిన సమాచారాన్ని vector కి కలపడం. పాత పద్ధతి: ప్రతి position కి ఒక learned vector ని జోడించడం. <b>RoPE (Rotary Position Embedding)</b> లో position ని query/key vectors ని position కు తగినంత కోణంలో <b>తిప్పడం (rotate)</b> ద్వారా చేరుస్తారు. ఫలితంగా attention score రెండు tokens మధ్య <i>దూరం</i> మీద ఆధారపడుతుంది. Llama, Mistral వంటి అనేక open models RoPE (Rotary Position Embedding) వాడతాయి. పుస్తకంలో పేజీ నంబర్ లేకపోతే పేజీలు కలిసిపోతాయి; అదే positional info పని.</p>
+<p><b>Positional information</b> ఇవ్వడానికి రెండు సాధారణ మార్గాలు ఉన్నాయి. Absolute positional embedding లో token embedding కి ఆ స్థానానికి చెందిన vector ను కలుపుతారు: <code>xₚ = token_embedding + position_embeddingₚ</code>. ఆ position vectors స్థిరమైన sine/cosine విలువలతో తయారవచ్చు లేదా training లో నేర్చుకోవచ్చు. <b>RoPE</b> లో input embedding కి position vector ను కలపరు. Attention లెక్కలోని ప్రతి query (Q), key (K) vector లోని రెండు సంఖ్యల జతలను token స్థానాన్ని బట్టి వేర్వేరు కోణాల్లో తిప్పుతారు; value (V) vector ను తిప్పరు.</p><p>ఈ rotation వల్ల query, key ల dot product వాటి absolute స్థానాలకన్నా వాటి relative offset (ఎన్ని tokens దూరంలో ఉన్నాయో) ను ప్రతిబింబిస్తుంది. సరళంగా చెప్పాలంటే, absolute embedding ప్రతి token పై చిరునామా రాసినట్టయితే, RoPE Q/K దిశలను స్థానానికి అనుగుణంగా తిప్పి వాటి మధ్య దూర సంబంధాన్ని attention score లో చూపిస్తుంది. Llama కుటుంబంలోని అనేక models RoPE వాడతాయి; ఖచ్చితమైన అమలు model configuration పై ఆధారపడుతుంది.</p><p><b>గణితంగా:</b> ప్రతి రెండు dimensions ఒక జతగా తిరుగుతాయి. <code>(x₁, x₂)</code> ను <code>θ</code> కోణంతో తిప్పితే <code>(x₁ cos θ − x₂ sin θ, x₁ sin θ + x₂ cos θ)</code> అవుతుంది. వేర్వేరు dimension జతలకు వేర్వేరు వేగాల కోణాలు ఉంటాయి; దీని వల్ల చిన్న, పెద్ద స్థాన దూరాల సమాచారం కలిసి ఉంటుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre>import numpy as np
 def rope(v, pos):                         # v జతలుగా (2 సంఖ్యలు) తిప్పబడతాయి
@@ -1153,20 +1257,29 @@ def rope(v, pos):                         # v జతలుగా (2 సంఖ్
         out[i+1]   = v[i]*s + v[i+1]*c
     return out
 q, k = np.random.randn(8), np.random.randn(8)
-# position 5 &amp; 3 (దూరం 2) మరియు 12 &amp; 10 (దూరం 2): score ఒకటే
-print(np.isclose(rope(q,5) @ rope(k,3), rope(q,12) @ rope(k,10)))   # True</pre>
-</div></details>
+# ఒకే relative offset (2) ఉన్న రెండు position జతల score ఒకటే
+print(np.isclose(rope(q,5) @ rope(k,3), rope(q,12) @ rope(k,10)))   # True</pre><p>ఒకే relative offset (2) ఉన్న రెండు position జతలను ఇక్కడ పోలుస్తున్నాం. Q, K rotation కు ముందు ఒకటే అని తీసుకుంటే, రెండింటి positions కు ఒకే సంఖ్య కలిపినా dot product మారదు. ఇది RoPE లో relative position ఎలా score లోకి వస్తుందో చూపించే బోధనా ఉదాహరణ; నిజమైన models లో tensorized operations, attention heads, frequency scaling వంటి వివరాలు ఉంటాయి.</p><div class="mistake"><b>సాధారణ అపోహ:</b> RoPE position vector ను token embedding కి కలుపుతుందని అనుకోవడం. RoPE లో attention యొక్క Q, K vectors తిరుగుతాయి. అలాగే context length దాటితే నాణ్యత స్వయంగా నిలబడదు; long-context scaling లేదా అదనపు training అవసరమవచ్చు.</div>
+</div></div></details>
 
-<details class="t"><summary>12. Self-attention mechanism<small>Self-attention (ప్రతి token మిగతా tokens ని చూడటం)</small></summary><div class="body">
+<details class="t" id="p3-topic-12"><summary>12. Self-attention mechanism<small>Self-attention (ప్రతి token మిగతా tokens ని చూడటం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-12">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-12-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-12" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వాక్యంలో ఒక పదం అర్థం మరొక పదంపై ఆధారపడొచ్చు. Self-attention వల్ల model ఏ పదాలను కలిపి చూడాలో నేర్చుకుని, ప్రతి token కి సందర్భానికి తగిన సమాచారాన్ని తయారుచేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ప్రతి token, వాక్యంలోని ఇతర tokens కి ఎంత ప్రాముఖ్యత ఇవ్వాలో లెక్కిస్తుంది. ఆ ప్రాముఖ్యతను weights గా వాడి వాటి సమాచారాన్ని కలుపుతుంది. ఉదాహరణకు “రవి పుస్తకాన్ని మధుకి ఇచ్చాడు; ఆమె దాన్ని చదివింది” అనే వాక్యంలో “ఆమె” ఎవరో అర్థం చేసుకోవడానికి ముందున్న పేర్లు ఉపయోగపడతాయి.</p><p>Attention లెక్కలో <b>Query</b> ఏ సమాచారం కావాలో, <b>Key</b> ఏ సమాచారం అందుబాటులో ఉందో సూచిస్తాయి; <b>Value</b> కలిపి తీసుకునే సమాచారం. వీటి బంధాన్ని <a href="#p3-gpt-13">Query, Key and Value</a> లో చూడండి.</p><h4>ఉదాహరణ</h4><pre>sentence = ["Ravi", "gave", "Maya", "a", "book"]
+
+# The "gave" token can attend to the "Ravi" and "Maya" tokens
+# Attention weights combine information from related tokens</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి token, మిగతా tokens అన్నింటికీ ఒకే స్థాయిలో శ్రద్ధ ఇస్తుందని అనుకోవడం; weights సందర్భాన్ని బట్టి మారతాయి.</div></div><div class="explain-pane" id="p3-gpt-12-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వాక్యంలో "అది" అనే పదం ఏ నామవాచకాన్ని సూచిస్తుందో తెలియాలంటే tokens ఒకదానినొకటి చూడగలగాలి. ఇదే transformers యొక్క ప్రధాన శక్తి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p><b>Self-attention</b> లో ప్రతి token, వాక్యంలోని ఇతర tokens (మరియు తనను) కి ఎంత <b>శ్రద్ధ (weight)</b> ఇవ్వాలో లెక్కిస్తుంది, ఆ weights తో వాటి సమాచారాన్ని కలిపి తన కొత్త vector తయారు చేస్తుంది. SQL లో JOIN తో ఇతర rows నుండి ఉపయోగకరమైన డేటా తెచ్చుకున్నట్టు, కానీ ఇక్కడ "ఎంత ప్రాముఖ్యత" అనేది 0 నుండి 1 మధ్య మృదువైన సంఖ్య. Steps: score = <code>Q·Kᵀ / √d</code>, softmax తో weights, ఆ weights తో V ల సగటు.</p>
 <h4>ఉదాహరణ</h4>
 <p>"బ్యాంక్ ఒడ్డున కూర్చున్నాడు" లో "బ్యాంక్" token, "ఒడ్డున" ని చూసి నది ఒడ్డు అనే అర్థాన్ని తీసుకుంటుంది. "బ్యాంక్ లో డబ్బు" లో "డబ్బు" ని చూసి financial అర్థం తీసుకుంటుంది. పూర్తి లెక్కింపు తదుపరి topic లో code తో చూద్దాం.</p>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>13. Query, Key and Value matrices<small>Query, Key, Value matrices</small></summary><div class="body">
+<details class="t" id="p3-topic-13"><summary>13. Query, Key and Value matrices<small>Query, Key, Value matrices</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-13">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-13-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-13" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Self-attention ఎలా “ఏ token నుంచి ఏ సమాచారం తీసుకోవాలి?” అని లెక్కిస్తుందో Query, Key, Value వివరిస్తాయి. వీటితో attention score ఎలా వస్తుందో అర్థం చేసుకోవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>ప్రతి token vector నుంచి మూడు రూపాలు లెక్కిస్తారు. <b>Query</b> ప్రస్తుత token కి కావాల్సిన సమాచారాన్ని సూచిస్తుంది. <b>Key</b> మరో token దగ్గర ఏ సమాచారం ఉందో తెలియజేస్తుంది. Query, Key పోలికతో score వస్తుంది; ఆ score ఆధారంగా <b>Value</b> vectors కలిపి కొత్త సమాచారాన్ని తయారుచేస్తారు.</p><p>ఇవి మూడు వేర్వేరు సమాచార పట్టికలు కావు; model నేర్చుకునే matrices ద్వారా ఒకే token vector నుంచి లెక్కించిన మూడు రూపాలు.</p><h4>ఉదాహరణ</h4><pre># భావనను చూపించే సరళ రూపం
+query = [0.8, 0.2]
+keys = [[0.7, 0.3], [0.1, 0.9]]
+values = [["Ravi"], ["Maya"]]
+
+scores = [sum(a*b for a, b in zip(query, key)) for key in keys]
+print(scores)  # ఎక్కువ score ఉన్న token కు ఎక్కువ శ్రద్ధ</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Query, Key, Value మూడు స్వతంత్రంగా చేతితో రాసిన values అనుకోవడం; ఇవి model నేర్చుకున్న matrices తో లెక్కించబడతాయి.</div></div><div class="explain-pane" id="p3-gpt-13-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Attention ఎలా "ఎవరిని చూడాలి" అని నిర్ణయిస్తుందో Q, K, V వల్లే. KV (Key-Value) cache (topic 39) కూడా వీటిపైనే ఆధారపడుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1180,9 +1293,13 @@ Wq, Wk, Wv = [np.random.randn(d, d) for _ in range(3)]  # learned matrices (ఇ�
 Q, K, V = x @ Wq, x @ Wk, x @ Wv
 scores = Q @ K.T / np.sqrt(d)       # ప్రతి token జతకు match score
 print(scores.shape)                 # (4, 4)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>14. Multi-head attention<small>Multi-head attention (అనేక attention heads)</small></summary><div class="body">
+<details class="t" id="p3-topic-14"><summary>14. Multi-head attention<small>Multi-head attention (అనేక attention heads)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-14">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-14-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-14" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక వాక్యంలో ఒకేసారి అనేక రకాల సంబంధాలు ఉండొచ్చు. Multi-head attention వల్ల model వేర్వేరు సంబంధాలను సమాంతరంగా గమనించి, వాటి ఫలితాలను కలపగలదు.</p><h4>సరళమైన వివరణ</h4><p>ఒక attention head token ల మధ్య ఒక రకమైన సంబంధంపై దృష్టి పెట్టొచ్చు; మరో head దూరంగా ఉన్న పదాల సంబంధాన్ని గుర్తించొచ్చు. ప్రతి head తన Query, Key, Value లెక్కలు చేస్తుంది. చివర వాటి ఫలితాలను కలిపి తదుపరి layer కి ఇస్తారు.</p><p>ఇది చాలామంది ఉద్యోగులు ఒకే పత్రాన్ని వేర్వేరు కోణాల్లో చదివి, తర్వాత తమ పరిశీలనలను కలిపినట్టుగా ఊహించండి. ఏ head ఏ అర్థాన్ని నేర్చుకుంటుందో ముందే ఖరారు కాదు; training లో అది నేర్చుకుంటుంది.</p><h4>ఉదాహరణ</h4><pre>head_1 = attend_to_subject_and_verb(tokens)
+head_2 = attend_to_nearby_words(tokens)
+head_3 = attend_to_repeated_names(tokens)
+
+combined = concatenate([head_1, head_2, head_3])</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి attention head ఒకే నిర్దిష్ట భాషా నియమాన్ని ఎప్పుడూ నేర్చుకుంటుందని అనుకోవడం; వాటి పని training లో నేర్చుకుంటుంది.</div></div><div class="explain-pane" id="p3-gpt-14-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక్క attention తో ఒకే రకమైన సంబంధాన్ని మాత్రమే పట్టుకోగలం. భాషలో వ్యాకరణం, అర్థం, దూరపు సూచనలు ఇలా అనేక రకాల సంబంధాలు ఉంటాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1195,9 +1312,17 @@ x = np.random.randn(T, d)
 # vector ని heads గా విడగొట్టడం: (T, d) -&gt; (heads, T, hd)
 xh = x.reshape(T, heads, hd).transpose(1, 0, 2)
 print(xh.shape)                       # (2, 4, 4): 2 heads, ప్రతిదీ స్వతంత్రంగా attention చేస్తుంది</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>15. Causal attention masking<small>Causal attention masking (భవిష్యత్తు tokens ని చూడనివ్వకపోవడం)</small></summary><div class="body">
+<details class="t" id="p3-topic-15"><summary>15. Causal attention masking<small>Causal attention masking (భవిష్యత్తు tokens ని చూడనివ్వకపోవడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-15">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-15-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-15" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>తర్వాతి token ను అంచనా వేస్తున్నప్పుడు model కి భవిష్యత్తు పదాలు కనిపిస్తే, అది నిజంగా అంచనా వేయడం నేర్చుకోదు. Causal mask భవిష్యత్తు tokens ను దాచుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Attention score పట్టికలో ప్రతి token ముందు ఉన్న స్థానాలను, తన స్థానాన్ని చూడొచ్చు; తర్వాతి స్థానాలను చూడకుండా mask చేస్తారు. “The cat sat” లో “cat” ని అంచనా వేసేటప్పుడు, “sat” కనిపించదు. ఈ నియమమే <b>causal attention mask</b>.</p><p>Training సమయంలోనూ generation సమయంలోనూ ఇదే ఎడమ నుంచి కుడికి క్రమాన్ని కాపాడుతుంది. Padding mask వేరే అవసరానికి — ఖాళీగా నింపిన positions ను పట్టించుకోకుండా ఉండటానికి — వాడవచ్చు.</p><h4>ఉదాహరణ</h4><pre>tokens = ["The", "cat", "sat"]
+
+# X = చూడవచ్చు, - = భవిష్యత్తు కాబట్టి దాచాలి
+mask = [
+    ["X", "-", "-"],
+    ["X", "X", "-"],
+    ["X", "X", "X"],
+]
+print(mask)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఇది సాధారణ padding mask తో ఒకటే అనుకోవడం; causal mask భవిష్యత్తు positions ను దాచుతుంది.</div></div><div class="explain-pane" id="p3-gpt-15-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Next-token prediction ని నేర్పేటప్పుడు model తర్వాతి token ని చూసేస్తే "కాపీ" కొట్టేస్తుంది, ఏమీ నేర్చుకోదు. Inference లో కూడా భవిష్యత్తు tokens అసలు లేవు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1217,9 +1342,13 @@ w /= w.sum(1, keepdims=True)
 print(w.round(2))          # పై త్రిభుజం అంతా 0
 out = w @ V                # (4, 8): ప్రతి token కొత్త vector</pre>
 <p>Output లో మొదటి row లో 1.0 మాత్రమే మొదటి స్థానంలో ఉంటుంది: token 0 తనను మాత్రమే చూడగలదు.</p>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>16. Feedforward network<small>Feedforward network (FFN / MLP)</small></summary><div class="body">
+<details class="t" id="p3-topic-16"><summary>16. Feedforward network<small>Feedforward network (FFN / MLP)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-16">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-16-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-16" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Attention tokens మధ్య సంబంధాలు కలిపిన తర్వాత, ప్రతి token సమాచారాన్ని మరింత మార్చే దశ కావాలి. Feedforward network ఆ పని చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Feedforward network</b> (FFN లేదా MLP) ప్రతి token vector పై విడిగా ఒక చిన్న neural network లెక్క నడుపుతుంది. సాధారణంగా ముందుగా vector పరిమాణాన్ని విస్తరించి, non-linear function వాడి, తర్వాత తిరిగి తగ్గిస్తారు. Attention అన్ని tokens మధ్య సమాచారం కలిపితే, FFN ప్రతి token లోని సమాచారాన్ని మార్చుతుంది.</p><h4>ఉదాహరణ</h4><pre># భావనాత్మక రూపం
+hidden = relu(input_vector @ W1 + b1)
+output = hidden @ W2 + b2
+
+# నిజమైన Transformer లో ఇది ప్రతి token పై వర్తిస్తుంది</pre><div class="mistake"><b>సాధారణ తప్పు:</b> FFN మొత్తం వాక్యంలోని tokens ను పరస్పరం పోలుస్తుందని భావించడం; token ల మధ్య సంబంధాల ప్రధాన పని attention ది.</div></div><div class="explain-pane" id="p3-gpt-16-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Attention tokens మధ్య సమాచారం కలుపుతుంది; కానీ ప్రతి token vector ని లోతుగా "ఆలోచించి" మార్చే భాగం FFN. Model parameters లో పెద్ద వాటా ఇక్కడే ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1233,9 +1362,12 @@ def ffn(x):
     return h @ W2               # తిరిగి d పరిమాణానికి కుదింపు
 x = np.random.randn(4, d)
 print(ffn(x).shape)             # (4, 8)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>17. Residual connections<small>Residual connections (అసలు input ని తిరిగి కలపడం)</small></summary><div class="body">
+<details class="t" id="p3-topic-17"><summary>17. Residual connections<small>Residual connections (అసలు input ని తిరిగి కలపడం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-17">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-17-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-17" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Transformer లో చాలా layers వరుసగా ఉంటాయి. Residual connection వల్ల ఒక layer కొత్త సమాచారం జోడించినా, ముందున్న సమాచారాన్ని కూడా కాపాడుకోవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Layer కి వచ్చిన అసలు vector ను, layer లెక్కించిన మార్పుతో కలుపుతారు: <code>output = input + layer(input)</code>. దీన్ని residual add అంటారు. దీని వల్ల సమాచారం అనేక layers గుండా పోవడం, training లో మార్పులు నేర్చుకోవడం సులభమవుతుంది.</p><p>ఇది Laravel middleware pipeline లో ప్రతి middleware పాత request data ని పూర్తిగా తీసేయకుండా, అవసరమైన field మాత్రమే జోడించినట్టుగా ఊహించవచ్చు. అయితే residual connection అనేది సంఖ్యలపై జరిగే గణిత కలయిక.</p><h4>ఉదాహరణ</h4><pre>input_value = [1.0, 2.0]
+layer_change = [0.1, -0.2]
+output = [x + change for x, change in zip(input_value, layer_change)]
+print(output)  # [1.1, 1.8]</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Residual add లో layer output ని input తో కలపకుండా, input ని పూర్తిగా దాని output తో మార్చేయడం.</div></div><div class="explain-pane" id="p3-gpt-17-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>32-80 layers ఉన్న network ని train చేయడం కష్టం: signal మరియు gradients మధ్యలో మాయమవుతాయి. Residual connections దీన్ని సులువు చేస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1247,9 +1379,13 @@ def layer(x):                 # ఏదో ఒక చిన్న మార్ప
 x = np.array([1.0, 2.0, 3.0])
 out = x + layer(x)            # residual: అసలు x భద్రంగా ఉంటుంది
 print(out)                    # [1.1 2.2 3.3]</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>18. Layer normalization and RMSNorm<small>Layer normalization మరియు RMSNorm</small></summary><div class="body">
+<details class="t" id="p3-topic-18"><summary>18. Layer normalization and RMSNorm<small>Layer normalization మరియు RMSNorm</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-18">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-18-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-18" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>చాలా layers గుండా వెళ్తున్నప్పుడు vector విలువలు చాలా పెద్దవిగా లేదా చిన్నవిగా మారవచ్చు. Normalization వాటిని స్థిరంగా ఉంచి training ను సజావుగా సాగించడంలో సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>LayerNorm</b> ఒక token vector లోని విలువల సగటు, వ్యత్యాసం ఆధారంగా వాటిని సర్దుతుంది. <b>RMSNorm</b> విలువల root mean square ఆధారంగా scale చేస్తుంది; ఇది సగటును తీసివేయదు. రెండూ training స్థిరత్వానికి ఉపయోగపడతాయి, కానీ లెక్కించే విధానం వేరు. Model ఏది వాడుతుందో దాని architecture/configuration లో ఉంటుంది.</p><h4>ఉదాహరణ</h4><pre># సులభంగా: normalization ముందు, తర్వాత values ఎలా మారతాయో చూడండి
+values = [10.0, 12.0, 14.0]
+mean = sum(values) / len(values)
+centered = [x - mean for x in values]
+print(centered)  # సగటు చుట్టూ కేంద్రీకృత విలువలు</pre><div class="mistake"><b>సాధారణ తప్పు:</b> RMSNorm, LayerNorm రెండూ ఒకే సూత్రం అని అనుకోవడం; RMSNorm సగటును తీసివేయదు.</div></div><div class="explain-pane" id="p3-gpt-18-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Layers గుండా వెళ్తున్నప్పుడు vector సంఖ్యల పరిమాణం విపరీతంగా పెరగడం/తగ్గడం జరిగితే training అస్థిరమవుతుంది. Normalization వాటిని స్థిరమైన పరిధిలో ఉంచుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1259,9 +1395,12 @@ print(out)                    # [1.1 2.2 3.3]</pre>
 def rmsnorm(x, g=1.0, eps=1e-6):
     return x / np.sqrt((x**2).mean(-1, keepdims=True) + eps) * g
 print(rmsnorm(np.array([1., 2., 3., 4.])).round(3))   # [0.365 0.73 1.095 1.461]</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>19. Output projection and vocabulary logits<small>Output projection మరియు vocabulary logits</small></summary><div class="body">
+<details class="t" id="p3-topic-19"><summary>19. Output projection and vocabulary logits<small>Output projection మరియు vocabulary logits</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-19">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-19-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-19" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Transformer blocks తర్వాత వచ్చిన vector నుంచి model తర్వాతి token ను ఎంచుకోవాలి. Output projection ఆ vector ను vocabulary లోని ప్రతి token కి ఒక score గా మారుస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>చివరి hidden vector ను నేర్చుకున్న matrix తో గుణిస్తే vocabulary పరిమాణంలో scores వస్తాయి. ఈ raw scores ను <b>logits</b> అంటారు. ఎక్కువ logit ఉన్న token తప్పనిసరిగా నేరుగా ఎంచుకోరు; softmax, temperature, top-k వంటి decoding నియమాలు ఎంపికను ప్రభావితం చేయవచ్చు.</p><p>Token ఎంపికైన తర్వాత అది input కి కలుస్తుంది; model మళ్లీ కొత్త చివరి vector, logits లెక్కిస్తుంది.</p><h4>ఉదాహరణ</h4><pre>logits = model.output_projection(last_token_vector)
+probabilities = softmax(logits)
+next_token_id = sample(probabilities)
+print(next_token_id)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Logits ని ఇప్పటికే శాతం లేదా probability అని అనుకోవడం; అవి softmax కు ముందు ఉన్న raw scores.</div></div><div class="explain-pane" id="p3-gpt-19-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>చివరి layer లోని vector నుండి "ఏ token వస్తుంది" అనే నిర్ణయం ఇక్కడే తయారవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1273,9 +1412,16 @@ h = np.random.randn(d)               # చివరి token యొక్క fin
 W_out = np.random.randn(d, vocab)    # output projection
 logits = h @ W_out
 print(logits.shape)                  # (10,): ప్రతి token కి ఒక score</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>20. Input prompt processing<small>Input prompt ప్రాసెసింగ్</small></summary><div class="body">
+<details class="t" id="p3-topic-20"><summary>20. Input prompt processing<small>Input prompt ప్రాసెసింగ్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p3-gpt-20">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p3-gpt-20-gemini">Gemini</button></div><div class="explain-pane" id="p3-gpt-20" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>User రాసిన వాక్యం నేరుగా Transformer లోకి వెళ్లదు. Prompt ని model అర్థం చేసుకునే రూపంలో సిద్ధం చేసే దశలో పొరపాటు వస్తే, సమాధానం కూడా తప్పవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>సాధారణంగా prompt ముందు tokenizer ద్వారా token IDs గా మారుతుంది. Chat model లో system, user, assistant messages ను model కు సరిపోయే chat template ప్రకారం అమర్చుతారు; తర్వాత token IDs, model context లోకి వెళ్తాయి. Prompt format model family ను బట్టి మారవచ్చు.</p><p>ప్రతి request ముందు ఒకే instructions ని prompt లో మళ్లీ మళ్లీ పంపితే token ఖర్చు పెరుగుతుంది. అందుకే అవసరమైన context, message roles, output format ను స్పష్టంగా ఉంచాలి.</p><h4>ఉదాహరణ</h4><pre>messages = [
+    {"role": "system", "content": "Answer briefly."},
+    {"role": "user", "content": "What is an index?"},
+]
+
+prompt_text = apply_chat_template(messages)
+input_ids = tokenizer(prompt_text)
+response = model.generate(input_ids)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Chat messages ను ప్రతి model కి ఏకరీతిగా కలపడం; model కు సరిపోయే chat template వాడాలి.</div></div><div class="explain-pane" id="p3-gpt-20-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీరు పంపే చాట్ messages model కి నేరుగా అర్థం కావు. వాటిని ఒక నిర్దిష్ట రూపంలోకి మార్చే దశలు తెలియకపోతే prompt format తప్పులు వస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1288,9 +1434,9 @@ messages = [
 ]
 text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 ids = tokenizer(text, return_tensors="pt")   # ఇప్పుడు model కి ఇవ్వడానికి సిద్ధం</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>21. Tokenization<small>Tokenization (text ని tokens గా విడగొట్టడం)</small></summary><div class="body">
+<details class="t" id="tokenization-topic"><summary>21. Tokenization<small>Tokenization (text ని tokens గా విడగొట్టడం)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM ధర, context limit అన్నీ tokens లోనే కొలుస్తారు, words లో కాదు. తెలుగు వంటి భాషలకు ఎక్కువ tokens పడతాయి, అంటే ఖర్చు కూడా ఎక్కువ.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1315,6 +1461,7 @@ emb = torch.nn.Embedding(num_embeddings=100, embedding_dim=8)  # table 100 x 8
 ids = torch.tensor([[5, 17, 5]])                                # batch=1, 3 tokens
 x = emb(ids)
 print(x.shape)                                                   # torch.Size([1, 3, 8])</pre>
+
 </div></details>
 
 <details class="t"><summary>23. Forward pass through transformer layers<small>Transformer layers గుండా forward pass</small></summary><div class="body">
@@ -1384,7 +1531,7 @@ def sample(logits, T=1.0, k=0, p=1.0):
 print(sample([3, 2, 1, 0], T=0.7, k=2, p=0.9))  # చాలా సార్లు 0 వస్తుంది (greedy కి దగ్గరగా)</pre>
 </div></details>
 
-<details class="t"><summary>27. Autoregressive generation loop<small>Autoregressive generation loop</small></summary><div class="body">
+<details class="t"><summary>27. Autoregressive generation loop<small>గత tokens ఆధారంగా తదుపరి token ను వరుసగా తయారుచేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM answer ఒకేసారి రాదు, token ఒక్కొక్కటిగా వస్తుంది. అందుకే output పొడవు పెరిగే కొద్దీ సమయం, ఖర్చు పెరుగుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1420,7 +1567,7 @@ print(tokens)   # ['&lt;s&gt;', 'నేను', 'ఇంటికి', 'వెళ
 <div class="mistake"><b>సాధారణ తప్పు:</b> max tokens చాలా తక్కువ పెట్టడం వల్ల answer మధ్యలోనే తెగిపోవడం. Response లో finish reason (ఉదా. length vs stop) చూడండి.</div>
 </div></details>
 
-<details class="t"><summary>29. Streaming token generation<small>Streaming token generation</small></summary><div class="body">
+<details class="t"><summary>29. Streaming token generation<small>మొత్తం సమాధానం పూర్తికాకముందే tokens ను పంపించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>పూర్తి answer కోసం 20 సెకన్లు వేచి ఉండటం కంటే, మొదటి words 0.5 సెకన్లలో కనిపించడం యూజర్ అనుభవానికి చాలా మంచిది. ChatGPT లో text క్రమంగా కనిపించేది ఇందుకే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1489,7 +1636,7 @@ if len(ids) + 200 &gt; MAX_LEN:                 # 200 = output కోసం ఉ�
 <p>GPT-2 (learned positions, 1024 వరకు): 1025వ token ఇస్తే index error వస్తుంది, ఎందుకంటే position table లో ఆ row లేదు. ఇది 1024 rows ఉన్న array లో 1025వ index అడిగినట్టే.</p>
 </div></details>
 
-<details class="t"><summary>35. Long-context models<small>Long-context models</small></summary><div class="body">
+<details class="t"><summary>35. Long-context models<small>పొడవైన token క్రమాలను ఒకే context లో చదివే models</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>పెద్ద codebase, పొడవైన contracts వంటి వాటిని ఒకేసారి చూడాల్సిన పనులకు పొడవైన context ఉపయోగపడుతుంది. కానీ ఎప్పుడు వాడాలి, ఎప్పుడు RAG మేలు అనేది తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1614,7 +1761,7 @@ out = model.generate(**batch, max_new_tokens=20)
 print(tokenizer.batch_decode(out, skip_special_tokens=True))</pre>
 </div></details>
 
-<details class="t"><summary>44. Continuous batching<small>Continuous batching</small></summary><div class="body">
+<details class="t"><summary>44. Continuous batching<small>అభ్యర్థనలు పూర్తయ్యే కొద్దీ batch లో కొత్తవాటిని చేర్చడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Normal batching లో ఒక batch లో అతి పొడవైన answer పూర్తయ్యే వరకు మిగిలిన సీట్లు ఖాళీగా వేచి ఉంటాయి. Production servers లో throughput కోసం ఇది కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1660,7 +1807,7 @@ for name, nbytes in [("FP32", 4), ("FP16/BF16", 2), ("INT8", 1)]:
     print(name, params_b * nbytes, "GB")       # 28 / 14 / 7 GB (weights మాత్రమే)</pre>
 </div></details>
 
-<details class="t"><summary>47. INT4 (4-bit Integer) quantization<small>INT4 (4-bit Integer) quantization</small></summary><div class="body">
+<details class="t"><summary>47. INT4 (4-bit Integer) quantization<small>weights ను 4-bit సంఖ్యలుగా మార్చి memory తగ్గించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Laptop లేదా ఒక్క consumer GPU లో 7B-13B models నడపడానికి 4-bit చాలా ప్రాచుర్యం. Ollama లో డౌన్‌లోడ్ అయ్యే models తరచూ 4-bit.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1678,7 +1825,7 @@ int4 = params_b * 0.5      # 3.5 GB (scales వల్ల వాస్తవం�
 print(fp16, int4)          # 7B model 8 GB VRAM లో ఇమిడే అవకాశం</pre>
 </div></details>
 
-<details class="t"><summary>48. FlashAttention<small>FlashAttention</small></summary><div class="body">
+<details class="t"><summary>48. FlashAttention<small>GPU memory వినియోగాన్ని తగ్గిస్తూ attention ను లెక్కించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Attention లో n×n score matrix ని GPU memory లో పూర్తిగా రాయడం నెమ్మది, ఎక్కువ memory అవసరం. FlashAttention ఇదే సమస్యను పరిష్కరించి పొడవైన contexts ను సాధ్యం చేసింది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2237,7 +2384,7 @@ print(wordpiece("xyz"))            # ['[UNK]']</pre>
 <p>(ఇది అర్థం కోసం చిన్న toy vocabulary; నిజమైన BERT vocabulary చాలా పెద్దది.)</p>
 </div></details>
 
-<details class="t"><summary>10. Unigram language model tokenization<small>Unigram language model tokenization</small></summary><div class="body">
+<details class="t"><summary>10. Unigram language model tokenization<small>సంభావ్య subword ముక్కలతో text ను tokens గా విభజించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>T5, ALBERT వంటి models (SentencePiece ద్వారా) Unigram వాడతాయి. BPE (Byte-Pair Encoding) తో పోలిస్తే దీని ఆలోచన వేరు: ఇది "ఏ విభజన అత్యంత సంభావ్యమైనది" అని ఎంచుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3461,7 +3608,7 @@ Question: Do you offer same-day delivery?</pre>
 <p>Expected: <code>I could not find this in the documents.</code> (docs లో same-day గురించి లేదు.)</p>
 </div></details>
 
-<details class="t"><summary>31. Customer support prompts<small>Customer support prompts</small></summary><div class="body">
+<details class="t"><summary>31. Customer support prompts<small>కస్టమర్ ప్రశ్నలకు నియమబద్ధమైన సమాధానాలు రూపొందించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Support replies లో tone, policy, భద్రత అన్నీ ముఖ్యం. తప్పు వాగ్దానం (ఉదా: లేని refund) చేస్తే company కి నష్టం, కాబట్టి guardrails తో కూడిన prompt కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3480,7 +3627,7 @@ Return JSON: {"reply": string, "needs_human": boolean}
 <p>Expected: order shipped అని చెప్పి, refund ని staff సమీక్షిస్తారని చెప్పే reply; <code>needs_human</code> బహుశా <code>true</code>.</p>
 </div></details>
 
-<details class="t"><summary>32. SQL generation prompts<small>SQL generation prompts</small></summary><div class="body">
+<details class="t"><summary>32. SQL generation prompts<small>సహజ భాషా అభ్యర్థనల నుంచి SQL తయారుచేయించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Business users "గత నెల అమ్మకాలు ఎంత?" అని natural language లో అడిగి SQL పొందే tools ప్రాచుర్యం పొందాయి. కానీ model schema తెలియకుండా పట్టికలు/columns కల్పిస్తుంది మరియు ప్రమాదకరమైన queries రాయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3498,7 +3645,7 @@ Question: Total order value per city in November 2026, highest first.</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> model రాసిన SQL ని admin DB user తో run చేయడం. <code>DROP</code>/<code>UPDATE</code> కి అవకాశం ఇవ్వకుండా read-only credentials వాడండి.</div>
 </div></details>
 
-<details class="t"><summary>33. Code generation prompts<small>Code generation prompts</small></summary><div class="body">
+<details class="t"><summary>33. Code generation prompts<small>కోడ్ తయారీకి స్పష్టమైన అవసరాలు, పరిమితులు ఇవ్వడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఒక function రాయి" అని అడిగితే model తన ఊహతో language version, libraries, style ఎంచుకుంటుంది. అది మీ ప్రాజెక్ట్ కి సరిపోకపోతే మళ్ళీ మార్చే సమయం వృథా.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3516,7 +3663,7 @@ examples (3 valid, 2 invalid). Return only the code block.</pre>
 <p>Expected: చిన్న function మరియు asserts. వెంటనే run చేసి asserts పాసవుతున్నాయో చూడండి.</p>
 </div></details>
 
-<details class="t"><summary>34. Document analysis prompts<small>Document analysis prompts</small></summary><div class="body">
+<details class="t"><summary>34. Document analysis prompts<small>పత్రాల నుంచి అవసరమైన విషయాలను క్రమబద్ధంగా వెలికితీయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Contracts, policies, reports వంటి పొడవైన documents లో నిర్దిష్ట అంశాలను (గడువులు, ప్రమాదాలు, తేడాలు) వెతకడం మానవులకు చాలా సమయం తీసుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3686,7 +3833,7 @@ for raw in ['{"label": "bug", "confidence": 0.9}',
 <div class="mistake"><b>సాధారణ తప్పు:</b> validation విఫలమైనప్పుడు అనంతంగా retry చేయడం. Max retries (ఉదా: 2) పెట్టి, తర్వాత fallback ఇవ్వండి.</div>
 </div></details>
 
-<details class="t"><summary>42. Prompt regression testing<small>Prompt regression testing</small></summary><div class="body">
+<details class="t"><summary>42. Prompt regression testing<small>prompt మార్పుల తర్వాత పాత ప్రవర్తన చెడలేదని పరీక్షించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Prompt లో ఒక వాక్యం మార్చితే ఒక case బాగుపడి, మరో 3 cases విరగొచ్చు. Regression tests లేకపోతే ఈ నష్టం production లో user లు చెప్పేవరకు తెలియదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5110,7 +5257,7 @@ for t in (BAD, GOOD):
 <div class="mistake"><b>సాధారణ తప్పు:</b> "handle data" లాంటి ఒకే లైన్ అస్పష్ట description రాయడం. ఒకే పనికి రెండు tools ఉండి వాటి descriptions ఒకేలా ఉంటే model తికమక పడుతుంది.</div>
 </div></details>
 
-<details class="t"><summary>5. JSON parameter schemas<small>JSON parameter schemas</small></summary><div class="body">
+<details class="t"><summary>5. JSON parameter schemas<small>tool parameters కు అవసరమైన fields, రకాలను నిర్వచించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model కి arguments ఏ ఆకారంలో ఇవ్వాలో చెప్పడానికి schema కావాలి. అదే schema తో మీరు వచ్చిన arguments ని కూడా check చేయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5462,7 +5609,7 @@ print(add_days(**args.model_dump()))   # 2026-11-19
 </pre>
 </div></details>
 
-<details class="t"><summary>18. Database lookup tools<small>Database lookup tools</small></summary><div class="body">
+<details class="t"><summary>18. Database lookup tools<small>అనుమతించిన database సమాచారం కోసం tools తయారుచేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాలా business use cases లో model మీ DB లోని డేటా చూడాలి (customer, order, stock). కానీ model కి నేరుగా SQL రాసే అనుమతి ఇవ్వడం చాలా ప్రమాదకరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5488,7 +5635,7 @@ print(get_order("1042 OR 1=1"))   # parameterized కాబట్టి injectio
 <div class="mistake"><b>సాధారణ తప్పు:</b> "run_sql(query)" tool ఇవ్వడం. Prompt injection తో model <code>DROP</code>/ఇతర users డేటా query చేయవచ్చు.</div>
 </div></details>
 
-<details class="t"><summary>19. REST API tools<small>REST API tools</small></summary><div class="body">
+<details class="t"><summary>19. REST API tools<small>బాహ్య REST endpoints ను model పిలవగల tools గా అందించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ ఇతర services లేదా third-party APIs (payments, shipping, CRM) ని model వాడాలంటే వాటిని tools గా wrap చేయాలి. అప్పుడు slow లేదా fail అయ్యే network calls కూడా model ప్రవర్తనపై ప్రభావం చూపుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5523,7 +5670,7 @@ srv.shutdown()
 </pre>
 </div></details>
 
-<details class="t"><summary>20. Search tools<small>Search tools</small></summary><div class="body">
+<details class="t"><summary>20. Search tools<small>సంబంధిత సమాచారం కనుగొనే search చర్యను tool గా ఇవ్వడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ docs, products, tickets లో model వెతికి సమాధానమివ్వాలంటే search tool కావాలి. ఇది RAG కి ప్రాథమిక రూపం: model అవసరమైనప్పుడు మాత్రమే వెతుకుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5551,7 +5698,7 @@ print(search_docs("nothing"))     # [] : "ఏమీ దొరకలేదు" �
 </pre>
 </div></details>
 
-<details class="t"><summary>21. File processing tools<small>File processing tools</small></summary><div class="body">
+<details class="t"><summary>21. File processing tools<small>ఫైళ్లను చదవడం లేదా మార్చడం కోసం పరిమిత tools అందించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model కి files చదవమని లేదా summary చేయమని చెప్పే tools ఉపయోగపడతాయి. కానీ model పంపే path <code>../../etc/passwd</code> అయితే (path traversal) సర్వర్ రహస్యాలు లీక్ అవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5580,7 +5727,7 @@ print(read_file("../../etc/passwd"))     # అనుమతి లేని path
 </pre>
 </div></details>
 
-<details class="t"><summary>22. Calculator tools<small>Calculator tools</small></summary><div class="body">
+<details class="t"><summary>22. Calculator tools<small>ఖచ్చితమైన గణనలను tool ద్వారా నిర్వహించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM లు పెద్ద సంఖ్యల లెక్కల్లో తప్పులు చేయవచ్చు, ఎందుకంటే అవి లెక్క చేయవు, సంభావ్యత ఆధారంగా అంకెలు ఊహిస్తాయి. కచ్చితమైన లెక్కలకు code వాడటం సరైన మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5612,7 +5759,7 @@ except ValueError as e:
 </pre>
 </div></details>
 
-<details class="t"><summary>23. Business logic tools<small>Business logic tools</small></summary><div class="body">
+<details class="t"><summary>23. Business logic tools<small>వ్యాపార నియమాలను model బయట విశ్వసనీయ code లో అమలు చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Discount, refund eligibility, pricing వంటి నియమాలను model ఊహించకూడదు. నియమాలు మీ code లో ఒకే చోట ఉండి, model వాటిని tool ద్వారా మాత్రమే వాడాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5671,7 +5818,7 @@ print([d["name"] for d in discover({"read", "write"})])   # రెండూ
 </pre>
 </div></details>
 
-<details class="t"><summary>25. Input validation<small>Input validation</small></summary><div class="body">
+<details class="t"><summary>25. Input validation<small>tool కు వచ్చిన arguments సరైనవో ముందే తనిఖీ చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Topic 12 లో type తనిఖీ చూశాం. ఇక్కడ లోతైన తనిఖీలు కావాలి: పొడవు పరిమితులు, pattern, తెలియని extra fields, నియమిత విలువల set. ఇవి injection, ఖరీదైన queries, తప్పు డేటా నుండి కాపాడతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5756,7 +5903,7 @@ except PermissionError as e:
 </pre>
 </div></details>
 
-<details class="t"><summary>28. Tool allowlists<small>Tool allowlists</small></summary><div class="body">
+<details class="t"><summary>28. Tool allowlists<small>పిలవడానికి అనుమతించిన tools జాబితాను పరిమితం చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model కి అన్ని tools చూపించాల్సిన అవసరం లేదు. ఆ పనికి అవసరమైన tools మాత్రమే ఇస్తే దుర్వినియోగ అవకాశం, tokens ఖర్చు, తప్పు tool ఎంపిక తగ్గుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5782,7 +5929,7 @@ print(dispatch("faq_bot", "refund"))          # model హఠాత్తుగ�
 </pre>
 </div></details>
 
-<details class="t"><summary>29. Rate limiting<small>Rate limiting</small></summary><div class="body">
+<details class="t"><summary>29. Rate limiting<small>నిర్దిష్ట సమయంలో అభ్యర్థనల సంఖ్యను నియంత్రించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model loop లో చిక్కుకుని ఒక tool ని వందల సార్లు call చేయవచ్చు, లేదా ఒక user దుర్వినియోగం చేయవచ్చు. Rate limit లేకుంటే ఖరీదైన APIs (SMS, payments, LLM) బిల్లు పెరుగుతుంది మరియు downstream systems కుప్పకూలతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5813,7 +5960,7 @@ for i in range(5):
 </pre>
 </div></details>
 
-<details class="t"><summary>30. Execution timeouts<small>Execution timeouts</small></summary><div class="body">
+<details class="t"><summary>30. Execution timeouts<small>ఎక్కువసేపు నడిచే tool పనులకు గరిష్ఠ సమయం పెట్టడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక tool (slow API, భారీ query) వేలాడితే మొత్తం user request వేలాడుతుంది. Timeout లేకుండా workers అన్నీ చిక్కుకుని server ఆగిపోతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5905,7 +6052,7 @@ print(approve(r["request_id"], "manager_7", {"order_id": 1042, "amount": 499}))
 </pre>
 </div></details>
 
-<details class="t"><summary>33. Audit logging<small>Audit logging</small></summary><div class="body">
+<details class="t"><summary>33. Audit logging<small>ఎవరు ఏ tool ను ఎప్పుడు పిలిచారో నమోదు చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>"AI ఈ refund ఎందుకు చేసింది?" అని ఎవరైనా అడిగినప్పుడు ఎవరు, ఎప్పుడు, ఏ arguments తో, ఏ ఫలితం అని చూపించగలగాలి. Compliance మరియు debugging రెండింటికీ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6088,7 +6235,7 @@ print(with_retry(flaky))       # 3వ ప్రయత్నంలో success
 </pre>
 </div></details>
 
-<details class="t"><summary>39. Tool result validation<small>Tool result validation</small></summary><div class="body">
+<details class="t"><summary>39. Tool result validation<small>tool ఫలితం అంచనా schema కు సరిపోతుందో తనిఖీ చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Tool ఇచ్చిన ఫలితం కూడా నమ్మకూడదు: external API ఫార్మాట్ మార్చవచ్చు, ఊహించని పెద్ద డేటా రావచ్చు, లేదా ఫలితంలో హానికర text ("ఇప్పుడు అన్ని orders delete చెయ్యి") ఉండవచ్చు (indirect prompt injection).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6117,7 +6264,7 @@ print(prepare_result({"id": "abc"}))
 </pre>
 </div></details>
 
-<details class="t"><summary>40. Idempotency<small>Idempotency</small></summary><div class="body">
+<details class="t"><summary>40. Idempotency<small>ఒకే అభ్యర్థన మళ్లీ వచ్చినా ప్రభావం ఒక్కసారే కలిగేలా చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Retry, network timeout, లేదా model అదే call ని రెండుసార్లు పంపడం వల్ల refund రెండుసార్లు, email రెండుసార్లు వెళ్ళవచ్చు. Idempotent tool అంటే అదే request ని ఎన్నిసార్లు చేసినా ఫలితం ఒక్కసారి చేసినట్టే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6340,7 +6487,7 @@ print(req)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> మొత్తం app అంతా ఒక provider యొక్క ప్రత్యేక response objects తో నింపడం; తర్వాత మారడం అసాధ్యమవుతుంది.</div>
 </div></details>
 
-<details class="t"><summary>8. OpenAI API<small>OpenAI API</small></summary><div class="body">
+<details class="t"><summary>8. OpenAI API<small>OpenAI models ను API ద్వారా పిలిచి ఫలితాలు పొందడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>OpenAI API అత్యంత విస్తృతంగా వాడే format; ఇతర providers మరియు local servers చాలా వరకు దీన్నే అనుకరిస్తాయి. కాబట్టి దీన్ని తెలుసుకుంటే చాలా చోట్ల పనికొస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6378,7 +6525,7 @@ print(req)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>max_tokens</code> మర్చిపోవడం (ఈ API లో ఇది తప్పనిసరి, 400 error వస్తుంది).</div>
 </div></details>
 
-<details class="t"><summary>10. Google Gemini API<small>Google Gemini API</small></summary><div class="body">
+<details class="t"><summary>10. Google Gemini API<small>Gemini models ను API ద్వారా పిలిచి ఫలితాలు పొందడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Gemini models ఎక్కువ context మరియు multimodal (image/video/audio) కి ప్రసిద్ధి. Format మిగతా వాటికంటే భిన్నంగా ఉంటుంది కాబట్టి తెలుసుకోవాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -11076,6 +11223,20 @@ REDIS_URL=redis://redis:6379/0</pre>
       emptyMsg.classList.add('hide');
     }
   }
+
+  document.querySelectorAll('.explain-tabs').forEach(function(group) {
+    var buttons = [].slice.call(group.querySelectorAll('.explain-tab'));
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        buttons.forEach(function(item) {
+          var selected = item === button;
+          item.setAttribute('aria-selected', selected ? 'true' : 'false');
+          var pane = document.getElementById(item.getAttribute('data-pane'));
+          if (pane) pane.hidden = !selected;
+        });
+      });
+    });
+  });
 
   var tabBtns = [].slice.call(document.querySelectorAll('.tab-btn'));
   tabBtns.forEach(function(btn) {

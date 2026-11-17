@@ -855,6 +855,8 @@ pre { position: relative; padding-top: 36px; }
   .nav-prev-btn, .nav-resume-btn { display: none; }
 }
 
+
+.explain-tabs{display:flex;gap:8px;margin:4px 0 14px;border-bottom:1px solid var(--line)}.explain-tab{border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--soft);color:var(--text);padding:7px 14px;cursor:pointer;font:inherit}.explain-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}.explain-pane[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1019,7 +1021,7 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. What is Agentic AI?<small>ఏజెంటిక్ AI అంటే ఏమిటి?</small></summary><div class="body">
+    <details class="t" id="p5-day46-topic1"><summary>1. What is Agentic AI?<small>ఏజెంటిక్ AI అంటే ఏమిటి?</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-1">Gemini</button></div><div class="explain-pane" id="p5-gpt-1" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సాధారణ chatbot ప్రశ్నకు సమాధానం చెబుతుంది. కానీ బహుళ దశల పని చేయడానికి, అవసరమైనప్పుడు tool వాడి ఫలితాన్ని తనిఖీ చేయడానికి agent నమూనా ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Agent అనేది లక్ష్యాన్ని అందుకుని, తర్వాత ఏ పని చేయాలో ఎంచుకుని, tools ద్వారా చర్యలు తీసుకుని, వచ్చిన ఫలితాన్ని పరిశీలించే software. LLM నిర్ణయాలు లేదా భాషా పనిలో సహాయం చేయవచ్చు; కానీ అనుమతులు, పరిమితులు, డేటా నిల్వ వంటి నియంత్రణలు అప్లికేషన్ బాధ్యత.</p><h4>ఉదాహరణ</h4><p>“ఈ order ఎక్కడుందో చెప్పు” అంటే agent order API ని పిలిచి status తీసుకుని user కి చెబుతుంది. API లో సమాచారం లేకపోతే ఊహించి status చెప్పకుండా, ఆ విషయం స్పష్టంగా తెలియజేయాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Agent కి లక్ష్యం ఇచ్చాక అది ప్రతి పనినీ సురక్షితంగా, తప్పులేకుండా చేస్తుందని అనుకోవడం.</div></div><div class="explain-pane" id="p5-gemini-1" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ AI చాట్‌బాట్ కేవలం సమాధానాలు ఇస్తుంది, కానీ వాస్తవ పనులు చేయలేదు. Agentic AI అంటే కేవలం సమాధానాలు టైప్ చేయడం కాకుండా, తనంతట తానుగా నిర్ణయాలు తీసుకుంటూ external tools, APIs, databases ఉపయోగించి సంక్లిష్టమైన పనులను పూర్తి చేసే స్వయంప్రతిపత్తి (autonomous) గల సిస్టమ్.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1044,10 +1046,10 @@ tools = {"check_inventory_and_order": lambda item: f"Stock 0 ఉంది, క�
 agent = SimpleAgent(tools)
 print(agent.run("Item 123 స్టాక్ తక్కువగా ఉంటే రీ-ఆర్డర్ చేయి"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Agentic AI అంటే కేవలం పెద్ద LLM prompt అనుకోవడం; అసలు agent అంటే LLM తో పాటు tools, memory, execution loop కలిసి ఉండే సిస్టమ్.</div>
-</div></details>
+</div></div></details>
 
 
-<details class="t"><summary>2. AI assistants vs AI agents.<small>AI అసిస్టెంట్లు vs AI ఏజెంట్లు మధ్య తేడా</small></summary><div class="body">
+<details class="t" id="p5-day46-topic2"><summary>2. AI assistants vs AI agents.<small>AI అసిస్టెంట్లు vs AI ఏజెంట్లు మధ్య తేడా</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-2">Gemini</button></div><div class="explain-pane" id="p5-gpt-2" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>“విడుపు విధానాన్ని వివరించు” అంటే assistant సమాధానం ఇస్తుంది. “HR system లో నా మిగిలిన సెలవు రోజులు చూసి చెప్పు” అంటే agent అనుమతితో HR API ని పిలవాలి.</p><h4>సరళమైన వివరణ</h4><p><b>Assistant</b> ప్రధానంగా user తో సంభాషించి సమాచారం లేదా సూచన ఇస్తుంది. <b>Agent</b> ఒక లక్ష్యాన్ని పూర్తి చేయడానికి tool ని ఎంచుకోవచ్చు, ఫలితాన్ని చూసి తదుపరి దశను నిర్ణయించవచ్చు. Laravel controller లో ముందే నిర్ణయించిన దశలు నడుస్తాయి; LLM agent మాత్రం పని మధ్యలో వచ్చిన ఫలితాన్ని బట్టి తదుపరి చర్యను ఎంచుకోవచ్చు. అందుకే దానికి పరిమితులు పెట్టాలి.</p><h4>ఉదాహరణ</h4><p>“సెలవు విధానాన్ని వివరించు” అంటే assistant సమాధానం ఇస్తుంది. “HR system లో నాకు మిగిలిన సెలవు రోజులు చూసి చెప్పు” అంటే agent అనుమతితో HR API ని పిలవాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి chatbot ని agent గా తయారు చేయడం.</div></div><div class="explain-pane" id="p5-gemini-2" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ప్రాజెక్ట్‌లను డిజైన్ చేసేటప్పుడు మనం బిల్డ్ చేయాల్సింది కేవలం Q&amp;A ఇచ్చే అసిస్టెంటా లేదా సొంతంగా నిర్ణయాలు తీసుకుని actions చేసే ఏజెంటా అనేది క్లియర్ గా తెలుసుకోవాలి. సరైన తేడా తెలియకపోతే అనవసర కాంప్లెక్సిటీ లేదా తప్పుడు ఆర్కిటెక్చర్ ఎంచుకుంటాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1067,9 +1069,9 @@ def agent_reschedule_workflow(weather_forecast, calendar_api):
 
 # Agent ప్లాన్ చేసి execution కూడా ముగిస్తుంది</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Chatbot కి ఒక ఫంక్షన్ కాల్ జోడించగానే దాన్ని పూర్తిస్థాయి autonomous agent అనుకోవడం; agent కి multi-step loop మరియు dynamic decision-making ఉండాలి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>3. LLM-powered agents.<small>LLM ఆధారిత ఏజెంట్లు</small></summary><div class="body">
+<details class="t" id="p5-day46-topic3"><summary>3. LLM-powered agents.<small>LLM ఆధారిత ఏజెంట్లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-3">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-3">Gemini</button></div><div class="explain-pane" id="p5-gpt-3" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>LLM ఒక్కటే బాహ్య పనులు చేయదు. ఒక అప్లికేషన్ tool ని ఎంచుకోవడం, inputs ధృవీకరించడం, ఫలితాన్ని మళ్లీ model కి అందించడం ద్వారా దాన్ని agent లా ఉపయోగిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>LLM-powered agent లో LLM తదుపరి చర్యకు సూచన ఇవ్వవచ్చు; orchestration code ఆ చర్యను అనుమతుల జాబితాతో సరిపోల్చి, tool ని నిజంగా అమలు చేస్తుంది. Tool ఫలితాన్ని conversation/state లో చేర్చి, పని పూర్తయ్యిందా అని మళ్లీ నిర్ణయిస్తారు. Model మాటను నేరుగా executable command గా నమ్మకూడదు.</p><h4>ఉదాహరణ</h4><p>LLM “order_status(order_id=42)” tool ని సూచిస్తుంది. Server user కి order 42 చూడటానికి అనుమతి ఉందో తనిఖీ చేసి API ని పిలుస్తుంది; వచ్చిన status నే model కి తిరిగి ఇస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model తయారు చేసిన tool arguments ని validation లేకుండా అమలు చేయడం.</div></div><div class="explain-pane" id="p5-gemini-3" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>గతంలో traditional AI agents కు if-else రూల్స్ లేదా rigid state machines రాసేవాళ్లం. LLM-powered agents లో LLM ఒక reasoning engine (మెదడు) గా పనిచేస్తూ ఊహించని పరిస్థితులను కూడా సులభంగా అర్థం చేసుకుని సరైన టూల్స్ ని ఎంపిక చేసుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1088,9 +1090,9 @@ What tool will you call first?
 # LLM response: "CALL: check_balance(user_id=42)"
 # Output చదివి మీ Python runner ఆ tool ని invoke చేస్తుంది.</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> LLM నే నేరుగా database query execution చేస్తుందని అనుకోవడం; LLM కేవలం టెక్స్ట్/JSON రూపంలో ఏ టూల్ పిలవాలో నిర్ణయిస్తుంది, దాన్ని కోడ్ ద్వారా మనం ఎగ్జిక్యూట్ చేయాలి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>4. Autonomous vs semi-autonomous agents.<small>పూర్తి స్వయంప్రతిపత్తి vs పాక్షిక స్వయంప్రతిపత్తి ఏజెంట్లు</small></summary><div class="body">
+<details class="t" id="p5-day46-topic4"><summary>4. Autonomous vs semi-autonomous agents.<small>పూర్తి స్వయంప్రతిపత్తి vs పాక్షిక స్వయంప్రతిపత్తి ఏజెంట్లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-4">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-4">Gemini</button></div><div class="explain-pane" id="p5-gpt-4" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>కొన్ని agents ప్రతి చిన్న చర్యకు user అనుమతి తీసుకుంటాయి; మరికొన్ని అనుమతించిన పరిమితిలో స్వయంగా కొనసాగుతాయి. ఈ స్థాయి నిర్ణయం ప్రమాదం, నమ్మకం, user అనుభవాన్ని ప్రభావితం చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Autonomous agent</b> తనకు ఇచ్చిన పరిమితుల్లో plan చేసి చర్యలు కొనసాగిస్తుంది. <b>Semi-autonomous agent</b> ముఖ్యమైన చర్యకు ముందు user confirmation అడుగుతుంది లేదా కొన్ని దశల్లో review కోసం ఆగుతుంది. చదవడం లేదా draft తయారు చేయడం సాధారణంగా తక్కువ ప్రమాదం; డబ్బు పంపడం లేదా data తొలగించడం ముందు approval అవసరం.</p><h4>ఉదాహరణ</h4><p>Agent ప్రయాణ ఎంపికలను వెతికి పోల్చవచ్చు. టికెట్ కొనుగోలు చేసే ముందు మొత్తం ధర, తేదీ చూపించి user నిర్ధారణ తీసుకోవాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> approval అవసరమైన చర్యను agent కి మౌనంగా పూర్తి చేసే అధికారం ఇవ్వడం.</div></div><div class="explain-pane" id="p5-gemini-4" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్రిటికల్ ప్రొడక్షన్ సిస్టమ్స్ (బ్యాంకింగ్, ఈ-కామర్స్ ఆర్డర్స్, సర్వర్ డిలీషన్స్) లో ఏజెంట్ కి పూర్తి స్వేచ్ఛ ఇస్తే పొరపాటున డేటా నష్టం జరగవచ్చు. ఏ పనులకు ఏజెంట్ సొంతంగా నిర్ణయం తీసుకోవచ్చు, వేటికి మనుషుల అనుమతి అవసరమో విభజించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1111,9 +1113,9 @@ execute_step("fetch_user_profile", is_dangerous=False)
 # Risky action: Semi-autonomous గా ఆగుతుంది
 execute_step("delete_mysql_database", is_dangerous=True)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రొడక్షన్ లో financial లేదా database write actions ని కూడా పూర్తి autonomous గా వదిలేయడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>5. Agent capabilities and limitations.<small>ఏజెంట్ సామర్థ్యాలు మరియు పరిమితులు</small></summary><div class="body">
+<details class="t" id="p5-day46-topic5"><summary>5. Agent capabilities and limitations.<small>ఏజెంట్ సామర్థ్యాలు మరియు పరిమితులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-5">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-5">Gemini</button></div><div class="explain-pane" id="p5-gpt-5" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఏ పని agent కి అప్పగించాలో, ఏ పని అది చేయకూడదో తెలియాలి. సరైన పరిమితులు లేకపోతే చిన్న పొరపాటు కూడా పెద్ద ప్రభావం చూపవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Agent ఒక లక్ష్యాన్ని విభజించడం, సమాచారం వెతకడం, tool ఉపయోగించడం, ఫలితాన్ని తనిఖీ చేయడం చేయగలదు. కానీ అది అందుబాటులో ఉన్న data, tools, permissions కంటే ఎక్కువ తెలుసుకోదు; LLM కూడా తప్పు అర్థం చేసుకోవచ్చు లేదా సరైనదిగా కనిపించే తప్పు సమాధానం ఇవ్వవచ్చు. అందుకే timeout, call limit, permissions, audit log, human approval అవసరాన్ని బట్టి ఏర్పాటు చేయాలి.</p><h4>ఉదాహరణ</h4><p>Support agent refund policy వివరించవచ్చు; కానీ refund చెల్లింపు చేయడానికి order ownership తనిఖీ, ఖర్చు పరిమితి, అవసరమైతే supervisor approval ఉండాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Tool అందుబాటులో ఉందని agent కి దాన్ని ఎప్పుడైనా వాడే హక్కు ఉందని భావించడం.</div></div><div class="explain-pane" id="p5-gemini-5" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్లు అద్భుతాలు చేస్తాయని భ్రమపడకుండా, అవి ఏమి చేయగలవో, వేటిలో విఫలమవుతాయో స్పష్టమైన అవగాహన ఉండాలి. అప్పుడే సరైన ఆర్కిటెక్చర్ నిర్మించగలుగుతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1133,9 +1135,9 @@ while step_count &lt; MAX_STEPS:
 else:
     print("Warning: Max steps limit దాటిపోయింది! Stopping agent.")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> గరిష్ట స్టెప్స్ (max_iterations) లేదా టైమ్‌అవుట్ పెట్టకుండా ఏజెంట్ లూప్ ని రన్ చేయడం వల్ల టోకెన్ బిల్లు పెరిగిపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>6. Agent environments.<small>ఏజెంట్ పనిచేసే పరిసరాలు (Environments)</small></summary><div class="body">
+<details class="t" id="p5-day46-topic6"><summary>6. Agent environments.<small>ఏజెంట్ పనిచేసే పరిసరాలు (Environments)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-6">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-6">Gemini</button></div><div class="explain-pane" id="p5-gpt-6" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent తన environment లోని సమాచారం, అందుబాటులో ఉన్న tools ఆధారంగా మాత్రమే పని చేస్తుంది. Environment ఏమి ఇస్తుందో స్పష్టంగా రూపొందించకపోతే agent కి అసంపూర్ణ దృశ్యం కనిపిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Agent environment అంటే agent చదవగల state, అందుబాటులో ఉన్న tools, వాటి ఫలితాలు, బయటి సేవలు కలిసి ఉండే పని పరిసరం. ఇది browser, database, filesystem, robot sensors లేదా simulation కావచ్చు. ప్రతి tool ఏ input తీసుకుంటుంది, ఏ output ఇస్తుంది, ఏ permission కావాలి అని స్పష్టంగా నిర్వచించాలి.</p><h4>ఉదాహరణ</h4><p>Calendar assistant కి events చూడటానికి read tool, event సృష్టించడానికి create tool ఉండొచ్చు. Delete tool వేరే అనుమతి కోరాలి; దాన్ని ప్రతీ agent కి ఇవ్వాల్సిన అవసరం లేదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Environment లోని అన్ని tools ని ఒకే అనుమతితో, వివరణ లేకుండా agent కి ఇవ్వడం.</div></div><div class="explain-pane" id="p5-gemini-6" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ కేవలం గాల్లో ఉండదు; అది ఒక environment (డేటాబేస్, ఫైల్ సిస్టమ్, వెబ్ బ్రౌజర్, API సర్వర్) లో ఉండి, దాని స్థితిని గమనిస్తూ పనులు చేస్తుంది. Environment స్పష్టంగా నిర్వచించకపోతే ఏజెంట్ తప్పు actions తీసుకుంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1157,9 +1159,9 @@ env = AgentEnvironment()
 print("Perception:", env.read_file("notes.txt"))
 print("Action:", env.write_file("todo.txt", "Deploy Laravel app"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Environment కి సరైన access controls (sandbox permissions) ఇవ్వకుండా ఏజెంట్ కి host server ఫైల్ సిస్టమ్ యాక్సెస్ ఇవ్వడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>7. Agent goals and objectives.<small>ఏజెంట్ లక్ష్యాలు మరియు ఉద్దేశ్యాలు</small></summary><div class="body">
+<details class="t" id="p5-day46-topic7"><summary>7. Agent goals and objectives.<small>ఏజెంట్ లక్ష్యాలు మరియు ఉద్దేశ్యాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-7">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-7">Gemini</button></div><div class="explain-pane" id="p5-gpt-7" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>“బాగా సహాయం చేయి” లాంటి అస్పష్టమైన లక్ష్యాన్ని agent సరిగా పూర్తి అయిందో లేదో నిర్ణయించలేడు. కొలవగల లక్ష్యం ఉంటే సరైన చర్య, ముగింపు స్థితి నిర్వచించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Goal అనేది చివరికి సాధించాల్సిన ఫలితం; objective అనేది ఆ ఫలితాన్ని చేరడానికి ఉపయోగించే స్పష్టమైన ఉపలక్ష్యం లేదా కొలమానం. లక్ష్యానికి scope, success criteria, చేయకూడని పనులు, గడువు లేదా ఖర్చు పరిమితి జతచేస్తే execution నియంత్రించవచ్చు.</p><h4>ఉదాహరణ</h4><p>అస్పష్టంగా: “కస్టమర్‌కు సహాయం చేయి.” స్పష్టంగా: “ఈ order యొక్క delivery status ను order API ద్వారా తెచ్చి, source status తో user కి చెప్పు; order మార్చవద్దు.”</p><div class="mistake"><b>సాధారణ తప్పు:</b> లక్ష్యంలో అనుమతులు, పని ముగిసిందని చెప్పే ప్రమాణం లేకుండా వదిలేయడం.</div></div><div class="explain-pane" id="p5-gemini-7" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>స్పష్టమైన లక్ష్యం (Goal) లేకపోతే ఏజెంట్ ఎక్కడ ఆగాలో తెలియక అనవసర లూప్స్ లో పడుతుంది. టాస్క్ ఎప్పుడు ముగిసిందో (Termination condition) ఏజెంట్ కి స్పష్టంగా తెలియజేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1181,9 +1183,9 @@ tracker = GoalTracker("Close ticket and notify user")
 state = {"ticket_closed": True, "email_sent": True}
 print("Goal achieved?", tracker.evaluate(state))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> అస్పష్టమైన లక్ష్యాలు ఇవ్వడం (ఉదా: "రిపోర్ట్ చూడు"), దీనివల్ల ఏజెంట్ ఎప్పుడు ఆపాలో అర్థం కాక ఆగిపోదు.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>8. Agent perception, reasoning and action.<small>గ్రహణశక్తి, ఆలోచన మరియు చర్య (Perception, Reasoning, Action loop)</small></summary><div class="body">
+<details class="t" id="p5-day46-topic8"><summary>8. Agent perception, reasoning and action.<small>గ్రహణశక్తి, ఆలోచన మరియు చర్య (Perception, Reasoning, Action loop)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-8">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-8">Gemini</button></div><div class="explain-pane" id="p5-gpt-8" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent తన చర్యల ఫలితాన్ని చూడకపోతే, తప్పు దిశలోనే కొనసాగవచ్చు. ప్రతి చర్య తర్వాత వచ్చిన ఫలితాన్ని పరిశీలిస్తే, అవసరమైనప్పుడు తన మార్గాన్ని మార్చుకోగలదు.</p><h4>సరళమైన వివరణ</h4><p><b>Perception</b> అంటే environment నుంచి state లేదా observation పొందడం. <b>Reasoning</b> అంటే తదుపరి చర్యను ఎంచుకోవడం. <b>Action</b> అంటే tool లేదా API ని అమలు చేయడం. దాని ఫలితం కొత్త observation గా agent కి తిరిగి వస్తుంది. ఈ చక్రానికి గరిష్ఠ దశల సంఖ్య, సమయ పరిమితి, ఆగాల్సిన నియమం పెట్టాలి.</p><h4>ఉదాహరణ</h4><p>Agent stock API లో వస్తువు లేదు అని చూస్తుంది, supplier tool ద్వారా అంచనా delivery date తీసుకుంటుంది, ఆ తర్వాత user కి stock update ఇస్తుంది. Supplier tool విఫలమైతే, ఫలితం లభించలేదని తెలియజేయాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Tool ఫలితం వచ్చిన తర్వాత దాన్ని పరిశీలించకుండా తదుపరి చర్య చేయడం.</div></div><div class="explain-pane" id="p5-gemini-8" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ యొక్క ప్రధాన ఆర్కిటెక్చరల్ సైకిల్ ఇదే. బాహ్య ప్రపంచాన్ని గమనించడం (Perceive), దాన్ని విశ్లేషించి ఏమి చేయాలో ప్లాన్ చేయడం (Reason), సాధనాన్ని ప్రయోగించి చర్య చేయడం (Act) అనే చక్రం ఏజెంట్ వ్యవస్థకు వెన్నెముక.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1207,9 +1209,9 @@ print("Goal achieved?", tracker.evaluate(state))</pre>
 
 agent_loop_cycle("HTTP 500 server error")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Action తీసుకున్న తర్వాత వచ్చిన ఫలితాన్ని (Observation) మళ్లీ Perception లోకి పంపకపోవడం, దీనివల్ల ఏజెంట్ అంధుడిలా పనిచేస్తుంది.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>9. Agent execution lifecycle.<small>ఏజెంట్ ఎగ్జిక్యూషన్ లైఫ్‌సైకిల్</small></summary><div class="body">
+<details class="t" id="p5-day46-topic9"><summary>9. Agent execution lifecycle.<small>ఏజెంట్ ఎగ్జిక్యూషన్ లైఫ్‌సైకిల్</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-9">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-9">Gemini</button></div><div class="explain-pane" id="p5-gpt-9" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent ఒక request ను ఎలా ప్రారంభించి, tools వాడి, ఫలితాన్ని ఇచ్చి, ఎప్పుడు ఆగుతుందో lifecycle గా చూడటం వల్ల debugging మరియు monitoring సులభమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p>సాధారణ lifecycle: request స్వీకరణ → input, permission validation → state/context లోడ్ → model నిర్ణయం → అవసరమైతే tool call → tool result నమోదు → తదుపరి చర్య లేదా final response → logs, metrics. ప్రతి దశకు error handling, timeout, retry policy వేరు కావచ్చు.</p><h4>ఉదాహరణ</h4><p>Invoice assistant user, invoice ID, permission తనిఖీ చేస్తుంది; invoice tool ని పిలుస్తుంది; total లెక్కను ధృవీకరించి సమాధానం ఇస్తుంది. Tool అందుబాటులో లేకపోతే bounded retry తర్వాత స్పష్టమైన error చూపిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> tool calls ని logs లో నమోదు చేయకపోవడం; తర్వాత agent ఎందుకు ఆ చర్య తీసుకుందో తెలుసుకోవడం కష్టం.</div></div><div class="explain-pane" id="p5-gemini-9" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్ ఎగ్జిక్యూషన్ అనేది ఒకేసారి ముగిసే సాధారణ script కాదు. అది initialize కావడం నుండి మొదలై task complete అయ్యేంత వరకు వివిధ దశల ద్వారా ప్రయాణిస్తుంది. ఈ lifecycle తెలిస్తేనే monitoring, logging, debugging చేయగలం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1229,9 +1231,9 @@ agent_loop_cycle("HTTP 500 server error")</pre>
 
 print(run_agent_lifecycle("Generate quarterly report"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఎగ్జిక్యూషన్ లైఫ్‌సైకిల్ మధ్యలో ఏదైనా API fail అయితే fallback mechanism లేకపోవడం.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Model layer.<small>మోడల్ లేయర్ (LLM ఫౌండేషన్)</small></summary><div class="body">
+<details class="t" id="p5-day46-topic10"><summary>10. Model layer.<small>మోడల్ లేయర్ (LLM ఫౌండేషన్)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p5-gpt-10">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p5-gemini-10">Gemini</button></div><div class="explain-pane" id="p5-gpt-10" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Agent యొక్క model భాషను అర్థం చేసుకోవడం, తదుపరి tool లేదా సమాధానాన్ని సూచించడం వంటి పనులు చేస్తుంది. Model layer స్పష్టంగా వేరుచేస్తే model మార్చడం, ఖర్చు/వేగం నియంత్రించడం సులభం.</p><h4>సరళమైన వివరణ</h4><p>Model layer కి prompt/context పంపి, text లేదా structured tool-call నిర్ణయం అందుకుంటారు. Orchestrator ఆ output ని parse చేసి validate చేసిన తర్వాతే తదుపరి పని చేస్తుంది. చిన్న task కి తక్కువ ఖర్చు model, క్లిష్ట reasoning కి బలమైన model route చేయొచ్చు; model output ని ఎప్పుడూ తప్పులేని నిర్ణయంగా చూడకూడదు.</p><h4>ఉదాహరణ</h4><p>Agent ఒక ప్రశ్నకు policy passage నుంచి సమాధానం రాయడానికి language model వాడుతుంది. కానీ user కి ఆ passage చూడటానికి అనుమతి ఉందో లేదో model నిర్ణయించదు; application policy layer దాన్ని తనిఖీ చేస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Authorization లేదా వ్యాపార నియమాలను prompt లో మాత్రమే పెట్టి, server వైపు తనిఖీ చేయకపోవడం.</div></div><div class="explain-pane" id="p5-gemini-10" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏజెంట్‌కు రీజనింగ్ సామర్థ్యం ఇచ్చేది మోడల్ లేయర్. తక్కువ సామర్థ్యం ఉన్న మోడల్ వాడితే తప్పుడు tool calls చేస్తుంది, ఎక్కువ ఖరీదైన మోడల్ ప్రతి చిన్నదానికి వాడితే budget వృథా అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1249,7 +1251,7 @@ print(run_agent_lifecycle("Generate quarterly report"))</pre>
 model = LLMModelLayer(provider="anthropic", model_name="claude-3-5-sonnet")
 print(model.generate_decision("User wants to calculate mortgage rates"))</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Tool-calling లేదా structured output సపోర్ట్ చేయని బలహీనమైన బేస్ మోడల్స్‌ను ఏజెంట్ కోర్ గా వాడటం.</div>
-</div></details>
+</div></div></details>
 
 <details class="t"><summary>11. Planning layer.<small>ప్లానింగ్ లేయర్ (కార్యచరణ ప్రణాళిక)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -16810,6 +16812,8 @@ run_capstone_e2e_demo()</pre>
 
   updateCountsAndFilter();
 })();
+
+  document.querySelectorAll('.explain-tabs').forEach(function(group){var buttons=[].slice.call(group.querySelectorAll('.explain-tab'));buttons.forEach(function(button){button.addEventListener('click',function(){buttons.forEach(function(item){var selected=item===button;item.setAttribute('aria-selected',selected?'true':'false');var pane=document.getElementById(item.getAttribute('data-pane'));if(pane)pane.hidden=!selected;});});});});
 </script>
 <div id="profile-toast" class="profile-toast"></div>
 </body>

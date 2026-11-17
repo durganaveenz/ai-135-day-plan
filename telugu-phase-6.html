@@ -855,6 +855,11 @@ pre { position: relative; padding-top: 36px; }
   .nav-prev-btn, .nav-resume-btn { display: none; }
 }
 
+
+.explain-tabs{display:flex;gap:8px;margin:4px 0 14px;border-bottom:1px solid var(--line)}
+.explain-tab{border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--soft);color:var(--text);padding:7px 14px;cursor:pointer;font:inherit}
+.explain-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.gpt-pane[hidden],.gemini-pane[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1019,11 +1024,20 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. Prototype vs production application.<small>ప్రోటోటైప్ మరియు ప్రొడక్షన్ అప్లికేషన్ మధ్య తేడాలు</small></summary><div class="body">
+    <details class="t" id="gpt-topic-p6-prototype-vs-production-application-0"><summary>1. Prototype vs production application.<small>ప్రోటోటైప్ మరియు ప్రొడక్షన్ అప్లికేషన్ మధ్య తేడాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-prototype-vs-production-application">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-prototype-vs-production-application-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p6-prototype-vs-production-application" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఒక AI feature notebook లో పని చేసినా, నిజమైన users కి ఇచ్చినప్పుడు failures రావచ్చు. ఆ feature ని సురక్షితంగా, నమ్మదగిన విధంగా నిర్వహించడానికి prototype, production మధ్య తేడా తెలుసుకోవాలి.</p>
+<h4>సరళమైన వివరణ</h4><p>Prototype అనేది ఆలోచన పనిచేస్తుందా అని త్వరగా చూసే చిన్న రూపం. Production application మాత్రం authentication, input validation, timeouts, error handling, logs, monitoring, load handling వంటి అవసరాలను కూడా చూసుకుంటుంది. Laravel లో ఒక route లో రాసిన demo logic ని controller, service, queue, tests తో నిర్వహించే app గా మార్చినట్టు ఇది ఉంటుంది.</p>
+<h4>ఉదాహరణ</h4><p>ఉదాహరణకు, notebook లో LLM కి prompt పంపి సమాధానం చూడటం prototype. అదే పని users కోసం ఇవ్వాలంటే API key server లోనే ఉంచాలి, request కి timeout పెట్టాలి, provider error వస్తే సురక్షితమైన message ఇవ్వాలి, usage ని log చేయాలి.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> Prototype లో పనిచేసిందని అదే code ని మార్పులేకుండా production కి పంపడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p6-prototype-vs-production-application-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>Jupyter Notebook లేదా ఒక సింగిల్ Python స్క్రిప్ట్‌లో AI మోడల్ పనిచేయడం చాలా సులభం. కానీ వేలాదిమంది యూజర్లు ఒకేసారి వాడినప్పుడు సర్వర్ క్రాష్ అవ్వకుండా, తక్కువ లేటెన్సీ, ఎర్రర్ హ్యాండ్లింగ్ మరియు సెక్యూరిటీతో రన్ అవ్వడానికి ప్రొడక్షన్ ఆర్కిటెక్చర్ తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో మనం మొదట `routes/web.php` లో ఒక క్లోజర్ ఫంక్షన్ రాసి డైరెక్ట్ గా టెస్ట్ చేస్తాం (ప్రోటోటైప్). కానీ అసలైన ప్రొడక్షన్ కోసం Controllers, Form Requests, Queues, Services, Redis Caching, Sentry లాగింగ్ వాడతాం కదా. AI లో కూడా అంతే: ప్రోటోటైప్ కేవలం `openai.ChatCompletion.create()` తో ఆగిపోతే, ప్రొడక్షన్ లో రేట్ లిమిటింగ్, ఫాల్‌బ్యాక్ మోడల్స్, టోకెన్ బడ్జెటింగ్, అసిన్రోనస్ క్యూలు మరియు మోనిటరింగ్ ఉంటాయి.</p>
+<p>Laravel లో మనం మొదట <code>routes/web.php</code> లో ఒక క్లోజర్ ఫంక్షన్ రాసి డైరెక్ట్ గా టెస్ట్ చేస్తాం (ప్రోటోటైప్). కానీ అసలైన ప్రొడక్షన్ కోసం Controllers, Form Requests, Queues, Services, Redis Caching, Sentry లాగింగ్ వాడతాం కదా. AI లో కూడా అంతే: ప్రోటోటైప్ కేవలం <code>openai.ChatCompletion.create()</code> తో ఆగిపోతే, ప్రొడక్షన్ లో రేట్ లిమిటింగ్, ఫాల్‌బ్యాక్ మోడల్స్, టోకెన్ బడ్జెటింగ్, అసిన్రోనస్ క్యూలు మరియు మోనిటరింగ్ ఉంటాయి.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Prototype: హార్డ్‌కోడెడ్ మరియు ఎర్రర్ హ్యాండ్లింగ్ ఉండదు
 # response = openai.ChatCompletion.create(model="gpt-4", messages=[...])
@@ -1049,10 +1063,7 @@ class ProductionLLMClient:
         return response.json()["choices"][0]["message"]["content"]
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> నోట్‌బుక్‌లో రాసిన కోడ్‌ను ఎర్రర్ హ్యాండ్లింగ్, రీట్రై లాజిక్ లేకుండా నేరుగా ప్రొడక్షన్ FastAPI లో పెట్టేయడం.</div>
-</div></details>
-
-
-<details class="t"><summary>2. Monolithic vs microservices architecture.<small>మోనోలిథిక్ వర్సెస్ మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్</small></summary><div class="body">
+</div></div></details><details class="t"><summary>2. Monolithic vs microservices architecture.<small>మోనోలిథిక్ వర్సెస్ మైక్రోసర్వీసెస్ ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్లలో కొన్ని టాస్క్‌లు CPU-bound (డేటా పార్సింగ్), కొన్ని GPU-bound (మోడల్ ఇన్‌ఫరెన్స్), మరియు కొన్ని I/O-bound (API కాల్స్). ఇవన్నీ ఒకే ప్రాసెస్‌లో పెడితే మొత్తం అప్లికేషన్ నెమ్మదిస్తుంది కాబట్టి సర్వీస్ విభజన అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1072,7 +1083,16 @@ def submit_ai_task(user_id: int, prompt: str):
 <div class="mistake"><b>సాధారణ తప్పు:</b> చిన్న ప్రాజెక్ట్‌లకు కూడా మొదట్లోనే డజన్ల కొద్దీ మైక్రోసర్వీసులు రాసి నెట్‌వర్క్ లేటెన్సీని అనవసరంగా పెంచడం.</div>
 </div></details>
 
-<details class="t"><summary>3. Layered architecture.<small>లేయర్డ్ (బహుళ అంచెల) ఆర్కిటెక్చర్</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-layered-architecture-0"><summary>3. Layered architecture.<small>లేయర్డ్ (బహుళ అంచెల) ఆర్కిటెక్చర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-layered-architecture">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-layered-architecture-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p6-layered-architecture" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఒకే చోట route, business rules, database code, model call అన్నీ కలిపితే feature పెరిగే కొద్దీ మార్పులు చేయడం కష్టమవుతుంది. బాధ్యతలను వేరు చేయడానికి layered architecture ఉపయోగపడుతుంది.</p>
+<h4>సరళమైన వివరణ</h4><p>ప్రతి layer ఒక రకమైన పని చేస్తుంది. ఉదాహరణకు, API layer request ని స్వీకరిస్తుంది; service layer వ్యాపార నియమాలను అమలు చేస్తుంది; repository layer database తో మాట్లాడుతుంది; provider client LLM API ని పిలుస్తుంది. ఒక layer మరో layer ని స్పష్టమైన interface ద్వారా ఉపయోగిస్తుంది.</p>
+<h4>ఉదాహరణ</h4><p>Laravel లో Route → Controller → Service → Repository క్రమం దీనికి దగ్గరైన ఉదాహరణ. Python API లో endpoint input ని validate చేసి service ని పిలవొచ్చు; service అవసరమైతే repository లేదా LLM client ని ఉపయోగిస్తుంది.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని layers పెట్టడమే లక్ష్యం కాదు. చిన్న feature కి అవసరం లేని layers పెడితే code అర్థం చేసుకోవడం మరింత కష్టమవుతుంది.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p6-layered-architecture-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్ క్వెరీలు, బిజినెస్ లాజిక్, AI మోడల్ కాల్స్ అన్నీ ఒకే API రూట్ ఫంక్షన్‌లో కలిపి రాస్తే కోడ్ నిర్వహణ అసాధ్యమవుతుంది. లేయర్డ్ ఆర్కిటెక్చర్ కోడ్‌ను క్రమబద్ధమైన పొరలుగా విడదీస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1098,9 +1118,8 @@ class SummarizeService:
 #     return SummarizeService(DocumentRepo()).summarize(doc_id)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> FastAPI route handlers లోనే నేరుగా SQL క్వెరీలు, OpenAI API కాల్స్ అన్నీ కలగాపులగంగా రాయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-clean-architecture-0"><summary>4. Clean architecture.<small>క్లీన్ ఆర్కిటెక్చర్ సూత్రాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-clean-architecture">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-clean-architecture-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-clean-architecture" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>AI provider లేదా database మారినా ప్రధాన business rules ని మళ్లీ రాయకుండా ఉండటం ముఖ్యమైనది. బయటి సాంకేతిక మార్పుల నుంచి business logic ని వేరుగా ఉంచడానికి clean architecture ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>లోపలి భాగంలో business rules, use cases ఉంటాయి. Framework, database, LLM provider వంటి బయటి భాగాలు interface ద్వారా లోపలి logic తో కలుస్తాయి. అందువల్ల core logic ఒక vendor SDK కి నేరుగా బంధించబడదు.</p><h4>ఉదాహరణ</h4><p>ఉదాహరణకు, <code>AnswerGenerator</code> అనే interface ని service ఉపయోగిస్తుంది. OpenAI, మరో provider, లేదా local model దాన్ని అమలు చేయవచ్చు. Provider మారినా service లోని business నియమాలు అలాగే ఉంటాయి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> చిన్న project లో అవసరం లేకపోయినా ప్రతి class కి interface పెట్టి code ని అనవసరంగా పెంచడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-clean-architecture-0" role="tabpanel" hidden>
 
-<details class="t"><summary>4. Clean architecture.<small>క్లీన్ ఆర్కిటెక్చర్ సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>రేపు OpenAI బదులు Anthropic క్లాడ్ వాడాలన్నా, లేదా PostgreSQL బదులు MongoDB వాడాలన్నా మన కోర్ బిజినెస్ లాజిక్ మారకూడదు. క్లీన్ ఆర్కిటెక్చర్ ద్వారా బిజినెస్ లాజిక్ బాహ్య ఫ్రేమ్‌వర్క్‌లపై ఆధారపడకుండా స్వతంత్రంగా ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1126,9 +1145,7 @@ class AskQuestionUseCase:
         return self.llm.generate(f"Answer briefly: {question}")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కోర్ బిజినెస్ లాజిక్ అంతటా నేరుగా `import openai` వాడి తర్వాత మోడల్ మార్చడానికి ఇబ్బంది పడటం.</div>
-</div></details>
-
-<details class="t"><summary>5. Hexagonal architecture.<small>హెక్సాగోనల్ (పోర్ట్స్ అండ్ అడాప్టర్స్) ఆర్కిటెక్చర్</small></summary><div class="body">
+</div></div></details><details class="t"><summary>5. Hexagonal architecture.<small>హెక్సాగోనల్ (పోర్ట్స్ అండ్ అడాప్టర్స్) ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్ అనేక రకాల బాహ్య సేవలపై (LLM APIs, Vector DBs, Cloud Storage, SQL DBs) ఆధారపడుతుంది. వీటన్నింటినీ సులభంగా టెస్ట్ చేయడానికి, మాక్ చేయడానికి పోర్ట్స్ &amp; అడాప్టర్స్ శైలి అత్యుత్తమమైనది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1156,7 +1173,8 @@ class SemanticSearchService:
 <div class="mistake"><b>సాధారణ తప్పు:</b> టెస్టింగ్ సమయంలో అసలైన పెయిడ్ Pinecone/OpenAI API లను పిలుస్తూ ఖర్చు మరియు సమయం వృధా చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>6. Domain-driven design fundamentals.<small>డొమైన్-డ్రివెన్ డిజైన్ (DDD) ప్రాథమిక అంశాలు</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-domain-driven-design-fundamentals-0"><summary>6. Domain-driven design fundamentals.<small>డొమైన్-డ్రివెన్ డిజైన్ (DDD) ప్రాథమిక అంశాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-domain-driven-design-fundamentals">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-domain-driven-design-fundamentals-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-domain-driven-design-fundamentals" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>AI application లో “ticket”, “customer”, “document”, “answer” వంటి business భావాలకు స్పష్టమైన అర్థం లేకపోతే, వేర్వేరు services వాటిని వేర్వేరుగా ఉపయోగిస్తాయి. Business పదాలను code లో స్పష్టంగా ఉంచడానికి domain-driven design సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Domain అంటే పరిష్కరించాల్సిన వ్యాపార రంగం. ఆ రంగంలోని ముఖ్యమైన వస్తువులు, నియమాలు, వాటి సంబంధాలను కలిసి అర్థం చేసుకుని model చేస్తాం. ఉదాహరణకు, “Support Ticket” కి status, owner, permitted actions ఉంటాయి; ఇది కేవలం database row కాదు.</p><h4>ఉదాహరణ</h4><p>సపోర్ట్ AI లో <code>Ticket</code>, <code>ReplyDraft</code>, <code>EscalationPolicy</code> వంటి పేర్లతో business concepts ని code లో చూపించవచ్చు. Product, engineering బృందాలు ఈ పదాలకు ఒకే అర్థం ఇస్తే integrations సులభమవుతాయి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ పదాలు అర్థం చేసుకోకుండా database tables పేర్లనే domain design గా భావించడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-domain-driven-design-fundamentals-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంక్లిష్టమైన AI సిస్టమ్స్ నిర్మించేటప్పుడు ఇంజనీర్లు మరియు బిజినెస్ డొమైన్ నిపుణులు ఒకే పరిభాష (Ubiquitous Language) మాట్లాడాలి. DDD ద్వారా సాఫ్ట్‌వేర్ మోడల్ నిజమైన బిజినెస్ ప్రపంచాన్ని ప్రతిబింబిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1182,9 +1200,7 @@ class ChatSession:
         self.total_tokens += (usage.prompt_tokens + usage.completion_tokens)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ రూల్స్‌ను డేటాబేస్ ట్రిగ్గర్లలో లేదా API కంట్రోలర్లలో చెల్లాచెదురుగా రాయడం.</div>
-</div></details>
-
-<details class="t"><summary>7. Separation of concerns.<small>బాధ్యతల విభజన (Separation of Concerns)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>7. Separation of concerns.<small>బాధ్యతల విభజన (Separation of Concerns)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే ఫైల్‌లో వెబ్ రూటింగ్, డేటా ప్రాసెసింగ్, AI ఇన్‌ఫరెన్స్, మరియు HTML రెండరింగ్ రాస్తే దాన్ని సవరించడం నరకం. ప్రతి భాగానికి ఒకే స్పష్టమైన ఆందోళన/బాధ్యత ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1207,7 +1223,8 @@ def log_audit(user_id: str, prompt: str, response: str):
 <div class="mistake"><b>సాధారణ తప్పు:</b> Prompt engineering, JSON parsing, Database logging అన్నీ ఒకే ఫంక్షన్‌లో చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>8. Single responsibility principle.<small>సింగిల్ రెస్పాన్సిబిలిటీ ప్రిన్సిపల్ (SRP)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-single-responsibility-principle-0"><summary>8. Single responsibility principle.<small>సింగిల్ రెస్పాన్సిబిలిటీ ప్రిన్సిపల్ (SRP)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-single-responsibility-principle">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-single-responsibility-principle-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-single-responsibility-principle" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక class మారడానికి ఒక ప్రధాన కారణం మాత్రమే ఉండేలా చూస్తే దాన్ని మార్చడం, పరీక్షించడం సులభమవుతుంది. AI system లో provider API, prompt rules, billing logic తరచూ వేర్వేరు కారణాల వల్ల మారుతాయి.</p><h4>సరళమైన వివరణ</h4><p>Single responsibility principle ప్రకారం, class కి ఒకే ప్రధాన బాధ్యత ఉండాలి. ఉదాహరణకు, <code>PromptBuilder</code> prompt ని తయారుచేస్తుంది; <code>OpenAIClient</code> request పంపుతుంది; <code>UsageRecorder</code> token usage ని నమోదు చేస్తుంది.</p><h4>ఉదాహరణ</h4><p>ఒక class కి prompt format మారినా అది మాత్రమే సవరించాలి. Provider మారినప్పుడు request పంపే client మాత్రమే మారాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> చాలా చిన్న classes సృష్టించడమే ఈ నియమం అని భావించడం; ముఖ్యమైంది బాధ్యతలు స్పష్టంగా ఉండటం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-single-responsibility-principle-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>SOLID సూత్రాలలో మొదటిది SRP. ఒక క్లాస్ లేదా మాడ్యూల్ మార్చడానికి కేవలం ఒకే ఒక్క కారణం ఉండాలి. ఒకే క్లాస్ డాక్యుమెంట్లు పార్స్ చేసి, ఎంబెడ్డింగ్ తీసి, వెక్టర్ డేటాబేస్ లో సేవ్ చేస్తే ఏది మారినా ఆ క్లాస్ ని మార్చాల్సి వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1227,9 +1244,7 @@ class EmbeddingService:
         return [[0.1, 0.2] for _ in chunks]
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> "DocumentManager" అనే ఒకే క్లాస్‌లో PDF డౌన్‌లోడ్, OCR (Optical Character Recognition), Chunking, Embedding, Pinecone అప్‌లోడ్ అన్నీ రాయడం.</div>
-</div></details>
-
-<details class="t"><summary>9. Dependency inversion.<small>డిపెండెన్సీ ఇన్వర్షన్ (Dependency Inversion Principle)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>9. Dependency inversion.<small>డిపెండెన్సీ ఇన్వర్షన్ (Dependency Inversion Principle)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>హై-లెవల్ బిజినెస్ మాడ్యూల్స్ లో-లెవల్ డిటైల్స్ పై ఆధారపడకూడదు; రెండూ అబ్‌స్ట్రాక్షన్లపై ఆధారపడాలి. దీనివల్ల మోడల్ లేదా డేటాబేస్ లైబ్రరీ మారినా బిజినెస్ లాజిక్‌కు ఎలాంటి హాని జరగదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1259,7 +1274,8 @@ class AlertService:
 <div class="mistake"><b>సాధారణ తప్పు:</b> సర్వీస్ లోపల నేరుగా `self.sender = SlackSender()` అని హార్డ్‌కోడ్ చేయడం వల్ల యూనిట్ టెస్టింగ్ అసాధ్యం కావడం.</div>
 </div></details>
 
-<details class="t"><summary>10. Service boundaries.<small>సర్వీస్ సరిహద్దులు (Service Boundaries)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-service-boundaries-0"><summary>10. Service boundaries.<small>సర్వీస్ సరిహద్దులు (Service Boundaries)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-service-boundaries">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-service-boundaries-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-service-boundaries" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఏ పని ఒక service లో ఉండాలి, ఏది వేరే service కి అప్పగించాలి అనే నిర్ణయం system ని సులభంగా మార్చగలదా అన్నది నిర్ణయిస్తుంది. స్పష్టమైన service boundary వల్ల ఒక భాగం మారినా మిగతా భాగాలపై ప్రభావం తగ్గుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఒక service కి తన data, API, బాధ్యతలు ఉంటాయి. Boundary అంటే service ఏ పనికి బాధ్యత వహిస్తుందో, ఏ పనిని ఇతర service కి అప్పగిస్తుందో తెలిపే అంచు. మంచి boundary వ్యాపార సామర్థ్యం లేదా స్వతంత్రంగా మారే భాగాన్ని చుట్టి ఉంటుంది.</p><h4>ఉదాహరణ</h4><p>Document ingestion service files చదివి chunks, metadata తయారు చేస్తుంది. Retrieval service query కి సరిపోయే chunks వెతుకుతుంది. వీటి మధ్య స్పష్టమైన API ఉంటే indexing మార్చినా answer-generation code మార్చాల్సిన అవసరం ఉండదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే database table లేదా code folder ఉందని దానిని ప్రత్యేక service గా ప్రకటించడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-service-boundaries-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ సర్వీస్ దేనికి బాధ్యత వహిస్తుందో స్పష్టమైన సరిహద్దులు లేకపోతే ఒక సర్వీస్ యొక్క డేటాబేస్ ని మరొక సర్వీస్ నేరుగా యాక్సెస్ చేయడం వల్ల భద్రత, స్కేలబిలిటీ సమస్యలు వస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1280,13 +1296,20 @@ class DocumentSearchClient:
             return resp.json()["passages"]
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒక సర్వీస్ లోని మోడల్స్ మరియు డేటాబేస్ టేబుల్స్‌ను ఇతర సర్వీస్‌లలో నేరుగా క్వెరీ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-api-gateway-layer-0"><summary>11. API gateway layer.<small>API గేట్‌వే లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-api-gateway-layer">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-api-gateway-layer-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p6-api-gateway-layer" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఒక సంస్థలో apps నేరుగా అనేక AI services ని పిలిస్తే authentication, rate limits, logging నియమాలు ఒక్కో app లో వేరుగా మారతాయి. API gateway ఈ సాధారణ నియంత్రణలను ఒకే ప్రవేశద్వారం వద్ద అమలు చేస్తుంది.</p>
+<h4>సరళమైన వివరణ</h4><p>Client ముందుగా gateway కి request పంపుతుంది. Gateway identity ని తనిఖీ చేసి, పరిమితులు వర్తింపజేసి, సరైన backend service కి request ని పంపుతుంది. అది API gateway; LLM gateway అయితే model providers మధ్య routing, fallback, token usage వంటి AI-ప్రత్యేక పనులనూ నిర్వహిస్తుంది.</p>
+<h4>ఉదాహరణ</h4><p>ఉదాహరణకు, mobile app <code>/chat</code> endpoint కి request పంపుతుంది. Gateway user token ని తనిఖీ చేసి, ఆ user కి నిమిషానికి ఎన్ని requests అనుమతించాలో చూస్తుంది; తర్వాత chat service కి పంపుతుంది.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> Gateway ఉన్నా backend service లో authentication, authorization అవసరం లేదని అనుకోవడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p6-api-gateway-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>11. API gateway layer.<small>API గేట్‌వే లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లయింట్లు (మొబైల్, వెబ్) నేరుగా పది రకాల అంతర్గత AI సర్వీసులతో మాట్లాడలేరు. API Gateway ఒకే ఎంట్రీ పాయింట్ గా పనిచేస్తూ రూటింగ్, రేట్ లిమిటింగ్, టోకెన్ అథెంటికేషన్ మరియు SSL టెర్మినేషన్ నిర్వహిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
-<p>Laravel లో `routes/api.php` ముందుండే గ్లోబల్ Middleware స్టాక్ (CORS, Throttle, Authenticate) లాంటిది ఇది. కానీ ప్రొడక్షన్ మైక్రోసర్వీసుల్లో Kong, Envoy, Traefik, లేదా Nginx API Gateway గా ఉండి ట్రాఫిక్‌ను సంబంధిత ఫాస్ట్‌ఏపీఐ మైక్రోసర్వీసులకు పంపుతుంది.</p>
+<p>Laravel లో <code>routes/api.php</code> ముందుండే గ్లోబల్ Middleware స్టాక్ (CORS, Throttle, Authenticate) లాంటిది ఇది. కానీ ప్రొడక్షన్ మైక్రోసర్వీసుల్లో Kong, Envoy, Traefik, లేదా Nginx API Gateway గా ఉండి ట్రాఫిక్‌ను సంబంధిత ఫాస్ట్‌ఏపీఐ మైక్రోసర్వీసులకు పంపుతుంది.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Nginx లేదా Envoy గేట్‌వే రూటింగ్ ఉదాహరణ (కాన్సెప్ట్)
 # /api/v1/auth/*     -&gt; Auth Service (Port 8001)
@@ -1307,9 +1330,7 @@ async def gateway_rate_limiter(request: Request, call_next):
     return await call_next(request)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి చిన్న మైక్రోసర్వీస్ లోనూ ప్రత్యేకంగా రేట్ లిమిటింగ్ మరియు అథెంటికేషన్ డూప్లికేట్ కోడ్ రాయడం.</div>
-</div></details>
-
-<details class="t"><summary>12. Application service layer.<small>అప్లికేషన్ సర్వీస్ లేయర్</small></summary><div class="body">
+</div></div></details><details class="t"><summary>12. Application service layer.<small>అప్లికేషన్ సర్వీస్ లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ రిక్వెస్ట్ వచ్చినప్పుడు వెరిఫికేషన్, డేటా ఫెచింగ్, ప్రాంప్ట్ బిల్డింగ్, AI కాల్, డేటాబేస్ సేవింగ్ అనే బహుళ స్టెప్స్‌ను ఒక క్రమ పద్ధతిలో కోఆర్డినేట్ చేయడానికి అప్లికేషన్ సర్వీస్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1333,7 +1354,8 @@ async def gateway_rate_limiter(request: Request, call_next):
 <div class="mistake"><b>సాధారణ తప్పు:</b> అప్లికేషన్ ఆర్కెస్ట్రేషన్ లాజిక్‌ను నేరుగా API route endpoints లో రాయడం వల్ల రీయూజబిలిటీ కోల్పోవడం.</div>
 </div></details>
 
-<details class="t"><summary>13. LLM orchestration layer.<small>LLM ఆర్కెస్ట్రేషన్ లేయర్</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-llm-orchestration-layer-0"><summary>13. LLM orchestration layer.<small>LLM ఆర్కెస్ట్రేషన్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-llm-orchestration-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-llm-orchestration-layer-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-llm-orchestration-layer" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక request కి retrieval, prompt తయారీ, model call, tool call వంటి దశలు అవసరమవుతాయి. ఈ దశలు ఏ క్రమంలో జరగాలో నియంత్రించడానికి LLM orchestration layer ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Orchestrator పని కేవలం model ని పిలవడం కాదు; ఏ దశకు ఏ input ఇవ్వాలి, ఫలితం ఖాళీగా ఉంటే ఏం చేయాలి, error వస్తే ఎక్కడ ఆపాలి అని కూడా నిర్ణయిస్తుంది. Workflow పెరిగితే దాన్ని స్పష్టమైన దశలుగా చూపడం నిర్వహణను సులభం చేస్తుంది.</p><h4>ఉదాహరణ</h4><p>Policy assistant ముందుగా user అనుమతిని తనిఖీ చేసి, పత్రాలు వెతికి, ఆ సమాచారంతో సమాధానం తయారు చేస్తుంది. పత్రాలు దొరకకపోతే model కి ఖాళీ context పంపకుండా “సంబంధిత సమాచారం దొరకలేదు” అని తిరిగి ఇవ్వొచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Workflow క్రమం, అనుమతులు అన్నీ prompt లోనే ఉంచి, application లో నియంత్రించకపోవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-llm-orchestration-layer-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI అప్లికేషన్ కేవలం ఒకే ప్రాంప్ట్ పంపి ఆన్సర్ తీసుకోదు. ప్రాంప్ట్ టెంప్లేట్ లోడ్ చేయడం, మెమరీ హిస్టరీ జతచేయడం, టూల్స్ పిలవడం, ఫాల్‌బ్యాక్ మోడల్స్ వాడటం వంటి అనేక పనులను ఈ లేయర్ సమన్వయం చేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1353,9 +1375,8 @@ async def gateway_rate_limiter(request: Request, call_next):
         return response
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి API ఎండ్‌పాయింట్‌లో ప్రాంప్ట్ కన్స్ట్రక్షన్, మెమరీ సేవింగ్ కోడ్ విడివిడిగా రాసి మెయింటెనెన్స్ క్లిష్టతరం చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-model-provider-abstraction-0"><summary>14. Model provider abstraction.<small>మోడల్ ప్రొవైడర్ అబ్‌స్ట్రాక్షన్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-model-provider-abstraction">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-model-provider-abstraction-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-model-provider-abstraction" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక app ని ఒకే model provider కి కట్టిపడేయకుండా ఉండటానికి provider abstraction ఉపయోగపడుతుంది. అవసరమైతే ఖర్చు, వేగం, feature ఆధారంగా provider మార్చవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>App కి ఒకే interface కనిపిస్తుంది, ఉదాహరణకు `generate(messages)`. దాని వెనుక OpenAI లేదా మరో provider కి తగిన request తయారవుతుంది. App logic provider-specific parameters మీద నేరుగా ఆధారపడదు.</p><h4>ఉదాహరణ</h4><p>`ChatService` ఒక `ModelProvider` interface ని పిలుస్తుంది. Development లో చిన్న local model, production లో hosted model ఇస్తే service code మార్చాల్సిన అవసరం లేదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఒక interface పెట్టి, దాని లోపల provider-specific code ని మళ్లీ business logic అంతటా పంచడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-model-provider-abstraction-0" role="tabpanel" hidden>
 
-<details class="t"><summary>14. Model provider abstraction.<small>మోడల్ ప్రొవైడర్ అబ్‌స్ట్రాక్షన్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక నిర్దిష్ట మోడల్ కంపెనీ (ఉదా: OpenAI) పైనే పూర్తిగా లాక్-ఇన్ అయితే, వారి సర్వీస్ డౌన్ అయినప్పుడు లేదా ధరలు పెరిగినప్పుడు మన యాప్ ఆగిపోతుంది. ప్రొవైడర్ అబ్‌స్ట్రాక్షన్ ఉంటే ఏ క్షణమైనా Claude, Gemini లేదా Llama 3 లకు మారవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1379,9 +1400,8 @@ class AnthropicProvider(LLMProvider):
         return f"Claude result for: {prompt[:10]}..."
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> యాప్ కోడ్‌బేస్ అంతటా OpenAI SDK రెస్పాన్స్ ఆబ్జెక్ట్స్ (`response.choices[0].message`) ని డైరెక్ట్ గా వాడటం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-prompt-management-service-0"><summary>15. Prompt management service.<small>ప్రాంప్ట్ మేనేజ్‌మెంట్ సర్వీస్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-prompt-management-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-prompt-management-service-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-prompt-management-service" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Prompt text code లో ఎన్నో చోట్ల hard-code చేస్తే, ఏ prompt ఏ version లో ఉందో తెలుసుకోవడం కష్టం. Prompt management service templates, versions, owners, tests ని ఒకచోట నిర్వహిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ఇది prompt template ని version తో నిల్వ చేసి, అవసరమైన variables తో పూర్తి prompt తయారు చేస్తుంది. Production లో prompt మార్చే ముందు test set పై ఫలితాన్ని పోల్చవచ్చు; ఎవరు ఎప్పుడు మార్చారో కూడా నమోదు చేయవచ్చు.</p><h4>ఉదాహరణ</h4><p>Support answer prompt లో `{{question}}` మరియు `{{context}}` ఉంటాయి. Service ఆ values ని సురక్షితంగా జోడించి prompt v3 ని model కి పంపుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> వినియోగదారుడి text ని తనిఖీ చేయకుండా prompt template లో కలపడం లేదా prompt మార్పులను version చేయకపోవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-prompt-management-service-0" role="tabpanel" hidden>
 
-<details class="t"><summary>15. Prompt management service.<small>ప్రాంప్ట్ మేనేజ్‌మెంట్ సర్వీస్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కోడ్‌లో హార్డ్‌కోడ్ చేసిన ప్రాంప్ట్‌లను మార్చాలంటే ప్రతిసారీ పుల్ రిక్వెస్ట్, డిప్లాయ్‌మెంట్ అవసరం అవుతాయి. ప్రాంప్ట్ మేనేజ్‌మెంట్ ద్వారా ప్రాంప్ట్‌లను వర్షన్ చేస్తూ, డేటాబేస్ లేదా GitOps ద్వారా డైనమిక్‌గా మార్చవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1407,9 +1427,8 @@ mgr = PromptManagementService()
 prompt = mgr.render("customer_service", company="Acme Corp", user_query="What is the refund policy?")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పైథాన్ ఫైల్స్ లో పొడవైన ప్రాంప్ట్ స్ట్రింగ్స్‌ను హార్డ్‌కోడ్ చేసి వేరియబుల్స్‌ను ప్లస్ (+) గుర్తుల ద్వారా కలపడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-retrieval-service-0"><summary>16. Retrieval service.<small>రిట్రీవల్ సర్వీస్ (Retrieval Service)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-retrieval-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-retrieval-service-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-retrieval-service" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>RAG app లో సరైన పత్రాలు వెతకడం ఒక ప్రత్యేకమైన పని. Retrieval service ఆ search, access check, ranking బాధ్యతలను వేరుగా నిర్వహిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ఈ service query ని స్వీకరించి, దాన్ని అవసరమైతే embedding గా మార్చి, అనుమతి ఉన్న index లో search చేస్తుంది. ఫలితాల relevance, document permissions తనిఖీ చేసి, ఉపయోగపడే chunks ని తిరిగి ఇస్తుంది.</p><h4>ఉదాహరణ</h4><p>ఉద్యోగి “vacation policy” అని అడిగితే, retrieval service అతని role కి అనుమతి ఉన్న HR పత్రాల్లో మాత్రమే వెతికి సంబంధిత పేరాలను తీసుకువస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> వినియోగదారుడి అనుమతులు తనిఖీ చేయకుండా అన్ని documents లో search చేయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-retrieval-service-0" role="tabpanel" hidden>
 
-<details class="t"><summary>16. Retrieval service.<small>రిట్రీవల్ సర్వీస్ (Retrieval Service)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కి మీ అంతర్గత డాక్యుమెంట్లు తెలియవు. యూజర్ అడిగిన ప్రశ్నకు సరిపడా సందర్భాన్ని (Context) సంబంధిత నాలెడ్జ్ బేస్ నుండి వేగంగా వెతికి తీసుకురావడానికి ప్రత్యేక రిట్రీవల్ సర్వీస్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1428,9 +1447,8 @@ prompt = mgr.render("customer_service", company="Acme Corp", user_query="What is
         return top_results
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> యూజర్ క్వెరీని ఫిల్టర్ చేయకుండా నేరుగా వెక్టర్ డేటాబేస్ కు ఇచ్చి అసంబద్ధమైన డాక్యుమెంట్లు తీసుకురావడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-embedding-service-0"><summary>17. Embedding service.<small>ఎంబెడ్డింగ్ సర్వీస్ (Embedding Service)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-embedding-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-embedding-service-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>పదాలు ఒకేలా లేకపోయినా, అర్థం దగ్గరగా ఉన్న వాక్యాలను వెతకడానికి embeddings ఉపయోగపడతాయి. ఈ పని ఒకే పద్ధతిలో జరగడానికి embedding service ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఈ service text ని సంఖ్యల vector గా మార్చే model ని పిలుస్తుంది. పత్రాలు index చేసేటప్పుడు వాటి భాగాలకు vectors తయారు చేస్తుంది; user query వచ్చినప్పుడు దానికీ vector తయారు చేస్తుంది. తర్వాత దగ్గరగా ఉన్న vectors ని వెతికి సంబంధిత భాగాలను ఇస్తుంది.</p><h4>ఉదాహరణ</h4><p>User “డబ్బు తిరిగి రావడానికి ఎంత సమయం?” అని అడిగితే, పత్రంలో “refund status” అని ఉన్న భాగం కూడా అర్థం దగ్గరగా ఉండటం వల్ల దొరకవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> పత్రాలు index చేయడానికి ఒక embedding model, query కోసం దానికి సరిపోని మరో model వాడడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-embedding-service-0" role="tabpanel" hidden>
 
-<details class="t"><summary>17. Embedding service.<small>ఎంబెడ్డింగ్ సర్వీస్ (Embedding Service)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>టెక్స్ట్ ని కంప్యూటర్ అర్థం చేసుకునే గణిత వెక్టర్లుగా (ఫ్లోటింగ్ పాయింట్ నంబర్లు) మార్చడానికి ఎంబెడ్డింగ్ అవసరం. ఈ ప్రాసెస్ రిసోర్స్ ఇంటెన్సివ్ కాబట్టి క్యాషింగ్ మరియు బ్యాచింగ్ ఉన్న ప్రత్యేక సర్వీస్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1458,8 +1476,7 @@ class CachingEmbeddingService:
         return vector
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే డాక్యుమెంట్ చంక్‌లను ప్రతి యూజర్ క్వెరీకి మళ్ళీ మళ్ళీ ఎంబెడ్ చేస్తూ API ఖర్చులు పెంచడం.</div>
-</div></details>
-<details class="t"><summary>18. Agent orchestration service.<small>ఏజెంట్ ఆర్కెస్ట్రేషన్ సర్వీస్</small></summary><div class="body">
+</div></div></details><details class="t"><summary>18. Agent orchestration service.<small>ఏజెంట్ ఆర్కెస్ట్రేషన్ సర్వీస్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఏజెంట్లు లూప్‌లో పనిచేస్తాయి: ఆలోచించడం (Reasoning), టూల్ ఎంచుకోవడం (Action), రిజల్ట్ పరిశీలించడం (Observation). ఈ లూప్‌ను కంట్రోల్ చేస్తూ, ఇన్ఫినిట్ లూప్‌లలో పడకుండా గరిష్ట స్టెప్స్ పరిమితులు విధించే సర్వీస్ ఇది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1485,7 +1502,8 @@ class CachingEmbeddingService:
 <div class="mistake"><b>సాధారణ తప్పు:</b> గరిష్ట స్టెప్పులు (max steps / timeout) సెట్ చేయకపోవడం వల్ల ఏజెంట్ ఇన్ఫినిట్ లూప్‌లోకి వెళ్లి వేలాది డాలర్ల టోకెన్ బిల్లు రావడం.</div>
 </div></details>
 
-<details class="t"><summary>19. Tool execution service.<small>టూల్ ఎగ్జిక్యూషన్ సర్వీస్ (Sandboxing &amp; Execution)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-tool-execution-service-0"><summary>19. Tool execution service.<small>టూల్ ఎగ్జిక్యూషన్ సర్వీస్ (Sandboxing &amp; Execution)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-tool-execution-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-tool-execution-service-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>Agent ఒక tool ని పిలవాలని నిర్ణయించినా, ఆ పని నేరుగా అనుమతించకూడదు. Tool execution service arguments, user అనుమతి, timeout ని తనిఖీ చేసి tool ని సురక్షితంగా నడుపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Agent tool పేరు, దానికి కావాల్సిన values పంపుతుంది. Service ఆ tool అనుమతించబడిందా, values సరైన రూపంలో ఉన్నాయా, ఈ user ఆ పని చేయవచ్చా అని చూసి తర్వాతే అమలు చేస్తుంది. ఫలితాన్ని కూడా పరిమితమైన రూపంలో తిరిగి ఇస్తుంది.</p><h4>ఉదాహరణ</h4><p>“ఈ ticket మూసేయి” అనే tool call వస్తే, service ticket ID ని తనిఖీ చేసి, user కి అనుమతి ఉంటేనే database లో మార్పు చేస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model ఇచ్చిన arguments ని తనిఖీ చేయకుండా database లేదా shell కి నేరుగా పంపడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-tool-execution-service-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM పైథాన్ కోడ్ రన్ చేయాలన్నా లేదా డేటాబేస్ క్వెరీ చేయాలన్నా దాన్ని మెయిన్ API సర్వర్‌లో రన్ చేయకూడదు. సెక్యూర్డ్ శాండ్‌బాక్స్‌లో రన్ చేసి సిస్టమ్ క్రాష్ అవ్వకుండా చూడాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1506,9 +1524,8 @@ class SafeToolExecutionService:
         return "Unknown"
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> LLM జెనరేట్ చేసిన SQL లేదా Bash కమాండ్స్‌ను ఎటువంటి శానిటైజేషన్ మరియు పర్మిషన్ చెక్ లేకుండా నేరుగా ఎగ్జిక్యూట్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-evaluation-service-0"><summary>20. Evaluation service.<small>ఎవాల్యుయేషన్ సర్వీస్ (AI Evaluation)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-evaluation-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-evaluation-service-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>AI సమాధానాలు బాగున్నాయా అని ప్రతి సారి మనుషులు ఒక్కొక్కటి చదవడం మాత్రమే సరిపోదు. Evaluation service ఒకే test data తో మార్పులను క్రమంగా కొలవడానికి సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>ఇది ప్రశ్నలు, ఆశించిన ఫలితాలు, model సమాధానాలను పోలుస్తుంది. పని రకాన్ని బట్టి accuracy, citation correctness, relevance, latency, cost వంటి కొలతలు ఉపయోగించవచ్చు.</p><h4>ఉదాహరణ</h4><p>కొత్త prompt విడుదలకు ముందు, 200 support ప్రశ్నలపై పాత prompt, కొత్త prompt ఫలితాలను పోల్చి source citation సరిగ్గా ఉందో చూడవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఒక మంచి demo సమాధానం చూసి, కొత్త model లేదా prompt ఎప్పుడూ మెరుగైనదని నిర్ణయించడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-evaluation-service-0" role="tabpanel" hidden>
 
-<details class="t"><summary>20. Evaluation service.<small>ఎవాల్యుయేషన్ సర్వీస్ (AI Evaluation)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఇచ్చే సమాధానాలు రోజురోజుకు నాణ్యంగా ఉన్నాయా లేదా హాలూసినేషన్స్ పెరుగుతున్నాయా అనేది నిరంతరం ట్రాక్ చేయాలి. మోడల్ మార్చినప్పుడు రెస్పాన్స్ క్వాలిటీ తగ్గకుండా ఈ సర్వీస్ పరీక్షిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1524,9 +1541,8 @@ class SafeToolExecutionService:
         return round(overlap, 2)
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం యూజర్ ఇచ్చే "Thumbs Up / Thumbs Down" పై మాత్రమే ఆధారపడి ఆటోమేటెడ్ ఎవాల్యుయేషన్ మెట్రిక్స్ లేకుండా ప్రొడక్షన్ రన్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-fastapi-application-structure-0"><summary>21. FastAPI application structure.<small>ఫాస్ట్‌ఏపీఐ అప్లికేషన్ నిర్మాణం (Project Structure)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-fastapi-application-structure">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-fastapi-application-structure-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>ఒకే Python file లో endpoints, database, model calls, settings అన్నీ పెడితే app పెరిగినప్పుడు మార్పులు చేయడం కష్టం. FastAPI project structure code ని పనుల ప్రకారం ఉంచుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>main.py</code> app ని మొదలుపెట్టవచ్చు; routers endpoints ని నిర్వహిస్తాయి; services workflow ని అమలు చేస్తాయి; schemas input, output రూపాన్ని తనిఖీ చేస్తాయి; repositories data ని చదువుతాయి. చిన్న app కి అవసరమైనన్ని భాగాలే ఉంచాలి.</p><h4>ఉదాహరణ</h4><p><code>app/routers/chat.py</code> లో chat endpoints, <code>app/services/chat.py</code> లో సమాధానం తయారు చేసే పని ఉంటే, chat feature మార్పును కనుగొనడం సులభం.</p><div class="mistake"><b>సాధారణ తప్పు:</b> అర్థం చేసుకోవడానికి సులభంగా ఉండాల్సిన project ని చాలా చిన్న files, folders గా అనవసరంగా విభజించడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-fastapi-application-structure-0" role="tabpanel" hidden>
 
-<details class="t"><summary>21. FastAPI application structure.<small>ఫాస్ట్‌ఏపీఐ అప్లికేషన్ నిర్మాణం (Project Structure)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రాజెక్ట్ పరిమాణం పెరిగే కొద్దీ ఫైల్స్ మరియు ఫోల్డర్ల క్రమబద్ధమైన అమరిక లేకపోతే టీమ్‌లో డెవలపర్లు ఒకరి కోడ్ మరొకరు అర్థం చేసుకోలేరు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1546,9 +1562,8 @@ class SafeToolExecutionService:
 # └── models/            # pydantic schemas and db models
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే `main.py` ఫైల్ లోనే 2000 లైన్ల కోడ్ రాసి రూట్లు, స్కీమాలు, డేటాబేస్ కనెక్షన్లు అన్నీ అందులోనే పెట్టడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p6-router-organization-0"><summary>22. Router organization.<small>రూటర్ ఆర్గనైజేషన్ (APIRouter)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-router-organization">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-router-organization-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>అన్ని API endpoints ఒక router లో ఉంటే, app పెరిగినప్పుడు ఏ endpoint ఏ పనికి చెందుతుందో గుర్తించడం కష్టం. Routers ని feature లేదా resource ప్రకారం విభజించడం ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>chat</code>, <code>documents</code>, <code>admin</code> వంటి routers లో వాటికి సంబంధించిన endpoints ఉంచవచ్చు. Main app వాటిని కలిపి, API paths, documentation ని నిర్వహిస్తుంది.</p><h4>ఉదాహరణ</h4><p><code>/chat</code> paths ని chat router లో, <code>/documents</code> paths ని documents router లో ఉంచితే, ప్రతి feature కి సంబంధించిన API ఒకచోట కనిపిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Routes ని files గా విభజించినా, business logic అంతా endpoint functions లోనే రాయడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-router-organization-0" role="tabpanel" hidden>
 
-<details class="t"><summary>22. Router organization.<small>రూటర్ ఆర్గనైజేషన్ (APIRouter)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>వందలాది API ఎండ్‌పాయింట్లు ఉన్నప్పుడు సంబంధిత ఎండ్‌పాయింట్లను చిన్న చిన్న మాడ్యూల్స్‌గా విడదీయడం వల్ల రూటింగ్ క్లీన్‌గా మరియు నిర్వహణ సులభంగా ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1569,9 +1584,7 @@ app = FastAPI()
 app.include_router(chat_router, prefix="/api/v1")
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి రూట్ ఫంక్షన్ పైన `@app.get` లేదా `@app.post` అని గ్లోబల్ యాప్ ఆబ్జెక్ట్ వాడి మాడ్యులర్ రూటర్స్ ఉపయోగించకపోవడం.</div>
-</div></details>
-
-<details class="t"><summary>23. Service layer.<small>సర్వీస్ లేయర్ (Service Layer)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>23. Service layer.<small>సర్వీస్ లేయర్ (Service Layer)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>బిజినెస్ లాజిక్‌ను API ఫ్రేమ్‌వర్క్ నుండి వేరు చేయడానికి సర్వీస్ లేయర్ అవసరం. దీనివల్ల అదే బిజినెస్ లాజిక్‌ను వెబ్‌సాకెట్ ద్వారా లేదా CLI బ్యాచ్ కమాండ్ ద్వారా లేదా సెలెరీ టాస్క్ ద్వారా కూడా రీయూజ్ చేసుకోవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1591,7 +1604,8 @@ app.include_router(chat_router, prefix="/api/v1")
 <div class="mistake"><b>సాధారణ తప్పు:</b> API Route హ్యాండ్లర్ లోనే బిజినెస్ లాజిక్ మొత్తం రాయడం వలన CLI లేదా బ్యాక్‌గ్రౌండ్ వర్కర్ల నుండి ఆ లాజిక్ వాడలేకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>24. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ (Repository Pattern)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-repository-pattern-0"><summary>24. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ (Repository Pattern)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-repository-pattern">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-repository-pattern-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>Service code అంతటా database queries చెల్లాచెదురుగా ఉంటే, data source మార్చడం లేదా database లేకుండా test చేయడం కష్టం. Repository pattern data access ని ఒకే interface వెనుక ఉంచుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Service <code>get_document(id)</code> వంటి పని అడుగుతుంది; repository దాన్ని PostgreSQL లేదా మరో store ద్వారా చేస్తుంది. Laravel లో repository pattern కి ఇది దగ్గరగా ఉంటుంది. చిన్న app లో ORM ని service లో నేరుగా వాడడం కూడా సరైన ఎంపిక కావచ్చు.</p><h4>ఉదాహరణ</h4><p><code>DocumentService</code> కి <code>DocumentRepository</code> ఇస్తాం. Test సమయంలో తాత్కాలిక fake repository ఇచ్చి నిజమైన database లేకుండా service ని తనిఖీ చేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Repository class పెట్టగానే transactions, data rules, queries అన్నీ ఆటోమేటిక్‌గా సరైపోతాయని అనుకోవడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p6-repository-pattern-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటా స్టోరేజ్ టెక్నాలజీ (MySQL, PostgreSQL, MongoDB) మారినప్పుడు అప్లికేషన్ బిజినెస్ లాజిక్ ఏమాత్రం మారకుండా ఉండేందుకు డేటాబేస్ క్వెరీలను ఒక చోట కేంద్రీకరించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1611,9 +1625,7 @@ class MessageRepository:
         return {"id": 101, "user_id": user_id, "content": content}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ సర్వీసులలో నేరుగా రా SQL (Raw SQL) క్వెరీలు రాసి డేటాబేస్ టైట్-కప్లింగ్ చేయడం.</div>
-</div></details>
-
-<details class="t"><summary>25. Database access layer.<small>డేటాబేస్ యాక్సెస్ లేయర్ (SQLAlchemy &amp; Sessions)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>25. Database access layer.<small>డేటాబేస్ యాక్సెస్ లేయర్ (SQLAlchemy &amp; Sessions)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>అసమకాలిక (Asynchronous) వెబ్ సర్వర్లలో డేటాబేస్ కనెక్షన్ లీక్స్ జరగకుండా కనెక్షన్ పూలింగ్, సెషన్ లైఫ్‌సైకిల్ మేనేజ్‌మెంట్ మరియు ట్రాన్సాక్షన్ రోల్‌బ్యాక్స్ సమర్థవంతంగా నిర్వహించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1639,7 +1651,8 @@ async def get_db():
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి API కాల్ లో కొత్త database engine క్రియేట్ చేయడం లేదా సెషన్ ని `try...finally` లో క్లోజ్ చేయకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>26. Dependency injection.<small>డిపెండెన్సీ ఇంజెక్షన్ (FastAPI Depends)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-dependency-injection-0"><summary>26. Dependency injection.<small>డిపెండెన్సీ ఇంజెక్షన్ (FastAPI Depends)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-dependency-injection">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-dependency-injection-0">Gemini</button></div><div class="gpt-pane" id="gpt-p6-dependency-injection" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక service తనకు అవసరమైన database లేదా LLM client ని తానే సృష్టిస్తే, దాన్ని మార్చడం, పరీక్షించడం కష్టమవుతుంది. Dependency injection తో ఆ భాగాలను బయట నుంచి అందించి service ని సులభంగా పరీక్షించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>ఉదాహరణకు, <code>TicketService</code> కి <code>TicketRepository</code> కావాలి. Service లోనే repository ని కొత్తగా సృష్టించకుండా, constructor ద్వారా అందుకుంటుంది. అప్పుడు production లో నిజమైన repository, tests లో తాత్కాలిక fake repository ఇవ్వొచ్చు. Laravel container ఇదే పనిని ఆటోమేటిక్‌గా చేయగలదు; FastAPI లో <code>Depends</code> ఒక సాధారణ మార్గం.</p><h4>ఉదాహరణ</h4><p>ఒక support service ని నిర్మించేటప్పుడు దానికి model client ని constructor లో ఇస్తాం. పరీక్షలో నకిలీ client ఇచ్చి, API key లేదా network అవసరం లేకుండా service ప్రవర్తనను తనిఖీ చేయవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> నిజమైన dependency ని constructor లో నేరుగా సృష్టించి, test లో దాన్ని మార్చలేని విధంగా చేయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p6-dependency-injection-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>క్లాసులు తమకు కావాల్సిన డిపెండెన్సీలను తామే సృష్టించుకోకుండా బయటి నుండి అందుకోవడం వల్ల కోడ్ లూజ్లీ కపుల్డ్ అవుతుంది మరియు యూనిట్ టెస్టింగ్ సమయంలో సులభంగా మాకింగ్ చేయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1658,9 +1671,7 @@ def read_status(srv: dict = Depends(get_api_service)):
     return {"status": "ok", "service": srv["service_name"]}
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> గ్లోబల్ వేరియబుల్స్ గా సర్వీస్ ఆబ్జెక్టులను క్రియేట్ చేసి వాడటం, దీనివల్ల మల్టీ-త్రెడ్ లేదా టెస్టింగ్ వాతావరణంలో సమస్యలు రావడం.</div>
-</div></details>
-
-<details class="t"><summary>27. Configuration management.<small>కాన్ఫిగరేషన్ మేనేజ్‌మెంట్ (Pydantic BaseSettings)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>27. Configuration management.<small>కాన్ఫిగరేషన్ మేనేజ్‌మెంట్ (Pydantic BaseSettings)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్ పాస్‌వర్డ్‌లు, OpenAI API కీలు, హోస్ట్ పోర్టులను కోడ్‌లో పెట్టకూడదు (12-Factor App సిద్ధాంతం). టైప్-సేఫ్టీతో కూడిన ఎన్విరాన్మెంట్ కాన్ఫిగరేషన్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2180,34 +2191,7 @@ class PromptRequest(BaseModel):
 <div class="mistake"><b>సాధారణ తప్పు:</b> పాత API రిక్వెస్ట్ స్కీమాలో ఉన్న ఫీల్డ్‌ను తొలగించి లేదా తప్పనిసరి (Required) చేసి పాత క్లయింట్లను బ్రేక్ చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>50. Dependency injection.<small>డిపెండెన్సీ ఇంజెక్షన్ ప్యాటర్న్</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>డిపెండెన్సీలను బయటి నుండి పాస్ చేయడం వల్ల సాఫ్ట్‌వేర్ కాంపోనెంట్స్ మధ్య బంధం (Coupling) సడలి, యూనిట్ టెస్టింగ్ సమయంలో సులభంగా మాకింగ్ చేయవచ్చు.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>Laravel Service Container లోని `App::bind()` లాంటి పద్ధతి. ఒక క్లాస్ లోపల `new OpenAIClient()` అని రాయకుండా, దాని కన్‌స్ట్రక్టర్‌కు పారామీటర్‌గా పాస్ చేయడం.</p>
-<h4>ఉదాహరణ</h4>
-<pre>class LLMService:
-    def __init__(self, provider):
-        self.provider = provider
-
-    def ask(self, text: str):
-        return self.provider.generate(text)
-
-# ప్రొడక్షన్‌లో అసలైన ప్రొవైడర్:
-# service = LLMService(OpenAIProvider())
-
-# టెస్టింగ్‌లో డమ్మీ/మాక్ ప్రొవైడర్:
-class MockProvider:
-    def generate(self, text: str):
-        return "Mock response for test"
-
-test_service = LLMService(MockProvider())
-assert test_service.ask("hi") == "Mock response for test"
-</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> సర్వీస్ లోపల డిపెండెన్సీలను ఇన్స్టాన్షియేట్ చేసి టెస్ట్ కేసెస్ రాసేటప్పుడు అసలైన సేవలను బ్లాక్ చేయలేకపోవడం.</div>
-</div></details>
-
-<details class="t"><summary>51. Factory pattern.<small>ఫ్యాక్టరీ ప్యాటర్న్ (Factory Pattern)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-dependency-injection-1"><summary>50. Dependency injection.<small>డిపెండెన్సీ ఇంజెక్షన్ ప్యాటర్న్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-duplicate-dependency-injection-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-dependency-injection-1">Gemini</button></div><div class="gpt-pane" id="gpt-p6-duplicate-dependency-injection-1" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p6-dependency-injection">மొదటి GPT వివరణను చూడండి</a>.</p></div></details><details class="t"><summary>51. Factory pattern.<small>ఫ్యాక్టరీ ప్యాటర్న్ (Factory Pattern)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>యూజర్ ఛాయిస్ లేదా కాన్ఫిగరేషన్ ఆధారంగా సరైన మోడల్ క్లయింట్‌ను (OpenAI, Anthropic, Bedrock, Ollama) డైనమిక్‌గా సృష్టించడానికి ఫ్యాక్టరీ ప్యాటర్న్ ఉత్తమమైనది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2274,7 +2258,8 @@ class OpenAIResponseAdapter:
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి API కాల్ లో రా రెస్పాన్స్ డిక్షనరీలను నేరుగా యాక్సెస్ చేయడం వల్ల ప్రొవైడర్ మారినప్పుడు మొత్తం కోడ్ బ్రేక్ అవ్వడం.</div>
 </div></details>
 
-<details class="t"><summary>54. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ ప్రయోజనాలు</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-repository-pattern-1"><summary>54. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ ప్రయోజనాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-duplicate-repository-pattern-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-repository-pattern-1">Gemini</button></div><div class="gpt-pane" id="gpt-p6-duplicate-repository-pattern-1" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>இந்த విషయం ஏற்கனவே விளக்கப்பட்டுள்ளது. <a href="#gpt-p6-repository-pattern">முதல் GPT விளக்கத்தைப் பார்க்கவும்</a>.</p></div><div class="gemini-pane" id="gemini-gpt-topic-p6-repository-pattern-1" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటా యాక్సెస్ లాజిక్‌ను మరియు బిజినెస్ లాజిక్‌ను పూర్తిగా వేరు చేయడం ద్వారా కోడ్‌ను టెస్ట్ చేయడం మరియు మెయింటైన్ చేయడం సులభతరం అవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2292,30 +2277,7 @@ class OpenAIResponseAdapter:
         # లాస్ట్ 10 మెసేజ్‌లు తీసుకురావడం
         return []
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ లాజిక్ మధ్యలో డైరెక్ట్ గా SQL క్వెరీలు మరియు డేటాబేస్ ట్రాన్సాక్షన్లు రాయడం.</div>
-</div></details>
-
-<details class="t"><summary>55. Circuit breaker.<small>సర్క్యూట్ బ్రేకర్ ప్యాటర్న్</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>ఒకవేళ OpenAI API డౌన్ అయితే, మన సిస్టమ్ ప్రతి యూజర్ రిక్వెస్ట్‌కు నిరంతరం కాల్స్ చేస్తూ కనెక్షన్లను బ్లాక్ చేసి మన సర్వర్‌ను కూడా డౌన్ చేసుకోకూడదు. వైఫల్యాలు గుర్తించి తాత్కాలికంగా కాల్స్ నిలిపివేయాలి.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>ఇంట్లో విద్యుత్ షార్ట్ సర్క్యూట్ అయినప్పుడు MCB ట్రిప్ అయి మొత్తం ఇంటికి కరెంట్ ఆపేసినట్లే. సర్క్యూట్ బ్రేకర్ వరుసగా 5 కాల్స్ ఫెయిల్ అయితే "OPEN" స్టేట్ లోకి వెళ్లి, తదుపరి కాల్స్ ని ఆటోమేటిక్ గా ఫాల్‌బ్యాక్ మోడల్ కు లేదా క్యాష్డ్ రెస్పాన్స్ కు మళ్లిస్తుంది.</p>
-<h4>ఉదాహరణ</h4>
-<pre># pybreaker లేదా సాధారణ లాజిక్
-class SimpleCircuitBreaker:
-    def __init__(self, failure_threshold: int = 3):
-        self.threshold = failure_threshold
-        self.failures = 0
-        self.state = "CLOSED" # CLOSED, OPEN
-
-    def record_failure(self):
-        self.failures += 1
-        if self.failures &gt;= self.threshold:
-            self.state = "OPEN"
-            print("Circuit OPENED! Diverting traffic to fallback model.")
-
-    def can_execute(self) -&gt; bool:
-        return self.state != "OPEN"
+<div cla<div class="gpt-pane" id="gpt-p6-duplicate-repository-pattern-1" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p6-repository-pattern">மొదటి GPT వివరణను చూడండి</a>.</p></div>eturn self.state != "OPEN"
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> డౌన్ అయిన బాహ్య API లకు కంటిన్యూగా రిక్వెస్టులు పంపి మొత్తం సర్వర్ థ్రెడ్లను బ్లాక్ చేయడం.</div>
 </div></details>
@@ -4348,7 +4310,8 @@ async def read_messages(db: AsyncSession = Depends(get_db)):
 <div class="mistake"><b>సాధారణ తప్పు:</b> গ్లోబల్ వేరియబుల్ గా ఒకే `db = AsyncSession()` క్రియేట్ చేసి అన్ని రిక్వెస్ట్‌లకు షేర్ చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>19. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ అమలు</small></summary><div class="body">
+<details class="t" id="gpt-topic-p6-repository-pattern-2"><summary>19. Repository pattern.<small>రిపోజిటరీ ప్యాటర్న్ అమలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p6-duplicate-repository-pattern-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p6-repository-pattern-2">Gemini</button></div><div class="gpt-pane" id="gpt-p6-duplicate-repository-pattern-2" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>இந்த విషయం ஏற்கனவே விளக்கப்பட்டுள்ளது. <a href="#gpt-p6-repository-pattern">முதல் GPT விளக்கத்தைப் பார்க்கவும்</a>.</p></div><div class="gemini-pane" id="gemini-gpt-topic-p6-repository-pattern-2" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాబేస్ క్వెరీలను బిజినెస్ లాజిక్ నుండి వేరు చేసి టెస్టింగ్ మరియు రియూజబిలిటీని మెరుగుపరచడం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4364,8 +4327,7 @@ async def read_messages(db: AsyncSession = Depends(get_db)):
         return res.scalar_one_or_none()
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> రిపోజిటరీ లోపల బిజినెస్ లాజిక్ (ఉదా: AI API కాల్స్) మిక్స్ చేయడం.</div>
-</div></details>
-<details class="t"><summary>20. N+1 query problems.<small>N+1 క్వెరీ సమస్యలు మరియు పరిష్కారాలు</small></summary><div class="body">
+</div></div></details><details class="t"><summary>20. N+1 query problems.<small>N+1 క్వెరీ సమస్యలు మరియు పరిష్కారాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాట్ సెషన్లు మరియు వాటి మెసేజ్‌లను ఫెచ్ చేసేటప్పుడు ఒక్కో సెషన్‌కు ఒక్కో క్వెరీ వేస్తే (100 సెషన్లకు 101 క్వెరీలు) డేటాబేస్ స్తంభించిపోతుంది. N+1 సమస్యను నివారించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4384,26 +4346,7 @@ async def get_conversations_with_messages(session: AsyncSession):
     result = await session.execute(stmt)
     return result.scalars().all()
 </pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> లూప్ లోపల `conv.messages` ని యాక్సెస్ చేయడం వల్ల అసింక్ SQLAlchemy లో `MissingGreenlet` లేదా N+1 క్వెరీ ఎర్రర్ రావడం.</div>
-</div></details>
-
-<details class="t"><summary>21. Eager vs lazy loading.<small>ఈగర్ వర్సెస్ లేజీ లోడింగ్</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>అసమకాలిక పైథాన్‌లో లేజీ లోడింగ్ (Lazy Loading) పనిచేయదు. అవసరమైనప్పుడు ఈగర్ లోడింగ్ స్ట్రాటజీలను (selectinload, joinedload) ఎంచుకోవడం తప్పనిసరి.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>One-to-Many సంబంధాలకు `selectinload` (WHERE id IN (...)) ఉత్తమమైనది. One-to-One లేదా Many-to-One సంబంధాలకు `joinedload` (SQL JOIN) ఉత్తమమైనది.</p>
-<h4>ఉదాహరణ</h4>
-<pre>from sqlalchemy.orm import joinedload
-
-# One-to-One లేదా Many-to-One కోసం JOIN వాడకం
-stmt = select(Message).options(joinedload(Message.sender)).where(Message.id == 1)
-</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> One-to-Many సంబంధాలకు joinedload వాడి డేటాబేస్ నుండి కార్టీసియన్ ప్రొడక్ట్ (డూప్లికేట్ రోలు) తెప్పించి మెమరీ వృధా చేయడం.</div>
-</div></details>
-
-<details class="t"><summary>22. Bulk inserts and updates.<small>బల్క్ ఇన్సర్ట్స్ మరియు అప్‌డేట్స్</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>ఒక PDF డాక్యుమెంట్ నుండి వచ్చిన 1,000 టెక్స్ట్ చంక్స్‌ను డేటాబేస్‌లో సేవ్ చేయడానికి 1,000 సార్లు `session.add()` చేసి కమిట్ చేస్తే నిమిషాల సమయం పడుతుంది. ఒకే క్వెరీలో బల్క్ ఇన్సర్ట్ చేయాలి.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> లూప్ లోపల `conv.messages` ని యాక్సెస్ చేయడం వల్ల అసింక్ SQLAlchemy లో `MissingGreenlet` లేదా N+1 క్వెర<div class="gpt-pane" id="gpt-p6-duplicate-repository-pattern-2" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p6-repository-pattern">மొదటి GPT వివరణను చూడండి</a>.</p></div> చేయడానికి 1,000 సార్లు `session.add()` చేసి కమిట్ చేస్తే నిమిషాల సమయం పడుతుంది. ఒకే క్వెరీలో బల్క్ ఇన్సర్ట్ చేయాలి.</p>
 <h4>సరళమైన వివరణ</h4>
 <p>SQLAlchemy లో `insert(DocumentChunk).values([...])` వాడితే అది సింగిల్ SQL `INSERT INTO ... VALUES (...), (...), (...)` గా మారి కొన్ని మిల్లీసెకన్లలో పూర్తవుతుంది.</p>
 <h4>ఉదాహరణ</h4>
@@ -21158,5 +21101,14 @@ Action:
 })();
 </script>
 <div id="profile-toast" class="profile-toast"></div>
+
+<script>
+document.querySelectorAll('.explain-tabs').forEach(function(group){
+ var buttons=Array.from(group.querySelectorAll('.explain-tab'));
+ buttons.forEach(function(button){button.addEventListener('click',function(){
+  buttons.forEach(function(item){var selected=item===button;item.setAttribute('aria-selected',selected?'true':'false');var pane=document.getElementById(item.getAttribute('data-pane'));if(pane)pane.hidden=!selected;});
+ });});
+});
+</script>
 </body>
 </html>

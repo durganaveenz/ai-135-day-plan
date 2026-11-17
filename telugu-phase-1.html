@@ -859,6 +859,7 @@ pre { position: relative; padding-top: 36px; }
   .nav-prev-btn, .nav-resume-btn { display: none; }
 }
 
+.explain-tabs{display:flex;gap:8px;margin:4px 0 14px;border-bottom:1px solid var(--line)}.explain-tab{border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--soft);color:var(--text);padding:7px 14px;cursor:pointer;font:inherit}.explain-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}.explain-pane[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1023,7 +1024,9 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. Python installation and interpreter architecture<small>Python ఇన్‌స్టాలేషన్ మరియు interpreter నిర్మాణం</small></summary><div class="body">
+    <details class="t" id="p1-gpt-1"><summary>1. Python installation and interpreter architecture<small>Python ఇన్‌స్టాలేషన్ మరియు interpreter నిర్మాణం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-1-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-1" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Python program రాయడానికి మాత్రమే installation సరిపోదు; దాన్ని ఏ interpreter నడుపుతోంది, ఏ version వాడుతోంది కూడా తెలుసుకోవాలి. వేర్వేరు projects కి వేర్వేరు Python versions అవసరమవుతాయి.</p><h4>సరళమైన వివరణ</h4><p>Python code ను నడిపే ప్రోగ్రామ్‌ను <b>interpreter</b> అంటారు. మీరు <code>python app.py</code> నడిపితే, system లోని Python interpreter file చదివి అమలు చేస్తుంది. Python ని install చేసినప్పుడు interpreter, standard library, అవసరమైన commands కూడా వస్తాయి. Project కి సరిపోయే version ఎంచుకోవడం deployment లోనూ ముఖ్యం.</p><h4>ఉదాహరణ</h4><pre>python --version
+python app.py
+# macOS/Linux లో python3 command కూడా ఉండొచ్చు</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒక కంప్యూటర్‌లో ఉన్న Python version నే అన్ని servers లో ఉంటుందని అనుకోవడం; version ను project లో నమోదు చేసి verify చేయాలి.</div></div><div class="explain-pane" id="p1-gpt-1-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python code రాయడానికి ముందు మీ కంప్యూటర్‌లో Python సరైన version లో ఉండాలి, మరియు మీ code ఎలా run అవుతుందో తెలిస్తేనే error వచ్చినప్పుడు కారణం అర్థమవుతుంది. PHP లో మీరు PHP binary ఇన్‌స్టాల్ చేసినట్టే ఇది కూడా.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1036,9 +1039,9 @@ pip install requests       # ఈ project కి మాత్రమే package �
 python3 app.py             # code run చేయండి</pre>
 <p>పై commands తో <code>requests</code> package ఈ project folder లోనే ఉంటుంది, మీ system మొత్తాన్ని పాడు చేయదు.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> venv లేకుండా అన్ని packages global గా ఇన్‌స్టాల్ చేయడం. తర్వాత projects మధ్య version conflicts వస్తాయి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>2. CPython, bytecode and Python Virtual Machine<small>CPython, bytecode, Python VM</small></summary><div class="body">
+<details class="t" id="p1-gpt-2"><summary>2. CPython, bytecode and Python Virtual Machine<small>CPython, bytecode, Python VM</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-2-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-2" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Python code ఎలా నడుస్తుందో తెలుసుకుంటే performance, error messages, interpreter ఎంపిక గురించి మెరుగైన నిర్ణయాలు తీసుకోవచ్చు.</p><h4>సరళమైన వివరణ</h4><p><b>CPython</b> అనేది సాధారణంగా ఎక్కువ మంది వాడే Python implementation. అది source code ను ముందుగా <b>bytecode</b> అనే మధ్యస్థ instructions గా మార్చి, తర్వాత Python Virtual Machine వాటిని అమలు చేస్తుంది. Bytecode అనేది CPU machine code కాదు. PyPy వంటి ఇతర Python implementations కూడా ఉన్నాయి.</p><h4>ఉదాహరణ</h4><pre>python -m dis -c "total = 2 + 3"  # bytecode చూపించే చిన్న ప్రయోగం</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Bytecode అన్ని Python implementations లో ఒకేలా ఉంటుందని లేదా దాన్ని నేరుగా CPU నడుపుతుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-gpt-2-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python "నెమ్మదిగా" ఎందుకు ఉంటుంది, GIL అంటే ఏమిటి, performance ఎక్కడ పోతుంది అని అర్థం చేసుకోవాలంటే Python లోపల ఎలా పనిచేస్తుందో తెలియాలి. Senior interviews లో ఇది తరచూ అడుగుతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1052,9 +1055,11 @@ def add(a, b):
 dis.dis(add)   # bytecode చూపిస్తుంది
 # LOAD_FAST a, LOAD_FAST b, BINARY_OP +, RETURN_VALUE</pre>
 <p>ఇక్కడ మీ <code>a + b</code> అనేది చిన్న చిన్న bytecode instructions గా మారడం కనిపిస్తుంది. కంపైల్ అయిన bytecode ని Python <code>__pycache__</code> folder లో <code>.pyc</code> files గా save చేస్తుంది, తద్వారా తర్వాతి run వేగంగా మొదలవుతుంది.</p>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>3. Python syntax, indentation and code execution<small>Syntax, indentation (ఖాళీలు), code ఎలా అమలవుతుంది</small></summary><div class="body">
+<details class="t" id="p1-gpt-3"><summary>3. Python syntax, indentation and code execution<small>Syntax, indentation (ఖాళీలు), code ఎలా అమలవుతుంది</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-3">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-3-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-3" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Python లో చిన్న spelling, indentation పొరపాటు కూడా program నడవకుండా చేయవచ్చు. ప్రాథమిక syntax అర్థమైతే error ఎక్కడ వచ్చిందో త్వరగా గుర్తించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Python లో <code>if</code>, <code>for</code> వంటి block ప్రారంభమైన తర్వాత, దాని లోపలి lines ను ఒకే విధంగా ఖాళీ పెట్టి రాస్తారు. సాధారణంగా నాలుగు spaces వాడతారు. Code పై నుంచి కిందికి నడుస్తుంది; function ను పిలిచినప్పుడు దాని లోపలి code అమలవుతుంది.</p><h4>ఉదాహరణ</h4><pre>if 5 &amp;gt; 3:
+    print("condition true")
+print("ఈ line block బయట ఉంది")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే block లో tabs, spaces కలపడం; indentation ఒకేలా ఉండాలి.</div></div><div class="explain-pane" id="p1-gpt-3-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python లో <code>{ }</code> brackets బదులు indentation (ఖాళీలు) తోనే code block నిర్ణయమవుతుంది. తప్పు spacing వల్ల code పని చేయదు లేదా తప్పు ఫలితం వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1067,9 +1072,13 @@ if age >= 18:
 print("Done")           # indentation లేదు: if బయట, ఎప్పుడూ run అవుతుంది</pre>
 <p>age 20 అయినప్పుడు మొదటి రెండు lines మరియు చివరి line print అవుతాయి. age 10 అయితే "Done" మాత్రమే print అవుతుంది.</p>
 <div class="mistake"><b>సాధారణ తప్పు:</b> tabs మరియు spaces కలపడం, దీనివల్ల <code>IndentationError</code> వస్తుంది. ఎప్పుడూ 4 spaces వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>4. Variables, identifiers and naming conventions<small>Variables, పేర్లు పెట్టే నియమాలు</small></summary><div class="body">
+<details class="t" id="p1-gpt-4"><summary>4. Variables, identifiers and naming conventions<small>Variables, పేర్లు పెట్టే నియమాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-4">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-4-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-4" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>డేటాకు పేరు పెడితే దాన్ని తర్వాత చదవడం, మార్చడం సులభమవుతుంది. స్పష్టమైన పేర్లు పెద్ద codebase లో పొరపాట్లు తగ్గిస్తాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Variable</b> అనేది విలువను సూచించే పేరు. Python లో PHP లాగా <code>$</code> పెట్టరు. పేరు అక్షరం లేదా underscore తో మొదలవ్వాలి; ఖాళీ లేదా keyword ఉండకూడదు. సాధారణ convention ప్రకారం variables/functions కి <code>snake_case</code>, class పేర్లకు <code>PascalCase</code> వాడతారు.</p><h4>ఉదాహరణ</h4><pre>customer_name = "Ravi"
+MAX_RETRIES = 3
+
+class OrderService:
+    pass</pre><div class="mistake"><b>సాధారణ తప్పు:</b> <code>x1</code>, <code>x2</code> లాంటి అర్థం కాని పేర్లు ఎక్కువగా వాడటం; data ఏమిటో తెలిపే పేరు పెట్టాలి.</div></div><div class="explain-pane" id="p1-gpt-4-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటాని గుర్తుంచుకోడానికి variables కావాలి. మంచి పేర్లు పెడితే మీ code ని మీరే (లేదా team) 6 నెలల తర్వాత కూడా చదవగలరు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1082,9 +1091,12 @@ class OrderService:       # PascalCase class
     pass
 
 2name = "x"               # ❌ తప్పు: అంకెతో మొదలు కాకూడదు</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>5. Dynamic typing and strong typing<small>Dynamic typing మరియు strong typing</small></summary><div class="body">
+<details class="t" id="p1-gpt-5"><summary>5. Dynamic typing and strong typing<small>Dynamic typing మరియు strong typing</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-5">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-5-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-5" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Variable type ఎప్పుడు నిర్ణయమవుతుందో తెలియకపోతే ఒకే variable లో వేర్వేరు విలువలు పెట్టి runtime లో errors రావచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Python లో variable కు type ముందుగానే రాయాల్సిన అవసరం లేదు; value ఏదో బట్టి type ఉంటుంది. దీనిని <b>dynamic typing</b> అంటారు. అయినా Python అనుకోకుండా string, number ను కలపదు; అందుకే దీన్ని strong typing అంటారు. అవసరమైతే conversion ను మనమే స్పష్టంగా చేయాలి.</p><h4>ఉదాహరణ</h4><pre>count = 3
+count = "three"  # variable type విలువను బట్టి మారుతుంది
+# "3" + 2  # TypeError
+print(int("3") + 2)  # 5</pre><div class="mistake"><b>సాధారణ తప్పు:</b> String లో ఉన్న సంఖ్యను నిజమైన number లా అనుకుని conversion లేకుండా లెక్కించడం.</div></div><div class="explain-pane" id="p1-gpt-5-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Python లో type ముందే declare చేయనవసరం లేదు, కానీ type పూర్తిగా పట్టించుకోదు అని కాదు. ఈ తేడా తెలియకపోతే runtime bugs వస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1095,9 +1107,15 @@ x = "hello"     # ఇప్పుడు str: dynamic typing, ఇది సరే
 
 "5" + 3         # ❌ TypeError: strong typing, Python కలపదు
 int("5") + 3    # ✅ 8: మనమే స్పష్టంగా convert చేయాలి</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>6. Mutable and immutable objects<small>మార్చగలిగే / మార్చలేని objects</small></summary><div class="body">
+<details class="t" id="p1-gpt-6"><summary>6. Mutable and immutable objects<small>మార్చగలిగే / మార్చలేని objects</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-6">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-6-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-6" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక చోట list మార్చితే దాన్ని సూచిస్తున్న మరో variable లోనూ మార్పు కనిపించవచ్చు. ఈ ప్రవర్తన తెలియకపోతే data అనుకోకుండా మారుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Mutable</b> object ను అదే object లో మార్చవచ్చు; ఉదాహరణకు list, dict. <b>Immutable</b> object సృష్టించిన తర్వాత మారదు; ఉదాహరణకు int, str, tuple. రెండు variables ఒకే mutable object ను సూచిస్తే, ఒకదానిలో చేసిన మార్పు రెండింటికీ కనిపిస్తుంది.</p><h4>ఉదాహరణ</h4><pre>first = [1, 2]
+second = first
+second.append(3)
+print(first)  # [1, 2, 3]
+
+text = "cat"
+# text[0] = "b"  # string మార్చలేం</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Mutable list ను వేరే variable కి assign చేస్తే అది copy అయిందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-gpt-6-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక function లో list ని మార్చితే బయట ఉన్న original కూడా మారిపోతుంది. ఇది Python లో అత్యంత సాధారణ bug లలో ఒకటి. దీన్ని అర్థం చేసుకోవాలంటే mutable/immutable తెలియాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1113,9 +1131,13 @@ s[0] = "x"       # ❌ TypeError: str immutable
 
 c = a.copy()     # ✅ నిజమైన copy కావాలంటే</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> function లో default argument గా <code>def f(x=[])</code> వాడటం. ఆ list అన్ని calls లో share అవుతుంది.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>7. Integers, floats, strings and booleans<small>ప్రాథమిక data types</small></summary><div class="body">
+<details class="t" id="p1-gpt-7"><summary>7. Integers, floats, strings and booleans<small>ప్రాథమిక data types</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-7">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-7-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-7" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వెబ్ request, database, model input అన్నింటిలో సంఖ్యలు, text, true/false విలువలు ఉంటాయి. సరైన type ఎంచుకుంటే లెక్కలు, checks సరిగ్గా జరుగుతాయి.</p><h4>సరళమైన వివరణ</h4><p><code>int</code> పూర్ణ సంఖ్యలను, <code>float</code> దశాంశ సంఖ్యలను, <code>str</code> text ను, <code>bool</code> <code>True</code>/<code>False</code> ను సూచిస్తాయి. Float లో కొద్దిపాటి rounding తేడా ఉండొచ్చు; డబ్బు లెక్కలకు <code>Decimal</code> వంటి రకం ఉపయోగించాలి.</p><h4>ఉదాహరణ</h4><pre>order_count = 4
+price = 19.50
+customer = "Ravi"
+is_paid = False
+print(type(price))  # &amp;lt;class 'float'&amp;gt;</pre><div class="mistake"><b>సాధారణ తప్పు:</b> డబ్బు విలువను float తో లెక్కించి, rounding తేడాలను పట్టించుకోకపోవడం.</div></div><div class="explain-pane" id="p1-gpt-7-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ program అయినా ఈ నాలుగు ప్రాథమిక types తోనే మొదలవుతుంది: సంఖ్యలు, దశాంశాలు, text, true/false.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1128,9 +1150,11 @@ is_active = True          # bool
 
 print(0.1 + 0.2)          # 0.30000000000000004 (float precision)
 print(f"Hi {name}, you have {count} items")   # f-string</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>8. Type conversion and type checking<small>Type మార్చడం మరియు తనిఖీ చేయడం</small></summary><div class="body">
+<details class="t" id="p1-gpt-8"><summary>8. Type conversion and type checking<small>Type మార్చడం మరియు తనిఖీ చేయడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-8">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-8-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-8" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>API request లో వచ్చిన data తరచుగా text రూపంలో ఉంటుంది. లెక్కలు లేదా validation చేయడానికి సరైన type కి మార్చాలి.</p><h4>సరళమైన వివరణ</h4><p><code>int()</code>, <code>float()</code>, <code>str()</code> వంటి functions type ను మార్చుతాయి. విలువ ఏ type లో ఉందో <code>type()</code> తో చూడొచ్చు; ఒక type కు సరిపోతుందో <code>isinstance()</code> తో తనిఖీ చేయొచ్చు. చెల్లని text ని number గా మార్చితే error వస్తుంది.</p><h4>ఉదాహరణ</h4><pre>age_text = "25"
+age = int(age_text)
+print(isinstance(age, int))  # True</pre><div class="mistake"><b>సాధారణ తప్పు:</b> User ఇచ్చిన text తప్పకుండా number అవుతుందని అనుకుని conversion error ను పట్టించుకోకపోవడం.</div></div><div class="explain-pane" id="p1-gpt-8-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>User input, API responses, files నుండి వచ్చే data తరచూ text (str) గానే వస్తుంది. లెక్కలు చేయాలంటే సరైన type కి మార్చాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1144,9 +1168,11 @@ try:
     n = int("abc")
 except ValueError:
     print("సంఖ్య కాదు")          # ఇది print అవుతుంది</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>9. Operators and operator precedence<small>Operators మరియు వాటి ప్రాధాన్యత</small></summary><div class="body">
+<details class="t" id="p1-gpt-9"><summary>9. Operators and operator precedence<small>Operators మరియు వాటి ప్రాధాన్యత</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-9">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-9-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-9" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>లెక్కలు, పోలికలు, conditions అన్నీ operators తో రాస్తాం. ఏ operation ముందు జరుగుతుందో అర్థం కాకపోతే ఫలితం ఊహించిన దానికంటే వేరుగా రావచ్చు.</p><h4>సరళమైన వివరణ</h4><p><code>+</code>, <code>*</code> లెక్కలకు; <code>==</code>, <code>&gt;</code> పోలికకు; <code>and</code>, <code>or</code> conditions కలపడానికి. సాధారణంగా గుణకారం కూడిక కంటే ముందు జరుగుతుంది. చదవడం సులభంగా ఉండేందుకు సందేహం ఉన్నప్పుడు parentheses పెట్టండి.</p><h4>ఉదాహరణ</h4><pre>print(2 + 3 * 4)      # 14
+print((2 + 3) * 4)    # 20
+print(7 // 2, 7 % 2)  # 3 1</pre><div class="mistake"><b>సాధారణ తప్పు:</b> చదవడానికి క్లిష్టమైన expression లో precedence ను ఊహించడం; parentheses తో స్పష్టంచేయాలి.</div></div><div class="explain-pane" id="p1-gpt-9-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లెక్కలు, పోలికలు, conditions అన్నీ operators తోనే. Precedence (ఏది ముందు లెక్కవుతుంది) తెలియకపోతే ఫలితం తప్పుగా వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1157,9 +1183,12 @@ print((2 + 3) * 4)     # 20  (brackets ముందు)
 print(7 // 2, 7 % 2)   # 3 1
 print(2 ** 3)          # 8
 print(True or False and False)   # True  (and ముందు, తర్వాత or)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Conditional statements: if, elif, else<small>షరతులు (conditions)</small></summary><div class="body">
+<details class="t" id="p1-gpt-10"><summary>10. Conditional statements: if, elif, else<small>షరతులు (conditions)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-10">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-10-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-10" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వేర్వేరు పరిస్థితుల్లో వేర్వేరు పని చేయాలంటే conditional statements అవసరం. API లో input తనిఖీ, status నిర్ణయం వంటి పనులు వీటితో చేస్తారు.</p><h4>సరళమైన వివరణ</h4><p><code>if</code> condition నిజమైతే దాని block నడుస్తుంది. అది కాకపోతే Python తర్వాతి <code>elif</code> ను చూస్తుంది; ఏదీ సరిపోకపోతే <code>else</code> నడుస్తుంది. పై నుంచి క్రమంగా మొదట సరిపోయే branch ఎంచుకుంటుంది.</p><h4>ఉదాహరణ</h4><pre>if balance &amp;gt;= amount:
+    print("payment allowed")
+else:
+    print("insufficient balance")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> సరిహద్దు విలువల వద్ద <code>&gt;</code> బదులు <code>&gt;=</code> అవసరమా అని చూడకపోవడం.</div></div><div class="explain-pane" id="p1-gpt-10-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Program పరిస్థితిని బట్టి వేర్వేరు నిర్ణయాలు తీసుకోవాలి. ఉదా: user admin అయితే ఒక పేజీ, లేకపోతే ఇంకొకటి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1177,9 +1206,12 @@ print(grade)         # B
 items = []
 if not items:
     print("Cart ఖాళీ")   # empty list falsy</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>11. Loops: for, while, break, continue, pass<small>Loops (పునరావృతం)</small></summary><div class="body">
+<details class="t" id="p1-gpt-11"><summary>11. Loops: for, while, break, continue, pass<small>Loops (పునరావృతం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-11">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-11-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-11" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే పని అనేక items పై చేయడం, condition పూర్తయ్యే వరకు కొనసాగించడం loops తో సాధ్యం. Repeated API లేదా data processing లో ఇవి సాధారణం.</p><h4>సరళమైన వివరణ</h4><p><code>for</code> సాధారణంగా list వంటి items ఒక్కొక్కటిగా తీసుకుంటుంది. <code>while</code> condition నిజంగా ఉన్నంతవరకు నడుస్తుంది. <code>break</code> loop ను ముగిస్తుంది; <code>continue</code> ప్రస్తుత చక్రాన్ని వదిలి తర్వాతిదానికి వెళ్తుంది; <code>pass</code> ఏమీ చేయదు — తాత్కాలిక ఖాళీ block కోసం.</p><h4>ఉదాహరణ</h4><pre>for item in ["a", "b", "c"]:
+    if item == "b":
+        continue
+    print(item)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Condition ఎప్పుడూ మారని <code>while</code> loop రాసి అనంతంగా నడిపించడం.</div></div><div class="explain-pane" id="p1-gpt-11-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వేల records ని ఒకదాని తర్వాత ఒకటి process చేయాలంటే (ఉదా: ప్రతి document ని embed చేయడం) loops తప్పనిసరి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1197,9 +1229,12 @@ while count > 0:
     print(count)      # 3, 2, 1
     count -= 1</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>while</code> లో condition మారే statement మరచిపోవడం → infinite loop.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>12. List comprehensions and conditional comprehensions<small>చిన్న రూపంలో list తయారీ</small></summary><div class="body">
+<details class="t" id="p1-gpt-12"><summary>12. List comprehensions and conditional comprehensions<small>చిన్న రూపంలో list తయారీ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-12">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-12-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-12" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక list నుంచి కొత్త list తయారుచేసేటప్పుడు సరళమైన comprehension తక్కువ code తో పని చేస్తుంది. చిన్న data transformations చదవడం సులభమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p>List comprehension లో ప్రతి item కు expression వర్తింపజేసి కొత్త list తయారుచేస్తారు. చివర condition పెడితే కొన్ని items మాత్రమే తీసుకుంటుంది. లోపల చాలా loops లేదా క్లిష్టమైన logic ఉంటే సాధారణ <code>for</code> loop చదవడానికి సులభం.</p><h4>ఉదాహరణ</h4><pre>numbers = [1, 2, 3, 4]
+squares = [n * n for n in numbers]
+evens = [n for n in numbers if n % 2 == 0]
+print(squares, evens)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> చాలా పొడవైన logic ను ఒకే comprehension లో పెట్టి అర్థం చేసుకోవడం కష్టంచేయడం.</div></div><div class="explain-pane" id="p1-gpt-12-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Data ని filter/transform చేయడం AI/data work లో నిరంతరం జరుగుతుంది. Comprehension తో 4-5 lines కోడ్ ఒక్క line లో, చదవడానికి సులభంగా రాయొచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1215,9 +1250,15 @@ squares = [n * n for n in range(5)]            # [0, 1, 4, 9, 16]
 
 # conditional: సరి సంఖ్యల squares మాత్రమే
 even_sq = [n * n for n in range(10) if n % 2 == 0]   # [0, 4, 16, 36, 64]</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>13. Match-case statements<small>match-case (Python 3.10+)</small></summary><div class="body">
+<details class="t" id="p1-gpt-13"><summary>13. Match-case statements<small>match-case (Python 3.10+)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-13">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-13-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-13" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక value కు అనేక స్పష్టమైన ఎంపికలు ఉన్నప్పుడు <code>match-case</code> ద్వారా branches ను క్రమంగా నిర్వహించవచ్చు. Status, command, message type ఆధారంగా పని చేయడంలో ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Python 3.10 నుంచి <code>match</code> ఒక value ను అనేక <code>case</code> నమూనాలతో పోలుస్తుంది. సరిపోయే case block నడుస్తుంది. ఏదీ సరిపోకపోతే <code>case _</code> ని చివరి default గా వాడవచ్చు.</p><h4>ఉదాహరణ</h4><pre>match status:
+    case "paid":
+        print("send receipt")
+    case "pending":
+        print("wait for payment")
+    case _:
+        print("review status")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> <code>case _</code> ను మొదట పెట్టడం; అది ఉంటే తర్వాతి cases కి అవకాశం ఉండదు.</div></div><div class="explain-pane" id="p1-gpt-13-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>చాలా <code>elif</code> లు వరుసగా రాయడం కంటే, ఒక value ని అనేక pattern లతో పోల్చడానికి match-case స్పష్టంగా ఉంటుంది. Commands, API event types handle చేయడానికి ఉపయోగకరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1235,9 +1276,10 @@ even_sq = [n * n for n in range(10) if n % 2 == 0]   # [0, 4, 16, 36, 64]</pre>
             return "Unknown"
 
 print(handle(["move", 3, 4]))      # Move to 3,4</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>14. Input and output operations<small>Input / Output (ఇన్‌పుట్, అవుట్‌పుట్)</small></summary><div class="body">
+<details class="t" id="p1-gpt-14"><summary>14. Input and output operations<small>Input / Output (ఇన్‌పుట్, అవుట్‌పుట్)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-14">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-14-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-14" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Program కి user లేదా మరో service నుంచి సమాచారం రావాలి; తర్వాత ఫలితాన్ని చూపాలి లేదా file/API కి పంపాలి. Input, output ఈ సమాచార మార్పిడి మార్గాలు.</p><h4>సరళమైన వివరణ</h4><p><code>input()</code> terminal నుంచి text చదువుతుంది; <code>print()</code> ఫలితాన్ని terminal లో చూపుతుంది. File, HTTP response వంటి మార్గాలకీ input/output భావన వర్తిస్తుంది. <code>input()</code> ఇచ్చేది string కాబట్టి సంఖ్యగా కావాలంటే conversion చేయాలి.</p><h4>ఉదాహరణ</h4><pre>name = input("Name: ")
+print(f"Hello, {name}")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> <code>input()</code> ఫలితం సంఖ్య అని అనుకుని నేరుగా గణితం చేయడం.</div></div><div class="explain-pane" id="p1-gpt-14-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Program user నుండి లేదా files నుండి data తీసుకోవాలి, ఫలితాన్ని చూపించాలి లేదా save చేయాలి. Logs, scripts, CLI tools అన్నింటికీ ఇది ఆధారం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1255,7 +1297,7 @@ with open("notes.txt", "w", encoding="utf-8") as f:
 with open("notes.txt", encoding="utf-8") as f:
     print(f.read())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>input()</code> ఫలితాన్ని నేరుగా సంఖ్యలా వాడటం, ఇది str కాబట్టి లెక్కలు తప్పు అవుతాయి లేదా error వస్తుంది.</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 
@@ -1270,7 +1312,10 @@ with open("notes.txt", encoding="utf-8") as f:
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. Lists: creation, indexing, slicing and modification<small>List: తయారు చేయడం, index, slicing, మార్పులు</small></summary><div class="body">
+    <details class="t" id="p1-gpt-ds-1"><summary>1. Lists: creation, indexing, slicing and modification<small>List: తయారు చేయడం, index, slicing, మార్పులు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-1-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-1" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒకే రకమైన లేదా కలిపిన అనేక values ను వరుసగా ఉంచి, క్రమంలో access చేయడానికి list ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>List ను మార్చవచ్చు. Index <code>0</code> నుంచి మొదలవుతుంది; negative index చివరి నుంచి లెక్కిస్తుంది. Slice తో list లోని ఒక భాగాన్ని తీసుకోవచ్చు. List లో value జోడించవచ్చు, తీసేయవచ్చు, మార్చవచ్చు.</p><h4>ఉదాహరణ</h4><pre>items = ["pen", "book", "bag"]
+print(items[0])       # pen
+print(items[1:3])     # ["book", "bag"]
+items.append("cup")</pre><div class="mistake"><b>సాధారణ తప్పు:</b> చివరి index కూడా కలుపుకుని slice ముగుస్తుందని అనుకోవడం; stop index చేర్చబడదు.</div></div><div class="explain-pane" id="p1-gpt-ds-1-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే రకమైన అనేక items (orders, users, prices) ని వరుసలో ఉంచడానికి list అవసరం. Python code లో అత్యంత ఎక్కువగా వాడే data structure ఇదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1289,9 +1334,13 @@ last = nums.pop()           # చివరి item తీసి return చేస
 nums[1] = 99                # index ద్వారా మార్చు
 print(nums, last)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> index పరిధి దాటితే <code>IndexError</code> వస్తుంది (కానీ slicing లో పరిధి దాటినా error రాదు, ఉన్నంత వరకు ఇస్తుంది).</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>2. Tuples and tuple immutability<small>Tuple మరియు వాటిని మార్చలేకపోవడం</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-2"><summary>2. Tuples and tuple immutability<small>Tuple మరియు వాటిని మార్చలేకపోవడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-2-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-2" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Tuple మారకపోవడం గురించి ఇప్పటికే ఉన్న GPT వివరణను మళ్లీ రాయకుండా, దానికి లింక్ ఇస్తున్నాను. ఈ topic లో tuple ను fixed record, function return value గా వాడటాన్ని చూడండి.</p><h4>సరళమైన వివరణ</h4><p><a href="#p1-gpt-6">Mutable, immutable objects GPT వివరణ</a> లో tuple మార్పులేనిదని వివరించాను. ఇక్కడ tuple ఉపయోగం: మారకూడని కొద్దిపాటి విలువలను ఒక record గా ఉంచడం లేదా function నుంచి అనేక values ఇవ్వడం.</p><h4>ఉదాహరణ</h4><pre>def get_size():
+    return (640, 480)
+
+width, height = get_size()
+print(width, height)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Tuple లో list ఉంచితే, ఆ లోపలి list కూడా మారదని అనుకోవడం.</div></div><div class="explain-pane" id="p1-gpt-ds-2-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొన్ని విలువలు ఒక్కసారి set అయ్యాక మారకూడదు (ఉదా: (latitude, longitude), DB row). అలాంటప్పుడు tuple వాడతాం; ఇది accidental మార్పుల నుండి కాపాడుతుంది మరియు dict key గా వాడొచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1313,9 +1362,11 @@ print(type(single), type((5)))
 distances = {(0, 0): "origin", (1, 2): "A"}
 print(distances[(1, 2)])</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> tuple లోపల list ఉంటే ఆ list ని మార్చొచ్చు. Tuple immutable అంటే అది చూపే references మారవు అని మాత్రమే, లోపలి mutable object కాదు.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>3. Sets and uniqueness<small>Set మరియు duplicates లేకుండా ఉంచడం</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-3"><summary>3. Sets and uniqueness<small>Set మరియు duplicates లేకుండా ఉంచడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-3">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-3-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-3" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Duplicate values తొలగించాలి లేదా వేగంగా membership తనిఖీ చేయాలి అంటే set ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Set లో ఒకే విలువ రెండుసార్లు నిల్వ ఉండదు. Order ఉండదు; ఒక value ఉందో లేదో అని <code>in</code> తో చూడవచ్చు. Duplicate తొలగించడానికి list ను set గా మార్చవచ్చు, కానీ అప్పుడు అసలు క్రమం ఉండకపోవచ్చు.</p><h4>ఉదాహరణ</h4><pre>emails = ["a@example.com", "b@example.com", "a@example.com"]
+unique_emails = set(emails)
+print(len(unique_emails))  # 2</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Set లో items వచ్చిన క్రమం తప్పకుండా అలాగే ఉంటుందని అనుకోవడం.</div></div><div class="explain-pane" id="p1-gpt-ds-3-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Duplicates తొలగించడానికి, "ఈ item ఉందా?" అని చాలా వేగంగా చెక్ చేయడానికి set వాడతాం. 1 లక్ష items ఉన్న list లో వెతకడం కంటే set లో వెతకడం చాలా వేగం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1334,9 +1385,11 @@ print(team_a - team_b)          # A లో ఉండి B లో లేనివ
 team_a.add("anil")
 print("ravi" in team_a)         # True (వేగమైన lookup)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> set లో order ఉంటుందని అనుకోవడం. Set order guarantee చేయదు; list లేదా index అవసరమైతే set వాడకండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>4. Frozen sets<small>మార్చలేని set (frozenset)</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-4"><summary>4. Frozen sets<small>మార్చలేని set (frozenset)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-4">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-4-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-4" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక set లాంటి uniqueness కావాలి, కానీ తయారైన తర్వాత మారకూడదు అంటే frozenset ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>frozenset</code> అనేది మార్చలేని set. అందులో item జోడించలేరు లేదా తీసేయలేరు. మార్చలేనందున మరో set లో item గా లేదా dictionary key గా ఉపయోగించవచ్చు.</p><h4>ఉదాహరణ</h4><pre>permissions = frozenset({"read", "write"})
+role_permissions = {permissions: "editor"}
+print(role_permissions[permissions])</pre><div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ set ను dictionary key గా పెట్టడానికి ప్రయత్నించడం; set mutable కాబట్టి key కాలేదు.</div></div><div class="explain-pane" id="p1-gpt-ds-4-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Set mutable కాబట్టి దాన్ని dict key గా లేదా మరో set లోపల వాడలేం. అలా కావాలంటే immutable రూపమైన frozenset అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1351,9 +1404,11 @@ role_names = {
     frozenset({"read", "write"}): "editor",
 }
 print(role_names[frozenset({"write", "read"})])   # editor (order పట్టింపు లేదు)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>5. Dictionaries and key-value storage<small>Dictionary మరియు key-value నిల్వ</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-5"><summary>5. Dictionaries and key-value storage<small>Dictionary మరియు key-value నిల్వ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-5">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-5-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-5" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక value ను పేరు లేదా ID తో త్వరగా కనుగొనడానికి dictionary ఉపయోగపడుతుంది. API payloads, settings, lookup tables లో ఇది తరచుగా కనిపిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Dictionary లో ప్రతి entry ఒక <b>key</b> కి ఒక <b>value</b> ను జతచేస్తుంది. Key సాధారణంగా string లేదా number లాంటి మార్పులేని type. ఆ key తో value ను చదవడం, మార్చడం సాధ్యం.</p><h4>ఉదాహరణ</h4><pre>user = {"id": 42, "name": "Maya"}
+print(user["name"])
+user["active"] = True</pre><div class="mistake"><b>సాధారణ తప్పు:</b> లేని key ను bracket తో చదివితే <code>KeyError</code> రావొచ్చు; అవసరమైతే <code>get()</code> వాడండి.</div></div><div class="explain-pane" id="p1-gpt-ds-5-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>JSON, API responses, config, DB rows అన్నీ key-value రూపంలోనే ఉంటాయి. Python లో డేటాను పేరుతో access చేయడానికి dict అత్యంత ముఖ్యమైనది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1372,9 +1427,11 @@ print("name" in user)            # True (key ఉందా?)
 for key, value in user.items():  # PHP foreach($user as $k =&gt; $v)
     print(key, value)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> లేని key ని <code>d["x"]</code> తో access చేసి KeyError తెచ్చుకోవడం. లేకపోవచ్చు అనుకుంటే <code>.get()</code> వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>6. Dictionary methods and nested dictionaries<small>Dict methods మరియు లోపల dict లు</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-6"><summary>6. Dictionary methods and nested dictionaries<small>Dict methods మరియు లోపల dict లు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-6">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-6-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-6" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>JSON/API data లో ఒక dictionary లో మరో dictionary లేదా list ఉండొచ్చు. Methods తో data ను సురక్షితంగా చదవడం, మార్చడం సులభం.</p><h4>సరళమైన వివరణ</h4><p><code>get()</code> key లేకపోతే default ఇస్తుంది; <code>items()</code> key-value జంటలను ఇస్తుంది; <code>update()</code> కొత్త entries కలుపుతుంది. Nested dictionary లో లోపలి విలువ కోసం ప్రతి స్థాయి key ని వరుసగా చదవాలి.</p><h4>ఉదాహరణ</h4><pre>order = {"customer": {"name": "Maya"}}
+name = order.get("customer", {}).get("name", "Unknown")
+print(name)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ఒక nested key తప్పనిసరిగా ఉంటుందని భావించి check లేకుండా వరుసగా access చేయడం.</div></div><div class="explain-pane" id="p1-gpt-ds-6-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Real API JSON ఎప్పుడూ nested (dict లోపల dict, list) గా ఉంటుంది. వాటిని సురక్షితంగా చదవడం, merge చేయడం రోజూ చేసే పని.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1398,9 +1455,12 @@ print(merged)
 total_qty = sum(item["qty"] for item in order["items"])
 print(total_qty)                                     # 3</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>d["a"]["b"]</code> లో "a" లేకపోతే KeyError. లేదా "a" విలువ <code>None</code> అయితే TypeError. API data ని నమ్మకుండా <code>.get()</code> వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>7. List, tuple, set and dictionary comprehensions<small>Comprehensions: ఒక్క లైన్ లో collection తయారీ</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-7"><summary>7. List, tuple, set and dictionary comprehensions<small>Comprehensions: ఒక్క లైన్ లో collection తయారీ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-7">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-7-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-7" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక sequence లేదా mapping నుంచి కొత్త collection తయారుచేసేటప్పుడు comprehension స్పష్టమైన చిన్న రూపం ఇస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>List comprehension items ను మారుస్తుంది లేదా condition ద్వారా ఎంచుకుంటుంది. Set comprehension duplicates ను తొలగిస్తుంది; dictionary comprehension key-value జంటలు తయారుచేస్తుంది. ఫలితం చదవడానికి కష్టమైతే సాధారణ loop వాడండి.</p><h4>ఉదాహరణ</h4><pre>numbers = [1, 2, 3, 4]
+squares = [n*n for n in numbers]
+evens = {n for n in numbers if n % 2 == 0}
+lookup = {n: n*n for n in numbers}</pre><div class="mistake"><b>సాధారణ తప్పు:</b> చాలా loops, conditions ను ఒకే line లో కుక్కి చదవడం కష్టంచేయడం.</div></div><div class="explain-pane" id="p1-gpt-ds-7-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Loop రాసి append చేసే 4 lines పనిని ఒక్క లైన్ లో, చదవడానికి సులభంగా రాయొచ్చు. Python code లో ఇది చాలా సాధారణ శైలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1418,9 +1478,16 @@ print(squares, evens, unique_mods, sq_map, as_tuple)
 gen = (n * n for n in nums)                      # generator, ఇంకా లెక్కించలేదు
 print(sum(gen))                                  # 91</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> చాలా nested loops/conditions ని ఒకే comprehension లో కుక్కడం. చదవడం కష్టమైతే సాధారణ for loop వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>8. Stack and queue implementations<small>Stack మరియు Queue తయారీ</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-8"><summary>8. Stack and queue implementations<small>Stack మరియు Queue తయారీ</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-8">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-8-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-8" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>పనుల క్రమాన్ని నిర్వహించడానికి stack, queue ఉపయోగపడతాయి. Browser history, job processing వంటి చోట్ల ఇవి కనిపిస్తాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Stack</b> చివర చేర్చినదే ముందుగా బయటకు వస్తుంది (LIFO). <b>Queue</b> ముందుగా వచ్చినదే ముందుగా బయటకు వస్తుంది (FIFO). Python లో queue కోసం <code>collections.deque</code> సాధారణ list కంటే ముందు నుంచి తీసే పనికి సరైనది.</p><h4>ఉదాహరణ</h4><pre>from collections import deque
+
+stack = []
+stack.append("task")
+last = stack.pop()
+
+queue = deque(["first", "second"])
+first = queue.popleft()</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Queue కోసం list లో <code>pop(0)</code> ఎక్కువగా వాడటం; పెద్ద list లో మిగతా items అంతా కదలాల్సి వస్తుంది.</div></div><div class="explain-pane" id="p1-gpt-ds-8-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Undo/redo, browser back button, bracket matching కి stack (LIFO). Job queue, BFS, request processing కి queue (FIFO). Laravel queues భావన ఇదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1456,9 +1523,15 @@ def balanced(text):
 
 print(balanced("{[()]}"), balanced("{[(])}"))   # True False</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> queue కోసం <code>list.pop(0)</code> వాడటం. పెద్ద data లో చాలా నెమ్మదిస్తుంది; deque వాడండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>9. collections: Counter, defaultdict, deque and namedtuple<small>collections module లోని ప్రత్యేక containers</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-9"><summary>9. collections: Counter, defaultdict, deque and namedtuple<small>collections module లోని ప్రత్యేక containers</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-9">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-9-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-9" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సాధారణ data పనులకు Python standard library లో సిద్ధంగా ఉన్న collection రకాలు ఉన్నాయి. వాటిని తెలుసుకుంటే అవసరంలేని manual code తగ్గుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>Counter</code> items ను లెక్కిస్తుంది. <code>defaultdict</code> కొత్త key కి default value తయారుచేస్తుంది. <code>deque</code> రెండు చివరల్లోనూ త్వరగా జోడించడానికి లేదా తీసేయడానికి సహాయపడుతుంది. <code>namedtuple</code> పేరు ఉన్న fields తో tuple లాంటి చిన్న record ఇస్తుంది.</p><h4>ఉదాహరణ</h4><pre>from collections import Counter, defaultdict, deque
+
+counts = Counter(["a", "b", "a"])
+groups = defaultdict(list)
+groups["fruit"].append("apple")
+queue = deque([1, 2])
+queue.appendleft(0)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Defaultdict లో key చదవడం వల్ల కొత్త ఖాళీ entry సృష్టించబడుతుందని మర్చిపోవడం.</div></div><div class="explain-pane" id="p1-gpt-ds-9-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>లెక్కపెట్టడం, grouping, వేగమైన queue వంటి సాధారణ పనులకు built-in types తో పొడవైన code రాయాల్సి వస్తుంది. <code>collections</code> module వీటిని సులభం చేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1487,9 +1560,11 @@ Point = namedtuple("Point", ["x", "y"])
 p = Point(3, 4)
 print(p.x, p.y, p)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> defaultdict లో లేని key ని కేవలం చదివినా (<code>d["k"]</code>) అది key ని తయారు చేసేస్తుంది. Check కోసం <code>in</code> వాడండి. కొత్త code లో classes కోసం <code>dataclass</code> కూడా పరిశీలించండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Choosing the correct data structure<small>సరైన data structure ఎంచుకోవడం</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-10"><summary>10. Choosing the correct data structure<small>సరైన data structure ఎంచుకోవడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-10">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-10-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-10" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సరైన structure ఎంచుకుంటే code చదవడం సులభం, అవసరమైన operations వేగంగా ఉంటాయి. పెద్ద data లో తప్పు ఎంపిక performance ను తగ్గిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>క్రమం, index అవసరమైతే list; మార్చరాని చిన్న record అయితే tuple; duplicates వద్దంటే set; key తో వెతకాలి అంటే dict. ముందువైపు నుంచి queue పనులు చేయాల్సి వస్తే deque ఎంచుకోండి. మీ code లో ఎక్కువగా జరిగే operation ఏదో దాని ఆధారంగా ఎంపిక చేయాలి.</p><h4>ఉదాహరణ</h4><pre># user_id తో user ను వెతుకు
+users_by_id = {42: "Maya", 57: "Ravi"}
+print(users_by_id[42])</pre><div class="mistake"><b>సాధారణ తప్పు:</b> తెలుసని structure కాబట్టి ప్రతి data కి list వాడడం; అవసరాన్ని బట్టి structure ఎంచుకోవాలి.</div></div><div class="explain-pane" id="p1-gpt-ds-10-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>తప్పు structure ఎంచుకుంటే code పని చేస్తుంది కానీ డేటా పెరిగితే చాలా నెమ్మదిస్తుంది. సరైనది ఎంచుకుంటే code సరళంగా, వేగంగా ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1513,9 +1588,12 @@ set_time = time.perf_counter() - t
 
 print(f"list: {list_time:.4f}s, set: {set_time:.6f}s")   # set వేల రెట్లు వేగం</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పెద్ద list లో loop లోపల <code>in</code> check చేయడం (O(n²)). ముందే set గా మార్చుకోండి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>11. Time complexity of common operations<small>సాధారణ operations కి సమయ సంక్లిష్టత</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-11"><summary>11. Time complexity of common operations<small>సాధారణ operations కి సమయ సంక్లిష్టత</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-11">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-11-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-11" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Data పెరిగినప్పుడు operation ఎంత నెమ్మదిస్తుందో అంచనా వేయడానికి time complexity ఉపయోగపడుతుంది. సరైన data structure ఎంచుకోవడంలో ఇది మార్గనిర్దేశం చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Big O</b> input పరిమాణం పెరిగేకొద్దీ పని ఎలా పెరుగుతుందో చెబుతుంది; ఖచ్చితమైన seconds కాదు. List లో membership వెతకడం సాధారణంగా <code>O(n)</code>; set/dict లో key lookup సగటున <code>O(1)</code>. పరిస్థితి, hashing collisions వల్ల వాస్తవ సమయం మారవచ్చు.</p><h4>ఉదాహరణ</h4><pre>items = [10, 20, 30]
+# list లో వెతకడం: ఒక్కొక్కటి చూడాల్సి రావచ్చు
+lookup = {10: "a", 20: "b", 30: "c"}
+# dict లో key తో సగటున త్వరగా దొరుకుతుంది</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Big O అనేది ప్రతి కంప్యూటర్‌లో ఖచ్చితమైన runtime అని అనుకోవడం.</div></div><div class="explain-pane" id="p1-gpt-ds-11-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>డేటా 100 నుండి 10 లక్షలకు పెరిగినప్పుడు code ఎంత నెమ్మదిస్తుందో ముందే అంచనా వేయడానికి. MySQL లో index ఉందా లేదా (full scan vs index lookup) అనే తేడాలాంటిదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1541,9 +1619,15 @@ def has_dup_fast(items):
 
 print(has_dup_fast([1, 2, 3, 2]))   # True</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Dict/set O(1) అనేది "సగటు" మాత్రమే; hash collisions ఎక్కువైతే worst case O(n), కానీ సాధారణ వాడకంలో ఇది అరుదు.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>12. Shallow copy vs deep copy<small>పైపైన copy మరియు పూర్తి copy</small></summary><div class="body">
+<details class="t" id="p1-gpt-ds-12"><summary>12. Shallow copy vs deep copy<small>పైపైన copy మరియు పూర్తి copy</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-ds-12">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-ds-12-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-ds-12" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Nested data ను copy చేసినప్పుడు లోపలి objects కూడా కొత్తవా, లేక రెండింటికీ ఒకటేనా తెలుసుకోవాలి. లేకపోతే copy మార్చినప్పుడు అసలూ మారుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Shallow copy</b> పై స్థాయి collection ను మాత్రమే కొత్తగా చేస్తుంది; లోపలి list/dict references పంచుకోవచ్చు. <b>Deep copy</b> nested objects ను కూడా recursively copy చేస్తుంది. పెద్ద data లో deep copy ఖరీదైనది కావచ్చు.</p><h4>ఉదాహరణ</h4><pre>import copy
+
+original = {"scores": [10, 20]}
+shallow = copy.copy(original)
+deep = copy.deepcopy(original)
+shallow["scores"].append(30)
+print(original["scores"])  # shallow copy లోపలి list పంచుకుంది</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Nested object ఉన్నప్పుడు shallow copy ను పూర్తిగా స్వతంత్ర copy గా భావించడం.</div></div><div class="explain-pane" id="p1-gpt-ds-12-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"Copy చేశాను" అనుకుని original data ని అనుకోకుండా మార్చేయడం Python లో చాలా సాధారణమైన bug. Nested data (dict లో list) తో ఇది ఎక్కువగా వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1564,7 +1648,7 @@ print(deep["skills"])      # ['php', 'mysql']            ← మారలేద�
 shallow["name"] = "Sita"
 print(original["name"])    # Ravi (బయటి level స్వతంత్రం)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> nested list/dict ని <code>.copy()</code> చేసి సురక్షితం అనుకోవడం. లోపలి items shared అవుతాయి; <code>deepcopy</code> వాడండి (ఇది కొంచెం నెమ్మది).</div>
-</div></details>
+</div></div></details>
   </div>
 </details>
 
@@ -2719,7 +2803,7 @@ def read_lines(path):
 <div class="mistake"><b>సాధారణ తప్పు:</b> generator ని <code>list(gen)</code> గా మార్చేసి లాభం పోగొట్టుకోవడం; మరియు ఒకసారి అయిపోయిన generator ని మళ్ళీ వాడటం.</div>
 </div></details>
 
-<details class="t"><summary>4. Generator expressions<small>Generator expressions</small></summary><div class="body">
+<details class="t"><summary>4. Generator expressions<small>తక్కువ memory తో విలువలను ఒక్కొక్కటిగా తయారుచేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>చిన్న generator కోసం function రాయాల్సిన పనిలేదు. ఒక్క లైన్‌లో memory-friendly గా sum, max, any లాంటివి లెక్కించవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2752,7 +2836,7 @@ with tempfile.TemporaryDirectory() as folder:   # setup: folder తయారై�
 print(os.path.exists(path))       # False: with అయిపోగానే folder తొలగింది</pre>
 </div></details>
 
-<details class="t"><summary>6. with statement<small>with statement</small></summary><div class="body">
+<details class="t"><summary>6. with statement<small>పని పూర్తయ్యాక resources ను సురక్షితంగా మూసివేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p><code>with</code> అనేది context manager ని వాడే సరైన మార్గం. <code>f.close()</code> మర్చిపోయే సమస్య ఉండదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -2996,7 +3080,7 @@ except ConfigError as e:
     print(repr(e.__cause__))   # ValueError(...) అసలు కారణం</pre>
 </div></details>
 
-<details class="t"><summary>15. try, except, else, finally<small>try, except, else, finally</small></summary><div class="body">
+<details class="t"><summary>15. try, except, else, finally<small>errors వచ్చినా రాకపోయినా అమలు క్రమాన్ని నియంత్రించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Errors ని సరిగ్గా handle చేయడం, success అయినప్పుడే చేయాల్సిన పనులు, ఏది జరిగినా చేయాల్సిన cleanup వేరు వేరుగా రాయడం కోసం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3037,7 +3121,7 @@ print(total([1, 2], None))         # 3 (int sum), error రాదు</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> type hints రాస్తే Python తప్పు types ని ఆపేస్తుంది అనుకోవడం. Checker tool లేదా Pydantic లేకుండా ఏ తనిఖీ జరగదు.</div>
 </div></details>
 
-<details class="t"><summary>17. typing module<small>typing module</small></summary><div class="body">
+<details class="t"><summary>17. typing module<small>code లో data రకాల అంచనాలను స్పష్టంగా రాయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ <code>int</code>, <code>str</code> తో చెప్పలేని రకాలు (functions, నిర్దిష్ట values మాత్రమే, dict structure) వివరించడానికి <code>typing</code> లోని పరికరాలు కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3063,7 +3147,7 @@ print(run(len, "hello"))   # 5
 print(set_mode("dev"))     # set_mode("test") ని mypy తప్పు అంటుంది</pre>
 </div></details>
 
-<details class="t"><summary>18. Generic types<small>Generic types</small></summary><div class="body">
+<details class="t"><summary>18. Generic types<small>వేర్వేరు data రకాలతో పనిచేసే reusable type సూచనలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఏ type ఇస్తే అదే type తిరిగి వస్తుంది" అని చెప్పాలంటే generics కావాలి. లేకపోతే <code>Any</code> వాడాల్సి వచ్చి type safety పోతుంది. Repository, cache, API response wrapper లాంటి reusable code కి ఉపయోగం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3184,7 +3268,7 @@ if __name__ == "__main__":
 <p>Scenario: 100 వేర్వేరు APIs ని పిలవాలి, ప్రతిదానికి 1 సెకను జవాబు సమయం. వరుసగా చేస్తే 100 సెకన్లు. Concurrency తో (asyncio) అన్నీ ఒకేసారి పంపి వేచి ఉంటే సుమారు 1 సెకనులో అవుతుంది, CPU cores ఎక్కువ అవసరం లేదు. కానీ 100 పెద్ద images ని resize చేయడం CPU పని; అక్కడ కావాల్సింది parallelism (అనేక processes, అనేక cores).</p>
 </div></details>
 
-<details class="t"><summary>3. Python Global Interpreter Lock (GIL)<small>Python Global Interpreter Lock</small></summary><div class="body">
+<details class="t"><summary>3. Python Global Interpreter Lock (GIL)<small>Python threads ఒకేసారి అమలు కావడంపై GIL ప్రభావం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>"Python లో threads వేసినా CPU పని వేగంగా కాదు" అనే ప్రసిద్ధ సమస్యకు కారణం GIL. ఇది తెలియకపోతే threads తో performance పెరుగుతుందని తప్పుగా ఆశిస్తాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3230,7 +3314,7 @@ for fn in (io_task, cpu_task):
     print(fn.__name__, round(time.perf_counter() - t0, 2), "s")</pre>
 </div></details>
 
-<details class="t"><summary>5. Threading module<small>threading module</small></summary><div class="body">
+<details class="t"><summary>5. Threading module<small>ఒక process లో పలుపనులను సమన్వయంతో నడపడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>I/O పనులను (కొన్ని API calls, file downloads) ఒకేసారి నడిపి సమయం ఆదా చేయడానికి సులభమైన మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3253,7 +3337,7 @@ print("total:", round(time.perf_counter() - t0, 1), "s")   # ~1.0s (3s కాద
 <div class="mistake"><b>సాధారణ తప్పు:</b> thread లో వచ్చిన exception main thread కి కనిపించదు (thread లోనే print అయి ఆగిపోతుంది). Results/errors కోసం <code>ThreadPoolExecutor</code> (topic 7) వాడండి.</div>
 </div></details>
 
-<details class="t"><summary>6. Multiprocessing module<small>multiprocessing module</small></summary><div class="body">
+<details class="t"><summary>6. Multiprocessing module<small>వేర్వేరు processes తో CPU పనులను సమాంతరంగా నడపడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>CPU-heavy పనులను అనేక CPU cores మీద నిజమైన parallel గా నడపడానికి. GIL సమస్యను దాటడానికి ఇదే ప్రామాణిక మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3274,7 +3358,7 @@ if __name__ == "__main__":
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>__main__</code> guard మర్చిపోవడం; మరియు chunk చాలా చిన్నది అయితే process తయారీ ఖర్చే ఎక్కువై నెమ్మదిగా అవ్వడం.</div>
 </div></details>
 
-<details class="t"><summary>7. ThreadPoolExecutor<small>ThreadPoolExecutor</small></summary><div class="body">
+<details class="t"><summary>7. ThreadPoolExecutor<small>thread pool తో పనులను సమర్పించి ఫలితాలు పొందడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Threads ని చేతితో తయారుచేసి join చేయడం కంటే pool వాడితే code చిన్నది, results/errors సులభంగా అందుతాయి. Sync libraries (<code>requests</code>, PDO-వంటి DB drivers) తో concurrency కి ఇది ఉత్తమ మార్గం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3301,7 +3385,7 @@ with ThreadPoolExecutor(max_workers=5) as ex:
 print("total:", round(time.perf_counter() - t0, 1), "s")   # ~1.0s</pre>
 </div></details>
 
-<details class="t"><summary>8. ProcessPoolExecutor<small>ProcessPoolExecutor</small></summary><div class="body">
+<details class="t"><summary>8. ProcessPoolExecutor<small>process pool తో CPU పనులను పంపిణీ చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>CPU-bound పనులకు ThreadPoolExecutor లాంటి సులభమైన API తోనే multi-core parallelism కావాలంటే ఇది వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3326,7 +3410,43 @@ if __name__ == "__main__":
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>ex.map(lambda x: ..., items)</code> వాడటం. lambda ని pickle చేయలేం కాబట్టి error వస్తుంది.</div>
 </div></details>
 
-<details class="t"><summary>9. Async programming fundamentals<small>Async programming ప్రాథమికాలు</small></summary><div class="body">
+<details class="t" id="async-programming-fundamentals"><summary>9. Async programming fundamentals<small>Async programming ప్రాథమికాలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p1-gpt-async">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p1-gpt-async-gemini">Gemini</button></div><div class="explain-pane" id="p1-gpt-async" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4>
+<p>ఒక API request కి database, మరో service, లేదా LLM response కోసం వేచి ఉండాల్సి రావచ్చు. ఆ సమయంలో server ఖాళీగా ఉండకుండా మరో request పని చేయడానికి async ఉపయోగపడుతుంది; I/O పనులు ఎక్కువగా ఉండే backend లో ఇది ముఖ్యమైనది.</p>
+<h4>సరళమైన వివరణ</h4>
+<p><code>async</code> అంటే “ఈ function లో వేచి ఉండే పని ఉండొచ్చు” అని Python కి చెప్పే గుర్తు. దాన్ని పిలిచినప్పుడు వెంటనే పూర్తి ఫలితం రాదు; <b>coroutine</b> అనే వేచి ఉండగల పని వస్తుంది. <code>await</code> దగ్గర ఆ పని తాత్కాలికంగా ఆగి, వేచి ఉన్న సమయాన్ని మరో coroutine కి ఇస్తుంది. ఈ పనుల క్రమాన్ని చూసేది <a href="#async-event-loop">event loop</a>.</p>
+<p>ఇది ప్రధానంగా <b>I/O-bound</b> పనులకు ఉపయోగం: network, database, file operations లాంటి బయట వ్యవస్థల కోసం వేచి ఉండే పనులు. చాలా పెద్ద లెక్కలు చేసే <b>CPU-bound</b> పనులకు async ఒక్కటే వేగం ఇవ్వదు; అలాంటప్పుడు process లేదా వేరే worker అవసరం కావచ్చు.</p>
+<p>Laravel లో సాధారణ controller పని ఒక request కి ఒక execution flow లాగా ఉంటుంది. Python లో FastAPI endpoint ని <code>async def</code> గా రాసి, async database/API client తో <code>await</code> చేస్తే, వేచి ఉన్నప్పుడే server మరో request ముందుకు తీసుకెళ్లగలదు. PHP లో Swoole లేదా ReactPHP వంటి సాధనాలతో asynchronous server నిర్మించవచ్చు; ఇది భాష కంటే runtime, libraries ఎలా అమలవుతున్నాయనే దానిపై ఆధారపడుతుంది.</p>
+<p><b>గుర్తుంచుకోండి:</b> async అంటే “ఒకే సమయంలో చాలా code నడుస్తుంది” అని కాదు. ఒకే thread లో tasks వేచి ఉండాల్సిన చోట నియంత్రణ ఇచ్చిపుచ్చుకుంటాయి. <code>await</code> చేయని coroutine పని మొదలుపెట్టకపోవచ్చు; <code>time.sleep()</code> వంటి blocking call event loop ని ఆపేస్తుంది.</p>
+<h4>ఉదాహరణ</h4>
+<pre>import asyncio
+import time
+
+async def get_profile(user_id):
+    print(f"user {user_id}: request పంపాను")
+    await asyncio.sleep(1)  # network response కోసం ఎదురుచూస్తున్నట్టు
+    print(f"user {user_id}: response వచ్చింది")
+    return {"id": user_id, "name": f"User {user_id}"}
+
+async def main():
+    started = time.perf_counter()
+
+    # మూడు requests ఒకదాని తర్వాత ఒకటి కాకుండా concurrent గా వేచి ఉంటాయి
+    profiles = await asyncio.gather(
+        get_profile(1),
+        get_profile(2),
+        get_profile(3),
+    )
+
+    print(profiles)
+    print(f"మొత్తం సమయం: {time.perf_counter() - started:.1f} seconds")
+
+asyncio.run(main())
+# ప్రతి request 1 second వేచి ఉన్నా, మొత్తం సమయం సుమారు 1 second.</pre>
+<p>ఇక్కడ <code>asyncio.sleep</code> network/database wait ని అనుకరిస్తుంది. మూడు పనులు ఒక్కొక్కటి పూర్తయ్యాక తర్వాతిది మొదలయ్యేలా రాస్తే దాదాపు 3 seconds పడతాయి; <code>gather</code> వాటిని కలిపి నడిపి మొత్తం wait ని తగ్గిస్తుంది.</p>
+<p><b>ఇంకా చూడండి:</b> <a href="#async-event-loop">event loop</a>, <a href="#async-coroutines">coroutine మరియు await</a> వివరణలు కూడా చూడండి.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> <code>async def</code> లోపల <code>time.sleep()</code>, synchronous <code>requests.get()</code> లేదా synchronous DB call వాడితే event loop మొత్తం ఆగిపోతుంది. Async endpoint లో async-compatible client వాడండి; అవసరమైతే blocking పనిని thread/worker కి పంపండి.</div>
+</div><div class="explain-pane" id="p1-gpt-async-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>వేల సంఖ్యలో network connections ని ఒకే thread తో, తక్కువ memory తో నిర్వహించడానికి. FastAPI, LLM streaming, web scraping, chat bots అన్నీ దీని మీద ఆధారపడతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3344,9 +3464,9 @@ async def main():
     print(results, round(time.perf_counter() - t0, 1), "s")   # ~1.0s
 
 asyncio.run(main())</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Event loop<small>Event loop</small></summary><div class="body">
+<details class="t" id="async-event-loop"><summary>10. Event loop<small>async పనుల ప్రారంభం, వేచి ఉండటం, కొనసాగింపును నిర్వహించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Async code ఎందుకు కొన్నిసార్లు "ఆగిపోతుంది", ఎందుకు blocking call ప్రమాదకరం అనేది event loop అర్థమైతే స్పష్టమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3372,7 +3492,7 @@ asyncio.run(main())    # tick 0, 1, 2 సరిగ్గా సమయాని�
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>async def</code> లోపల <code>time.sleep()</code> లేదా <code>requests.get()</code> వాడటం. Server లో అన్ని requests ఆగిపోతాయి.</div>
 </div></details>
 
-<details class="t"><summary>11. Coroutines and async / await<small>Coroutines మరియు async / await</small></summary><div class="body">
+<details class="t" id="async-coroutines"><summary>11. Coroutines and async / await<small>Coroutines మరియు async / await</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p><code>async def</code> మరియు <code>await</code> అనేవి asyncio code రాసే ప్రాథమిక syntax. వీటిని సరిగ్గా వాడకపోతే "coroutine was never awaited" warning వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3421,7 +3541,7 @@ async def main():
 asyncio.run(main())</pre>
 </div></details>
 
-<details class="t"><summary>13. asyncio.gather()<small>asyncio.gather()</small></summary><div class="body">
+<details class="t"><summary>13. asyncio.gather()<small>అనేక async పనులను కలిపి ఫలితాల కోసం వేచి ఉండటం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>అనేక awaitables ని ఒకేసారి నడిపి, అన్ని ఫలితాలను ఒకే list లో పొందడానికి అత్యంత సాధారణ మార్గం (ఉదా: 10 LLM calls ఒకేసారి).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3446,7 +3566,7 @@ asyncio.run(main())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వేలాది coroutines ని ఒకేసారి gather చేయడం. Server లేదా API rate limit దెబ్బతింటుంది; Semaphore (topic 19) తో పరిమితి పెట్టండి.</div>
 </div></details>
 
-<details class="t"><summary>14. asyncio.create_task()<small>asyncio.create_task()</small></summary><div class="body">
+<details class="t"><summary>14. asyncio.create_task()<small>async పనిని వెంటనే అమలుకు షెడ్యూల్ చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక పనిని వెంటనే background లో మొదలుపెట్టి, ఈలోగా main flow ని కొనసాగించడానికి (ఉదా: response పంపుతూ logging/analytics పంపడం).</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3471,7 +3591,7 @@ asyncio.run(handle_request())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>create_task(...)</code> ఫలితాన్ని ఎక్కడా ఉంచకపోవడం మరియు fire-and-forget task లో exception వస్తే ఎవరూ గమనించకపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>15. Async HTTP requests<small>Async HTTP requests</small></summary><div class="body">
+<details class="t"><summary>15. Async HTTP requests<small>HTTP స్పందన కోసం వేచి ఉండగా ఇతర పనులు కొనసాగించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>అనేక external APIs (LLM providers, payment, scraping) ఒకేసారి పిలవడం async యొక్క అత్యంత సాధారణ ఉపయోగం. <code>requests</code> library blocking కాబట్టి async code లో వాడకూడదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3495,7 +3615,7 @@ async def main():
 asyncio.run(main())</pre>
 </div></details>
 
-<details class="t"><summary>16. Async database operations<small>Async database operations</small></summary><div class="body">
+<details class="t"><summary>16. Async database operations<small>database స్పందన కోసం వేచి ఉండగా event loop ను ఖాళీగా ఉంచడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Async web app లో sync DB driver వాడితే ప్రతి query event loop ని ఆపేస్తుంది. అందుకే async drivers అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3520,7 +3640,7 @@ asyncio.run(main())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>await</code> మర్చిపోవడం, మరియు async session ని <code>await</code> లేకుండా lazy-loaded relationship కి access చేయడం (async లో lazy loading పనిచేయదు, eager loading వాడాలి).</div>
 </div></details>
 
-<details class="t"><summary>17. Async generators<small>Async generators</small></summary><div class="body">
+<details class="t"><summary>17. Async generators<small>async stream నుంచి విలువలను ఒక్కొక్కటిగా అందించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM streaming responses, పేజీలవారీ API results, live feeds ని ఒక్కొక్క ముక్కగా, వేచి ఉంటూ ప్రాసెస్ చేయడానికి. FastAPI <code>StreamingResponse</code> తో ఇది తరచూ వాడతారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3986,7 +4106,7 @@ pip install --require-hashes -r requirements.txt</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> lock file ను <code>.gitignore</code> లో పెట్టడం. అప్పుడు ప్రతి machine లో వేర్వేరు versions వస్తాయి.</div>
 </div></details>
 
-<details class="t"><summary>20. Package vulnerability scanning<small>Package vulnerability scanning</small></summary><div class="body">
+<details class="t"><summary>20. Package vulnerability scanning<small>dependencies లో తెలిసిన భద్రతా లోపాలను గుర్తించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>మీ dependencies లో ఒక దానిలో తెలిసిన security లోపం (CVE) ఉంటే మీ app కూడా ప్రమాదంలో పడుతుంది. వాటిని ముందే కనిపెట్టాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4531,7 +4651,7 @@ def charge(card):
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>except:</code> లేదా <code>except Exception: pass</code> తో errors ని నిశ్శబ్దంగా మింగేయడం.</div>
 </div></details>
 
-<details class="t"><summary>19. Python logging module<small>Python logging module</small></summary><div class="body">
+<details class="t"><summary>19. Python logging module<small>అప్లికేషన్ సంఘటనలు, errors ను క్రమబద్ధంగా నమోదు చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Production లో debugger పెట్టలేం; ఏం జరిగిందో తెలుసుకోవడానికి logs మాత్రమే ఆధారం. <code>print</code> కంటే logging లో levels, timestamps, files, formats వంటి నియంత్రణ ఉంటుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4600,7 +4720,7 @@ log.error("payment failed")        # చూపిస్తుంది</pre>
 <p>Production లో సాధారణంగా INFO, local లో DEBUG; level ని environment variable నుండి తీసుకోవడం మంచి పద్ధతి.</p>
 </div></details>
 
-<details class="t"><summary>22. JSON structured logging<small>JSON structured logging</small></summary><div class="body">
+<details class="t"><summary>22. JSON structured logging<small>logs ను fields ఉన్న JSON రూపంలో నిల్వ చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Plain text logs ని Datadog/ELK/CloudWatch లో search చేయడం కష్టం. JSON logs లో ప్రతి field (user_id, status) విడిగా filter చేయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -4837,7 +4957,7 @@ def create(product: ProductIn, x_request_id: str | None = Header(default=None)):
 <div class="mistake"><b>సాధారణ తప్పు:</b> GET request కి body పంపాలని ప్రయత్నించడం. చాలా clients/proxies దాన్ని పట్టించుకోవు.</div>
 </div></details>
 
-<details class="t"><summary>6. REST resource design<small>REST resource design</small></summary><div class="body">
+<details class="t"><summary>6. REST resource design<small>API లో resources, URLs, HTTP చర్యలను సరిగ్గా అమర్చడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>స్థిరమైన URL నమూనా ఉంటే API ని ఇతర developers త్వరగా అర్థం చేసుకుంటారు; మార్పులు సులభం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5190,7 +5310,7 @@ async def chat():
 <div class="mistake"><b>సాధారణ తప్పు:</b> Nginx buffering వల్ల stream ఆలస్యంగా వస్తుంది. Nginx లో <code>proxy_buffering off</code> (లేదా response header <code>X-Accel-Buffering: no</code>) పెట్టాలి.</div>
 </div></details>
 
-<details class="t"><summary>20. JWT authentication<small>JWT authentication</small></summary><div class="body">
+<details class="t"><summary>20. JWT authentication<small>signed token ద్వారా API వినియోగదారుని గుర్తించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>HTTP stateless కాబట్టి ప్రతి request లో user ఎవరో నిరూపించుకోవాలి. JWT తో server ప్రతిసారి DB చూడకుండా token తోనే గుర్తించగలదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5593,7 +5713,7 @@ Base.metadata.create_all(engine)    # tables తయారు (production లో 
 <div class="mistake"><b>సాధారణ తప్పు:</b> production లో <code>create_all()</code> మీదే ఆధారపడటం. అది ఉన్న tables ని మార్చదు; schema మార్పులకు Alembic వాడండి.</div>
 </div></details>
 
-<details class="t"><summary>12. SQLAlchemy sessions<small>SQLAlchemy sessions</small></summary><div class="body">
+<details class="t"><summary>12. SQLAlchemy sessions<small>database మార్పులను session ద్వారా నిర్వహించి commit చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>DB తో ప్రతి పనికి session ద్వారానే మాట్లాడతాం. దాని జీవిత చక్రం తప్పుగా నిర్వహిస్తే connection leaks, stale data, "DetachedInstanceError" వస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5701,7 +5821,7 @@ with Session(engine) as s:
 <div class="mistake"><b>సాధారణ తప్పు:</b> లక్షల rows ని ORM objects గా లోడ్ చేసి loop చేయడం (memory/slow). Bulk పనులకు Core-శైలి statements వాడండి.</div>
 </div></details>
 
-<details class="t"><summary>15. Async SQLAlchemy<small>Async SQLAlchemy</small></summary><div class="body">
+<details class="t"><summary>15. Async SQLAlchemy<small>async Python code నుంచి database ను ప్రశ్నించడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>FastAPI <code>async def</code> endpoints లో sync DB calls వాడితే event loop block అవుతుంది. Async engine తో DB కోసం వేచి ఉన్నప్పుడు ఇతర requests ని సేవ చేయవచ్చు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5740,7 +5860,7 @@ async def get_db():
 <div class="mistake"><b>సాధారణ తప్పు:</b> async app లో sync driver (psycopg2) లేదా sync Session వాడటం, లేదా <code>await</code> మర్చిపోవడం.</div>
 </div></details>
 
-<details class="t"><summary>16. Database connection pooling<small>Database connection pooling</small></summary><div class="body">
+<details class="t"><summary>16. Database connection pooling<small>మళ్లీ ఉపయోగించేందుకు database connections ను pool లో ఉంచడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>DB connection తెరవడం ఖరీదైనది (ముఖ్యంగా Postgres లో process తయారవుతుంది). Pool లో connections ని ముందే తెరచి పునర్వినియోగిస్తే వేగం పెరుగుతుంది మరియు DB overload కాదు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5760,7 +5880,7 @@ engine = create_async_engine(
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి request లో కొత్త engine తయారు చేయడం (ప్రతిసారి కొత్త pool). Engine ని app మొత్తానికి ఒక్కటే ఉంచండి.</div>
 </div></details>
 
-<details class="t"><summary>17. Alembic migrations<small>Alembic migrations</small></summary><div class="body">
+<details class="t"><summary>17. Alembic migrations<small>database schema మార్పులను version చేసి అమలు చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>Schema మార్పులు (కొత్త column, index) team అంతా మరియు అన్ని environments లో ఒకేలా, క్రమంగా, వెనక్కి తీసుకునే వీలుతో అమలు కావాలి. చేతితో SQL run చేయడం ప్రమాదకరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -5853,7 +5973,7 @@ async def demo(r):
 <div class="mistake"><b>సాధారణ తప్పు:</b> cache keys కి TTL పెట్టకపోవడం. Memory క్రమంగా నిండిపోయి eviction లేదా out-of-memory errors వస్తాయి.</div>
 </div></details>
 
-<details class="t"><summary>21. Cache-aside pattern<small>Cache-aside pattern</small></summary><div class="body">
+<details class="t"><summary>21. Cache-aside pattern<small>cache లో లేనప్పుడు database నుంచి తెచ్చి cache చేయడం</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>భారీ DB queries లేదా ఖరీదైన LLM calls ఫలితాన్ని ఒకసారి లెక్కించి, తర్వాతి requests కి Redis నుండి వేగంగా ఇవ్వడానికి. DB భారం తగ్గుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -6640,6 +6760,20 @@ appendfsync everysec             # సెకనుకోసారి disk కి
 
   updateCountsAndFilter();
 })();
+  document.querySelectorAll('.explain-tabs').forEach(function(group) {
+    var buttons = [].slice.call(group.querySelectorAll('.explain-tab'));
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        buttons.forEach(function(item) {
+          var selected = item === button;
+          item.setAttribute('aria-selected', selected ? 'true' : 'false');
+          var pane = document.getElementById(item.getAttribute('data-pane'));
+          if (pane) pane.hidden = !selected;
+        });
+      });
+    });
+  });
+
 </script>
 <div id="profile-toast" class="profile-toast"></div>
 </body>

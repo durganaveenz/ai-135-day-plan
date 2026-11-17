@@ -855,6 +855,11 @@ pre { position: relative; padding-top: 36px; }
   .nav-prev-btn, .nav-resume-btn { display: none; }
 }
 
+
+.explain-tabs{display:flex;gap:8px;margin:4px 0 14px;border-bottom:1px solid var(--line)}
+.explain-tab{border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--soft);color:var(--text);padding:7px 14px;cursor:pointer;font:inherit}
+.explain-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.gpt-pane[hidden],.gemini-pane[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1019,7 +1024,16 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. What is enterprise AI architecture?<small>ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అంటే ఏమిటి?</small></summary><div class="body">
+    <details class="t" id="gpt-topic-p7-what-is-enterprise-ai-architecture-0"><summary>1. What is enterprise AI architecture?<small>ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అంటే ఏమిటి?</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-what-is-enterprise-ai-architecture">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-what-is-enterprise-ai-architecture-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-what-is-enterprise-ai-architecture" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఒక AI demo ని అనేక బృందాలు, చాలా మంది users ఉపయోగించే సంస్థ సేవగా మార్చేటప్పుడు భద్రత, ఖర్చు, నమ్మకత్వం, పర్యవేక్షణ అన్నీ ముందే ప్లాన్ చేయాలి. ఈ భాగాలన్నీ ఎలా కలిసి పనిచేయాలో రూపొందించడమే enterprise AI architecture.</p>
+<h4>సరళమైన వివరణ</h4><p>ఇది model ఎంపిక మాత్రమే కాదు. User app నుంచి API gateway, orchestration service, model gateway, data/RAG భాగాలు, audit logs, monitoring వరకు ఏవి ఎలా కలుస్తాయో నిర్ణయిస్తుంది. PHP/Laravel లో పెద్ద business system కి services, queues, databases, access rules అన్నీ కలిపి design చేసినట్టుగా భావించండి.</p>
+<h4>ఉదాహరణ</h4><p>ఉదాహరణకు, ఉద్యోగి policy ప్రశ్న అడిగితే: login గుర్తింపు తనిఖీ అవుతుంది; అతనికి అనుమతించిన documents మాత్రమే retrieve అవుతాయి; model సమాధానం తయారుచేస్తుంది; ఉపయోగించిన sources, latency, ఖర్చు audit కోసం నమోదు అవుతాయి.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> LLM API ని పిలిచే code మాత్రమే enterprise architecture అని భావించడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-what-is-enterprise-ai-architecture-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>సాధారణ AI డెమో కేవలం ఒక API కాల్‌తో పూర్తవుతుంది. కానీ వేలాదిమంది ఉద్యోగులు, లక్షలాది కస్టమర్లు ఉన్న సంస్థల్లో సెక్యూరిటీ, డేటా గవర్నెన్స్, స్కేలబిలిటీ మరియు బడ్జెట్ కంట్రోల్‌తో AI సిస్టమ్స్ నడపడానికి ఎంటర్‌ప్రైజ్ AI ఆర్కిటెక్చర్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1033,10 +1047,7 @@ pre { position: relative; padding-top: 36px; }
 #   -&gt; Knowledge Layer (Pinecone / Qdrant + MySQL/Postgres)
 #   -&gt; Observability (OpenTelemetry + Prometheus + Langfuse)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ స్క్రిప్ట్ లాగా డైరెక్ట్ గా OpenAI API కి క్లయింట్ నుంచి కాల్స్ చేయడం, ఎంటర్‌ప్రైజ్ లెవెల్ గేట్‌వేలు లేకపోవడం.</div>
-</div></details>
-
-
-<details class="t"><summary>2. AI solution architecture vs application architecture.<small>AI సొల్యూషన్ ఆర్కిటెక్చర్ వర్సెస్ అప్లికేషన్ ఆర్కిటెక్చర్</small></summary><div class="body">
+</div></div></details><details class="t"><summary>2. AI solution architecture vs application architecture.<small>AI సొల్యూషన్ ఆర్కిటెక్చర్ వర్సెస్ అప్లికేషన్ ఆర్కిటెక్చర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక AI ఫీచర్ ని కేవలం సాఫ్ట్‌వేర్ యాప్‌లో ఒక భాగంగా చూడటమా లేక బిజినెస్ సమస్యను పరిష్కరించే సమగ్ర వ్యూహంగా చూడటమా అనే స్పష్టత లేకపోతే ప్రాజెక్ట్‌లు ఫెయిల్ అవుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1049,7 +1060,16 @@ pre { position: relative; padding-top: 36px; }
 <div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ గోల్ మరియు ROI లెక్కించకుండా కేవలం లేటెస్ట్ LLM మోడల్ వాడటమే లక్ష్యంగా పెట్టుకోవడం.</div>
 </div></details>
 
-<details class="t"><summary>3. Business requirements vs technical requirements.<small>బిజినెస్ అవసరాలు వర్సెస్ టెక్నికల్ అవసరాలు</small></summary><div class="body">
+<details class="t" id="gpt-topic-p7-business-requirements-vs-technical-requirements-0"><summary>3. Business requirements vs technical requirements.<small>బిజినెస్ అవసరాలు వర్సెస్ టెక్నికల్ అవసరాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-business-requirements-vs-technical-requirements">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-business-requirements-vs-technical-requirements-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-business-requirements-vs-technical-requirements" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఏ సమస్యను పరిష్కరించాలి, దాన్ని ఏ సాంకేతిక పరిమితుల్లో నిర్మించాలి అనే రెండు ప్రశ్నలకు వేర్వేరు సమాధానాలు అవసరం. వీటిని కలిపేస్తే బృందం ఉపయోగకరమైనదానికంటే సాంకేతికంగా ఆసక్తికరమైన solution ని నిర్మించే ప్రమాదం ఉంది.</p>
+<h4>సరళమైన వివరణ</h4><p>Business requirement ఫలితాన్ని చెబుతుంది: ఉదాహరణకు support టికెట్ పరిష్కార సమయాన్ని తగ్గించాలి. Technical requirement వ్యవస్థ ఎలా పనిచేయాలో పరిమితులు చెబుతుంది: ప్రతి సమాధానానికి 2 seconds లోపు స్పందన, private network లో hosting, PostgreSQL audit history.</p>
+<h4>ఉదాహరణ</h4><p>Laravel ఉదాహరణలో “చెల్లింపు విజయవంతమైతే order confirm కావాలి” అనేది business requirement. “Payment API కి 3 seconds timeout పెట్టాలి” అనేది technical requirement.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> Business లక్ష్యాన్ని కొలవకుండా technology ఎంపికతోనే project విజయాన్ని నిర్ణయించడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-business-requirements-vs-technical-requirements-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>బిజినెస్ మేనేజర్లకు కావలసింది వ్యాపార ఫలితాలు (ఖర్చు తగ్గింపు, వేగం), ఇంజనీర్లకు కావలసింది సిస్టమ్ మెట్రిక్స్ (లేటెన్సీ, అక్యురసీ). రెండింటి మధ్య సరైన మ్యాపింగ్ లేకపోతే సిస్టమ్ డెలివరీ విఫలమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1063,9 +1083,8 @@ pre { position: relative; padding-top: 36px; }
 #   - LLM: Claude 3.5 Sonnet streaming response
 #   - P99 Latency: &lt; 8 seconds</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బిజినెస్ రిక్వైర్మెంట్‌ను కొలవదగిన (measurable) టెక్నికల్ మెట్రిక్స్‌గా మార్చకపోవడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-functional-requirements-0"><summary>4. Functional requirements.<small>ఫంక్షనల్ రిక్వైర్మెంట్స్ (కార్యాచరణ అవసరాలు)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-functional-requirements">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-functional-requirements-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-functional-requirements" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>AI feature ఏ పని చేయాలో స్పష్టంగా లేకపోతే, బృందం సరైన దిశలో నిర్మించిందో నిర్ణయించలేం. User చేయగల పని లేదా system ఇవ్వాల్సిన ఫలితాన్ని functional requirement గా రాస్తాం.</p><h4>సరళమైన వివరణ</h4><p>“ఉద్యోగి policy ప్రశ్న అడిగితే, అనుమతి ఉన్న documents ఆధారంగా సమాధానం ఇవ్వాలి” అనేది functional requirement. ఇది feature ప్రవర్తనను వివరిస్తుంది; ఎంత వేగంగా లేదా ఎంత ఖర్చుతో చేయాలో చెప్పదు.</p><h4>ఉదాహరణ</h4><p>Requirement ని పరీక్షించగల వాక్యంగా రాయండి: “User ప్రశ్న పంపితే, system సమాధానంతో పాటు ఉపయోగించిన source links చూపాలి.” అప్పుడు acceptance test రూపొందించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> “AI ఉపయోగించాలి” అని మాత్రమే రాసి, user కి కనిపించే ఫలితం ఏమిటో చెప్పకపోవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-functional-requirements-0" role="tabpanel" hidden>
 
-<details class="t"><summary>4. Functional requirements.<small>ఫంక్షనల్ రిక్వైర్మెంట్స్ (కార్యాచరణ అవసరాలు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ యూజర్‌కు లేదా ఇతర సిస్టమ్‌లకు ఏం అందించాలో ఖచ్చితంగా నిర్వచించకపోతే డెవలప్‌మెంట్ దారితప్పుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1076,9 +1095,16 @@ pre { position: relative; padding-top: 36px; }
 # 2. FR-02: టికెట్ స్టేటస్ చెక్ చేయడానికి Zendesk API ని టూల్ ద్వారా పిలవాలి
 # 3. FR-03: అసంతృప్తిగా ఉన్న కస్టమర్లను హ్యూమన్ ఏజెంట్‌కు ట్రాన్స్‌ఫర్ చేయాలి</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఏఐ మోడల్ పరిమితులు పరిగణనలోకి తీసుకోకుండా అసాధ్యమైన ఫంక్షనల్ ఫీచర్లను వాగ్దానం చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-non-functional-requirements-0"><summary>5. Non-functional requirements.<small>నాన్-ఫంక్షనల్ రిక్వైర్మెంట్స్ (సిస్టమ్ గుణ లక్షణాలు)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-non-functional-requirements">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-non-functional-requirements-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-non-functional-requirements" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఒక AI feature సరైన సమాధానం ఇచ్చినా, నెమ్మదిగా లేదా అసురక్షితంగా ఉంటే వినియోగదారులకు పనికిరాదు. వేగం, భద్రత, అందుబాటు, ఖర్చు వంటి quality లక్షణాలను ముందే నిర్దేశించడానికి non-functional requirements అవసరం.</p>
+<h4>సరళమైన వివరణ</h4><p>Functional requirement “ఏ పని చేయాలి?” అని చెబుతుంది. Non-functional requirement “ఆ పని ఎంత వేగంగా, ఎంత నమ్మదగినట్లు, ఎంత సురక్షితంగా జరగాలి?” అని చెబుతుంది. ఉదాహరణకు 95% requests 2 seconds లోపు పూర్తి కావాలి, నెలకు 99.9% uptime ఉండాలి, private data logs లో కనిపించకూడదు.</p>
+<h4>ఉదాహరణ</h4><p>ఒక RAG service కి లక్ష్యం ఇలా రాయొచ్చు: “1,000 మంది users ఉన్నా retrieval కి 500 ms లోపు స్పందించాలి; సమాధానాల్లో source links ఉండాలి; user అనుమతి లేని documents తిరిగి ఇవ్వకూడదు.”</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> “సిస్టమ్ వేగంగా ఉండాలి” వంటి కొలవలేని మాటలను requirement గా వదిలేయడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-non-functional-requirements-0" role="tabpanel" hidden>
 
-<details class="t"><summary>5. Non-functional requirements.<small>నాన్-ఫంక్షనల్ రిక్వైర్మెంట్స్ (సిస్టమ్ గుణ లక్షణాలు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ పని చేయడం మాత్రమే కాదు, అది ఎంత వేగంగా, ఎంత సురక్షితంగా, ఎంతమంది యూజర్లను తట్టుకోగలదో నిర్ణయించకపోతే ప్రొడక్షన్ లో సిస్టమ్ కూలిపోతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1090,9 +1116,8 @@ pre { position: relative; padding-top: 36px; }
 # - Security: SOC2, HIPAA compliance, PII redaction before LLM
 # - Scalability: 500 concurrent LLM streams</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కాస్ట్ (LLM API ఖర్చు) మరియు లేటెన్సీని NFR గా పరిగణించకుండా డిజైన్ ప్రారంభించడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-business-capability-mapping-0"><summary>6. Business capability mapping.<small>బిజినెస్ కెపాబిలిటీ మ్యాపింగ్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-business-capability-mapping">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-business-capability-mapping-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-business-capability-mapping" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఏ business పనులకు AI సహాయం చేస్తుందో, ఏ shared systems అవసరమో ముందుగానే చూడాలి. Business capability mapping ద్వారా AI features ని సంస్థ చేసే పనులతో అనుసంధానించవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Business capability అంటే సంస్థ తరచూ చేసే పని; ఉదాహరణకు customer support, fraud review, document processing. Mapping లో ఆ capability కి users, systems, data, pain points, AI అవకాశం ఎలా సంబంధించాయో చూపిస్తాం.</p><h4>ఉదాహరణ</h4><p>Customer support capability కి ticket routing, response drafting, agent handoff అవసరాలు ఉంటాయి. ఈ mapping చూసి మొదట ఏ చిన్న AI feature ఎక్కువ ప్రయోజనం ఇస్తుందో నిర్ణయించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Capability mapping ని system component diagram గా భావించి business లక్ష్యాలను వదిలేయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-business-capability-mapping-0" role="tabpanel" hidden>
 
-<details class="t"><summary>6. Business capability mapping.<small>బిజినెస్ కెపాబిలిటీ మ్యాపింగ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంస్థలో ఏ వ్యాపార విభాగాలకు (సేల్స్, సపోర్ట్, ఫైనాన్స్) AI సామర్థ్యాలు అవసరమో, వాటి ప్రాధాన్యత ఏమిటో ప్లాన్ చేయడానికి ఇది ఉపకరిస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1106,9 +1131,8 @@ pre { position: relative; padding-top: 36px; }
 # Capability: సేల్స్ అనలిటిక్స్
 #   -&gt; AI Service: Text-to-SQL + Chart Generation Agent</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి డిపార్ట్‌మెంట్ తమ సొంత AI టూల్స్ విడివిడిగా తయారుచేసుకుని డూప్లికేట్ ఖర్చులు చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-architecture-principles-0"><summary>7. Architecture principles.<small>ఆర్కిటెక్చర్ ప్రాథమిక సూత్రాలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-architecture-principles">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-architecture-principles-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-architecture-principles" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వేర్వేరు teams ఒకే సమస్యకు వేర్వేరు పరిష్కారాలు ఎంచుకోకుండా ఉండేందుకు architecture principles అవసరం. ఇవి design నిర్ణయాలకు ఒకే మార్గదర్శకాన్ని ఇస్తాయి.</p><h4>సరళమైన వివరణ</h4><p>Principle అంటే సాధారణంగా పాటించాల్సిన దిశ, దానికి కారణం. ఉదాహరణకు, “Private customer data ని model provider కి పంపే ముందు అవసరమైనంత మాత్రమే పంపాలి” అనే నియమం ఎన్నో design నిర్ణయాలకు దారి చూపుతుంది.</p><h4>ఉదాహరణ</h4><p>ఒక సంస్థ model access ని gateway ద్వారానే అనుమతించాలని నిర్ణయిస్తుంది. దాంతో teams provider API ని app లో నేరుగా పిలవకుండా gateway ని ఉపయోగిస్తాయి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> కారణం లేదా ఆచరణలో ఉపయోగం చెప్పకుండా సాధారణ వాక్యాన్ని principle గా రాయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-architecture-principles-0" role="tabpanel" hidden>
 
-<details class="t"><summary>7. Architecture principles.<small>ఆర్కిటెక్చర్ ప్రాథమిక సూత్రాలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఆర్కిటెక్చర్ నిర్ణయాలు తీసుకునేటప్పుడు గైడ్‌లైన్స్ లేకపోతే టీమ్ సభ్యులు తలో రకంగా టెక్నాలజీలు ఎంచుకుని గందరగోళం సృష్టిస్తారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1119,9 +1143,8 @@ pre { position: relative; padding-top: 36px; }
 # 2. Defense in Depth: ఇన్‌పుట్ వద్ద Guardrails, అవుట్‌పుట్ వద్ద Content Filtering ఉండాలి.
 # 3. Measurability: ప్రతి కాల్ టోకెన్ కౌంట్ మరియు లేటెన్సీ లాగ్ కావాలి.</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> మోడల్ అబ్‌స్ట్రాక్షన్ లేకుండా OpenAI SDK ని ప్రతి సర్వీస్‌లో హార్డ్‌కోడ్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-architecture-standards-0"><summary>8. Architecture standards.<small>ఆర్కిటెక్చర్ ప్రమాణాలు మరియు నిబంధనలు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-architecture-standards">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-architecture-standards-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-architecture-standards" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>సంస్థలో ప్రతి AI project వేర్వేరు logging, authentication, model access పద్ధతులు వాడితే నిర్వహణ, security review కష్టమవుతాయి. అందరూ పాటించాల్సిన పద్ధతులను architecture standards గా ఉంచుతాం.</p><h4>సరళమైన వివరణ</h4><p>Standard ఒక స్పష్టమైన సాంకేతిక నియమం. ఉదాహరణకు, secrets ని approved vault లో నిల్వ చేయాలి, production services structured logs ఇవ్వాలి, model calls gateway ద్వారానే జరగాలి అని చెప్పవచ్చు.</p><h4>ఉదాహరణ</h4><p>కొత్త RAG service ప్రారంభించే బృందానికి approved vector database, encryption, identity provider జాబితా ఉంటే, ప్రతి నిర్ణయాన్ని మొదటి నుంచి పరిశోధించాల్సిన అవసరం ఉండదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రస్తుత అవసరానికి సరిపోతుందో చూడకుండా పాత standard ని యథాతథంగా అమలు చేయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-architecture-standards-0" role="tabpanel" hidden>
 
-<details class="t"><summary>8. Architecture standards.<small>ఆర్కిటెక్చర్ ప్రమాణాలు మరియు నిబంధనలు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంపెనీ వ్యాప్తంగా అన్ని టీమ్‌లు ఒకే విధమైన భద్రత, ఇంటర్‌ఫేస్ మరియు డాక్యుమెంటేషన్ పద్ధతులు పాటించకపోతే సిస్టమ్ ఇంటిగ్రేషన్ అసాధ్యమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1136,9 +1159,8 @@ pre { position: relative; padding-top: 36px; }
   "response_format": {"type": "json_schema", "schema": {...}}
 }</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి ప్రాజెక్ట్‌లో వేర్వేరు రకాల లాగింగ్ ఫార్మాట్‌లు మరియు API పేలోడ్స్ వాడటం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-technical-constraints-0"><summary>9. Technical constraints.<small>టెక్నికల్ పరిమితులు మరియు అడ్డంకులు</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-technical-constraints">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-technical-constraints-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-technical-constraints" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఏ design అయినా సమయం, బడ్జెట్, existing systems, చట్టపరమైన నియమాల మధ్యనే నిర్మించాలి. ఈ పరిమితులను ముందే గుర్తిస్తే, సాధ్యం కాని architecture ని ఎంచుకోకుండా ఉండవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Technical constraint అనేది solution కి ఉన్న తప్పనిసరి అడ్డంకి లేదా పరిమితి. ఉదాహరణకు, customer data దేశం బయటకు వెళ్లకూడదు, existing app ఇంకా SOAP మాత్రమే మాట్లాడగలదు, GPU budget పరిమితం అని ఉండొచ్చు.</p><h4>ఉదాహరణ</h4><p>ఒక సంస్థలో data residency నియమం వల్ల cloud region ఎంచుకునే అవకాశం పరిమితం కావచ్చు. Architecture diagram తయారు చేసే ముందు ఈ నియమాన్ని నమోదు చేస్తే ఆలస్యమైన redesign తప్పుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Constraint ని అభిరుచిగా భావించి, design review చివర్లో మాత్రమే గుర్తించడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-technical-constraints-0" role="tabpanel" hidden>
 
-<details class="t"><summary>9. Technical constraints.<small>టెక్నికల్ పరిమితులు మరియు అడ్డంకులు</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>నిజ జీవితంలో అపరిమిత బడ్జెట్, అనంతమైన GPU కంప్యూట్ లేదా పబ్లిక్ క్లౌడ్ అనుమతులు ఉండవు; ఈ పరిమితులను బట్టే ఆర్కిటెక్చర్ నిర్మించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1150,9 +1172,16 @@ pre { position: relative; padding-top: 36px; }
 # Constraint 2: 2 సెకన్ల రెస్పాన్స్ లిమిట్
 #   -&gt; Solution: GPT-4o బదులుగా Haiku/GPT-4o-mini తో ఫాస్ట్ స్ట్రీమింగ్</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సంస్థ యొక్క లీగల్ మరియు నెట్‌వర్క్ పరిమితులను ముందుగా తెలుసుకోకుండా పబ్లిక్ క్లౌడ్ APIలపై ఆర్కిటెక్చర్ నిర్మించడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-architecture-decision-records-adrs-0"><summary>10. Architecture decision records (ADRs).<small>ఆర్కిటెక్చర్ డెసిషన్ రికార్డ్స్ (ADR పత్రాలు)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-architecture-decision-records-adrs">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-architecture-decision-records-adrs-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-architecture-decision-records-adrs" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>సంస్థలో architecture నిర్ణయాలు ఎందుకు తీసుకున్నామో కొంతకాలం తర్వాత మర్చిపోవచ్చు. ఆ నిర్ణయం, దానికి ఉన్న కారణాలు, పరిగణించిన ప్రత్యామ్నాయాలను చిన్న పత్రంలో నమోదు చేయడమే ADR.</p>
+<h4>సరళమైన వివరణ</h4><p>ADR సాధారణంగా సమస్య/పరిస్థితి, నిర్ణయం, దాని ప్రభావాలు అనే భాగాలు కలిగి ఉంటుంది. ఉదాహరణకు, “ప్రతి customer కి వేరు vector index వాడాలి; ఇది isolation పెంచుతుంది, కానీ storage ఖర్చు పెరుగుతుంది” అని నమోదు చేయవచ్చు.</p>
+<h4>ఉదాహరణ</h4><p>Laravel project లో MySQL నుంచి PostgreSQL కి మారాలని నిర్ణయించినప్పుడు, కారణం, తిరస్కరించిన ఎంపికలు, migration ప్రభావం రాసి ఉంచితే కొత్త team member అదే చర్చను మళ్లీ మొదలుపెట్టాల్సిన అవసరం ఉండదు.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> ప్రస్తుత నిర్ణయం మాత్రమే రాసి, దానికి కారణం మరియు trade-off ని నమోదు చేయకపోవడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-architecture-decision-records-adrs-0" role="tabpanel" hidden>
 
-<details class="t"><summary>10. Architecture decision records (ADRs).<small>ఆర్కిటెక్చర్ డెసిషన్ రికార్డ్స్ (ADR పత్రాలు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒక టెక్నాలజీని (ఉదా: Pinecone vs pgvector) ఎందుకు ఎంచుకున్నామో, ఏ ప్రత్యామ్నాయాలను పరిశీలించామో భవిష్యత్తు టీమ్‌లకు డాక్యుమెంట్ చేయడం ముఖ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1164,9 +1193,8 @@ pre { position: relative; padding-top: 36px; }
 # Decision: Pinecone కి బదులుగా pgvector ని వాడాలని నిర్ణయించాము.
 # Consequences: నిర్వహణ సులభం, ప్రత్యేక బిల్లింగ్ లేదు. కానీ 10M వెక్టర్ల దాటితే సెర్చ్ వేగం తగ్గే అవకాశం ఉంది.</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టెక్నికల్ నిర్ణయాలు మౌఖికంగా తీసుకుని, భవిష్యత్ లో సమస్యలు వచ్చినప్పుడు కారణాలు తెలియకపోవడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-user-interaction-layer-0"><summary>11. User interaction layer.<small>యూజర్ ఇంటరాక్షన్ లేయర్ (వినియోగదారు ఇంటర్‌ఫేస్)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-user-interaction-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-user-interaction-layer-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-user-interaction-layer" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>AI సమాధానం వెనుక model ఎంత బలంగా ఉన్నా, user ప్రశ్న అడగలేకపోతే లేదా ఫలితాన్ని అర్థం చేసుకోలేకపోతే feature పనికిరాదు. User interaction layer అనేది user కి కనిపించే, అతను ఉపయోగించే భాగం.</p><h4>సరళమైన వివరణ</h4><p>Web page, mobile app, Slack bot లేదా voice interface ఈ layer లో ఉండవచ్చు. ఇది user input సేకరించి, backend కి పంపి, సమాధానం, source links, retry లేదా human handoff వంటి చర్యలను చూపుతుంది.</p><h4>ఉదాహరణ</h4><p>ఉద్యోగి policy assistant లో ప్రశ్న type చేస్తాడు; సమాధానంతో పాటు source document link, “సమాధానం ఉపయోగకరమా?” feedback button కనిపిస్తాయి. Model access మాత్రం browser లో కాకుండా server లో జరుగుతుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Provider API key ని browser లేదా mobile app లో పెట్టి, user interface నుంచే నేరుగా model ని పిలవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-user-interaction-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>11. User interaction layer.<small>యూజర్ ఇంటరాక్షన్ లేయర్ (వినియోగదారు ఇంటర్‌ఫేస్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఎంటర్‌ప్రైజ్ యూజర్లు కేవలం చాట్‌బాట్ ద్వారానే కాకుండా వెబ్ పోర్టల్స్, మొబైల్ యాప్స్, వర్క్‌ప్లేస్ టూల్స్ (Slack, Teams) ద్వారా AI ని వాడుకుంటారు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1180,9 +1208,7 @@ pre { position: relative; padding-top: 36px; }
 # data: {"token": "నేను"}
 # data: [DONE]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> పెద్ద రెస్పాన్స్‌లను స్ట్రీమింగ్ చేయకుండా, మొత్తం పూర్తి అయ్యేవరకు యూజర్‌ను ఖాళీ స్క్రీన్ ముందు నిలబెట్టడం.</div>
-</div></details>
-
-<details class="t"><summary>12. API gateway.<small>API గేట్‌వే (యాక్సెస్ మరియు ట్రాఫిక్ నియంత్రణ)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>12. API gateway.<small>API గేట్‌వే (యాక్సెస్ మరియు ట్రాఫిక్ నియంత్రణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>అన్ని క్లయింట్ అభ్యర్థనలు ఒకే క్రమబద్ధమైన ద్వారం గుండా రావాలి. అక్కడ రేట్ లిమిటింగ్, టోకెన్ అథెంటికేషన్ మరియు లాగింగ్ జరగాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1201,7 +1227,8 @@ services:
 <div class="mistake"><b>సాధారణ తప్పు:</b> బ్యాకెండ్ AI సర్వీసులను నేరుగా పబ్లిక్ ఇంటర్నెట్‌కి ఎక్స్‌పోజ్ చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>13. Identity and access management.<small>గుర్తింపు మరియు యాక్సెస్ నిర్వహణ (IAM)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p7-identity-and-access-management-0"><summary>13. Identity and access management.<small>గుర్తింపు మరియు యాక్సెస్ నిర్వహణ (IAM)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-identity-and-access-management">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-identity-and-access-management-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-identity-and-access-management" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Enterprise AI కి user ఎవరో, అతను ఏ data లేదా tool ని ఉపయోగించవచ్చో తెలుసుండాలి. Identity and access management (IAM) ఈ గుర్తింపు, అనుమతులను నిర్వహిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Authentication “మీరు ఎవరు?” అని నిర్ధారిస్తుంది. Authorization “మీకు ఏ పని చేయడానికి అనుమతి ఉంది?” అని నిర్ణయిస్తుంది. AI retrieval లో ఈ రెండింటి ఆధారంగా user కి అనుమతి ఉన్న documents మాత్రమే model context లో చేర్చాలి.</p><h4>ఉదాహరణ</h4><p>HR assistant లో HR బృందం మాత్రమే salary policy documents చూడగలదు. User login తర్వాత అతని role చూసి retrieval service అనుమతి ఉన్న document set లోనే శోధిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> User ని login చేయించినంత మాత్రాన అతనికి అన్ని retrieved documents చూపించవచ్చని అనుకోవడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-identity-and-access-management-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>సంస్థలోని ఉద్యోగులందరికీ అన్ని ఫైల్స్ చూసే హక్కు ఉండదు; సీఈఓ చూసే ఆర్థిక నివేదికలను సాధారణ ఉద్యోగి AI ద్వారా యాక్సెస్ చేయకుండా నిరోధించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1216,9 +1243,8 @@ results = vector_db.similarity_search(
     filter={"allowed_roles": {"$in": user_roles}}
 )</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ సెర్చ్ చేసేటప్పుడు యూజర్ అనుమతులను (Permissions) తనిఖీ చేయకుండా మొత్తం డాటాబేస్ నుండి ఫలితాలు తేవడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-application-backend-0"><summary>14. Application backend.<small>అప్లికేషన్ బ్యాకెండ్ (బిజినెస్ లాజిక్ లేయర్)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-application-backend">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-application-backend-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>User interface నేరుగా model provider ని పిలిస్తే API keys, permissions, business rules బయటపడవచ్చు. Application backend request ని సురక్షితంగా స్వీకరించి AI పనిని నిర్వహిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Backend user ని గుర్తిస్తుంది, request ని తనిఖీ చేస్తుంది, AI workflow ని నడిపి సమాధానాన్ని user కి తిరిగి ఇస్తుంది. Database, model gateway లాంటి సేవలతో server వైపు నుంచే మాట్లాడుతుంది.</p><h4>ఉదాహరణ</h4><p>Chat page ప్రశ్నను <code>/ask</code> endpoint కి పంపుతుంది. Backend user అనుమతిని తనిఖీ చేసి, పత్రాలు వెతికి, model సమాధానాన్ని source links తో తిరిగి ఇస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Model API key ని browser లేదా mobile app లో పెట్టి నేరుగా model ని పిలవడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-application-backend-0" role="tabpanel" hidden>
 
-<details class="t"><summary>14. Application backend.<small>అప్లికేషన్ బ్యాకెండ్ (బిజినెస్ లాజిక్ లేయర్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI మోడల్ కేవలం మెదడు లాంటిది; వినియోగదారు డేటాబేస్, ఆర్డర్ల రికార్డులు మరియు కోర్ బిజినెస్ రూల్స్ బ్యాకెండ్ సర్వర్‌లో నడుస్తాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1233,9 +1259,8 @@ async def create_support_ticket(req: TicketRequest, user = Depends(get_current_u
     classify_ticket_job.delay(ticket.id)
     return {"status": "queued", "ticket_id": ticket.id}</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బ్యాకెండ్ లాజిక్‌ను పూర్తిగా AI మోడల్ ప్రాంప్ట్ పైనే ఆధారపడేలా చేసి బిజినెస్ రూల్స్ ని నిర్లక్ష్యం చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-ai-orchestration-layer-0"><summary>15. AI orchestration layer.<small>AI ఆర్కెస్ట్రేషన్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-ai-orchestration-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-ai-orchestration-layer-0">Gemini</button></div><div class="gpt-pane" id="gpt-p7-ai-orchestration-layer" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక AI request కి retrieval, model call, tool call, validation వంటి అనేక దశలు అవసరమవుతాయి. వాటిని సరైన క్రమంలో అమలు చేసి, మధ్యలోని state ని నిర్వహించేది AI orchestration layer.</p><h4>సరళమైన వివరణ</h4><p>Orchestrator ఏ దశ ముందుగా జరగాలి, ఏ ఫలితం తర్వాతి దశకు వెళ్లాలి, failure వస్తే ఏం చేయాలి అని నియంత్రిస్తుంది. చిన్న workflow సాధారణ service code లో ఉండొచ్చు; branching, retries, human approval ఉన్న workflow కి LangGraph వంటి workflow framework ఉపయోగపడవచ్చు.</p><h4>ఉదాహరణ</h4><p>Policy assistant workflow: user access check → relevant document search → answer draft → source check → response. Search empty అయితే, model call చేయకుండా “source దొరకలేదు” అని తిరిగి ఇవ్వవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Workflow నియమాలు model prompt లో మాత్రమే పెట్టి, application code లో access checks లేదా failure paths లేకుండా వదిలేయడం.</div></div><div class="gemini-pane" id="gemini-gpt-topic-p7-ai-orchestration-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>15. AI orchestration layer.<small>AI ఆర్కెస్ట్రేషన్ లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఒకే పని పూర్తి కావడానికి మోడల్ కాల్, డేటాబేస్ లుక్అప్, కాలిక్యులేషన్ మరియు కండిషనల్ డెసిషన్స్ అవసరం; వాటన్నింటినీ ఒక క్రమంలో నడిపించే డైరెక్టర్ అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1254,9 +1279,7 @@ builder.add_edge("retrieve_docs", "generate_answer")
 builder.add_edge("generate_answer", "fact_check")
 builder.add_edge("fact_check", END)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> క్లిష్టమైన మల్టీ-స్టెప్ ప్రాసెస్‌ను ఒకే భారీ ప్రాంప్ట్ లో రాయడానికి ప్రయత్నించడం.</div>
-</div></details>
-
-<details class="t"><summary>16. Model gateway.<small>మోడల్ గేట్‌వే (LLM రూటింగ్ మరియు ప్రాక్సీ)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>16. Model gateway.<small>మోడల్ గేట్‌వే (LLM రూటింగ్ మరియు ప్రాక్సీ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ అప్లికేషన్ కూడా నేరుగా OpenAI లేదా Claude తో మాట్లాడకూడదు; బ్రేకింగ్ చేంజెస్, డౌన్‌టైమ్ మరియు అధిక బిల్లింగ్ నుంచి కాపాడటానికి ప్రాక్సీ ఉండాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1275,7 +1298,8 @@ model_list:
 <div class="mistake"><b>సాధారణ తప్పు:</b> కోడ్‌లో డైరెక్ట్ గా `OPENAI_API_KEY` వాడి, ప్రొవైడర్ డౌన్ అయినప్పుడు యాప్ మొత్తం ఆగిపోయేలా చేయడం.</div>
 </div></details>
 
-<details class="t"><summary>17. RAG and retrieval layer.<small>RAG మరియు రిట్రీవల్ లేయర్</small></summary><div class="body">
+<details class="t" id="gpt-topic-p7-rag-and-retrieval-layer-0"><summary>17. RAG and retrieval layer.<small>RAG మరియు రిట్రీవల్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-rag-and-retrieval-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-rag-and-retrieval-layer-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>Model కి తెలియని లేదా కొత్త సంస్థ సమాచారాన్ని సమాధానంలో ఉపయోగించాలంటే, సరైన పత్రాలను వెతికి ఇవ్వాలి. RAG and retrieval layer ఆ పనిని చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Ingestion போது పత్రాలు చదివి చిన్న భాగங்களாக பிரித்து index செய்கிறோம். கேள்வி வந்ததும் retrieval பொருத்தமான பகுதிகளைத் தேடி, user அனுமதியைச் சரிபார்த்து, அவற்றை model-க்கு context-ஆகத் தருகிறது. Model அந்தத் தகவலை வைத்து பதில் உருவாக்குகிறது.</p><h4>ఉదాహరణ</h4><p>Benefits policy గురించి అడిగితే, అనుమతి ఉన్న policy పత్రం నుంచి సంబంధిత భాగాన్ని వెతికి, సమాధానంతో పాటు source link చూపవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> సరైన source దొరకకపోయినా model సమాధానాన్ని source ఆధారంగా వచ్చినట్టు చూపించడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-rag-and-retrieval-layer-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>LLM కి మీ కంపెనీ ఇంటర్నల్ డేటా తెలియదు; యూజర్ ప్రశ్నకు సరైన కంపెనీ ఫైల్స్ నుండి డేటాను వెతికి మోడల్ కి అందించడానికి ఇది అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1287,9 +1311,8 @@ model_list:
 # 3. Reciprocal Rank Fusion (RRF) తో టాప్ 5 ఫలితాలను ఎంపిక చేయడం
 context_docs = hybrid_retriever.get_relevant_documents(user_query)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం వెక్టర్ సెర్చ్ పైనే ఆధారపడి, ఖచ్చితమైన పార్ట్ నంబర్లు లేదా పేర్లు వచ్చినప్పుడు సెర్చ్ ఫెయిల్ అవ్వడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-agent-execution-layer-0"><summary>18. Agent execution layer.<small>ఏజెంట్ ఎగ్జిక్యూషన్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-agent-execution-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-agent-execution-layer-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>Agent tool ని ఎంచుకున్న తర్వాత, దాన్ని అనుమతుల ప్రకారం నడపాలి; ఏం జరిగిందో కూడా గుర్తుంచుకోవాలి. ఈ పనులను agent execution layer చూసుకుంటుంది.</p><h4>సరళమైన వివరణ</h4><p>ఈ layer agent కి అనుమతించిన tools ని మాత్రమే అందిస్తుంది. Tool call వచ్చినప్పుడు దాని values, user అనుమతి, timeout ని తనిఖీ చేసి నడుపుతుంది. ఫలితాన్ని agent workflow కి తిరిగి ఇస్తుంది.</p><h4>ఉదాహరణ</h4><p>Expense agent receipt చదివి ఖర్చు వివరాలను సిద్ధం చేస్తుంది. Approval అవసరమైతే ముందుగా manager కి పంపుతుంది; manager అంగీకరించిన తర్వాతే reimbursement tool నడుస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Agent కి తనిఖీ లేకుండా అన్ని tools, production data, మార్పులు చేసే అనుమతులు ఇవ్వడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-agent-execution-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>18. Agent execution layer.<small>ఏజెంట్ ఎగ్జిక్యూషన్ లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కేవలం సమాధానం ఇవ్వడమే కాకుండా, యాక్షన్స్ తీసుకోవడానికి (ఉదా: రీఫండ్ ఇనిషియేట్ చేయడం, మీటింగ్ షెడ్యూల్ చేయడం) ఒక సురక్షిత రన్‌టైమ్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1301,9 +1324,8 @@ while not task_completed and iterations &lt; MAX_STEPS:
     result = execute_in_sandbox(action.tool_name, action.params)
     state.update_with_observation(result)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఏజెంట్‌కు లిమిట్స్ లేకుండా అనంతమైన లూప్‌లలో తిరిగేలా వదిలేయడం, భారీగా క్రెడిట్స్ ఖర్చు కావడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-tool-integration-layer-0"><summary>19. Tool integration layer.<small>టూల్ ఇంటిగ్రేషన్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-tool-integration-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-tool-integration-layer-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>Model కి CRM, ticketing system, database వంటి వాటికి నేరుగా పూర్తి access ఇవ్వడం ప్రమాదకరం. Tool integration layer అవసరమైన పరిమితమైన పనులను మాత్రమే అందిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ప్రతి tool కి పేరు, కావాల్సిన input, user అనుమతి, timeout, ఫలితం స్పష్టంగా ఉండాలి. Integration layer సంస్థ API తో మాట్లాడి, agent కి అవసరమైన సమాచారాన్ని మాత్రమే ఇస్తుంది.</p><h4>ఉదాహరణ</h4><p><code>lookup_order(order_id)</code> tool అనుమతి ఉన్న ఆర్డర్ స్థితిని మాత్రమే ఇస్తుంది. Agent కి మొత్తం database లో ఏ query అయినా నడిపే అవకాశం ఉండదు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Agent కి “ఏ SQL అయినా నడపు” లేదా “shell command నడపు” అనే సాధారణ tool ఇవ్వడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-tool-integration-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>19. Tool integration layer.<small>టూల్ ఇంటిగ్రేషన్ లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఏజెంట్లకు బయటి డేటాబేస్‌లు, ఇంటర్నల్ ERP సిస్టమ్స్ మరియు థర్డ్ పార్టీ APIలతో కమ్యూనికేట్ చేయడానికి ఒక ప్రామాణిక ప్రోటోకాల్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1317,9 +1339,8 @@ def query_sap_erp(invoice_id: str) -&gt; dict:
     # Internal ERP REST call with OAuth2
     return sap_client.get(f"/invoices/{invoice_id}")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> టూల్స్ కి సరైన ఇన్‌పుట్ వాలిడేషన్ లేకపోవడం వల్ల ఏజెంట్ తప్పుడు పారామీటర్లతో API లను క్రాష్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-data-storage-layer-0"><summary>20. Data storage layer.<small>డేటా స్టోరేజ్ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-data-storage-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-data-storage-layer-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>AI app లో users, conversations, documents, embeddings, audit records వంటి వేర్వేరు data ఉంటుంది. వాటిని అవసరానికి తగినచోట నిల్వ చేయాలి.</p><h4>సరళమైన వివరణ</h4><p>Relational database users, transactions, metadata కి సరిపోతుంది. Object storage పెద్ద files కి ఉపయోగపడుతుంది; vector store similarity search కి ఉపయోగపడుతుంది. ఎంపికను data access, privacy, backup అవసరాల ఆధారంగా చేయాలి.</p><h4>ఉదాహరణ</h4><p>PostgreSQL లో user, conversation వివరాలు; object storage లో PDF; vector store లో embeddings ఉంచవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> అన్ని రకాల data ని ఒకే చోట పెట్టి, ఆ store ప్రతి పనికీ సరిపోతుందని అనుకోవడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-data-storage-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>20. Data storage layer.<small>డేటా స్టోరేజ్ లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI సిస్టమ్స్ లో సాధారణ రిలేషనల్ డేటాతో పాటు చాట్ హిస్టరీ, వెక్టర్ ఎంబెడ్డింగ్స్ మరియు పెద్ద డాక్యుమెంట్లను భద్రపరచాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1331,9 +1352,8 @@ def query_sap_erp(invoice_id: str) -&gt; dict:
 # - PostgreSQL + pgvector: Enterprise Documents Semantic Index
 # - S3: Raw PDFs, Invoices, Extracted Images</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> వెక్టర్ డేటాబేస్‌ను సాధారణ ప్రైమరీ డాటాబేస్‌గా పరిగణించి రిలేషనల్ డేటాను కూడా అందులోనే స్టోర్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-observability-layer-0"><summary>21. Observability layer.<small>అబ్జర్వబిలిటీ లేయర్ (ట్రేసింగ్ మరియు మానిటరింగ్)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-observability-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-observability-layer-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>AI సమాధానం ఆలస్యమైతే లేదా తప్పు వస్తే ఏ service లో సమస్య మొదలైందో తెలుసుకోవాలి. Observability layer system లోపల ఏమి జరుగుతుందో చూపిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Logs సంఘటనలను చూపిస్తాయి; metrics latency, errors వంటి సంఖ్యలను కొలుస్తాయి; traces ఒక request services మధ్య ప్రయాణించిన దారిని చూపిస్తాయి. AI app లో model version, token usage, retrieval ఫలితాలు కూడా ఉపయోగపడతాయి.</p><h4>ఉదాహరణ</h4><p>ఒక request ID తో API, retrieval, model gateway logs ని కలిపి చూస్తే, ఆలస్యం database లోనా model response లోనా గుర్తించవచ్చు.</p><div class="mistake"><b>సాధారణ తప్పు:</b> User prompt లోని private data அல்லது API secrets ని மறைக்காமல் logs-ல் சேமிப்பது.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-observability-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>21. Observability layer.<small>అబ్జర్వబిలిటీ లేయర్ (ట్రేసింగ్ మరియు మానిటరింగ్)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI ఎందుకు తప్పు సమాధానం ఇచ్చిందో, ఏ స్టెప్ వద్ద నెమ్మదించిందో మరియు ఎంత ఖర్చయిందో తెలియకపోతే ప్రొడక్షన్ లో డీబగ్ చేయడం అసాధ్యం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1347,9 +1367,8 @@ langfuse_handler = CallbackHandler(public_key="pk-...", secret_key="sk-...")
 # LLM కాల్ కు కాల్‌బ్యాక్ పాస్ చేయడం
 response = llm.invoke("విశ్లేషణ నివేదిక", config={"callbacks": [langfuse_handler]})</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కేవలం ట్రెడిషనల్ సర్వర్ లాగ్స్ (HTTP status codes) మాత్రమే చూసి, LLM ఇన్‌పుట్-అవుట్‌పుట్ టోకెన్ ట్రేసింగ్ మిస్ అవ్వడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-governance-and-security-layer-0"><summary>22. Governance and security layer.<small>గవర్నెన్స్ మరియు సెక్యూరిటీ లేయర్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-governance-and-security-layer">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-governance-and-security-layer-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>AI system user data ని రక్షించి, సంస్థ నియమాలను పాటించాలి. Security, governance ని మొదటి నుంచే design లో చేర్చడం అవసరం.</p><h4>సరళమైన వివరణ</h4><p>ఈ భాగంలో identity, permissions, data retention, audit logs, approved models, safety rules ఉంటాయి. ఇవి ఒక్క service లోనే కాకుండా మొత్తం architecture అంతటా అమలవుతాయి.</p><h4>ఉదాహరణ</h4><p>HR assistant లో user role సరిపోతేనే salary policy document వెతకాలి; ఏ document ఉపయోగించిందో audit కోసం నమోదు చేయాలి.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Governance ని system నిర్మాణం పూర్తైన తర్వాత చేసే చివరి checklist గా భావించడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-governance-and-security-layer-0" role="tabpanel" hidden>
 
-<details class="t"><summary>22. Governance and security layer.<small>గవర్నెన్స్ మరియు సెక్యూరిటీ లేయర్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రాంప్ట్ ఇంజెక్షన్ దాడులు, క్రెడిట్ కార్డ్/ఆధార్ నంబర్లు లీక్ అవ్వడం (PII), మరియు చట్టవిరుద్ధమైన సమాధానాలను అడ్డుకోవడానికి బలమైన రక్షణ వలయం కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1364,9 +1383,8 @@ def inspect_and_mask_pii(text: str) -&gt; str:
         raise SecurityException("Prompt Injection Detected")
     return masked</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> యూజర్ ప్రాంప్ట్‌ను ఎటువంటి ఫిల్టరింగ్ లేకుండా నేరుగా ఎగ్జిక్యూట్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-centralized-ai-platform-0"><summary>23. Centralized AI platform.<small>సెంట్రలైజ్డ్ AI ప్లాట్‌ఫామ్</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-centralized-ai-platform">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-centralized-ai-platform-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>ప్రతి బృందం model access, prompts, monitoring ని విడిగా నిర్మిస్తే ఒకే పని మళ్లీ మళ్లీ చేయాల్సి వస్తుంది. Centralized AI platform సాధారణ సేవలను పంచుకునేలా చేస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>దీనిలో model gateway, prompt store, evaluation, access control, monitoring వంటి భాగాలు ఉండవచ్చు. Product బృందాలు వాటిని ఉపయోగించి తమ ప్రత్యేకమైన feature పై పని చేయగలవు.</p><h4>ఉదాహరణ</h4><p>కొత్త బృందం platform నుంచి approved model gateway, logging తీసుకుని, తన customer support workflow ని మాత్రమే నిర్మిస్తుంది.</p><div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే platform ప్రతి బృందం అవసరాన్ని తీరుస్తుందని భావించి, వారి వేర్వేరు పనులను పట్టించుకోకపోవడం.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-centralized-ai-platform-0" role="tabpanel" hidden>
 
-<details class="t"><summary>23. Centralized AI platform.<small>సెంట్రలైజ్డ్ AI ప్లాట్‌ఫామ్</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>కంపెనీలో 10 వేర్వేరు ప్రాజెక్ట్ టీమ్‌లు ఉంటే, ప్రతి టీమ్ తమ సొంత మోడల్స్, పైప్‌లైన్స్ తయారుచేసుకోకుండా ఒకే సెంట్రల్ ప్లాట్‌ఫామ్‌ను అందించడం వల్ల ఖర్చులు తగ్గుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1377,9 +1395,8 @@ def inspect_and_mask_pii(text: str) -&gt; str:
 # Sales Team  -&gt; [ Internal API Gateway ] -&gt;  |-- Shared LLM Gateway
 # DevOps Team -&gt; [ Internal API Gateway ] -&gt;  |-- Shared Vector Cluster</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సైలోస్‌గా (Silos) ప్రతి టీమ్ వేర్వేరు వెండర్ల నుంచి సొంతంగా లైసెన్సులు కొనుక్కోవడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-shared-ai-services-0"><summary>24. Shared AI services.<small>షేర్డ్ AI సర్వీసులు (ఉమ్మడి సేవలు)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-shared-ai-services">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-shared-ai-services-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>చాలా products ఒకే document ingestion లేదా embedding పనిని విడివిడిగా నిర్మిస్తే, మార్పులు ప్రతి இடத்திலும் செய்யాలి. Shared AI services பொதுவான திறன்களை பல teams பயன்படுத்த உதவுகின்றன.</p><h4>సరళమైన వివరణ</h4><p>Shared service க்கு தெளிவான API, பொறுப்பாளர், version, access policy இருக்க வேண்டும். பல products அதைப் பயன்படுத்துவதால், மாற்றங்கள் பழைய clients-ஐ பாதிக்காமல் இருப்பதை உறுதி செய்ய வேண்டும்.</p><h4>ఉదాహరణ</h4><p>பல teams ஒரே document ingestion API பயன்படுத்தினால், file parsing விதிகள் ஒரே மாதிரியாக இருக்கும்.</p><div class="mistake"><b>సాధారణ తప్పు:</b> எல்லா teams-க்கும் ஒரே shared service-ஐ கட்டாயப்படுத்தி, அவர்களின் வேறு தேவைகளைப் புறக்கணிப்பது.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-shared-ai-services-0" role="tabpanel" hidden>
 
-<details class="t"><summary>24. Shared AI services.<small>షేర్డ్ AI సర్వీసులు (ఉమ్మడి సేవలు)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రతి మైక్రోసర్వీస్ సొంతంగా డాక్యుమెంట్ పార్సింగ్ లేదా ట్రాన్స్‌లేషన్ కోడ్ రాయకుండా, ఉమ్మడి సర్వీసులను పిలుచుకుంటే అభివృద్ధి వేగవంతమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1391,9 +1408,8 @@ response = requests.post(
     files={"file": open("balance_sheet.pdf", "rb")}
 )</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఒకే విధమైన OCR (Optical Character Recognition) లేదా ఎంబెడ్డింగ్ పైప్‌లైన్‌లను కంపెనీలోని వివిధ ప్రాజెక్టుల్లో పదే పదే రాయడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-model-access-service-0"><summary>25. Model access service.<small>మోడల్ యాక్సెస్ సర్వీస్ (మోడల్ వినియోగ నియంత్రణ)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-model-access-service">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-model-access-service-0">Gemini</button></div><h4>ఎందుకు అవసరం?</h4><p>ஒவ்வொரு app-லும் தனித்தனியாக provider keys, quota, retries நிர்வகித்தால் பாதுகாப்பும் செலவுக் கட்டுப்பாடும் கடினம். Model access service மாடல்களைப் பயன்படுத்த ஒரே கட்டுப்படுத்தப்பட்ட வழியைத் தருகிறது.</p><h4>సరళమైన వివరణ</h4><p>இந்த service caller-ஐ அடையாளம் கண்டு, எந்த model-ஐ அழைக்க அனுமதி என்று சரிபார்க்கும். Quota, routing, usage செலவு ஆகியவற்றையும் பதிவு செய்யும்; இது LLM gateway உடன் சேர்ந்து செயல்படலாம்.</p><h4>ఉదాహరణ</h4><p>Internal app model access service-க்கு request அனுப்பும். Service team quota-ஐ சரிபார்த்து, அனுமதி உள்ள provider-ஐ அழைத்து usage-ஐ பதிவு செய்யும்.</p><div class="mistake"><b>సాధారణ తప్పు:</b> Service வழியாகச் செல்லும் app-க்கும் provider API key கொடுத்து மையக் கட்டுப்பாட்டைத் தவிர்க்க விடுவது.</div><div class="gemini-pane" id="gemini-gpt-topic-p7-model-access-service-0" role="tabpanel" hidden>
 
-<details class="t"><summary>25. Model access service.<small>మోడల్ యాక్సెస్ సర్వీస్ (మోడల్ వినియోగ నియంత్రణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఏ డెవలపర్ లేదా అప్లికేషన్ ఏ మోడల్ ని ఎంతవరకు వాడవచ్చు, వారి నెలవారీ బడ్జెట్ కోటా ఎంత అనేది కంట్రోల్ చేయడానికి మోడల్ యాక్సెస్ సర్వీస్ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1405,10 +1421,7 @@ def verify_team_quota(api_key: str, requested_model: str):
     if usage &gt; DAILY_BUDGET_LIMIT:
         raise HTTPException(status_code=429, detail="Daily Token Quota Exceeded")</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> బడ్జెట్ పరిమితులు పెట్టకుండా టీమ్‌లకు ఓపెన్-ఎండెడ్ ఏపీఐ కీలు ఇచ్చి వేల డాలర్ల బిల్లులు రావడం.</div>
-</div></details>
-
-
-<details class="t"><summary>26. Prompt management service.<small>ప్రాంప్ట్ మేనేజ్‌మెంట్ సర్వీస్ (ప్రాంప్ట్ వర్షనింగ్ మరియు నిర్వహణ)</small></summary><div class="body">
+</div></div></details><details class="t"><summary>26. Prompt management service.<small>ప్రాంప్ట్ మేనేజ్‌మెంట్ సర్వీస్ (ప్రాంప్ట్ వర్షనింగ్ మరియు నిర్వహణ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ప్రాంప్ట్‌లను కోడ్‌లో హార్డ్‌కోడ్ చేస్తే చిన్న మార్పు చేయాలన్నా పూర్తి అప్లికేషన్ మళ్లీ డిప్లాయ్ చేయాల్సి వస్తుంది; ప్రాంప్ట్‌లను ఒక సెంట్రల్ రిపోజిటరీలో వెర్షన్‌లతో నిర్వహించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3413,7 +3426,16 @@ qa_dataset.save_json("qa_test_suite.json")</pre>
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. What is an LLM gateway?<small>LLM గేట్‌వే అంటే ఏమిటి?</small></summary><div class="body">
+    <details class="t" id="gpt-topic-p7-what-is-an-llm-gateway-0"><summary>1. What is an LLM gateway?<small>LLM గేట్‌వే అంటే ఏమిటి?</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-what-is-an-llm-gateway">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-what-is-an-llm-gateway-0">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-what-is-an-llm-gateway" role="tabpanel">
+<h4>ఎందుకు అవసరం?</h4><p>ఒక app అనేక model providers ని వాడితే, ప్రతి provider కి వేర్వేరు authentication, request format, retry, usage tracking code రాయాల్సి వస్తుంది. LLM gateway ఈ model సంబంధిత పనులను ఒకే interface వెనుక నిర్వహిస్తుంది.</p>
+<h4>సరళమైన వివరణ</h4><p>App gateway కి ఒకే విధమైన request పంపుతుంది. Gateway provider-specific request గా మార్చి, model ని ఎంచుకుని, response ని సాధారణ format లో తిరిగి ఇస్తుంది. అవసరమైతే rate limits, fallback, cost tracking, logs కూడా నిర్వహిస్తుంది. ఇది సాధారణ API gateway తో సంబంధం ఉన్నా, model routing మరియు tokens వంటి AI అవసరాలపై ప్రత్యేకంగా దృష్టి పెడుతుంది.</p>
+<h4>ఉదాహరణ</h4><p>ఉదాహరణకు, తక్కువ ఖర్చు ఉన్న model timeout అయితే gateway అదే request ని అనుమతించిన backup model కి పంపవచ్చు. App మాత్రం ఒకే <code>generate()</code> interface ని ఉపయోగిస్తుంది.</p>
+<div class="mistake"><b>సాధారణ తప్పు:</b> Gateway ఉందని API keys ని client app లో ఉంచడం సురక్షితం అని అనుకోవడం.</div>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-what-is-an-llm-gateway-0" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>అప్లికేషన్లు నేరుగా వివిధ LLM ప్రొవైడర్లతో మాట్లాడితే ప్రొవైడర్ మారిన ప్రతిసారీ కోడ్ మార్చాల్సి వస్తుంది; అన్ని మోడల్ కాల్స్‌ను నియంత్రించే ఒక సెంట్రల్ ప్రాక్సీ కావాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -3429,9 +3451,7 @@ response = client.chat.completions.create(
     messages=[{"role": "user", "content": "నమస్కారం"}]
 )</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి మైక్రోసర్వీస్‌లో OpenAI SDK మరియు Claude SDK ని వేర్వేరుగా ఇన్స్టాల్ చేసుకుని గందరగోళం చేయడం.</div>
-</div></details>
-
-<details class="t"><summary>2. Why model gateways are needed.<small>మోడల్ గేట్‌వేల ఆవశ్యకత</small></summary><div class="body">
+</div></div></details><details class="t"><summary>2. Why model gateways are needed.<small>మోడల్ గేట్‌వేల ఆవశ్యకత</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>రేట్ లిమిట్స్, నెట్‌వర్క్ అంతరాయాలు, విపరీతమైన బిల్లులు మరియు సెక్యూరిటీ లీకేజీల నుండి సంస్థను రక్షించడానికి గేట్‌వే ఒక రక్షణ కవచంలా పనిచేస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10318,28 +10338,14 @@ def compare_vector_search(pg_vector_client, qdrant_client, query_vec):
 <div class="mistake"><b>సాధారణ తప్పు:</b> యూజర్ల సంఖ్య, డేటా సైజు మరియు లేటెన్సీ నిబంధనలు తెలుసుకోకుండానే నేరుగా ఆర్కిటెక్చర్ డయాగ్రమ్‌లు గీయడం మొదలుపెట్టడం.</div>
 </div></details>
 
-<details class="t"><summary>2. Functional requirements.<small>ఫంక్షనల్ రిక్వైర్‌మెంట్స్ (సిస్టమ్ ఏమి చేయాలి?)</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>సిస్టమ్ అందించాల్సిన ప్రధాన వినియోగ ఫీచర్లు (Use Cases) మరియు యూజర్ యాక్షన్లను ఖచ్చితంగా లిస్ట్ చేయడానికి ఇది అవసరం.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>Laravel ప్రాజెక్ట్ స్పెసిఫికేషన్‌లో "యూజర్ రిజిస్టర్ అవ్వగలగాలి, ఇన్వాయిస్ డౌన్‌లోడ్ చేసుకోగలగాలి" అని రాసినట్లు. AI లో:</p>
-<div class="steps-box">
-  <div class="step-row"><span class="step-badge">1</span><span>యూజర్లు PDF/Word ఫైళ్లు అప్‌లోడ్ చేయగలగాలి</span></div>
-  <div class="step-row"><span class="step-badge">2</span><span>డాక్యుమెంట్లపై ప్రశ్నలు అడగగలగాలి</span></div>
-  <div class="step-row"><span class="step-badge">3</span><span>సమాధానాలతో పాటు పేజీ నంబర్ ఆధారాలు (Citations) రావాలి</span></div>
-</div>
-<h4>ఉదాహరణ</h4>
-<pre>FUNCTIONAL_SPEC = [
-    "FR-1: మల్టీ-ఫార్మాట్ డాక్యుమెంట్ ఇన్‌జెషన్ (PDF, DOCX, CSV)",
-    "FR-2: నేచురల్ లాంగ్వేజ్ సెర్చ్ మరియు క్వశ్చన్-ఆన్సరింగ్",
-    "FR-3: వాస్తవ ఆధారాల కోటింగ్ మరియు సోర్స్ లింక్స్",
-    "FR-4: అడ్మిన్ యూజర్ రోల్స్ మరియు పర్మిషన్ల నిర్వహణ"
-]
-</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> ఫంక్షనల్ స్కోప్‌ను అపరిమితంగా పెంచేసి (Scope Creep) ఎప్పటికీ ముగియని ప్రాజెక్ట్‌గా మార్చడం.</div>
-</div></details>
+<details class="t" id="gpt-topic-p7-functional-requirements-1"><summary>2. Functional requirements.<small>ఫంక్షనల్ రిక్వైర్‌మెంట్స్ (సిస్టమ్ ఏమి చేయాలి?)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-duplicate-functional-requirements-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-functional-requirements-1">Gemini</button></div><div class="gpt-pane" id="gpt-p7-duplicate-functional-requirements-1" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p7-functional-requirements">மొదటి GPT వివరణను చూడండి</a>.</p></div></details><details class="t" id="gpt-topic-p7-non-functional-requirements-1"><summary>3. Non-functional requirements.<small>నాన్-ఫంక్షనల్ రిక్వైర్‌మెంట్స్ (NFR: వేగం, స్కేల్, సెక్యూరిటీ)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-duplicate-1-non-functional-requirements">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-non-functional-requirements-1">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-duplicate-1-non-functional-requirements" role="tabpanel">
+<h4>ఈ topic మళ్లీ వచ్చింది</h4>
+<p>ఈ విషయం ఇప్పటికే వివరించబడింది. <a href="#gpt-p7-non-functional-requirements">మొదటి GPT వివరణకు వెళ్లండి</a>.</p>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-non-functional-requirements-1" role="tabpanel" hidden>
 
-<details class="t"><summary>3. Non-functional requirements.<small>నాన్-ఫంక్షనల్ రిక్వైర్‌మెంట్స్ (NFR: వేగం, స్కేల్, సెక్యూరిటీ)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
 <p>ఫీచర్లు పనిచేయడం మాత్రమే కాదు; అవి ఎంత వేగంగా, ఎంత సురక్షితంగా, మరియు ఎన్ని వేల రిక్వెస్ట్‌లను తట్టుకుని పనిచేయగలవో నిర్దేశించడానికి NFR లు కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -10353,23 +10359,7 @@ def compare_vector_search(pg_vector_client, qdrant_client, query_vec):
 }
 </pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> NFR లను పట్టించుకోకుండా కేవలం ఫీచర్లను మాత్రమే నిర్మించి, ప్రొడక్షన్‌లో లోడ్ రాగానే సర్వర్లు క్రాష్ అవ్వడం.</div>
-</div></details>
-
-<details class="t"><summary>4. Scale estimation.<small>స్కేల్ ఎస్టిమేషన్ మరియు కెపాసిటీ ప్లానింగ్</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>రోజుకు ఎన్ని రిక్వెస్ట్‌లు వస్తాయి, ఎన్ని టోకెన్లు ఖర్చవుతాయి, ఎంత స్టోరేజ్ మరియు బ్యాండ్‌విడ్త్ అవసరమో ముందే లెక్కించి సర్వర్ హార్డ్‌వేర్ మరియు బడ్జెట్‌ను సిద్ధం చేసుకోవాలి.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>గణిత లెక్కలు: 100,000 రోజువారీ యాక్టివ్ యూజర్లు (DAU). ఒక్కొక్కరు రోజుకు 5 ప్రశ్నలు = 500,000 క్వెరీలు/రోజు. పీక్ సమయంలో 50 QPS. ప్రతి క్వెరీకి 1,000 టోకెన్లు = రోజుకు 500 మిలియన్ టోకెన్లు. ఈ లెక్కల ఆధారంగా డేటాబేస్ IOPS మరియు వెక్టర్ మెమరీని నిర్ణయిస్తాం.</p>
-<h4>ఉదాహరణ</h4>
-<pre>def calculate_capacity_needs(dau: int, queries_per_user: int, avg_tokens: int):
-    total_daily_queries = dau * queries_per_user
-    peak_qps = (total_daily_queries / 86400) * 3 # పీక్ మల్టిప్లైయర్ 3x
-    daily_tokens = total_daily_queries * avg_tokens
-    monthly_token_cost_mini = (daily_tokens * 30 / 1_000_000) * 0.15
-    return {"peak_qps": round(peak_qps, 1), "monthly_cost_usd": round(monthly_token_cost_mini, 2)}
-</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> పీక్ ట్రాఫిక్ మల్టిప్లైయర్‌ను అంచనా వేయకుండా యావరేజ్ డేటా ఆధారంగా మాత్రమే సర్వర్లను ప్లాన్ చేయడం.</div>
-</div></details>
+</div></div></details><details class="t"><summar<div class="gpt-pane" id="gpt-p7-duplicate-1-non-functional-requirements" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p7-non-functional-requirements">மొదటి GPT వివరణను చూడండి</a>.</p></div>ils>
 
 <details class="t"><summary>5. API design.<small>ఎంటర్‌ప్రైజ్ AI API డిజైన్ (REST &amp; Streaming)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
@@ -18183,7 +18173,8 @@ print(BRD_SUMMARY.strip())</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> కొలవదగిన బిజినెస్ లక్ష్యాలు లేకుండా ప్రాజెక్ట్ ప్రారంభించడం.</div>
 </div></details>
 
-<details class="t"><summary>35. Functional requirements.<small>ఫంక్షనల్ రిక్వైర్మెంట్స్ స్పెసిఫికేషన్ (FRS)</small></summary><div class="body">
+<details class="t" id="gpt-topic-p7-functional-requirements-2"><summary>35. Functional requirements.<small>ఫంక్షనల్ రిక్వైర్మెంట్స్ స్పెసిఫికేషన్ (FRS)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-duplicate-functional-requirements-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-functional-requirements-2">Gemini</button></div><div class="gpt-pane" id="gpt-p7-duplicate-functional-requirements-2" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ఇప్పటికే వివరించబడింది. <a href="#gpt-p7-functional-requirements">మొదటి GPT వివరణకు వెళ్లండి</a>.</p></div><div class="gemini-pane" id="gemini-gpt-topic-p7-functional-requirements-2" role="tabpanel" hidden>
+
 <h4>ఎందుకు అవసరం?</h4>
 <p>సిస్టమ్ లోపల యూజర్లు మరియు ఏజెంట్లు చేయగలిగే ప్రతి పనిని వివరంగా నిర్వచించాలి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -18197,34 +18188,16 @@ FRS_ITEMS = [
     "FR-4: Sensitive remediation tools must pause and wait for human webhook signal."
 ]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> ఫంక్షనల్ రిక్వైర్మెంట్స్ అస్పష్టంగా ఉండి ఏ ఫీచర్ ఎంతవరకు పనిచేయాలో పరిమితులు లేకపోవడం.</div>
-</div></details>
+</div></div></details><details class="t" id="gpt-topic-p7-non-functional-requirements-2"><summary>36. Non-functional requirements.<small>నాన్-ఫంక్షనల్ రిక్వైర్మెంట్స్ స్పెసిఫికేషన్ (NFRS)</small></summary><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి">
+<button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="gpt-p7-duplicate-2-non-functional-requirements">GPT</button>
+<button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="gemini-gpt-topic-p7-non-functional-requirements-2">Gemini</button>
+</div><div class="gpt-pane" id="gpt-p7-duplicate-2-non-functional-requirements" role="tabpanel">
+<h4>ఈ topic మళ్లీ వచ్చింది</h4>
+<p>ఈ విషయం ఇప్పటికే వివరించబడింది. <a href="#gpt-p7-non-functional-requirements">మొదటి GPT వివరణకు వెళ్లండి</a>.</p>
+</div><div class="gemini-pane" id="gemini-gpt-topic-p7-non-functional-requirements-2" role="tabpanel" hidden>
 
-<details class="t"><summary>36. Non-functional requirements.<small>నాన్-ఫంక్షనల్ రిక్వైర్మెంట్స్ స్పెసిఫికేషన్ (NFRS)</small></summary><div class="body">
 <h4>ఎందుకు అవసరం?</h4>
-<p>సిస్టమ్ నాణ్యత, వేగం, లభ్యత మరియు భద్రతా ప్రమాణాలను నిర్దేశించే NFRs డాక్యుమెంట్.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>SLA 99.9% అప్‌టైమ్, P95 లేటెన్సీ &lt; 1.5 సెకన్లు, 50 కాంకరెంట్ రిక్వెస్ట్స్ సపోర్ట్, SOC-2 మరియు GDPR ప్రైవసీ ప్రమాణాలు.</p>
-<h4>ఉదాహరణ</h4>
-<pre># NFRs Specification
-NFRS_SPECS = {
-    "Availability": "99.9% uptime with multi-AZ failover",
-    "Performance": "P95 streaming latency &lt; 850ms to first token",
-    "Security": "TLS 1.3 in-transit, AES-256 at-rest, JWT authentication",
-    "Scalability": "Auto-scaling up to 20 EKS pods on 70% CPU threshold"
-}</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> NFRs ను విస్మరించి కేవలం ఫంక్షనల్ కోడింగ్ మాత్రమే చేయడం.</div>
-</div></details>
-
-<details class="t"><summary>37. High-level design.<small>హై-లెవెల్ డిజైన్ (HLD) డాక్యుమెంటేషన్</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>క్యాప్‌స్టోన్ సిస్టమ్ యొక్క సమగ్ర నిర్మాణాన్ని వివరించే అధికారిక HLD డాక్యుమెంట్.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>సిస్టమ్ ఆర్కిటెక్చర్ డయాగ్రమ్, ఎక్స్‌టర్నల్ డిపెండెన్సీస్, డేటాబేస్ టోపోలాజీ మరియు సెక్యూరిటీ బౌండరీలను వివరించే `docs/HLD.md` ఫైల్ సిద్ధం చేయడం.</p>
-<h4>ఉదాహరణ</h4>
-<pre># HLD Sections List
-HLD_STRUCTURE = [
-    "1. Architectural Overview &amp; Block Diagram",
-    "2. Tech Stack Justification",
+<p>సిస్టమ్ నాణ్యత, వేగం, లభ్యత మరియు భద్రతా ప్రమాణాలను నిర్దేశి<div class="gpt-pane" id="gpt-p7-duplicate-functional-requirements-2" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p7-functional-requirements">மొదటి GPT వివరణను చూడండి</a>.</p></div>",
     "3. Multi-Tenant Strategy &amp; Data Isolation",
     "4. Storage &amp; Database Architecture",
     "5. Scalability &amp; Fault Tolerance Strategy"
@@ -18254,27 +18227,7 @@ HLD_STRUCTURE = [
 <p>Ingress Router, Ingestion Engine, Hybrid Retriever, Agent Orchestrator, MCP Gateway, మరియు Cache Manager ల మధ్య పరస్పర సంబంధాలు.</p>
 <h4>ఉదాహరణ</h4>
 <pre># Component Diagram Flow
-# [Ingress Gateway] 
-#     --&gt; [Auth &amp; Tenant Resolver]
-#     --&gt; [Agent Orchestration Core]
-#              |--&gt; [Hybrid Retrieval Subsystem]
-#              |--&gt; [MCP Client Bridge]
-#              `--&gt; [Postgres Checkpoint Engine]</pre>
-<div class="mistake"><b>సాధారణ తప్పు:</b> కాంపోనెంట్స్ మధ్య ఇంటర్‌ఫేస్ కాంట్రాక్టులను పేర్కొనకపోవడం.</div>
-</div></details>
-
-<details class="t"><summary>40. Sequence diagrams.<small>సీక్వెన్స్ డయాగ్రమ్స్ నిర్మాణం</small></summary><div class="body">
-<h4>ఎందుకు అవసరం?</h4>
-<p>యూజర్ ఒక క్వెరీ పంపినప్పుడు లేదా ఇన్సిడెంట్ అలర్ట్ వచ్చినప్పుడు స్టెప్-బై-స్టెప్ ఈవెంట్ ఫ్లో ఎలా ఉంటుందో చూపించాలి.</p>
-<h4>సరళమైన వివరణ</h4>
-<p>Webhook Alert -&gt; FastAPI -&gt; Agent LangGraph -&gt; MCP Log Query -&gt; RAG Runbook Search -&gt; Slack HITL (Human-in-the-Loop) Approval -&gt; Resolve.</p>
-<h4>ఉదాహరణ</h4>
-<pre># Sequence Diagram Markdown Representation
-# User -&gt; API: POST /incident/triage
-# API -&gt; LangGraph: invoke(incident_data)
-# LangGraph -&gt; MCP: query_logs()
-# MCP --&gt; LangGraph: error_traces
-# LangGraph -&gt; RAG: search_runbook(error_traces)
+# [Ingress<div class="gpt-pane" id="gpt-p7-duplicate-2-non-functional-requirements" role="tabpanel"><h4>ఈ topic మళ్లీ వచ్చింది</h4><p>ఈ విషయం ముందే వివరించాం. <a href="#gpt-p7-non-functional-requirements">மొదటి GPT వివరణను చూడండి</a>.</p></div>arch_runbook(error_traces)
 # RAG --&gt; LangGraph: remediation_steps
 # LangGraph -&gt; Slack: send_approval_request()</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> సీక్వెన్స్ డయాగ్రమ్‌లో అసింక్ కాల్స్ మరియు హ్యూమన్ అప్రూవల్ వెయిటింగ్ పాయింట్లను చూపించకపోవడం.</div>
@@ -19507,5 +19460,14 @@ print(NEGOTIATION_SCRIPT.strip())</pre>
 })();
 </script>
 <div id="profile-toast" class="profile-toast"></div>
+
+<script>
+document.querySelectorAll('.explain-tabs').forEach(function(group){
+ var buttons=Array.from(group.querySelectorAll('.explain-tab'));
+ buttons.forEach(function(button){button.addEventListener('click',function(){
+  buttons.forEach(function(item){var selected=item===button;item.setAttribute('aria-selected',selected?'true':'false');var pane=document.getElementById(item.getAttribute('data-pane'));if(pane)pane.hidden=!selected;});
+ });});
+});
+</script>
 </body>
 </html>

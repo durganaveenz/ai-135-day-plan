@@ -855,6 +855,7 @@ pre { position: relative; padding-top: 36px; }
   .nav-prev-btn, .nav-resume-btn { display: none; }
 }
 
+.explain-tabs{display:flex;gap:8px;margin:4px 0 14px;border-bottom:1px solid var(--line)}.explain-tab{border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--soft);color:var(--text);padding:7px 14px;cursor:pointer;font:inherit}.explain-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}.explain-pane[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1019,7 +1020,10 @@ pre { position: relative; padding-top: 36px; }
     </div>
   </summary>
   <div class="day-body">
-    <details class="t"><summary>1. Scalars, vectors, matrices and tensors<small>ఒక సంఖ్య, సంఖ్యల వరుస, సంఖ్యల పట్టిక, బహుళ-పరిమాణ పట్టికలు</small></summary><div class="body">
+    <details class="t"><summary>1. Scalars, vectors, matrices and tensors<small>ఒక సంఖ్య, సంఖ్యల వరుస, సంఖ్యల పట్టిక, బహుళ-పరిమాణ పట్టికలు</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-1">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-1-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-1" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Machine learning data, model parameters, predictions అన్నీ సంఖ్యలుగా సూచిస్తారు. Scalar, vector, matrix, tensor మధ్య తేడా తెలిస్తే code లో data ఆకారం అర్థమవుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Scalar</b> ఒకే సంఖ్య, ఉదా. <code>5</code>. <b>Vector</b> సంఖ్యల వరుస, ఉదా. <code>[2, 4]</code>. <b>Matrix</b> వరుసలు, columns ఉన్న పట్టిక. <b>Tensor</b> ఇవన్నీ కలిపే సాధారణ పేరు; అనేక పరిమాణాల సంఖ్యల గుంపు కూడా tensor అవుతుంది.</p><h4>ఉదాహరణ</h4><pre>scalar = 5
+vector = [2, 4]
+matrix = [[1, 2], [3, 4]]
+# matrix shape: 2 rows, 2 columns</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Tensor అనే మాట వింటే తప్పనిసరిగా చాలా క్లిష్టమైన నిర్మాణం అనుకోవడం; ఒకే సంఖ్య కూడా tensor.</div></div><div class="explain-pane" id="p2-gpt-1-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Machine learning లో ప్రతి data (ఫోటో, text, user row) చివరికి సంఖ్యల రూపంలోనే model కి వెళ్తుంది. ఆ సంఖ్యలను ఏ ఆకారంలో నిల్వ చేస్తున్నామో తెలిస్తేనే NumPy, PyTorch code అర్థమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1035,9 +1039,13 @@ tensor = np.zeros((2, 4, 4, 3))            # 4-D: 2 చిన్న ఫోటో
 
 for x in (scalar, vector, matrix, tensor):
     print(x.ndim, x.shape)                 # 0 (), 1 (3,), 2 (2, 3), 4 (2, 4, 4, 3)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>2. Vector addition and multiplication<small>Vectors కూడటం మరియు గుణించడం</small></summary><div class="body">
+<details class="t"><summary>2. Vector addition and multiplication<small>Vectors కూడటం మరియు గుణించడం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-2">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-2-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-2" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Vectors లోని విలువలను కలపడం model calculations, feature processing లో తరచుగా అవసరమవుతుంది. ఆకారాలు సరిపోతున్నాయో చూడడం తప్పు లెక్కలను నివారిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>ఒకే పొడవున్న vectors ను స్థానాల వారీగా కలపవచ్చు లేదా ఒకే సంఖ్యతో గుణించవచ్చు. రెండు vectors గుణించడం అనే మాటకు వేర్వేరు అర్థాలు ఉండొచ్చు: ప్రతి స్థానాన్ని గుణించడమా, dot product చేయడమా అనేది స్పష్టంగా తెలుసుకోవాలి.</p><h4>ఉదాహరణ</h4><pre>a = [1, 2]
+b = [3, 4]
+added = [x + y for x, y in zip(a, b)]
+scaled = [2 * x for x in a]
+print(added, scaled)  # [4, 6] [2, 4]</pre><div class="mistake"><b>సాధారణ తప్పు:</b> వేర్వేరు పొడవుల vectors ను స్థానాల వారీగా నేరుగా కలపడం.</div></div><div class="explain-pane" id="p2-gpt-2-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model లో weights ని update చేయడం, features ని scale చేయడం, embeddings ని కలపడం (ఉదా: king - man + woman) అన్నీ vector operations తోనే జరుగుతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1052,11 +1060,13 @@ print(a + b)      # [11 22 33]  కూడిక
 print(a * 2)      # [2 4 6]     scalar తో గుణకారం
 print(a * b)      # [10 40 90]  element-wise గుణకారం (dot product కాదు!)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>a * b</code> ని dot product లేదా matrix multiplication అనుకోవడం. అది కేవలం element-wise.</div>
-</div></details>
+</div></div></details>
 
 
 
-<details class="t"><summary>3. Matrix multiplication<small>Matrix గుణకారం</small></summary><div class="body">
+<details class="t"><summary>3. Matrix multiplication<small>Matrix గుణకారం</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-3">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-3-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-3" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Neural network లో input నుంచి తదుపరి layer కి సమాచారాన్ని మార్చే ప్రధాన లెక్కల్లో matrix multiplication ఒకటి. ఆకారాలు సరిపోకపోతే operation జరగదు.</p><h4>సరళమైన వివరణ</h4><p><code>(m × n)</code> matrix ని <code>(n × p)</code> matrix తో గుణిస్తే ఫలితం <code>(m × p)</code> ఆకారంలో ఉంటుంది. మొదటి matrix columns సంఖ్య రెండో matrix rows సంఖ్యకు సమానం కావాలి. ప్రతి ఫలిత స్థానం ఒక row, ఒక column dot product.</p><h4>ఉదాహరణ</h4><pre>A = [[1, 2]]       # 1 x 2
+B = [[3], [4]]     # 2 x 1
+# ఫలితం: 1*3 + 2*4 = 11</pre><div class="mistake"><b>సాధారణ తప్పు:</b> సాధారణ సంఖ్యల గుణకారం లాగా matrixలను ఏ ఆకారంలోనైనా గుణించవచ్చని అనుకోవడం.</div></div><div class="explain-pane" id="p2-gpt-3-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Neural network లోని ప్రతి layer, linear regression అంచనా, LLM లోని attention అన్నీ మూలంగా matrix multiplication. GPU లు దీనికోసమే తయారయ్యాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1076,9 +1086,12 @@ price = X @ w          # (3x2) @ (2x1) = (3x1)
 print(price)           # [[110000] [165000] [220000]]
 print(price.shape)     # (3, 1)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>A * B</code> వాడటం (element-wise) బదులు <code>A @ B</code> వాడాలి. షేప్స్ సరిపోకపోతే <code>ValueError</code> వస్తుంది.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>4. Dot product and cosine similarity<small>Dot product మరియు cosine similarity (పోలిక కొలత)</small></summary><div class="body">
+<details class="t" id="cosine-similarity"><summary>4. Dot product and cosine similarity<small>Dot product మరియు cosine similarity (పోలిక కొలత)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-4">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-4-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-4" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>రెండు vectors ఎంతగా సరిపోతున్నాయో కొలవడం search, recommendation, embeddings లో ఉపయోగపడుతుంది. దిశ పోలికను పరిమాణం నుంచి వేరుచేసి చూడటానికి cosine similarity సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Dot product</b> అనేది సరిపడే స్థానాల సంఖ్యలను గుణించి మొత్తం చేయడం. <b>Cosine similarity</b> రెండు vectors మధ్య దిశ ఎంత దగ్గరగా ఉందో కొలుస్తుంది; విలువ సాధారణంగా -1 నుంచి 1 వరకు ఉంటుంది. Text embeddings దగ్గర అర్థం ఉన్న text లను గుర్తించడానికి దీన్ని వాడొచ్చు.</p><h4>ఉదాహరణ</h4><pre>a = [1, 0]
+b = [0, 1]
+# dot product = 0; vectors కి ఉమ్మడి దిశ లేదు
+# cosine similarity = 0</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Vector పొడవు పెద్దగా ఉన్నందుకే రెండు vectors అర్థపరంగా దగ్గరగా ఉన్నాయని అనుకోవడం.</div></div><div class="explain-pane" id="p2-gpt-4-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>AI search, RAG, recommendation systems లో రెండు text లు ఎంత దగ్గరగా ఉన్నాయో కొలిచేది cosine similarity. Vector database లు చేసేది ప్రధానంగా ఇదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1095,9 +1108,10 @@ car    = np.array([0.0, 0.1, 0.9])
 
 print(round(cosine(cat, kitten), 3))  # ~0.98 (చాలా దగ్గర)
 print(round(cosine(cat, car), 3))     # ~0.01 (దూరం)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>5. Transpose and inverse matrices<small>Transpose (అడ్డు-నిలువు మార్పు) మరియు inverse (విలోమ) matrices</small></summary><div class="body">
+<details class="t"><summary>5. Transpose and inverse matrices<small>Transpose (అడ్డు-నిలువు మార్పు) మరియు inverse (విలోమ) matrices</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-5">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-5-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-5" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Matrix లెక్కల్లో క్రమం, ఆకారం ముఖ్యమైనవి. Transpose, inverse ఎప్పుడు ఉపయోగిస్తారో తెలుసుకుంటే linear algebra formulas అర్థమవుతాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Transpose</b> rows ను columns గా, columns ను rows గా మారుస్తుంది. <b>Inverse</b> matrix ఒక square matrix కి మాత్రమే ఉండవచ్చు; అసలు matrix తో గుణిస్తే identity matrix రావాలి. ప్రతి matrix కి inverse ఉండదు.</p><h4>ఉదాహరణ</h4><pre>A = [[1, 2, 3], [4, 5, 6]]
+# transpose(A) = [[1, 4], [2, 5], [3, 6]]</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి square matrix కి inverse తప్పకుండా ఉంటుందని అనుకోవడం; determinant zero అయితే inverse ఉండదు.</div></div><div class="explain-pane" id="p2-gpt-5-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Shapes సరిపోయేలా matrices ని తిప్పడానికి transpose వాడతాం (ప్రతి ML code లో <code>.T</code> కనిపిస్తుంది). Linear regression ని నేరుగా solve చేసే formula లో inverse వస్తుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1114,9 +1128,13 @@ M = np.array([[2.0, 0.0],
 M_inv = np.linalg.inv(M)         # [[0.5, 0], [0, 0.25]]
 print(np.round(M @ M_inv))       # identity matrix [[1. 0.] [0. 1.]]</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> singular matrix పై <code>np.linalg.inv</code> వాడితే <code>LinAlgError</code> వస్తుంది. నిజమైన code లో inverse బదులు <code>np.linalg.solve</code> వాడటం మంచిది.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>6. Matrix dimensions and shapes<small>Matrix పరిమాణాలు మరియు shapes</small></summary><div class="body">
+<details class="t"><summary>6. Matrix dimensions and shapes<small>Matrix పరిమాణాలు మరియు shapes</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-6">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-6-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-6" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Neural network లో ఒక layer output తదుపరి layer input కి సరిపోవాలి. Shape చదవడం dimension errors ను త్వరగా గుర్తించడంలో సహాయపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Shape ప్రతి అక్షంలో ఎన్ని విలువలు ఉన్నాయో చెబుతుంది. ఉదాహరణకు <code>(batch, tokens, features)</code> అంటే ఒకేసారి ఎన్ని samples, ప్రతి sample లో ఎన్ని tokens, ప్రతి token కి ఎన్ని సంఖ్యలు ఉన్నాయో చూపవచ్చు. Axis క్రమం library, model బట్టి మారవచ్చు.</p><h4>ఉదాహరణ</h4><pre>batch = 8
+sequence = 20
+features = 64
+shape = (batch, sequence, features)
+print(shape)  # (8, 20, 64)</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Shape లో సంఖ్యలు సరైనవని చూసి, వాటి axis అర్థం పట్టించుకోకపోవడం.</div></div><div class="explain-pane" id="p2-gpt-6-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>ML code లో 80% errors "shape mismatch" రూపంలో వస్తాయి. Shapes ని తలలో ఊహించగలగడం ఈ రంగంలో అతి ముఖ్యమైన అలవాటు.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1134,9 +1152,12 @@ try:
     X @ np.ones(4)                 # (4,3) @ (4,) → లోపలి సంఖ్యలు 3 vs 4
 except ValueError as e:
     print("Shape error:", e)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>7. Eigenvalues and eigenvectors<small>Eigenvalues మరియు eigenvectors (ప్రత్యేక దిశలు, వాటి కొలతలు)</small></summary><div class="body">
+<details class="t"><summary>7. Eigenvalues and eigenvectors<small>Eigenvalues మరియు eigenvectors (ప్రత్యేక దిశలు, వాటి కొలతలు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-7">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-7-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-7" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక linear transformation ఏ దిశలను అలాగే ఉంచి, ఎంత పెంచుతుందో eigenvectors, eigenvalues వివరిస్తాయి. PCA వంటి పద్ధతులకు ఇవి పునాది.</p><h4>సరళమైన వివరణ</h4><p>Matrix తో ఒక vector ను మార్చినప్పుడు దిశ మారకుండా, పొడవు మాత్రమే మారితే ఆ vector <b>eigenvector</b>. ఎంత రెట్లు మారిందో ఆ సంఖ్య <b>eigenvalue</b>. అన్ని vectors ఇలా ఉండవు; కొన్ని ప్రత్యేక దిశలకు మాత్రమే ఈ లక్షణం ఉంటుంది.</p><h4>ఉదాహరణ</h4><pre>A = [[2, 0], [0, 3]]
+v = [1, 0]
+# A*v = [2, 0] = 2*v
+# v ఒక eigenvector; eigenvalue 2</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Eigenvalue అనేది matrix లోని ఏ సంఖ్యకైనా పెట్టే పేరు అనుకోవడం; అది eigenvector కు సంబంధించిన scale.</div></div><div class="explain-pane" id="p2-gpt-7-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Data లో ఏ దిశలో ఎక్కువ variation ఉందో కనుక్కోవడానికి (PCA (Principal Component Analysis), dimensionality reduction) ఇవి వాడతారు. ప్రత్యక్షంగా మీరు తరచూ రాయరు, కానీ PCA (Principal Component Analysis) ఎలా పనిచేస్తుందో అర్థం చేసుకోవడానికి అవసరం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1152,9 +1173,12 @@ print(vecs)           # columns = eigenvectors: [1,0] మరియు [0,1]
 
 v = vecs[:, 1]                      # eigenvalue 3 కి సంబంధించిన vector
 print(A @ v, 3 * v)                 # రెండూ సమానం: దిశ మారలేదు, 3 రెట్లు మాత్రమే</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>8. Linear transformations<small>Linear transformations (రేఖీయ రూపాంతరాలు)</small></summary><div class="body">
+<details class="t"><summary>8. Linear transformations<small>Linear transformations (రేఖీయ రూపాంతరాలు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-8">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-8-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-8" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Data ను scale చేయడం, తిప్పడం, projection చేయడం వంటి మార్పులు machine learning లో తరచుగా జరుగుతాయి. వీటిని matrix రూపంలో వ్రాయవచ్చు.</p><h4>సరళమైన వివరణ</h4><p>Linear transformation vector ను కొత్త vector గా మారుస్తుంది; సాధారణంగా matrix తో గుణించడం ద్వారా చేస్తారు. ఇది vector కలయికలను, scale ను కాపాడే రకమైన మార్పు. Neural network లోని dense layer కూడా ఒక linear transformation కి bias జోడించిన రూపం.</p><h4>ఉదాహరణ</h4><pre># 2D vector ను రెండు రెట్లు పెంచడం
+scale = [[2, 0], [0, 2]]
+point = [3, 4]
+# transformed point = [6, 8]</pre><div class="mistake"><b>సాధారణ తప్పు:</b> ప్రతి nonlinear మార్పునూ linear transformation అనుకోవడం; ReLU వంటి function linear కాదు.</div></div><div class="explain-pane" id="p2-gpt-8-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Neural network యొక్క ప్రతి layer ఒక linear transformation (<code>y = Wx + b</code>) ఆ తర్వాత ఒక non-linear function. ఇది అర్థమైతే network లోపల ఏం జరుగుతుందో స్పష్టమవుతుంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1172,9 +1196,11 @@ print(np.round(R @ point, 3))             # [0. 1.]  పాయింట్ 90° 
 S = np.array([[2.0, 0.0],
               [0.0, 0.5]])                # x ని రెట్టింపు, y ని సగం
 print(S @ np.array([1.0, 1.0]))           # [2.  0.5]</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>9. Derivatives and partial derivatives<small>Derivatives (అవకలనాలు) మరియు partial derivatives</small></summary><div class="body">
+<details class="t"><summary>9. Derivatives and partial derivatives<small>Derivatives (అవకలనాలు) మరియు partial derivatives</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-9">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-9-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-9" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model అంచనా ఎంత తప్పిందో తెలుసుకోవడం సరిపోదు; ఆ తప్పును తగ్గించడానికి parameters ను ఏ దిశలో మార్చాలో కూడా తెలుసుకోవాలి. Derivative ఈ మార్పు దిశను కొలుస్తుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Derivative</b> input కొద్దిగా మారితే function output ఎంత మారుతుందో చెబుతుంది. Function కి ఒకటి కంటే ఎక్కువ inputs ఉంటే, <b>partial derivative</b> ఒక input మారినప్పుడు మిగతావి స్థిరంగా ఉంచి మార్పును కొలుస్తుంది.</p><h4>ఉదాహరణ</h4><pre>f(x) = x**2
+derivative(x) = 2*x
+# x = 3 వద్ద derivative = 6</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Derivative ను function output గానే చూడడం; అది output ఎంత వేగంగా మారుతుందో కొలత.</div></div><div class="explain-pane" id="p2-gpt-9-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Model "నేర్చుకోవడం" అంటే error తగ్గేలా weights ని మార్చడం. ఏ weight ని ఏ వైపు ఎంత మార్చాలో చెప్పేది derivative.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1195,9 +1221,11 @@ h = 1e-6
 dg_dx = (g(2 + h, 5) - g(2 - h, 5)) / (2 * h)   # y స్థిరం: 2xy = 20
 dg_dy = (g(2, 5 + h) - g(2, 5 - h)) / (2 * h)   # x స్థిరం: x^2 = 4
 print(round(dg_dx, 3), round(dg_dy, 3))          # 20.0 4.0</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>10. Chain rule<small>Chain rule (గొలుసు నియమం)</small></summary><div class="body">
+<details class="t"><summary>10. Chain rule<small>Chain rule (గొలుసు నియమం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-10">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-10-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-10" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Neural network లో అనేక functions వరుసగా పని చేస్తాయి. చివరి output లో వచ్చిన మార్పు లోపలి parameter వల్ల ఎంత వచ్చిందో chain rule తో లెక్కిస్తారు.</p><h4>సరళమైన వివరణ</h4><p>ఒక function మరొక function ఫలితాన్ని input గా తీసుకుంటే, మొత్తం derivative ను విడి దశల derivatives ను గుణించి లెక్కిస్తారు. Backpropagation అనేది network లోని layers గుండా ఈ chain rule ను ఉపయోగించే పద్ధతి.</p><h4>ఉదాహరణ</h4><pre>y = (3*x + 1)**2
+# dy/dx = 2*(3*x + 1) * 3
+# x = 1 వద్ద dy/dx = 24</pre><div class="mistake"><b>సాధారణ తప్పు:</b> వరుస functions ఉన్నప్పుడు చివరి derivative కోసం ప్రతి మధ్య దశ ప్రభావాన్ని మర్చిపోవడం.</div></div><div class="explain-pane" id="p2-gpt-10-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Neural network అంటే functions యొక్క గొలుసు (layer1 → layer2 → loss). Backpropagation అనే training algorithm పూర్తిగా chain rule మీదే ఆధారపడి ఉంది.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1214,9 +1242,13 @@ def y(x):
 h = 1e-6
 numeric = (y(x + h) - y(x - h)) / (2 * h)
 print(analytic, round(numeric, 3))   # 42.0 42.0</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>11. Gradients and gradient descent<small>Gradients మరియు gradient descent (ఏటవాలు, దిగుడు పద్ధతి)</small></summary><div class="body">
+<details class="t"><summary>11. Gradients and gradient descent<small>Gradients మరియు gradient descent (ఏటవాలు, దిగుడు పద్ధతి)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-11">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-11-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-11" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Training లో model తప్పును తగ్గించడానికి లక్షల parameters మార్చాల్సి ఉంటుంది. Gradient ఏ parameter ను ఏ దిశగా మార్చాలో చెబుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Gradient</b> అనేది అనేక parameters పట్ల loss మార్పుల సమాహారం. Gradient descent, loss తగ్గే దిశకు కొద్దిగా అడుగు వేస్తుంది: parameter కొత్త విలువ = పాత విలువ − learning rate × gradient. Learning rate అడుగు పరిమాణాన్ని నిర్ణయిస్తుంది.</p><h4>ఉదాహరణ</h4><pre>weight = 2.0
+learning_rate = 0.1
+gradient = 3.0
+weight = weight - learning_rate * gradient
+print(weight)  # 1.7</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Learning rate చాలా పెద్దదైతే loss తగ్గక, విలువలు లక్ష్యాన్ని దాటి పోవచ్చు.</div></div><div class="explain-pane" id="p2-gpt-11-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>దాదాపు అన్ని ML models (linear regression నుండి GPT వరకు) gradient descent తోనే train అవుతాయి. ఇదే "నేర్చుకునే" ప్రక్రియ యొక్క గుండె.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1230,9 +1262,10 @@ for step in range(50):
     w = w - lr * grad          # gradient కి వ్యతిరేక దిశలో అడుగు
 print(round(w, 4))             # ~5.0</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> learning rate మరీ పెద్దది పెడితే loss తగ్గకుండా పెరుగుతూ పోతుంది (diverge); మరీ చిన్నది పెడితే చాలా నెమ్మదిగా నేర్చుకుంటుంది.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>12. Probability distributions<small>Probability distributions (సంభావ్యత పంపిణీలు)</small></summary><div class="body">
+<details class="t"><summary>12. Probability distributions<small>Probability distributions (సంభావ్యత పంపిణీలు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-12">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-12-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-12" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model ఒకే ఫలితాన్ని కాకుండా సాధ్యమైన ఫలితాలపై నమ్మకాన్ని చూపుతుంది. Probability distribution ఆ అవకాశాలు ఎలా పంచబడ్డాయో వివరిస్తుంది.</p><h4>సరళమైన వివరణ</h4><p>Distribution అనేది సాధ్యమైన విలువలకు వాటి probability కేటాయించే నియమం. అన్ని ఫలితాలు పరస్పరం వేరుగా, పూర్తి సమూహంగా ఉంటే వాటి probabilities మొత్తం 1 అవుతాయి. Normal, Bernoulli వంటి distributions వేర్వేరు data ఆకారాలను చూపిస్తాయి.</p><h4>ఉదాహరణ</h4><pre>outcomes = {"refund": 0.7, "billing": 0.2, "other": 0.1}
+print(sum(outcomes.values()))  # 1.0</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Probability విలువలు మొత్తం 1 కావాల్సిన సందర్భంలో వాటిని normalize చేయకపోవడం.</div></div><div class="explain-pane" id="p2-gpt-12-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Classification model "ఇది spam అవడానికి 92% అవకాశం" అని చెప్తుంది; LLM తదుపరి పదానికి ప్రతి పదంపై సంభావ్యత ఇస్తుంది. ఇవన్నీ distributions.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1245,9 +1278,11 @@ values, counts = np.unique(rolls, return_counts=True)
 probs = counts / counts.sum()
 print(dict(zip(values.tolist(), probs.round(3).tolist())))    # ప్రతిదీ ~0.167
 print(probs.sum())                                            # 1.0 (అన్నీ కలిపితే 1)</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>13. Conditional probability<small>Conditional probability (షరతుతో కూడిన సంభావ్యత)</small></summary><div class="body">
+<details class="t"><summary>13. Conditional probability<small>Conditional probability (షరతుతో కూడిన సంభావ్యత)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-13">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-13-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-13" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>ఒక విషయం తెలిసిన తర్వాత మరో విషయం జరిగే అవకాశం మారవచ్చు. Spam detection, diagnosis, model evaluation లో conditional probability ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><code>P(A | B)</code> అంటే B జరిగిందని తెలిసినప్పుడు A జరిగే అవకాశం. ఇది మొత్తం A జరిగే అవకాశంతో ఒకటే కాదు. ఉదాహరణకు, వర్షం పడుతోందని తెలిసినప్పుడు రోడ్డు తడిగా ఉండే అవకాశం పెరుగుతుంది.</p><h4>ఉదాహరణ</h4><pre># మొత్తం 100 emails లో
+# 20 spam; వాటిలో 15 లో "prize" పదం ఉంది
+# P(spam | prize) ని prize ఉన్న emails లో spam శాతంగా లెక్కించాలి</pre><div class="mistake"><b>సాధారణ తప్పు:</b> <code>P(A | B)</code> ను <code>P(B | A)</code> తో కలిపేయడం; ఇవి వేర్వేరు ప్రశ్నలు.</div></div><div class="explain-pane" id="p2-gpt-13-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>"ఈ email లో 'lottery' అనే పదం ఉంది, అయితే spam అయ్యే అవకాశం ఎంత?" అనే రకమైన ప్రశ్నలన్నీ conditional probability. Naive Bayes, recommendation, fraud detection వీటిపైనే ఆధారపడతాయి.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1263,9 +1298,12 @@ df = pd.DataFrame({
 p_buy = df["purchased"].mean()                                  # P(buy) = 0.5
 p_buy_given_mobile = df[df["device"] == "mobile"]["purchased"].mean()   # P(buy | mobile)
 print(p_buy, p_buy_given_mobile)    # 0.5 0.6</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>14. Bayes' theorem<small>Bayes' theorem (బేయస్ సిద్ధాంతం)</small></summary><div class="body">
+<details class="t"><summary>14. Bayes' theorem<small>Bayes' theorem (బేయస్ సిద్ధాంతం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-14">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-14-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-14" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>కొత్త ఆధారం తెలిసినప్పుడు ముందున్న అంచనాను ఎలా సవరించాలో Bayes theorem చూపిస్తుంది. Search, spam filtering, diagnostic systems లో ఇది ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Bayes theorem, ఆధారం కనిపించిన తర్వాత ఒక కారణం నిజమయ్యే సంభావ్యతను లెక్కిస్తుంది: <code>P(A|B)=P(B|A)P(A)/P(B)</code>. ముందున్న అవకాశం <code>P(A)</code> ను, కొత్త ఆధారంతో వచ్చే అవకాశంతో కలిపి సవరించాలి.</p><h4>ఉదాహరణ</h4><pre># ఒక email లో "prize" కనిపించింది
+# spam అయ్యే ముందు అవకాశం (prior)
+# spam లో "prize" కనిపించే అవకాశం
+# ఈ రెండు, మొత్తం "prize" emails శాతంతో కలిపి posterior లెక్క</pre><div class="mistake"><b>సాధారణ తప్పు:</b> పరీక్ష ఫలితం positive అని మాత్రమే చూసి అసలు సంఘటన అవకాశం ఎక్కువని తేల్చడం; base rate కూడా ముఖ్యం.</div></div><div class="explain-pane" id="p2-gpt-14-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>కొత్త సాక్ష్యం (evidence) దొరికినప్పుడు మన నమ్మకాన్ని ఎలా సరిదిద్దుకోవాలో ఇది చెప్తుంది. Spam filters, medical test interpretation, Naive Bayes classifier దీనిపైనే నిర్మితం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1281,9 +1319,11 @@ p_pos = p_pos_given_disease * p_disease + p_pos_given_healthy * (1 - p_disease)
 p_disease_given_pos = p_pos_given_disease * p_disease / p_pos
 print(round(p_disease_given_pos, 3))   # ~0.167 → కేవలం 16.7%</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> P(A|B) మరియు P(B|A) ఒకటే అనుకోవడం. పై ఉదాహరణలో P(పాజిటివ్|వ్యాధి)=99% కానీ P(వ్యాధి|పాజిటివ్)=16.7% మాత్రమే.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>15. Mean, median and variance<small>సగటు, మధ్యస్థం, వ్యత్యాసం (variance)</small></summary><div class="body">
+<details class="t"><summary>15. Mean, median and variance<small>సగటు, మధ్యస్థం, వ్యత్యాసం (variance)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-15">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-15-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-15" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Data లో సాధారణ స్థాయి, మధ్య విలువ, వ్యాప్తి తెలుసుకోవడానికి ఈ కొలతలు ఉపయోగపడతాయి. Model data లో అసమతుల్యత ఉందో తెలుసుకోవడానికీ ఇవి సహాయపడతాయి.</p><h4>సరళమైన వివరణ</h4><p><b>Mean</b> అన్నీ కలిపి ఎన్ని విలువలున్నాయో భాగించడం. <b>Median</b> క్రమంలో మధ్యలో ఉండే విలువ. <b>Variance</b> విలువలు mean చుట్టూ ఎంత విస్తరించాయో కొలుస్తుంది. చాలా పెద్ద outlier ఉంటే mean మారిపోవచ్చు; median అంతగా మారదు.</p><h4>ఉదాహరణ</h4><pre>values = [2, 3, 4, 100]
+mean = sum(values) / len(values)  # 27.25
+# median = (3 + 4) / 2 = 3.5</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Outlier ఉన్న data లో mean ఒక్కటే చూసి సాధారణ విలువగా భావించడం.</div></div><div class="explain-pane" id="p2-gpt-15-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Data ని model కి ఇచ్చే ముందు దాని స్వభావం అర్థం చేసుకోవాలి. Feature scaling, outlier గుర్తింపు, missing values నింపడం అన్నిటిలో ఇవి వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1296,9 +1336,11 @@ print(np.mean(salaries))      # 130.0  (outlier వల్ల పెరిగి�
 print(np.median(salaries))    # 40.0   (నిజమైన "సాధారణ" విలువకు దగ్గర)
 print(np.var(salaries))       # 34250.0 (population variance, చాలా పెద్దది)</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> <code>np.var</code> డిఫాల్ట్‌గా population variance (n తో భాగిస్తుంది), pandas <code>.var()</code> sample variance (n-1 తో) ఇస్తుంది. రెండూ వేర్వేరు ఫలితాలు ఇస్తాయి.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>16. Standard deviation<small>Standard deviation (ప్రామాణిక విచలనం)</small></summary><div class="body">
+<details class="t"><summary>16. Standard deviation<small>Standard deviation (ప్రామాణిక విచలనం)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-16">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-16-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-16" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Variance లో units square అవుతాయి కాబట్టి అర్థం చేసుకోవడం కష్టం. Standard deviation అదే వ్యాప్తిని అసలు data units లో చూపుతుంది.</p><h4>సరళమైన వివరణ</h4><p>Standard deviation అనేది variance యొక్క square root. విలువలు mean కి దగ్గరగా ఉంటే ఇది చిన్నది; విస్తరించి ఉంటే పెద్దది. ఇది data లోని ప్రతి విలువను ఖచ్చితంగా వివరించదు, కానీ వ్యాప్తి గురించి సులభమైన సూచన ఇస్తుంది.</p><h4>ఉదాహరణ</h4><pre>values = [9, 10, 11]
+# mean = 10
+# values mean కి దగ్గరగా ఉన్నాయి కాబట్టి standard deviation చిన్నది</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Standard deviation ను ప్రతి విలువ mean నుంచి ఉన్న దూరంగా అనుకోవడం; ఇది మొత్తం సమూహ వ్యాప్తి కొలత.</div></div><div class="explain-pane" id="p2-gpt-16-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Variance యూనిట్లు వర్గంలో ఉంటాయి (రూపాయలు²), అర్థం చేసుకోవడం కష్టం. Standard deviation అసలు యూనిట్లలోనే చెప్తుంది, మరియు standardization, outlier detection లో వాడతాం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1313,9 +1355,10 @@ print(b.mean(), b.std())     # 200.0 114.0 (చాలా విస్తరి�
 
 z = (b - b.mean()) / b.std()   # z-score: ఎన్ని std దూరంలో ఉన్నాయి
 print(z.round(2))</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>17. Covariance and correlation<small>Covariance మరియు correlation (రెండు విలువలు కలిసి మారే తీరు)</small></summary><div class="body">
+<details class="t"><summary>17. Covariance and correlation<small>Covariance మరియు correlation (రెండు విలువలు కలిసి మారే తీరు)</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-17">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-17-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-17" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>రెండు లక్షణాలు కలిసి మారుతున్నాయా, ఎంత బలంగా సంబంధం ఉందా తెలుసుకోవడం feature analysis లో ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Covariance</b> రెండు విలువలు ఒకే దిశలో మారుతున్నాయా లేదా వ్యతిరేక దిశలో మారుతున్నాయా చూపిస్తుంది; దాని పరిమాణం units పై ఆధారపడుతుంది. <b>Correlation</b> ఆ సంబంధాన్ని సాధారణంగా -1 నుంచి 1 మధ్య scale చేస్తుంది. Correlation కారణం-ఫలితం అని నిరూపించదు.</p><h4>ఉదాహరణ</h4><pre># బయట ఉష్ణోగ్రత పెరిగినప్పుడు ice cream అమ్మకాలు పెరగవచ్చు
+# correlation సంబంధం చూపుతుంది; కారణం అని ఒంటరిగా నిరూపించదు</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Correlation ఎక్కువగా ఉందని ఒకటి మరొకదానికి కారణం అని చెప్పడం.</div></div><div class="explain-pane" id="p2-gpt-17-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>రెండు features ఒకదానికొకటి సంబంధం కలిగి ఉన్నాయా తెలుసుకోవడానికి (ఉదా: ఇంటి size మరియు price). Feature selection, multicollinearity గుర్తింపులో ఇది కీలకం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1331,9 +1374,13 @@ print(np.cov(size, price)[0, 1])         # covariance (పెద్ద ధనా
 print(np.corrcoef(size, price)[0, 1])    # ~0.998 → బలమైన ధనాత్మక సంబంధం
 print(np.corrcoef(size, noise)[0, 1])    # 0.0 → సరళ సంబంధం లేదు</pre>
 <div class="mistake"><b>సాధారణ తప్పు:</b> Correlation 0 అంటే సంబంధమే లేదు అనుకోవడం. అది సరళ (linear) సంబంధం లేదని మాత్రమే చెప్తుంది; వంపు సంబంధం ఉండొచ్చు.</div>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>18. Normal and Bernoulli distributions<small>Normal (గంటాకార) మరియు Bernoulli (అవును/కాదు) distributions</small></summary><div class="body">
+<details class="t"><summary>18. Normal and Bernoulli distributions<small>Normal (గంటాకార) మరియు Bernoulli (అవును/కాదు) distributions</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-18">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-18-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-18" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>వేర్వేరు రకాల data కి సరిపోయే probability model ఎంచుకోవాలి. కొలతల విలువలు, అవును/కాదు ఫలితాలు రెండింటికీ ఒకే distribution సరిపోదు.</p><h4>సరళమైన వివరణ</h4><p><b>Normal distribution</b> లో విలువలు mean చుట్టూ గంటాకారంగా గుంపుకట్టుతాయి; ఎత్తు వంటి నిరంతర కొలతలకు ఇది ఒక సాధారణ నమూనా. <b>Bernoulli distribution</b> లో రెండు ఫలితాలే ఉంటాయి, ఉదా. విజయము/విఫలము; ఒక ఫలితానికి probability <code>p</code> ఉంటుంది.</p><h4>ఉదాహరణ</h4><pre># Bernoulli: API request విజయవంతం అయ్యే అవకాశం 0.98
+success_probability = 0.98
+failure_probability = 1 - success_probability
+
+# Normal: కొలతలు ఒక సగటు చుట్టూ గుంపుకట్టే నమూనా</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Bernoulli distribution ను అనేక విలువలు ఉన్న నిరంతర కొలతలకు వాడటం.</div></div><div class="explain-pane" id="p2-gpt-18-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Normal distribution నిజ ప్రపంచ data లో (ఎత్తు, errors, noise) అత్యంత సాధారణం; weights ని random గా initialize చేయడానికీ వాడతారు. Bernoulli అనేది binary classification (spam/not spam, click/no click) యొక్క ఆధారం.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1350,9 +1397,11 @@ print(round(within_1std, 2))                                # ~0.68
 
 clicks = rng.binomial(n=1, p=0.3, size=10000)        # Bernoulli(p=0.3) = binomial(n=1)
 print(clicks.mean())                                 # ~0.3</pre>
-</div></details>
+</div></div></details>
 
-<details class="t"><summary>19. Entropy and information theory<small>Entropy (అనిశ్చితి కొలత) మరియు information theory</small></summary><div class="body">
+<details class="t"><summary>19. Entropy and information theory<small>Entropy (అనిశ్చితి కొలత) మరియు information theory</small></summary><div class="body"><div class="explain-tabs" role="tablist" aria-label="వివరణ ఎంచుకోండి"><button type="button" class="explain-tab" role="tab" aria-selected="true" data-pane="p2-gpt-19">GPT</button><button type="button" class="explain-tab" role="tab" aria-selected="false" data-pane="p2-gpt-19-gemini">Gemini</button></div><div class="explain-pane" id="p2-gpt-19" role="tabpanel"><h4>ఎందుకు అవసరం?</h4><p>Model కి ఎన్ని ఎంపికలు అనిశ్చితంగా ఉన్నాయో కొలవడం prediction, compression, model evaluation లో ఉపయోగపడుతుంది.</p><h4>సరళమైన వివరణ</h4><p><b>Entropy</b> అనేది probability distribution లోని అనిశ్చితి కొలత. ఒకే ఫలితం దాదాపు ఖాయం అయితే entropy తక్కువ; అనేక ఫలితాలు సమాన అవకాశం కలిగి ఉంటే entropy ఎక్కువ. Language model training లో సరైన token కు ఎక్కువ probability ఇవ్వడం, అంచనా uncertainty తగ్గిస్తుంది.</p><h4>ఉదాహరణ</h4><pre># 1.0, 0.0 probabilities: uncertainty లేదు; entropy 0
+# 0.5, 0.5 probabilities: uncertainty ఎక్కువ
+# ఫలితాల అవకాశాలు దగ్గరగా ఉంటే entropy పెరుగుతుంది</pre><div class="mistake"><b>సాధారణ తప్పు:</b> Entropy ను “సమాచారం మొత్తం ఎంత” అని మాత్రమే భావించడం; ఇది probability పంపిణీపై ఆధారపడే uncertainty కొలత.</div></div><div class="explain-pane" id="p2-gpt-19-gemini" role="tabpanel" hidden>
 <h4>ఎందుకు అవసరం?</h4>
 <p>Classification models ని train చేసేటప్పుడు వాడే <b>cross-entropy loss</b> మరియు decision trees లో split ఎంచుకునే criterion ఈ భావనపైనే ఆధారపడి ఉన్నాయి. LLM ల "perplexity" కూడా ఇదే.</p>
 <h4>సరళమైన వివరణ</h4>
@@ -1368,7 +1417,7 @@ def entropy(p):
 print(entropy([0.5, 0.5]))    # 1.0   (గరిష్ఠ అనిశ్చితి)
 print(entropy([0.9, 0.1]))    # ~0.469
 print(entropy([1.0, 0.0]))    # -0.0 అంటే 0 (అనిశ్చితి లేదు)</pre>
-</div></details>
+</div></div></details>
   </div>
 </details>
 
@@ -5224,6 +5273,20 @@ print(tok.decode(model.generate(**ids, max_new_tokens=20)[0]))</pre>
 
   updateCountsAndFilter();
 })();
+  document.querySelectorAll('.explain-tabs').forEach(function(group) {
+    var buttons = [].slice.call(group.querySelectorAll('.explain-tab'));
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        buttons.forEach(function(item) {
+          var selected = item === button;
+          item.setAttribute('aria-selected', selected ? 'true' : 'false');
+          var pane = document.getElementById(item.getAttribute('data-pane'));
+          if (pane) pane.hidden = !selected;
+        });
+      });
+    });
+  });
+
 </script>
 <div id="profile-toast" class="profile-toast"></div>
 </body>
