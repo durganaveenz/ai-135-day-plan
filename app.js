@@ -7,6 +7,10 @@
   try { state = JSON.parse(localStorage.getItem("roadmap-progress") || "{}"); } catch (e) {}
   function save() { try { localStorage.setItem("roadmap-progress", JSON.stringify(state)); } catch (e) {} }
 
+  var notes = {};
+  try { notes = JSON.parse(localStorage.getItem("roadmap-notes") || "{}"); } catch (e) {}
+  function saveNotes() { try { localStorage.setItem("roadmap-notes", JSON.stringify(notes)); } catch (e) {} }
+
   // ---- theme ----
   var root = document.documentElement;
   try { var t = localStorage.getItem("roadmap-theme"); if (t) root.setAttribute("data-theme", t); } catch (e) {}
@@ -49,22 +53,72 @@
   }
 
   // ---- routing ----
-  var phases = $$("section.phase"), home = $("#home");
+  var phases = $$("section.phase"), home = $("#home"), notesPage = $("#notes");
+  var topics = $$("details.topic");
+  topics.forEach(function (topic) {
+    var key = topic.dataset.sec || topic.id;
+    topic.id = "topic-" + key;
+    var editor = document.createElement("div");
+    editor.className = "topic-notes";
+    var label = document.createElement("label");
+    label.textContent = "Your notes";
+    label.htmlFor = "note-" + key;
+    var area = document.createElement("textarea");
+    area.id = "note-" + key;
+    area.placeholder = "Add your notes for this topic…";
+    area.value = notes[key] || "";
+    area.setAttribute("aria-label", "Your notes for " + $(".t", topic).textContent);
+    area.addEventListener("input", function () {
+      if (area.value.trim()) notes[key] = area.value; else delete notes[key];
+      saveNotes(); renderNotes();
+    });
+    editor.appendChild(label); editor.appendChild(area);
+    $(".body", topic).appendChild(editor);
+  });
+  function renderNotes() {
+    var list = $("#notesList");
+    list.textContent = "";
+    var saved = topics.filter(function (topic) { return (notes[topic.dataset.sec] || "").trim(); });
+    if (!saved.length) {
+      var empty = document.createElement("p"); empty.className = "empty-notes";
+      empty.textContent = "No notes yet. Open any topic and add a note to see it here.";
+      list.appendChild(empty); return;
+    }
+    saved.forEach(function (topic) {
+      var card = document.createElement("article"); card.className = "note-card";
+      var phase = topic.closest("section.phase");
+      var link = document.createElement("a"); link.className = "note-topic-link";
+      link.href = "#" + phase.id; link.dataset.openTopic = topic.id;
+      link.textContent = $(".t", topic).textContent;
+      var text = document.createElement("p"); text.textContent = notes[topic.dataset.sec];
+      card.appendChild(link); card.appendChild(text); list.appendChild(card);
+    });
+  }
   function route() {
     var id = (location.hash || "#home").slice(1);
     var target = phases.filter(function (p) { return p.id === id; })[0];
-    home.hidden = !!target;
+    var showingNotes = id === "notes";
+    home.hidden = !!target || showingNotes;
+    notesPage.hidden = !showingNotes;
     phases.forEach(function (p) { p.hidden = p !== target; });
     $$("nav a").forEach(function (a) { a.classList.toggle("active", a.dataset.nav === id); });
     document.body.classList.remove("menu-open");
     if (!$("#search").value) window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", function () { $("#search").value = ""; runSearch(); route(); });
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("[data-open-topic]");
+    if (!link) return;
+    var topicId = link.dataset.openTopic;
+    setTimeout(function () {
+      var topic = document.getElementById(topicId);
+      if (topic) { topic.open = true; topic.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    }, 0);
+  });
 
   $("#menuBtn").addEventListener("click", function () { document.body.classList.toggle("menu-open"); });
 
   // ---- search (across all phases) ----
-  var topics = $$("details.topic");
   var cache = topics.map(function (d) { return d.textContent.toLowerCase(); });
   function clearMarks() {
     $$("mark").forEach(function (m) { m.replaceWith(document.createTextNode(m.textContent)); });
@@ -121,6 +175,7 @@
   var timer;
   $("#search").addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(runSearch, 150); });
 
+  renderNotes();
   refresh();
   route();
 })();

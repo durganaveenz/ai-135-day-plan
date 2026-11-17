@@ -318,6 +318,15 @@ body {
   font-size: 13px;
   color: var(--muted);
 }
+.global-search { margin: 0 0 24px; }
+.global-search input { width: 100%; padding: 13px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font: inherit; }
+.global-search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.global-search-status { min-height: 1.5em; margin: 6px 2px; color: var(--muted); font-size: 13px; }
+.global-search-results { display: grid; gap: 8px; max-height: 440px; overflow: auto; }
+.global-search-result { display: block; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); text-decoration: none; }
+.global-search-result:hover, .global-search-result:focus { border-color: var(--accent); }
+.global-search-result small { display: block; color: var(--muted); font-size: 12px; }
+.global-search-anchor { display: block; height: 0; }
 
 .phase-grid {
   display: grid;
@@ -587,6 +596,12 @@ body {
     <span class="section-sub">చదవాలనుకుంటున్న ఫేజ్‌ను ఎంచుకోండి</span>
   </div>
 
+  <section class="global-search" aria-label="అన్ని ఫేజ్‌లలో వెతకండి">
+    <input id="global-topic-search" type="search" placeholder="అన్ని 8 ఫేజ్‌లలో topics వెతకండి… (ఉదా: RoPE, Python, RAG)" aria-label="అన్ని topics లో వెతకండి" autocomplete="off">
+    <div id="global-search-status" class="global-search-status" aria-live="polite"></div>
+    <div id="global-search-results" class="global-search-results"></div>
+  </section>
+
   <div class="phase-grid">
     <!-- Phase 1 -->
     <a class="phase-card" href="telugu-phase-1.html" data-phase="1">
@@ -765,6 +780,51 @@ body {
 
 <script>
 (function(){
+  // Cross-phase topic search. The compact index contains titles and Telugu subtitles only.
+  var searchInput = document.getElementById('global-topic-search');
+  var searchStatus = document.getElementById('global-search-status');
+  var searchResults = document.getElementById('global-search-results');
+  var searchIndex = [];
+  fetch('global-search-index.json').then(function(response) {
+    if (!response.ok) throw new Error('Search index unavailable');
+    return response.json();
+  }).then(function(items) {
+    searchIndex = items;
+    if (searchInput && searchInput.value.trim().length >= 2) searchInput.dispatchEvent(new Event('input'));
+  }).catch(function() {
+    searchStatus.textContent = 'Search index load కాలేదు. పేజీని మళ్లీ refresh చేయండి.';
+  });
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      var query = searchInput.value.trim().toLocaleLowerCase();
+      searchResults.replaceChildren();
+      if (query.length < 2) {
+        searchStatus.textContent = query ? 'కనీసం 2 అక్షరాలు టైప్ చేయండి.' : '';
+        return;
+      }
+      if (!searchIndex.length) {
+        searchStatus.textContent = 'Search index లోడ్ అవుతోంది…';
+        return;
+      }
+      var matches = searchIndex.filter(function(item) {
+        return (item.title + ' ' + item.subtitle).toLocaleLowerCase().indexOf(query) !== -1;
+      });
+      searchStatus.textContent = matches.length ? matches.length + ' topics దొరికాయి' : 'ఏ topics దొరకలేదు';
+      matches.slice(0, 60).forEach(function(item) {
+        var link = document.createElement('a');
+        link.className = 'global-search-result';
+        link.href = item.href;
+        var title = document.createElement('span');
+        title.textContent = item.title;
+        var subtitle = document.createElement('small');
+        subtitle.textContent = 'Phase ' + item.phase + (item.subtitle ? ' · ' + item.subtitle : '');
+        link.append(title, subtitle);
+        searchResults.appendChild(link);
+      });
+      if (matches.length > 60) searchStatus.textContent += ' · మొదటి 60 మాత్రమే చూపిస్తున్నాం';
+    });
+  }
+
   var phaseTopicCounts = {
     1: 197,
     2: 160,
