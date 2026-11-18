@@ -16,7 +16,7 @@ def plain(value: str) -> str:
 
 
 items = []
-for phase in range(1, 9):
+for phase in range(1, 10):
     path = ROOT / f'telugu-phase-{phase}.html'
     source = ANCHOR_RE.sub('', path.read_text(encoding='utf-8'))
     counter = [0]
@@ -42,4 +42,4 @@ for phase in range(1, 9):
 (ROOT / 'global-search-index.json').write_text(
     json.dumps(items, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8'
 )
-print(f'Indexed {len(items)} topics across 8 phases.')
+print(f'Indexed {len(items)} topics across 9 phases.')

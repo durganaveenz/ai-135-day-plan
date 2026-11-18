@@ -43,6 +43,9 @@ STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 cp index.html style.css app.js favicon.svg "$STAGE/"
 cp telugu-*.html "$STAGE/"
+if [[ -f global-search-index.json ]]; then
+  cp global-search-index.json "$STAGE/"
+fi
 
 echo "Uploading site files to s3://${BUCKET}/${PREFIX}/"
 (

@@ -504,9 +504,9 @@ body {
     <h1>135-Day AI Engineering Roadmap<br>తెలుగు సమగ్ర వివరణలు</h1>
     <p>Python ప్రోగ్రామింగ్ & ML బేసిక్స్ నుండి Generative AI, RAG ఆర్కిటెక్చర్, Agentic AI, Cloud & K8s DevOps వరకు సమగ్ర శిక్షణ ప్రణాళిక.</p>
     <div class="hero-stats-row">
-      <span class="hero-stat-pill">📅 <b>135</b> రోజులు</span>
-      <span class="hero-stat-pill">📚 <b>8</b> విభాగాలు (Phases)</span>
-      <span class="hero-stat-pill">🎯 <b>4,642</b> టాపిక్స్</span>
+      <span class="hero-stat-pill">📅 <b>145</b> రోజులు</span>
+      <span class="hero-stat-pill">📚 <b>9</b> విభాగాలు (Phases)</span>
+      <span class="hero-stat-pill">🎯 <b>4,801</b> టాపిక్స్</span>
       <span class="hero-stat-pill">💡 PHP/Laravel పోలికలు</span>
     </div>
   </header>
@@ -523,7 +523,7 @@ body {
           <span class="user-name">Naveen</span>
           <span class="user-badge-active">✓ యాక్టివ్</span>
         </div>
-        <span id="idx-user-naveen-meta" class="user-progress-text">0 / 4,642 టాపిక్స్ (0%)</span>
+        <span id="idx-user-naveen-meta" class="user-progress-text">0 / 4,801 టాపిక్స్ (0%)</span>
       </div>
     </button>
 
@@ -534,7 +534,7 @@ body {
           <span class="user-name">Durga</span>
           <span class="user-badge-active">✓ యాక్టివ్</span>
         </div>
-        <span id="idx-user-durga-meta" class="user-progress-text">0 / 4,642 టాపిక్స్ (0%)</span>
+        <span id="idx-user-durga-meta" class="user-progress-text">0 / 4,801 టాపిక్స్ (0%)</span>
       </div>
     </button>
   </div>
@@ -555,7 +555,7 @@ body {
     <!-- 4 Metrics Row -->
     <div class="metrics-grid">
       <div class="metric-box">
-        <div class="metric-val" id="metric-total">4,642</div>
+        <div class="metric-val" id="metric-total">4,801</div>
         <div class="metric-lbl">మొత్తం టాపిక్స్</div>
       </div>
       <div class="metric-box">
@@ -770,6 +770,27 @@ body {
         </div>
       </div>
     </a>
+
+    <!-- Phase 9 -->
+    <a class="phase-card" href="telugu-phase-9.html" data-phase="9">
+      <div>
+        <div class="phase-card-top">
+          <span class="phase-badge-pill">Phase 9</span>
+          <span class="phase-days-pill">Days 136–145 · 159 Topics</span>
+        </div>
+        <h3 class="phase-title">Principal Engineer & Advanced Systems Architecture</h3>
+        <p class="phase-te-desc">Distributed Systems, Microservices, DB Internals, Security, Reliability, Streaming, Cloud-Native, AI/LLM Architecture & ADRs.</p>
+      </div>
+      <div class="phase-progress-wrap">
+        <div class="phase-progress-meta">
+          <span class="phase-prog-counts" id="p9-counts">0 / 159 పూర్తయ్యాయి</span>
+          <span class="phase-prog-pct" id="p9-pct">0%</span>
+        </div>
+        <div class="phase-mini-track">
+          <div class="phase-mini-bar" id="p9-bar"></div>
+        </div>
+      </div>
+    </a>
   </div>
 
   <footer class="index-footer">
@@ -833,14 +854,15 @@ body {
     5: 788,
     6: 1031,
     7: 1025,
-    8: 752
+    8: 752,
+    9: 159
   };
-  var totalTopics = 4642;
+  var totalTopics = 4801;
   var ACTIVE_USER_KEY = 'ai135_active_user';
   var activeUser = localStorage.getItem(ACTIVE_USER_KEY) || 'naveen';
 
   // Migration for any legacy phase keys to naveen
-  for (var p = 1; p <= 8; p++) {
+  for (var p = 1; p <= 9; p++) {
     var leg = localStorage.getItem('ai135_phase' + p + '_status');
     if (leg && !localStorage.getItem('ai135_naveen_phase' + p + '_status')) {
       localStorage.setItem('ai135_naveen_phase' + p + '_status', leg);
@@ -850,7 +872,7 @@ body {
   function computeStats(user) {
     var done = 0, prog = 0, arch = 0;
     var phaseStats = {};
-    for (var p = 1; p <= 8; p++) {
+    for (var p = 1; p <= 9; p++) {
       var pDone = 0, pProg = 0, pArch = 0;
       try {
         var d = JSON.parse(localStorage.getItem('ai135_' + user + '_phase' + p + '_status') || '{}');
@@ -881,8 +903,8 @@ body {
 
     var navMeta = document.getElementById('idx-user-naveen-meta');
     var durMeta = document.getElementById('idx-user-durga-meta');
-    if (navMeta) navMeta.textContent = navStats.done + ' / 4,642 టాపిక్స్ (' + navStats.pct + '%)';
-    if (durMeta) durMeta.textContent = durStats.done + ' / 4,642 టాపిక్స్ (' + durStats.pct + '%)';
+    if (navMeta) navMeta.textContent = navStats.done + ' / 4,801 టాపిక్స్ (' + navStats.pct + '%)';
+    if (durMeta) durMeta.textContent = durStats.done + ' / 4,801 టాపిక్స్ (' + durStats.pct + '%)';
 
     // Active User Master Stats
     var current = (activeUser === 'naveen' ? navStats : durStats);
@@ -914,7 +936,7 @@ body {
     if (mArch) mArch.textContent = current.arch.toLocaleString();
 
     // Update each Phase card's progress bar and text!
-    for (var p = 1; p <= 8; p++) {
+    for (var p = 1; p <= 9; p++) {
       var ps = current.phases[p];
       var cntEl = document.getElementById('p' + p + '-counts');
       var pPctEl = document.getElementById('p' + p + '-pct');
